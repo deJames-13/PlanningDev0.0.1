@@ -1,0 +1,172 @@
+TODO:
+
+- [x] SectorLayout
+- [x] QualityObjectives Component
+    - [x] Fetch
+- [x] Budget Chart
+    - [x] Fetch Chart
+
+
+- [x] planning
+    - [ ] objectives
+    - [ ] budget
+- [x] adaa
+    - [ ] objectives
+    - [ ] budget
+- [x] qa
+    - [ ] objectives
+    - [ ] budget
+- [x] gad
+    - [ ] objectives
+    - [ ] budget
+- [x] uitc
+    - [ ] objectives
+    - [ ] budget
+- [x] adaf
+    - [ ] objectives
+    - [ ] budget
+- [x] hrmd
+    - [ ] objectives
+    - [ ] budget
+- [x] accounting
+    - [ ] objectives
+    - [ ] budget
+- [x] cdo
+    - [ ] objectives
+    - [ ] budget
+- [ ] records
+    - [ ] objectives
+    - [ ] budget
+- [ ] procurement
+    - [ ] objectives
+    - [ ] budget
+- [ ] supply
+    - [ ] objectives
+    - [ ] budget
+- [ ] ido
+    - [ ] objectives
+    - [ ] budget
+- [ ] bgm
+    - [ ] objectives
+    - [ ] budget
+- [ ] electrical
+    - [ ] objectives
+    - [ ] budget
+- [ ] hvacr
+    - [ ] objectives
+    - [ ] budget
+- [ ] medical
+    - [ ] objectives
+    - [ ] budget
+- [ ] dental
+    - [ ] objectives
+    - [ ] budget
+- [ ] bac
+    - [ ] objectives
+    - [ ] budget
+- [ ] basd
+    - [ ] objectives
+    - [ ] budget
+- [ ] btvte
+    - [ ] objectives
+    - [ ] budget
+- [ ] caad
+    - [ ] objectives
+    - [ ] budget
+- [ ] bses
+    - [ ] objectives
+    - [ ] budget
+- [ ] bsce
+    - [ ] objectives
+    - [ ] budget
+- [ ] betct
+    - [ ] objectives
+    - [ ] budget
+- [ ] betchet
+    - [ ] objectives
+    - [ ] budget
+- [ ] maad
+    - [ ] objectives
+    - [ ] budget
+- [ ] bsme
+    - [ ] objectives
+    - [ ] budget
+- [ ] betmt
+    - [ ] objectives
+    - [ ] budget
+- [ ] betdmt
+    - [ ] objectives
+    - [ ] budget
+- [ ] betndt
+    - [ ] objectives
+    - [ ] budget
+- [ ] betemet
+    - [ ] objectives
+    - [ ] budget
+- [ ] bethvacr
+    - [ ] objectives
+    - [ ] budget
+- [ ] betat
+    - [ ] objectives
+    - [ ] budget
+- [ ] eaad
+    - [ ] objectives
+    - [ ] budget
+- [ ] bsee
+    - [ ] objectives
+    - [ ] budget
+- [ ] bsce
+    - [ ] objectives
+    - [ ] budget
+- [ ] bsit
+    - [ ] objectives
+    - [ ] budget
+- [ ] betet
+    - [ ] objectives
+    - [ ] budget
+- [ ] betelex
+    - [ ] objectives
+    - [ ] budget
+- [ ] betict
+    - [ ] objectives
+    - [ ] budget
+- [ ] betmect
+    - [ ] objectives
+    - [ ] budget
+- [ ] osa
+    - [ ] objectives
+    - [ ] budget
+- [ ] registrar
+    - [ ] objectives
+    - [ ] budget
+- [ ] library
+    - [ ] objectives
+    - [ ] budget
+- [ ] guidance
+    - [ ] objectives
+    - [ ] budget
+- [ ] sports
+    - [ ] objectives
+    - [ ] budget
+- [ ] nstp
+    - [ ] objectives
+    - [ ] budget
+- [ ] industry
+    - [ ] objectives
+    - [ ] budget
+- [ ] usg
+    - [ ] objectives
+    - [ ] budget
+- [ ] artisan
+    - [ ] objectives
+    - [ ] budget
+- [ ] adre
+    - [ ] objectives
+    - [ ] budget
+- [ ] research
+    - [ ] objectives
+    - [ ] budget
+
+
+
+
