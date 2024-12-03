@@ -18,7 +18,7 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
-import LineChart from './LineChart'
+import LineChart from 'src/components/charts/line'
 const selectTabs = ['Budget']
 
 export default function BudgetChart({
