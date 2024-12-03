@@ -36,7 +36,7 @@ export default function BudgetChart({
   React.useEffect(() => {
     setUpdating(true)
     getBudgetData(sector).then(() => setUpdating(false))
-  }, [activeTab])
+  }, [activeTab, sector])
 
   React.useEffect(() => {
     const idx = data.labels.indexOf(activeTab) || 0

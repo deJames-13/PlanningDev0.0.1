@@ -9,31 +9,31 @@ TODO:
 
 - [x] planning
     - [ ] objectives
-    - [ ] budget
+    - [x] budget
 - [x] adaa
     - [ ] objectives
-    - [ ] budget
+    - [x] budget
 - [x] qa
     - [ ] objectives
-    - [ ] budget
+    - [x] budget
 - [x] gad
     - [ ] objectives
-    - [ ] budget
+    - [x] budget
 - [x] uitc
     - [ ] objectives
-    - [ ] budget
+    - [x] budget
 - [x] adaf
     - [ ] objectives
-    - [ ] budget
+    - [x] budget
 - [x] hrmd
     - [ ] objectives
-    - [ ] budget
+    - [x] budget
 - [x] accounting
     - [ ] objectives
-    - [ ] budget
+    - [x] budget
 - [x] cdo
     - [ ] objectives
-    - [ ] budget
+    - [x] budget
 - [ ] records
     - [ ] objectives
     - [ ] budget
