@@ -31,11 +31,11 @@ const defaultProps = [
 ];
 
 export default function QualityObjectives ({
-  data = defaultProps,
+  objectives = defaultProps,
 }){
 return (
   <>
-    {data.map((item, index) => (
+    {objectives.map((item, index) => (
       <div className="progress-group mb-4" key={`${index}-${item.index}`}>
           <div className="progress-group-bars">
             <h6>

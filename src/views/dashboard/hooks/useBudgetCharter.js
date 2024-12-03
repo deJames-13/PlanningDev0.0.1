@@ -44,7 +44,7 @@ const defaultRates = [
 const makeRates = (labels, values) => {
     let progressRates = labels.map((title, i) => {
       let color = 'warning';
-      let value = parseFloat(values[i] *  100).toFixed(2);
+      let value = parseFloat((parseFloat(values[i]) || 0) *  100).toFixed(2);
       let percent = Math.round(value);
   
 
@@ -63,8 +63,10 @@ const makeRates = (labels, values) => {
     return progressRates;
 }
 const transformData = (data) => {
+
   const labels = [];
   const annualLabels = data[0].annual.map(a => a.year);
+  const keys = Object.keys(data[0].annual[0]);
 
   const annualDatasets = data.map(item => {
     labels.push(item.name);
@@ -73,31 +75,31 @@ const transformData = (data) => {
       labels: annualLabels,
       datasets: [
         {
-          label: 'Allotment',
+          label:  keys[1] || 'Allotment',
           backgroundColor: 'transparent',
           borderColor: getStyle('--cui-danger'),
           pointHoverBackgroundColor: getStyle('--cui-danger'),
           borderWidth: 1,
           borderDash: [8, 5],
-          data: item.annual.map(a => a.Allotment)
+          data: item.annual.map(a => a[keys[1]])
         },
         {
-          label: 'Obligated',
+          label:  keys[2] || 'Obligated',
           backgroundColor: `rgba(${getStyle('--cui-info-rgb')}, .1)`,
           borderColor: getStyle('--cui-info'),
           pointHoverBackgroundColor: getStyle('--cui-info'),
           borderWidth: 2,
           fill: true,
-          data: item.annual.map(a => a.Obligated)
+          data: item.annual.map(a => a[keys[2]])
         },
         {
-          label: 'Rate',
+          label:  keys[3] || 'Rate',
           backgroundColor: 'transparent',
           borderColor: getStyle('--cui-danger'),
           pointHoverBackgroundColor: getStyle('--cui-danger'),
           borderWidth: 0,
           borderDash: [8, 5],
-          data: item.annual.map(a => a['Utilization Rate'])
+          data: item.annual.map(a => `${(parseFloat(a[keys[3]] || 0) * 100).toFixed(2)}%` ),
         },
       ],
       maxAllotment: Math.max(...item.annual.map(a => a.Allotment)),
@@ -136,14 +138,17 @@ export const useBudgetCharting = (name) => {
   
   
 
-  const getBudgetData = async () => {
+  const getBudgetData = async (name) => {
     const res = await fetchBudget(name).unwrap();
     if (res.data) {
         const formatted = transformData(res.data);
         setData(formatted)
         setProgressRates(formatted.progressRates)
+        return formatted;
     }
+    return null;
   }
+
 
 
   return {

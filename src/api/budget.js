@@ -5,7 +5,7 @@ export const budgetApiSlice = apiSlice.injectEndpoints({
     fetchBudget: builder.mutation({
             query: (name) => {
                 let url = '?route=budgets';
-                if (name) {
+                if (name && name !== 'all') {
                     url = `?route=budget&name=${name}`;
                 }
                 return {

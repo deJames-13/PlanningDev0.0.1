@@ -1,9 +1,7 @@
-import CIcon from '@coreui/icons-react'
 import classNames from 'classnames'
 import React from 'react'
 import { useBudgetCharting } from '../hooks/useBudgetCharter'
 
-import { cilCloudDownload, } from '@coreui/icons'
 import {
   CButton,
   CButtonGroup,
@@ -21,42 +19,35 @@ import {
   CTableRow,
 } from '@coreui/react'
 import LineChart from './LineChart'
+const selectTabs = ['Budget']
 
-const progressExample = [
-    // { title: 'Budget', value: '29.703', percent: 40, color: 'success' },
-    // { title: 'FUND01', value: '24.093', percent: 20, color: 'info' },
-    // { title: 'FUND02', value: '78.706', percent: 60, color: 'warning' },
-]
-
-const selectTabs = ['Budget', 'FUND 01', 'FUND 02']
-
-
-
-export default function BudgetChart() {
+export default function BudgetChart({
+  sector = 'all',
+}) {
   const {data, getBudgetData, progressRates } = useBudgetCharting()
-  const [rates, setRates] = React.useState([])
+  
   const [tabs, setTabs] = React.useState()
-  const [activeTab, setActiveTab] = React.useState(selectTabs[0])
+  const [rates, setRates] = React.useState([])
   const [fund, setFund] = React.useState(null)
-  const [updating, setUpdating] = React.useState(false)
 
+  const [activeTab, setActiveTab] = React.useState(selectTabs[0])
+  const [updating, setUpdating] = React.useState(false)
 
   React.useEffect(() => {
     setUpdating(true)
-    getBudgetData().then(() => setUpdating(false))
+    getBudgetData(sector).then(() => setUpdating(false))
   }, [activeTab])
+
   React.useEffect(() => {
     const idx = data.labels.indexOf(activeTab) || 0
     setTabs(data.labels.slice(idx, idx + 2))
     if (data?.annual){
       const fund = data?.annual?.datasets?.find(item => item.name === activeTab)
       setFund(fund)
-      setRates(data?.progressRates[activeTab])
+      let ratesData = data?.progressRates[activeTab] || Object.values(data?.progressRates)[0] || []
+      setRates(ratesData)
     }
-
-    // console.log(data);
-    // console.table(data.progressRates)
-    
+    console.log(data);
   }, [data])
 
   const onTab = (tab, direction) => {
@@ -99,15 +90,12 @@ export default function BudgetChart() {
                   </h4>
 
                   <div className="small text-body-secondary">
-                    {rates && rates.length > 0 && `${rates[0].title} - ${rates[rates.length-1].title}`}
+                    {rates && rates?.length > 0 && `${rates[0].title} - ${rates[rates.length-1].title}`}
                   </div>
                 </CCol>
                 <CCol sm={7} className="d-none d-md-block">
-                  {/* <CButton color="primary" className="float-end">
-                    <CIcon icon={cilCloudDownload} />
-                  </CButton> */}
                   <CButtonGroup className="float-end me-3">
-                    {/* prev */}
+                      {/* prev */}
                       <CButton
                         color="outline-secondary"
                         onClick={() => onTab(tabs[0], 'prev')}
@@ -142,13 +130,13 @@ export default function BudgetChart() {
             {
               fund && <LineChart chartData={fund} max={parseInt(fund.maxAllotment + (fund.maxAllotment * 0.25))} average={fund.meanValue}/>
             }
-            {/* LineChartTable */}
 
 
         </CCardBody>
         <CCardFooter>
+          {/* LineChartTable */}
           {
-            rates.length > 0 && (
+            rates?.length > 0 && (
               <h6 className="card-title mb-0 mr-2">
                 Utilization Rate
               </h6>
@@ -161,7 +149,7 @@ export default function BudgetChart() {
               xl={{ cols: 5 }}
               className="mb-2 text-center"
             >
-              {rates && rates.map((item, index, items) => (
+              {rates && rates?.map((item, index, items) => (
                 <CCol
                   className={classNames({
                     'd-none d-xl-block': index + 1 === items.length,
@@ -202,7 +190,8 @@ export default function BudgetChart() {
                 </CTableBody>
               </CTable>)}
 
-            </CRow>
+          </CRow>
+
         </CCardFooter>
       </CCard>
     </>
