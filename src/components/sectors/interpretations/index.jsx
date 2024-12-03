@@ -1,1 +1,0 @@
-export { BarInterpretation } from './bar';
