@@ -26,7 +26,7 @@ const _nav = [
     icon: <CIcon icon={cilFeaturedPlaylist} customClassName="nav-icon" />,
     items: sectors.map((sector) => {
       let name = sector.name;
-      if (sector.name.length > 15){
+      if (sector.name.length > 15) {
         name = sector.id.toUpperCase()
       }
       return {
@@ -36,7 +36,7 @@ const _nav = [
         icon: <CIcon icon={cibQuantopian} customClassName="nav-icon" />,
       }
     })
-    
+
   },
 ]
 

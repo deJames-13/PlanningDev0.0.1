@@ -1,5 +1,8 @@
-import { CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle } from '@coreui/react'
 import React from 'react'
+
+import { CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle } from '@coreui/react'
+import BarChart from 'src/components/charts/bar'
+import { BAR_DATA } from './data'
 
 const chartSkeleton = (
   <div className="d-flex justify-content-center align-items-center"
@@ -16,15 +19,58 @@ const chartSkeleton = (
   </div>
 )
 
+const _indicators = [
+  {
+    name: "Outcome Indicator 1: Percentage of first-time licensure exam takers that pass the licensure exam.",
+  }
+]
 
 export default function ParticularsCard(
   {
     title = 'Higher Education',
-    chart,
     interpretations = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum itaque quam corrupti accusamus saepe eum quia rem ullam, aliquam perspiciatis velit beatae labore iure modi suscipit, recusandae, ad enim? Labore!',
-    reversed = false
+    reversed = false,
+    data = BAR_DATA[0],
   }
 ) {
+
+  const [currentIndicator, setCurrentIndicator] = React.useState(_indicators[0])
+  const [indicators, setIndicators] = React.useState(_indicators)
+  const [chartData, setChartData] = React.useState(null);
+
+
+  const handleIndicatorChange = (indicator) => {
+    setCurrentIndicator(indicator)
+  }
+
+  React.useEffect(() => {
+    if (data?.indicators?.length > 0) {
+      setIndicators(data.indicators)
+      setCurrentIndicator(data.indicators[0])
+    }
+  }, [data])
+
+  React.useEffect(() => {
+    if (currentIndicator?.values){
+      setChartData({
+        labels: currentIndicator.values.map(value => value.year),
+        datasets: [
+          {
+            label: 'Target',
+            backgroundColor: '#f87979',
+            data: currentIndicator.values.map(value => value.target),
+          },
+          {
+            label: 'Accomplishment',
+            backgroundColor: '#f87979',
+            data: currentIndicator.values.map(value => value.accomplishment),
+          },
+        ],
+      })
+    }
+  }, [currentIndicator])
+
+
   return (
     <div className={`row col-lg-12 ${reversed ? 'flex-row-reverse' : ''}`}>
       <div className='col-lg-8'>
@@ -34,8 +80,10 @@ export default function ParticularsCard(
             {title}
           </h3>
 
-          {/* Chart  */}
-          {chart || chartSkeleton}
+          {chartData && <BarChart
+            data={chartData}
+            labels="years"
+          /> || chartSkeleton}
         </div>
       </div>
       <div className='col-lg-4 pb-10'>
@@ -44,15 +92,16 @@ export default function ParticularsCard(
           <div className={`d-flex ${reversed ? 'justify-content-start' : 'justify-content-end'}`}>
             <CDropdown>
               <CDropdownToggle color="primary">
-                Indicators
+                {currentIndicator?.name && currentIndicator?.name.split(':')[0].trim()}
               </CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem>
-                  Outcome Indicator 1
-                </CDropdownItem>
-                <CDropdownItem>
-                  Outcome Indicator 2
-                </CDropdownItem>
+                {indicators.map((indicator, index) => (
+                  <CDropdownItem key={index} 
+                  onClick={() => handleIndicatorChange(indicator)}
+                  >
+                    {indicator?.name.split(':')[0].trim()}
+                  </CDropdownItem>
+                ))}
               </CDropdownMenu>
             </CDropdown>
           </div>
@@ -60,6 +109,10 @@ export default function ParticularsCard(
           <hr />
 
           {/* Title */}
+          <h4>
+            {currentIndicator?.name}
+          </h4>
+
 
           {/* Interpretations */}
           <p>
