@@ -1,30 +1,33 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
+import {
+  FLUSH, PAUSE,
+  PERSIST, persistReducer, persistStore, PURGE,
+  REGISTER, REHYDRATE
+} from 'redux-persist';
+import storage from "redux-persist/lib/storage";
 import { apiSlice } from './api';
 import rootReducer from './reducer';
 
-// const initialState = {
-//   sidebarShow: true,
-//   theme: 'light',
-// }
+export const persistConfig = {
+  key: "root",
+  storage,
+};
 
-// const changeState = (state = initialState, { type, ...rest }) => {
-//   switch (type) {
-//     case 'set':
-//       return { ...state, ...rest }
-//     default:
-//       return state
-//   }
-// }
-
-// const store = createStore(changeState)
-
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: 'development',
+export const persistedReducer = persistReducer(persistConfig, rootReducer);
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(apiSlice.middleware),
+    devTools: 'development',
 });
+
 setupListeners(store.dispatch);
+export const persistor = persistStore(store);
 
 
-export default store
+

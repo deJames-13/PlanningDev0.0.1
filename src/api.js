@@ -1,27 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { startLoading, stopLoading } from './slices/loading';
 const API = import.meta.env.VITE_APPSCRIPT_URL;
-
-const loadingSlice = createSlice({
-    name: 'loading',
-    initialState: {
-        isLoading: false,
-        activeRequests: 0,
-    },
-    reducers: {
-        startLoading: (state) => {
-        state.activeRequests++;
-        state.isLoading = true;
-        },
-        stopLoading: (state) => {
-        state.activeRequests--;
-        if (state.activeRequests === 0) {
-            state.isLoading = false;
-        }
-        },
-    },
-});
-
 
 const baseQuery = fetchBaseQuery({
     baseUrl: API,
@@ -47,4 +26,3 @@ export const apiSlice = createApi({
     endpoints: (builder) => ({}),
 });
 
-export const { startLoading, stopLoading } = loadingSlice.actions;

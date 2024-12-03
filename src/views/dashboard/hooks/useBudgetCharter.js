@@ -1,6 +1,13 @@
-import { getStyle } from '@coreui/utils';
 import React from 'react';
+
+import { getStyle } from '@coreui/utils';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetBudgetMutation } from 'src/api/budget';
+
+import {
+  getBudgetFailure,
+  getBudgetStart, getBudgetSuccess
+} from 'src/slices/budget';
 
 const random = () => Math.round(Math.random() * 100)
 const defaultLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
@@ -122,12 +129,15 @@ const transformData = (data) => {
       datasets: annualDatasets,
     },
     progressRates: progressRates,
+    last_updated: (new Date()).toLocaleString()
   };
 }
 
 
 
 export const useBudgetCharting = (name) => {
+  const dispatch = useDispatch();
+  const budgetState = useSelector(s => s.budget);
   const [getBudget] = useGetBudgetMutation();
   const [progressRates, setProgressRates] = React.useState(defaultRates);
 
@@ -139,14 +149,25 @@ export const useBudgetCharting = (name) => {
   
 
   const getBudgetData = async (name) => {
-    const res = await getBudget(name).unwrap();
-    if (res.data) {
+    if (budgetState.sectorBudgets[name]){
+      setData(budgetState.sectorBudgets[name])
+      setProgressRates(budgetState.sectorBudgets[name].progressRates)
+    }
+
+    dispatch(getBudgetStart())
+    return getBudget(name).unwrap().then(res=>{
+      if (res.data) {
         const formatted = transformData(res.data);
         setData(formatted)
         setProgressRates(formatted.progressRates)
+        dispatch(getBudgetSuccess({
+          [name||'all']: formatted,
+        }))
         return formatted;
-    }
-    return null;
+      }
+    }).catch(e => {
+      dispatch(getBudgetFailure(e))
+    });
   }
 
 

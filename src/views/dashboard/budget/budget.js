@@ -18,12 +18,15 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
+
 import LineChart from 'src/components/charts/line'
+
 const selectTabs = ['Budget']
 
 export default function BudgetChart({
   sector = 'all',
 }) {
+
   const {data, getBudgetData, progressRates } = useBudgetCharting()
   
   const [tabs, setTabs] = React.useState()
@@ -43,11 +46,11 @@ export default function BudgetChart({
     setTabs(data.labels.slice(idx, idx + 2))
     if (data?.annual){
       const fund = data?.annual?.datasets?.find(item => item.name === activeTab)
+      const ratesData = data?.progressRates[activeTab] || Object.values(data?.progressRates)[0] || []
+      
       setFund(fund)
-      let ratesData = data?.progressRates[activeTab] || Object.values(data?.progressRates)[0] || []
       setRates(ratesData)
     }
-    console.log(data);
   }, [data])
 
   const onTab = (tab, direction) => {
@@ -92,6 +95,12 @@ export default function BudgetChart({
                   <div className="small text-body-secondary">
                     {rates && rates?.length > 0 && `${rates[0].title} - ${rates[rates.length-1].title}`}
                   </div>
+                  {
+                    data?.last_updated && 
+                    <p className='small text-body-secondary'>
+                      Last Updated: {data?.last_updated?.split('T')?.join(' ')}
+                    </p>
+                  }
                 </CCol>
                 <CCol sm={7} className="d-none d-md-block">
                   <CButtonGroup className="float-end me-3">

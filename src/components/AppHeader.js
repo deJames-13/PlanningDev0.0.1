@@ -29,7 +29,7 @@ import { AppBreadcrumb } from './index'
 
 const AppHeader = () => {
   const headerRef = useRef()
-  const { colorMode, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
+  const { colorMode, setColorMode } = useColorModes('dashboard-theme')
 
   const dispatch = useDispatch()
   const { sidebarShow } = useSelector((state) => state.theme)
@@ -100,7 +100,10 @@ const AppHeader = () => {
                 className="d-flex align-items-center"
                 as="button"
                 type="button"
-                onClick={() => setColorMode('light')}
+                onClick={() => {
+                  setColorMode('light')
+                  dispatch(setTheme({ colorMode: 'light' }))
+                }}
               >
                 <CIcon className="me-2" icon={cilSun} size="lg" /> Light
               </CDropdownItem>
@@ -109,7 +112,10 @@ const AppHeader = () => {
                 className="d-flex align-items-center"
                 as="button"
                 type="button"
-                onClick={() => setColorMode('dark')}
+                onClick={() => {
+                  setColorMode('dark')
+                  dispatch(setTheme({ colorMode: 'dark' }))
+                }}
               >
                 <CIcon className="me-2" icon={cilMoon} size="lg" /> Dark
               </CDropdownItem>
@@ -118,7 +124,10 @@ const AppHeader = () => {
                 className="d-flex align-items-center"
                 as="button"
                 type="button"
-                onClick={() => setColorMode('auto')}
+                onClick={() => {
+                  setColorMode('auto')
+                  dispatch(setTheme({ colorMode: 'auto' }))
+                }}
               >
                 <CIcon className="me-2" icon={cilContrast} size="lg" /> Auto
               </CDropdownItem>

@@ -1,27 +1,58 @@
 import { cilCheck, cilFlagAlt } from '@coreui/icons';
 import React from 'react';
-import { useGetObjMutation } from 'src/api/objective';
 import ObjectivesOverview from '../objectives/index';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { useGetObjMutation } from 'src/api/objective';
+import { getObjectiveFailure, getObjectiveStart, getObjectiveSuccess } from 'src/slices/objective';
+
+const transformData = (data) => {
+  let totalAccomplished = data.reduce((acc, curr) => acc + curr.total.accomplishment, 0);
+  let totalTarget = data.reduce((acc, curr) => acc + curr.total.target, 0);
+  return {
+    data,
+    progressGroup: [
+      { title: '', icon: cilCheck, value: parseFloat((totalAccomplished / totalTarget * 100).toFixed(2)),progress:true },
+      { title: 'Total Acommplished', icon: cilFlagAlt, value: totalAccomplished,  },
+      { title: 'Total Target', icon: cilFlagAlt, value: totalTarget, },
+    ],
+    last_updated: (new Date()).toLocaleString()
+  }
+}
+
+
 export default function SectorObjectives({name}) {
+  const dispatch = useDispatch();
+  const objState = useSelector(s => s.objective);
+
   const [obj, setObj] = React.useState([]);
   const [progressGroup, setProgressGroup] = React.useState([]);
   const [getObj, {isLoading}] = useGetObjMutation();
 
   React.useEffect(() => {
-    getObj(name).then((res) => {
-      let {data} = res.data
-      // accumulated progress base on data[n].total.accomplishement and data[n].total.target
-      let totalAccomplished = data.reduce((acc, curr) => acc + curr.total.accomplishment, 0);
-      let totalTarget = data.reduce((acc, curr) => acc + curr.total.target, 0);
-      setObj(data);
-      setProgressGroup([
-        { title: '', icon: cilCheck, value: parseFloat((totalAccomplished / totalTarget * 100).toFixed(2)),progress:true },
-        { title: 'Total Acommplished', icon: cilFlagAlt, value: totalAccomplished,  },
-        { title: 'Total Target', icon: cilFlagAlt, value: totalTarget, },
-      ]);
+    if (objState.sectorObjectives[name]){
+      setObj(objState.sectorObjectives[name].data);
+      setProgressGroup(objState.sectorObjectives[name].progressGroup);
+    }
 
-      
+    dispatch(getObjectiveStart());
+    getObj(name).then((res) => {
+      if (res?.data){
+        let {data} = res.data
+        let formatted = transformData(data)
+        setObj(formatted.data);
+        setProgressGroup(formatted.progressGroup);
+        dispatch(getObjectiveSuccess(
+          {
+            [name]: {
+              ...formatted
+            },
+          }
+        ));
+
+      }
+    }).catch(e=>{
+      dispatch(getObjectiveFailure());
     });
   }, [name]);
 
@@ -31,7 +62,8 @@ export default function SectorObjectives({name}) {
       <ObjectivesOverview loading={isLoading}
       data={{
         objectives: obj,
-        progressGroup: progressGroup
+        progressGroup: progressGroup,
+        last_updated: objState.sectorObjectives[name]?.last_updated || (new Date()).toLocaleString()
       }}
        />
     </div>

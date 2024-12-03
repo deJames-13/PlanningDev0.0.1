@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     sidebarShow: true,
     unfoldable: false,
-    name: 'light',
+    colorMode: 'light',
   };
   
 export const themeSlice = createSlice({
@@ -18,3 +18,4 @@ export const themeSlice = createSlice({
 });
 
 export const { setTheme } = themeSlice.actions;
+export default themeSlice.reducer;

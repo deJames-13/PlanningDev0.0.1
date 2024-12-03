@@ -41,6 +41,7 @@ export default function ObjectivesOverview({
   data: {
     objectives = objectivesExample,
     progressGroup = progressGroupExample,
+    last_updated = (new Date()).toLocaleString(),
   } = {},
   loading = false,
 }) {
@@ -52,7 +53,14 @@ export default function ObjectivesOverview({
           <CCard className="mb-4">
             <CCardHeader className='d-flex justify-content-between items-align-center'>
               {/* with spinner */}
-              <h4>Objectives Overview</h4>
+              <div>
+                <h4>Objectives Overview</h4>
+                {
+                  last_updated && (
+                    <span className="small text-muted">Last Updated: {last_updated}</span>
+                  )
+                }
+              </div>
               {loading && (
                   <div className="spinner-border text-primary float-end" role="status">
                       <span className="visually-hidden">Loading...</span>
