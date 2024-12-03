@@ -11,7 +11,7 @@ const GuestPage = React.lazy(() => import('../views/public/index'))
 const guestRoutes = [
     {
         element: <GuestPage />,
-        path: '/home',
+        path: '/bar',
         exact: true,
         name: 'TUP-T'
     },

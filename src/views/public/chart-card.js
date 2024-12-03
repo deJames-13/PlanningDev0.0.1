@@ -28,7 +28,7 @@ const _indicators = [
 export default function ParticularsCard(
   {
     title = 'Higher Education',
-    interpretations = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum itaque quam corrupti accusamus saepe eum quia rem ullam, aliquam perspiciatis velit beatae labore iure modi suscipit, recusandae, ad enim? Labore!',
+    interpretations = '',
     reversed = false,
     data = BAR_DATA[0],
   }
@@ -62,7 +62,7 @@ export default function ParticularsCard(
           },
           {
             label: 'Accomplishment',
-            backgroundColor: '#f87979',
+            backgroundColor: '#4dbd74',
             data: currentIndicator.values.map(value => (parseFloat(value.accomplishment) || 0).toFixed(2)),
           },
         ],
@@ -115,6 +115,21 @@ export default function ParticularsCard(
 
 
           {/* Interpretations */}
+            {/* accomplishments shows a percentage of blank from target goal of blah blah */}
+            {currentIndicator?.values && (() => {
+              const totalTarget = currentIndicator.values.reduce((sum, value) => sum + (parseFloat(value.target) || 0), 0);
+              const totalAccomplishment = currentIndicator.values.reduce((sum, value) => sum + (parseFloat(value.accomplishment) || 0), 0);
+              const percentage = ((totalAccomplishment / totalTarget) * 100).toFixed(2);
+              return (
+                <p>
+                  Accomplishments show a percentage of <strong>{percentage}%</strong> from the target goal of <strong>
+                  {totalTarget.toFixed(2)}
+                  </strong>.
+                </p>
+              );
+            })()}
+
+          <br />
           <p>
             {interpretations}
           </p>
