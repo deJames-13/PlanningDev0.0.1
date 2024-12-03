@@ -4,7 +4,6 @@ import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import BudgetChart from './budget/budget'
 import ObjectivesOverview from './objectives/index'
-// import MainChart from './MainChart'
 
 const Dashboard = () => {
   return (

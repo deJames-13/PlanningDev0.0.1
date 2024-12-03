@@ -44,7 +44,6 @@ export default function ObjectivesOverview() {
 
               <br />
 
-              {/* <TableExample /> */}
                 
             </CCardBody>
           </CCard>
