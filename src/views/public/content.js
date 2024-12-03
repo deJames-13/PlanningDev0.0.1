@@ -1,5 +1,5 @@
 import React from 'react'
-import ParticularsCard from './chart-card'
+import BarOverview from './bar-overview'
 
 export default function GuestPageContent() {
   return (
@@ -16,9 +16,7 @@ export default function GuestPageContent() {
           </div>
 
           {/* Chart Cards */}
-          {
-            <ParticularsCard />
-          }
+          <BarOverview />
 
         </div>
       </div>

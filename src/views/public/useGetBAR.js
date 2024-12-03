@@ -1,23 +1,27 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetBARMutation } from 'src/api/bar';
-import BAR_DATA from './data';
-const _defaults = BAR_DATA
-
-const transformData = (indicator) => {
-    const chartData = indicator.values
-        .map((value) => ({
-            type: String(value.year),
-            target: parseInt(value.target) || 0,
-            accomplishment: value.accomplishment,
-        }));
-    return chartData;
-};
-
+import { setBarData } from 'src/slices/bar';
 
 export default function useGetBAR() {
-    const [bar, setBar] = React.useState(null);
+    const dispatch = useDispatch();
+    const barData = useSelector((state) => state.bar.data);
+    const [data, setData] = React.useState(null);
     const [getBAR] = useGetBARMutation();
 
+    const fetchBarData = React.useCallback(async()=>{
+        if (barData?.length > 0) {
+            setData(barData);
+        }
+        return getBAR().unwrap().then((response) => {
+            setData(response.data);
+            dispatch(setBarData(response.data));
+        })
+    }, [])
 
-    return {}
+
+    return {
+        data,
+        fetchBarData,
+    }
 }

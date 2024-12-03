@@ -58,12 +58,12 @@ export default function ParticularsCard(
           {
             label: 'Target',
             backgroundColor: '#f87979',
-            data: currentIndicator.values.map(value => value.target),
+            data: currentIndicator.values.map(value => (parseFloat(value.target) || 0).toFixed(2)),
           },
           {
             label: 'Accomplishment',
             backgroundColor: '#f87979',
-            data: currentIndicator.values.map(value => value.accomplishment),
+            data: currentIndicator.values.map(value => (parseFloat(value.accomplishment) || 0).toFixed(2)),
           },
         ],
       })
