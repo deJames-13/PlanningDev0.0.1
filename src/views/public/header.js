@@ -1,7 +1,6 @@
 import React from 'react'
-import 'src/assets/css/style.css'
 
-export default function Header() {
+export default function GuestHeader() {
     const [date, setDate] = React.useState(new Date())
     React.useEffect(() => {
         const timer = setInterval(() => setDate(new Date()), 1000)

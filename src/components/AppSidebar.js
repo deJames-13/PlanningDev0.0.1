@@ -19,7 +19,7 @@ import { AppSidebarNav } from './AppSidebarNav';
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
-  const { sidebarShow, unfoldable} = useSelector((state) => state.theme)
+  const { sidebarShow, unfoldable } = useSelector((state) => state.theme)
   const toggleSidebar = (visible) => {
     dispatch(setTheme({ sidebarShow: visible }));
   };
@@ -40,12 +40,16 @@ const AppSidebar = () => {
       <CSidebarHeader className="border-bottom">
         <CSidebarBrand to="/" className='text-decoration-none'>
           <div className="d-flex flex align-items-center gap-2 sidebar-brand-full">
-            <CImage src={logo} height={35} className="sidebar-brand-full" />
+            <CImage src={logo}
+              style={{
+                height: 32,
+                aspectRatio: 1,
+              }}
+            />
             <span className="fw-bold text-wrap sidebar-brand-full">
-                Dashboard
+              Dashboard
             </span>
           </div>
-          <CImage src={logo} height={32} className="sidebar-brand-narrow" />
         </CSidebarBrand>
         <CCloseButton
           className="d-lg-none"
