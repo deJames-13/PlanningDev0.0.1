@@ -20,7 +20,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Sectors',
-    to: '/sectors',
+    to: '/dashboard/sectors',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
     items: sectors.map((sector) => {
       let name = sector.name;
@@ -30,7 +30,7 @@ const _nav = [
       return {
         component: CNavItem,
         name: name,
-        to: `/sectors/${sector.id}`,
+        to: `/dashboard/sectors/${sector.id}`,
         icon: <CIcon icon={cibQuantopian} customClassName="nav-icon" />,
       }
     })

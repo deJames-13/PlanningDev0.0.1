@@ -6,10 +6,17 @@ const privateRoutes = [
   {
     element: <DashboardLayout />,
     path: '/',
+    name: 'Dashboard',
     children: [
       {
         element: <Dashboard />,
+        name: 'Dashboard',
         path: '/dashboard',
+      },
+      {
+        element: <Dashboard />,
+        name: 'Sectors',
+        path: '/dashboard/sectors/:sector',
       },
     ]
   }

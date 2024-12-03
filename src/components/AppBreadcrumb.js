@@ -7,10 +7,19 @@ import { routes } from 'src/routes/index'
 
 const AppBreadcrumb = () => {
   const currentLocation = useLocation().pathname
-
   const getRouteName = (pathname, routes) => {
-    const currentRoute = routes.find((route) => route.path === pathname)
-    return currentRoute ? currentRoute.name : false
+    for (let route of routes) {
+      if (route.path === pathname) {
+        return route.name
+      }
+      if (route.children) {
+        const childRouteName = getRouteName(pathname, route.children)
+        if (childRouteName) {
+          return childRouteName
+        }
+      }
+    }
+    return null
   }
 
   const getBreadcrumbs = (location) => {

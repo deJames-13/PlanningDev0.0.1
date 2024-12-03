@@ -51,8 +51,6 @@ export default function BudgetVisiualization({ sector }) {
     React.useEffect(() => {
         fetchBudgetData();
     }, [sector]);
-    console.log(data);
-
     return !data ? '' : (
         <div className="flex gap-4">
             <div className='w-full flex justify-center h-fit'>

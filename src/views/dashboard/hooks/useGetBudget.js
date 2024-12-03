@@ -23,7 +23,7 @@ export default function useGetBudget({sector = null}) {
             setUpdating(true)
             getBudgetData(sector).then(() => setUpdating(false))
         }
-        console.log(sector);
+        // console.log(sector);
         
     }, [sector])
 
@@ -36,8 +36,8 @@ export default function useGetBudget({sector = null}) {
         setFund(fund)
         setRates(data?.progressRates[activeTab])
         }
-        console.log(data);
-        console.table(data.progressRates)
+        // console.log(data);
+        // console.table(data.progressRates)
         
     }, [data])
 

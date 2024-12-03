@@ -2,7 +2,7 @@ import React from 'react'
 
 
 const defaultRoutes = [
-  { path: '/', name: 'Home', exact: true },
+  { path: '/', name: 'Home' },
 ]
 
 export default defaultRoutes

@@ -53,8 +53,9 @@ export default function BudgetChart() {
       setFund(fund)
       setRates(data?.progressRates[activeTab])
     }
-    console.log(data);
-    console.table(data.progressRates)
+
+    // console.log(data);
+    // console.table(data.progressRates)
     
   }, [data])
 
