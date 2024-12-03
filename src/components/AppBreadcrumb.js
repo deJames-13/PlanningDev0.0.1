@@ -1,9 +1,9 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 
-import routes from 'src/routes'
-
 import { CBreadcrumb, CBreadcrumbItem } from '@coreui/react'
+
+import { routes } from 'src/routes/index'
 
 const AppBreadcrumb = () => {
   const currentLocation = useLocation().pathname

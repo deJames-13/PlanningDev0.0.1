@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const API = import.meta.env.VITE_APPSCRIPT_URL;
 
-// Global loading slice
 const loadingSlice = createSlice({
     name: 'loading',
     initialState: {

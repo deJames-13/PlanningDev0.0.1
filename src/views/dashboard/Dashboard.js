@@ -7,11 +7,6 @@ import ObjectivesOverview from './objectives/index'
 // import MainChart from './MainChart'
 
 const Dashboard = () => {
-  
-
-
-
-
   return (
     <>
       {/* CARD WIDGETS  */}

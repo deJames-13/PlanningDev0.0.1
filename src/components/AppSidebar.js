@@ -1,4 +1,3 @@
-import CIcon from '@coreui/icons-react';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTheme } from 'src/slices/theme';
@@ -15,11 +14,8 @@ import {
 
 
 import logo from 'src/assets/images/logo.png';
-import { AppSidebarNav } from './AppSidebarNav';
-// import { logo } from 'src/assets/brand/logo'
-// import { sygnet } from 'src/assets/brand/sygnet'
-// sidebar nav config
 import navigation from '../_nav';
+import { AppSidebarNav } from './AppSidebarNav';
 
 const AppSidebar = () => {
   const dispatch = useDispatch()

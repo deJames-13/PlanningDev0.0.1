@@ -3,7 +3,7 @@ import React, { Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 // routes config
-import routes from 'src/routes'
+// import routes from 'src/routes'
 
 const AppContent = () => {
   return (

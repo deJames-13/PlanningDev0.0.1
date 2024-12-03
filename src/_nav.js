@@ -1,7 +1,6 @@
 import {
   cibQuantopian,
   cilChartPie,
-  cilCursor,
   cilDrop,
   cilSpeedometer,
 } from '@coreui/icons'
@@ -18,19 +17,16 @@ const _nav = [
     to: '/dashboard',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
-  // DASHBOARD
   {
     component: CNavGroup,
     name: 'Sectors',
     to: '/sectors',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
     items: sectors.map((sector) => {
-      // if name is longer than 15 use the uppercase id
       let name = sector.name;
       if (sector.name.length > 15){
         name = sector.id.toUpperCase()
       }
-
       return {
         component: CNavItem,
         name: name,
