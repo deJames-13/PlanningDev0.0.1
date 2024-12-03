@@ -17,7 +17,9 @@ export default function ObjectivesOverview() {
           <CCard className="mb-4">
             <CCardHeader>Quality  Objectives</CCardHeader>
             <CCardBody>
-              <CRow>
+              <CRow
+              className='flex-column-reverse flex-lg-row'
+              >
                 <CCol xs={12} md={6} xl={6}>
                   <QualityObjectives />
                 </CCol>
@@ -40,6 +42,7 @@ export default function ObjectivesOverview() {
                   <div className="mb-5"></div>
 
                 </CCol>
+
               </CRow>
 
               <br />
