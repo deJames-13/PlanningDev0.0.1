@@ -16,7 +16,7 @@ export default function Sector() {
     <hr />
       <BudgetChart sector={sector?.id} />
       <hr />
-      <SectorObjectives />
+      <SectorObjectives name={sector?.id} />
 
     </>
   )

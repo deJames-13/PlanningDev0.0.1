@@ -8,7 +8,7 @@ import QualityObjectives from './quality-objectives'
 
 const objectivesExample = [
   {
-    id: 0, label: 'Absorb', quarters: [
+    id: 0, label: 'Absorb', quarterlies: [
       {
         target: 10,
         accomplishment: 8,
@@ -25,7 +25,8 @@ const objectivesExample = [
         target: 10,
         accomplishment: 2,
       },
-    ], goal: {
+    ], 
+    total: {
       target: 40,
       accomplishment: 25,
       progress: 62.5
@@ -40,7 +41,8 @@ export default function ObjectivesOverview({
   data: {
     objectives = objectivesExample,
     progressGroup = progressGroupExample,
-  } = {}
+  } = {},
+  loading = false,
 }) {
 
   return (
@@ -48,7 +50,16 @@ export default function ObjectivesOverview({
      <CRow>
         <CCol xs>
           <CCard className="mb-4">
-            <CCardHeader>Quality  Objectives</CCardHeader>
+            <CCardHeader className='d-flex justify-content-between items-align-center'>
+              {/* with spinner */}
+              <h4>Objectives Overview</h4>
+              {loading && (
+                  <div className="spinner-border text-primary float-end" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                  </div>
+                ) 
+              }
+            </CCardHeader>
             <CCardBody>
               <CRow
               className='flex-column-reverse flex-lg-row'
@@ -64,10 +75,12 @@ export default function ObjectivesOverview({
                       <div className="progress-group-header">
                         <CIcon className="me-2" icon={item.icon} size="lg" />
                         <span>{item.title}</span>
-                        <span className="ms-auto fw-semibold">{item.value}%</span>
+                        <span className="ms-auto fw-semibold">{item.value}</span>
                       </div>
                       <div className="progress-group-bars">
-                        <CProgress thin color="warning" value={item.value} />
+                        {item.progress && (
+                          <CProgress thin color="warning" value={item.value} />
+                        )}
                       </div>
                     </div>
                   ))}

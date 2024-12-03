@@ -5,7 +5,7 @@ import React from 'react';
 
 const defaultProps = [
   {
-    id: 0, label: 'Absorb', quarters: [
+    id: 0, label: 'Absorb', quarterlies	: [
       {
         target: 10,
         accomplishment: 8,
@@ -22,7 +22,8 @@ const defaultProps = [
         target: 10,
         accomplishment: 2,
       },
-    ], goal: {
+    ], 
+    total: {
       target: 40,
       accomplishment: 25,
       progress: 62.5
@@ -38,11 +39,16 @@ return (
     {objectives.map((item, index) => (
       <div className="progress-group mb-4" key={`${index}-${item.index}`}>
           <div className="progress-group-bars">
-            <h6>
-              {item.label}
-            </h6>
+            <div className="d-flex items-align-center gap-2">
+              <h6 className='text-body-secondary'>
+                {index + 1}. 
+              </h6>
+              <h6>
+                {item.name}
+              </h6>
+            </div>
 
-            {item.quarters.map((quarter, index) => {
+            {item.quarterlies.map((quarter, index) => {
               let color = 'success';
               let percent = (quarter.accomplishment / quarter.target) * 100;
               if (percent < 50) {
@@ -81,18 +87,49 @@ return (
             })}
             <div className="d-flex justify-content-between">
               <div className="text-body-secondary small">
-              Accomplishment - {item.goal.accomplishment} / {item.goal.target}
+              Accomplishment - {item.total.accomplishment} / {item.total.target}
               </div>
             </div>
             <CProgressStacked>
-              <CProgress
-                value={item.goal.accomplishment}
-                color="success"
-              />
-              <CProgress
-                value={item.goal.target - item.goal.accomplishment}
-                color="danger"
-              />
+              {item.quarterlies.map((quarter, index) => {
+                let color = 'success';
+                if (item.total.accomplishment < item.total.target) {
+                  color = 'warning';
+                }
+                if (item.total.accomplishment < item.total.target / 2) {
+                  color = 'danger';
+                }
+                let percent = (quarter.accomplishment / item.total.target) * 100;
+
+                return (
+                  <CProgress
+                    key={`${index}-${quarter.index}`}
+                    value={percent}
+                    color={color}
+                    className="mb-1"
+                  >
+                    <span 
+                      className="text-body-secondary small" 
+                      style={{
+                        justifyContent: 'end',
+                        itemAlign: 'center',
+                        display: 'flex',
+                        gap: '0.5rem',
+                      }}
+                    >
+                      <strong>
+                        {/* {quarter.accomplishment} | */}
+                      </strong>
+                      {
+                        percent >= 100 && (
+                          <CIcon icon={cilCheck}/>
+                        )
+                      }
+                    </span>
+                  </CProgress>
+                );
+              })}
+              &nbsp;{parseFloat((item.total.accomplishment / item.total.target) * 100).toFixed(2)}%
             </CProgressStacked>
           </div>
       </div>

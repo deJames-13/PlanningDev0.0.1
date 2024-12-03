@@ -1,6 +1,6 @@
 import { getStyle } from '@coreui/utils';
 import React from 'react';
-import { useFetchBudgetMutation } from 'src/api/budget';
+import { useGetBudgetMutation } from 'src/api/budget';
 
 const random = () => Math.round(Math.random() * 100)
 const defaultLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
@@ -128,7 +128,7 @@ const transformData = (data) => {
 
 
 export const useBudgetCharting = (name) => {
-  const [fetchBudget] = useFetchBudgetMutation();
+  const [getBudget] = useGetBudgetMutation();
   const [progressRates, setProgressRates] = React.useState(defaultRates);
 
   const [data, setData ] = React.useState({
@@ -139,7 +139,7 @@ export const useBudgetCharting = (name) => {
   
 
   const getBudgetData = async (name) => {
-    const res = await fetchBudget(name).unwrap();
+    const res = await getBudget(name).unwrap();
     if (res.data) {
         const formatted = transformData(res.data);
         setData(formatted)
