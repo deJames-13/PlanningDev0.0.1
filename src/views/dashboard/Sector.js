@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import BudgetChart from './budget/budget';
-import ObjectivesOverview from './objectives/index';
 import { sectors } from './sectors';
+import SectorObjectives from './sectors/sector-objectives';
 
 export default function Sector() {
   let sector = useParams().sector
@@ -16,7 +16,7 @@ export default function Sector() {
     <hr />
       <BudgetChart sector={sector?.id} />
       <hr />
-      <ObjectivesOverview />
+      <SectorObjectives />
 
     </>
   )
