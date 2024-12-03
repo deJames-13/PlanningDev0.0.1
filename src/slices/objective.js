@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     sectorObjectives: {},
+    currentSector: null,
     loading: false,
     error: null,
 };
@@ -10,6 +11,9 @@ const objectiveSlice = createSlice({
     name: "objective",
     initialState,
     reducers: {
+        setSector: (state, action) => {
+            state.currentSector = action.payload;
+        },  
         getObjectiveStart: (state) => {
             state.loading = true;
             state.error = null;
@@ -28,5 +32,10 @@ const objectiveSlice = createSlice({
     },
 });
 
-export const { getObjectiveStart, getObjectiveSuccess, getObjectiveFailure } = objectiveSlice.actions;
+export const { 
+    getObjectiveStart, 
+    getObjectiveSuccess, 
+    getObjectiveFailure,
+    setSector,
+ } = objectiveSlice.actions;
 export default objectiveSlice.reducer;

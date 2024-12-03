@@ -4,7 +4,12 @@ import ObjectivesOverview from '../objectives/index';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetObjMutation } from 'src/api/objective';
-import { getObjectiveFailure, getObjectiveStart, getObjectiveSuccess } from 'src/slices/objective';
+import {
+  getObjectiveFailure,
+  getObjectiveStart,
+  getObjectiveSuccess,
+  setSector,
+} from 'src/slices/objective';
 
 const transformData = (data) => {
   let totalAccomplished = data.reduce((acc, curr) => acc + curr.total.accomplishment, 0);
@@ -35,8 +40,10 @@ export default function SectorObjectives({name}) {
       setProgressGroup(objState.sectorObjectives[name].progressGroup);
     }
 
+    dispatch(setSector(name));
     dispatch(getObjectiveStart());
     getObj(name).then((res) => {
+      if (objState.currentSector && objState.currentSector !== name) return;
       if (res?.data){
         let {data} = res.data
         let formatted = transformData(data)

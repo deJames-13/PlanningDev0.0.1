@@ -6,7 +6,9 @@ import { useGetBudgetMutation } from 'src/api/budget';
 
 import {
   getBudgetFailure,
-  getBudgetStart, getBudgetSuccess
+  getBudgetStart,
+  getBudgetSuccess,
+  setSector,
 } from 'src/slices/budget';
 
 const random = () => Math.round(Math.random() * 100)
@@ -154,8 +156,10 @@ export const useBudgetCharting = (name) => {
       setProgressRates(budgetState.sectorBudgets[name].progressRates)
     }
 
+    dispatch(setSector(name))
     dispatch(getBudgetStart())
     return getBudget(name).unwrap().then(res=>{
+      if (budgetState.currentSector && budgetState.currentSector !== name) return;
       if (res.data) {
         const formatted = transformData(res.data);
         setData(formatted)
