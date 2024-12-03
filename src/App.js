@@ -7,8 +7,8 @@ import './scss/style.scss'
 
 
 const App = () => {
-  const { isColorModeSet, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
-  const { name:storedTheme } = useSelector((state) => state.theme)
+  const { isColorModeSet, setColorMode } = useColorModes('dashboard-theme')
+  const { name: storedTheme } = useSelector((state) => state.theme)
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.href.split('?')[1])
     const theme = urlParams.get('theme') && urlParams.get('theme').match(/^[A-Za-z0-9\s]+/)[0]
@@ -20,7 +20,7 @@ const App = () => {
       return
     }
     setColorMode(storedTheme)
-  }, []) 
+  }, [])
 
   const Fallback = () => {
     return (
@@ -32,8 +32,8 @@ const App = () => {
 
   return (
     <React.StrictMode>
-      <Suspense fallback={<Fallback/>}>
-        <RouterProvider router={router} fallbackElement={<Fallback/>}/>
+      <Suspense fallback={<Fallback />}>
+        <RouterProvider router={router} fallbackElement={<Fallback />} />
       </Suspense>
     </React.StrictMode>
   )
