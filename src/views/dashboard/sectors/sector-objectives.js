@@ -1,5 +1,4 @@
 import { cilCheck, cilFlagAlt } from '@coreui/icons';
-import CIcon from '@coreui/icons-react';
 import React from 'react';
 import { useGetObjMutation } from 'src/api/objective';
 import ObjectivesOverview from '../objectives/index';
