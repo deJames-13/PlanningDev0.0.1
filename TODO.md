@@ -1,7 +1,6 @@
 TODO:
-- [ ] GuestLayout
-    - [ ] Landing Page
-    - [ ] Landing/Public Charts 
+- [x] GuestLayout
+    - [x] Landing/Public Charts 
 
 - [x] SectorLayout
 - [x] QualityObjectives Component
