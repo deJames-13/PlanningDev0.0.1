@@ -51,7 +51,7 @@ export default function ParticularsCard(
   }, [data])
 
   React.useEffect(() => {
-    if (currentIndicator?.values){
+    if (currentIndicator?.values) {
       setChartData({
         labels: currentIndicator.values.map(value => value.year),
         datasets: [
@@ -76,7 +76,12 @@ export default function ParticularsCard(
       <div className='col-lg-8'>
         <div className="blog-details-content">
           {/* Title */}
-          <h3 className="title">
+          <h3 className={"title"}
+            style={{
+              textAlign: reversed ? 'right' : 'left',
+              width: '100%',
+            }}
+          >
             {title}
           </h3>
 
@@ -96,8 +101,8 @@ export default function ParticularsCard(
               </CDropdownToggle>
               <CDropdownMenu>
                 {indicators.map((indicator, index) => (
-                  <CDropdownItem key={index} 
-                  onClick={() => handleIndicatorChange(indicator)}
+                  <CDropdownItem key={index}
+                    onClick={() => handleIndicatorChange(indicator)}
                   >
                     {indicator?.name.split(':')[0].trim()}
                   </CDropdownItem>
@@ -115,19 +120,19 @@ export default function ParticularsCard(
 
 
           {/* Interpretations */}
-            {/* accomplishments shows a percentage of blank from target goal of blah blah */}
-            {currentIndicator?.values && (() => {
-              const totalTarget = currentIndicator.values.reduce((sum, value) => sum + (parseFloat(value.target) || 0), 0);
-              const totalAccomplishment = currentIndicator.values.reduce((sum, value) => sum + (parseFloat(value.accomplishment) || 0), 0);
-              const percentage = ((totalAccomplishment / totalTarget) * 100).toFixed(2);
-              return (
-                <p>
-                  Accomplishments show a percentage of <strong>{percentage}%</strong> from the target goal of <strong>
+          {/* accomplishments shows a percentage of blank from target goal of blah blah */}
+          {currentIndicator?.values && (() => {
+            const totalTarget = currentIndicator.values.reduce((sum, value) => sum + (parseFloat(value.target) || 0), 0);
+            const totalAccomplishment = currentIndicator.values.reduce((sum, value) => sum + (parseFloat(value.accomplishment) || 0), 0);
+            const percentage = ((totalAccomplishment / totalTarget) * 100).toFixed(2);
+            return (
+              <p>
+                Accomplishments show a percentage of <strong>{percentage}%</strong> from the target goal of <strong>
                   {totalTarget.toFixed(2)}
-                  </strong>.
-                </p>
-              );
-            })()}
+                </strong>.
+              </p>
+            );
+          })()}
 
           <br />
           <p>
