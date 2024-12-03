@@ -15,7 +15,7 @@ const Dashboard = () => {
       <BudgetChart />
     
 
-      <ObjectivesOverview />
+      {/* <ObjectivesOverview /> */}
       
     </>
   )
