@@ -11,8 +11,10 @@ const _baseQuery = async (args, api, extraOptions) => {
     api.dispatch(startLoading());
     try {
       const result = await baseQuery(args, api, extraOptions);
+      api.dispatch(stopLoading());
       return result;
     } catch (error) {
+      api.dispatch(stopLoading());
       console.error('Error in Base Query:', error);
       return { error: { status: 'FETCH_ERROR', data: error.message } };
     } finally {
