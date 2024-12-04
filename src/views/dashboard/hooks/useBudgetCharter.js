@@ -13,7 +13,7 @@ import {
 
 const random = () => Math.round(Math.random() * 100)
 const defaultLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-const defaultDatasets =  [
+const defaultDatasets = [
   {
     label: 'First Dataset',
     backgroundColor: `rgba(${getStyle('--cui-info-rgb')}, .1)`,
@@ -45,31 +45,31 @@ const defaultDatasets =  [
   },
 ]
 const defaultRates = [
-    { title: 'Budget', value: '29.703', percent: 40, color: 'success' },
-    { title: 'FUND01', value: '24.093', percent: 20, color: 'info' },
-    { title: 'FUND02', value: '78.706', percent: 60, color: 'warning' },
+  { title: 'Budget', value: '29.703', percent: 40, color: 'success' },
+  { title: 'FUND01', value: '24.093', percent: 20, color: 'info' },
+  { title: 'FUND02', value: '78.706', percent: 60, color: 'warning' },
 ]
 
 const makeRates = (labels, values) => {
-    let progressRates = labels.map((title, i) => {
-      let color = 'warning';
-      let value = parseFloat((parseFloat(values[i]) || 0) *  100).toFixed(2);
-      let percent = Math.round(value);
-  
+  let progressRates = labels.map((title, i) => {
+    let color = 'warning';
+    let value = parseFloat((parseFloat(values[i]) || 0) * 100).toFixed(2);
+    let percent = Math.round(value);
 
-      if (percent > 50)
-          color = 'info'
-      else if (percent >= 100)
-          color = 'success'
 
-      return {
-          title,
-          value,
-          percent,
-          color,
-      }
-    })
-    return progressRates;
+    if (percent > 50)
+      color = 'info'
+    else if (percent >= 100)
+      color = 'success'
+
+    return {
+      title,
+      value,
+      percent,
+      color,
+    }
+  })
+  return progressRates;
 }
 const transformData = (data) => {
 
@@ -84,7 +84,7 @@ const transformData = (data) => {
       labels: annualLabels,
       datasets: [
         {
-          label:  keys[1] || 'Allotment',
+          label: keys[1] || 'Allotment',
           backgroundColor: 'transparent',
           borderColor: getStyle('--cui-danger'),
           pointHoverBackgroundColor: getStyle('--cui-danger'),
@@ -93,7 +93,7 @@ const transformData = (data) => {
           data: item.annual.map(a => a[keys[1]])
         },
         {
-          label:  keys[2] || 'Obligated',
+          label: keys[2] || 'Obligated',
           backgroundColor: `rgba(${getStyle('--cui-info-rgb')}, .1)`,
           borderColor: getStyle('--cui-info'),
           pointHoverBackgroundColor: getStyle('--cui-info'),
@@ -102,19 +102,19 @@ const transformData = (data) => {
           data: item.annual.map(a => a[keys[2]])
         },
         {
-          label:  keys[3] || 'Rate',
+          label: keys[3] || 'Rate',
           backgroundColor: 'transparent',
           borderColor: getStyle('--cui-danger'),
           pointHoverBackgroundColor: getStyle('--cui-danger'),
           borderWidth: 0,
           borderDash: [8, 5],
-          data: item.annual.map(a => `${(parseFloat(a[keys[3]] || 0) * 100).toFixed(2)}%` ),
+          data: item.annual.map(a => `${(parseFloat(a[keys[3]] || 0) * 100).toFixed(2)}%`),
         },
       ],
       maxAllotment: Math.max(...item.annual.map(a => a.Allotment)),
       meanValue: item.annual.map(a => (a.Allotment + a.Obligated) / 2),
       progressRates: makeRates(annualLabels, item.annual.map(a => a["Utilization Rate"]))
-      
+
     }
   })
 
@@ -143,29 +143,30 @@ export const useBudgetCharting = (name) => {
   const [getBudget] = useGetBudgetMutation();
   const [progressRates, setProgressRates] = React.useState(defaultRates);
 
-  const [data, setData ] = React.useState({
+  const [data, setData] = React.useState({
     labels: [] || defaultLabels,
     datasets: [] || defaultDatasets,
   });
-  
-  
+
+
 
   const getBudgetData = async (name) => {
-    if (budgetState.sectorBudgets[name]){
+    if (budgetState.sectorBudgets[name]) {
       setData(budgetState.sectorBudgets[name])
       setProgressRates(budgetState.sectorBudgets[name].progressRates)
     }
 
     dispatch(setSector(name))
     dispatch(getBudgetStart())
-    return getBudget(name).unwrap().then(res=>{
-      if (budgetState.currentSector && budgetState.currentSector !== name) return;
+    return getBudget(name).unwrap().then(res => {
       if (res.data) {
         const formatted = transformData(res.data);
-        setData(formatted)
-        setProgressRates(formatted.progressRates)
+        if (budgetState.currentSector && budgetState.currentSector === name) {
+          setData(formatted)
+          setProgressRates(formatted.progressRates)
+        };
         dispatch(getBudgetSuccess({
-          [name||'all']: formatted,
+          [name || 'all']: formatted,
         }))
         return formatted;
       }

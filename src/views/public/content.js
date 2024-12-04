@@ -3,7 +3,7 @@ import BarOverview from './bar-overview'
 
 export default function GuestPageContent() {
   return (
-    <section className="blog-details-page mt-120">
+    <section className="blog-details-page mt-50">
       <div className="container">
         <div className="row">
           <div className="col-lg-12">

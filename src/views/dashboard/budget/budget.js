@@ -225,23 +225,27 @@ export default function BudgetChart({
 
           </CRow>
           {/* Pagination Controls */}
-          <div className="d-flex justify-content-between mt-3">
-            <button
-              className="btn btn-primary"
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(currentPage - 1)}
-            >
-              Previous
-            </button>
-            <span>Page {currentPage}</span>
-            <button
-              className="btn btn-primary"
-              disabled={rates && currentPage * itemsPerPage >= rates.length && fund && currentPage * itemsPerPage >= fund.datasets.length}
-              onClick={() => setCurrentPage(currentPage + 1)}
-            >
-              Next
-            </button>
-          </div>
+          {
+            rates?.length > itemsPerPage && (
+              <div className="d-flex justify-content-between mt-3">
+                <button
+                  className="btn btn-primary"
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                >
+                  Previous
+                </button>
+                <span>Page {currentPage}</span>
+                <button
+                  className="btn btn-primary"
+                  disabled={rates && currentPage * itemsPerPage >= rates.length && fund && currentPage * itemsPerPage >= fund.datasets.length}
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                  Next
+                </button>
+              </div>
+            )
+          }
 
         </CCardFooter>
       </CCard>

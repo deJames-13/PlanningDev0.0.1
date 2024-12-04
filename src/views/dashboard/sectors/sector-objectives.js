@@ -17,8 +17,8 @@ const transformData = (data) => {
   return {
     data,
     progressGroup: [
-      { title: '', icon: cilCheck, value: parseFloat((totalAccomplished / totalTarget * 100).toFixed(2)),progress:true },
-      { title: 'Total Acommplished', icon: cilFlagAlt, value: totalAccomplished,  },
+      { title: '', icon: cilCheck, value: parseFloat((totalAccomplished / totalTarget * 100).toFixed(2)), progress: true },
+      { title: 'Total Acommplished', icon: cilFlagAlt, value: totalAccomplished, },
       { title: 'Total Target', icon: cilFlagAlt, value: totalTarget, },
     ],
     last_updated: (new Date()).toLocaleString()
@@ -26,16 +26,16 @@ const transformData = (data) => {
 }
 
 
-export default function SectorObjectives({name}) {
+export default function SectorObjectives({ name }) {
   const dispatch = useDispatch();
   const objState = useSelector(s => s.objective);
 
   const [obj, setObj] = React.useState([]);
   const [progressGroup, setProgressGroup] = React.useState([]);
-  const [getObj, {isLoading}] = useGetObjMutation();
+  const [getObj, { isLoading }] = useGetObjMutation();
 
   React.useEffect(() => {
-    if (objState.sectorObjectives[name]){
+    if (objState.sectorObjectives[name]) {
       setObj(objState.sectorObjectives[name].data);
       setProgressGroup(objState.sectorObjectives[name].progressGroup);
     }
@@ -43,22 +43,21 @@ export default function SectorObjectives({name}) {
     dispatch(setSector(name));
     dispatch(getObjectiveStart());
     getObj(name).then((res) => {
-      if (objState.currentSector && objState.currentSector !== name) return;
-      if (res?.data){
-        let {data} = res.data
+      if (res?.data) {
+        let { data } = res.data
         let formatted = transformData(data)
-        setObj(formatted.data);
-        setProgressGroup(formatted.progressGroup);
+        if (objState.currentSector && objState.currentSector === name) {
+          setObj(formatted.data);
+          setProgressGroup(formatted.progressGroup);
+        };
         dispatch(getObjectiveSuccess(
           {
-            [name]: {
-              ...formatted
-            },
+            [name]: formatted
           }
         ));
 
       }
-    }).catch(e=>{
+    }).catch(e => {
       dispatch(getObjectiveFailure());
     });
   }, [name]);
@@ -67,12 +66,12 @@ export default function SectorObjectives({name}) {
   return (
     <div>
       <ObjectivesOverview loading={isLoading}
-      data={{
-        objectives: obj,
-        progressGroup: progressGroup,
-        last_updated: objState.sectorObjectives[name]?.last_updated || (new Date()).toLocaleString()
-      }}
-       />
+        data={{
+          objectives: obj,
+          progressGroup: progressGroup,
+          last_updated: objState.sectorObjectives[name]?.last_updated || (new Date()).toLocaleString()
+        }}
+      />
     </div>
   )
 }
