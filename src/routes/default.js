@@ -1,7 +1,14 @@
 
+import React from 'react'
+const GuestPage = React.lazy(() => import('../views/public/index'))
 
 const defaultRoutes = [
-  { path: '/', name: 'Home' },
+  {
+    element: <GuestPage />,
+    path: '/',
+    exact: true,
+    name: 'TUP-T'
+  },
 ]
 
 export default defaultRoutes

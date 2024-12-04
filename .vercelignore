@@ -10,7 +10,6 @@ yarn.lock
 .old
 # production
 /build
-/public/src
 
 # misc
 .eslintcache

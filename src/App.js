@@ -10,7 +10,7 @@ import './scss/style.scss'
 
 const App = () => {
   const { isColorModeSet, setColorMode } = useColorModes('dashboard-theme')
-  const { name: storedTheme } = useSelector((state) => state.theme)
+  const { colorMode: storedTheme } = useSelector((state) => state.theme)
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.href.split('?')[1])
     const theme = urlParams.get('theme') && urlParams.get('theme').match(/^[A-Za-z0-9\s]+/)[0]
