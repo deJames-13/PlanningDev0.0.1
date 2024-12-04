@@ -21,7 +21,7 @@ const App = () => {
     if (isColorModeSet()) {
       return
     }
-    setColorMode(storedTheme)
+    setColorMode(storedTheme || 'light')
   }, [])
 
   const Fallback = () => {

@@ -1,0 +1,62 @@
+Director's Office
+Planning Office
+Quality Assurance Office
+GAD
+UITC
+
+Administrative and Finance Services Division
+- ADAF's Office
+- HRM Office
+- Accounting Office
+- Budget Office 
+- Collecting and Disbursing Office
+- Records Office
+- Procurement Office
+- Property and Supply Office
+- Infrastructure Development Office
+- Building and Grounds Maintenance
+- Electrical Maintenance
+- HVACR Maintenance
+- Medical Clinic
+- Dental Clinic
+- IGP
+
+Higher Education
+- ADAA's Office
+Basic Arts and Sciences Department
+ - BTVTE
+Civil and Allied Department
+ - BSES
+ - BSCE
+ - BETCT
+ - BETChET
+Mechanical and Allied Department
+ - BSME
+ - BETMT
+ - BETDMT
+ - BETNDT
+ - BETEMET
+ - BETHVACR
+ - BETAT
+Electrical and Allied Department
+ - BSEE
+ - BSECE
+ - BSIT
+ - BETET
+ - BETELEX
+ - BETICT
+ - BETMECT
+Office of Student Affairs
+ - Registrar's Office
+ - Learning Resource Center
+ - Guidance Office
+ - Sports and Cultural Dev't
+ - NSTP/ROTC
+Industry-Based Program
+USG
+Artisan
+
+Research and Extension
+- ADRE's Office
+- Research Services
+- Extension Services

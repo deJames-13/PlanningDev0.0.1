@@ -183,14 +183,16 @@ export default function BudgetChart({
           >
             {rates && getPaginatedData(rates)?.map((item, index, items) => (
               <CCol
-                // className={classNames({
-                //   'd-none d-xl-block': index + 1 === items.length,
-                // })}
+                className={classNames({
+                  'd-none d-xl-block': index + 1 === items.length,
+                  'd-none d-lg-block': index + 1 === items.length - 1,
+                  'd-none d-md-block': index + 1 === items.length - 2,
+                })}
                 key={`progress_${index}`}
               >
                 <div className="text-body-secondary">{item.title}</div>
                 <div className="fw-semibold text-truncate">
-                  {item.value} ({item.percent}%)
+                  {item.percent}%
                 </div>
                 <CProgress thin className="mt-2" color={item.color} value={item.percent} />
               </CCol>
@@ -202,7 +204,9 @@ export default function BudgetChart({
                   <CTableRow>
                     <CTableHeaderCell scope="col"></CTableHeaderCell>
                     {getPaginatedData(fund.labels).map((label, idx) => (
-                      <CTableHeaderCell key={`label_${idx}`} scope="col">{label}</CTableHeaderCell>
+                      <CTableHeaderCell key={`label_${idx}`} scope="col">
+                        {label}
+                      </CTableHeaderCell>
                     ))}
                   </CTableRow>
                 </CTableHead>
