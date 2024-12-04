@@ -1,174 +1,70 @@
-TODO:
-- [x] GuestLayout
-    - [x] Landing/Public Charts 
+- [ ] Group Related Menus
+- [ ] Menu Names
 
-- [x] SectorLayout
-- [x] QualityObjectives Component
-    - [x] Fetch
-- [x] Budget Chart
-    - [x] Fetch Chart
+- [ ] Database Schema
+- [ ] Models 
+    - [ ] User
+        - username
+        - email
+        
+    - [ ] Departments
+        - id
+        - name
+        
+
+    - [ ] Sectors
+        - id
+        - name
+        - full_name
+        - department_id
+
+    - [ ] Objectives
+        - title
+        - description
+        - quarters
+            - id 
+            - label
+            - target
+            - accomplishment
+        - total
+            - target
+            - accomplishment
+        - percentage
+        
+    - [ ] BAR
+        - title
+        - description
+        - particulars
+            - title
+            - [values]  
+                - id
+                - year
+                - target 
+                - accomplishment
 
 
-- [x] planning
-    - [x] objectives
-    - [x] budget
-- [x] adaa
-    - [x] objectives
-    - [x] budget
-- [x] qa
-    - [x] objectives
-    - [x] budget
-- [x] gad
-    - [x] objectives
-    - [x] budget
-- [x] uitc
-    - [x] objectives
-    - [x] budget
-- [x] adaf
-    - [x] objectives
-    - [x] budget
-- [x] hrmd
-    - [x] objectives
-    - [x] budget
-- [x] accounting
-    - [x] objectives
-    - [x] budget
-- [x] cdo
-    - [x] objectives
-    - [x] budget
-- [x] records
-    - [x] objectives
-    - [x] budget
-- [x] procurement
-    - [x] objectives
-    - [x] budget
-- [x] supply
-    - [x] objectives
-    - [x] budget
-- [x] ido
-    - [x] objectives
-    - [x] budget
-- [x] bgm
-    - [x] objectives
-    - [x] budget
-- [x] electrical
-    - [x] objectives
-    - [x] budget
-- [x] hvacr
-    - [x] objectives
-    - [x] budget
-- [x] medical
-    - [x] objectives
-    - [x] budget
-- [x] dental
-    - [x] objectives
-    - [x] budget
-- [x] bac
-    - [x] objectives
-    - [x] budget
-- [x] basd
-    - [x] objectives
-    - [x] budget
-- [x] btvte
-    - [x] objectives
-    - [x] budget
-- [x] caad
-    - [x] objectives
-    - [x] budget
-- [x] bses
-    - [x] objectives
-    - [x] budget
-- [x] bsce
-    - [x] objectives
-    - [x] budget
-- [x] betct
-    - [x] objectives
-    - [x] budget
-- [x] betchet
-    - [x] objectives
-    - [x] budget
-- [x] maad
-    - [x] objectives
-    - [x] budget
-- [x] bsme
-    - [x] objectives
-    - [x] budget
-- [x] betmt
-    - [x] objectives
-    - [x] budget
-- [x] betdmt
-    - [x] objectives
-    - [x] budget
-- [x] betndt
-    - [x] objectives
-    - [x] budget
-- [x] betemet
-    - [x] objectives
-    - [x] budget
-- [x] bethvacr
-    - [x] objectives
-    - [x] budget
-- [x] betat
-    - [x] objectives
-    - [x] budget
-- [x] eaad
-    - [x] objectives
-    - [x] budget
-- [x] bsee
-    - [x] objectives
-    - [x] budget
-- [x] bsce
-    - [x] objectives
-    - [x] budget
-- [x] bsit
-    - [x] objectives
-    - [x] budget
-- [x] betet
-    - [x] objectives
-    - [x] budget
-- [x] betelex
-    - [x] objectives
-    - [x] budget
-- [x] betict
-    - [x] objectives
-    - [x] budget
-- [x] betmect
-    - [x] objectives
-    - [x] budget
-- [x] osa
-    - [x] objectives
-    - [x] budget
-- [x] registrar
-    - [x] objectives
-    - [x] budget
-- [x] library
-    - [x] objectives
-    - [x] budget
-- [x] guidance
-    - [x] objectives
-    - [x] budget
-- [x] sports
-    - [x] objectives
-    - [x] budget
-- [x] nstp
-    - [x] objectives
-    - [x] budget
-- [x] industry
-    - [x] objectives
-    - [x] budget
-- [x] usg
-    - [x] objectives
-    - [x] budget
-- [x] artisan
-    - [x] objectives
-    - [x] budget
-- [x] adre
-    - [x] objectives
-    - [x] budget
-- [x] research
-    - [x] objectives
-    - [x] budget
+    - [ ] Budgets
+        - title
+        - [annual]
+            - id
+            - year
+            - allotment
+            - obligated
+            - utilization_rate
 
+        - [quarterlies]
+            - id
+            - label
+            - value
+            - allotment
+            - obligated
+            - utilization_rate
+        - current_year
+        
+
+
+
+- [ ] Authentication
 
 
 
