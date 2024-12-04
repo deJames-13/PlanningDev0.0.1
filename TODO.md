@@ -19,17 +19,13 @@
         - department_id
 
     - [ ] Objectives
-        - title
-        - description
+
         - quarters
             - id 
             - label
             - target
             - accomplishment
-        - total
-            - target
-            - accomplishment
-        - percentage
+
         
     - [ ] BAR
         - title
@@ -55,7 +51,6 @@
         - [quarterlies]
             - id
             - label
-            - value
             - allotment
             - obligated
             - utilization_rate
