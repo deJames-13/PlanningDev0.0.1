@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'
 import router from './routes/index'
 
-import 'src/assets/css/style.css'
+// import 'src/assets/css/style.css'
 import './scss/style.scss'
 
 
