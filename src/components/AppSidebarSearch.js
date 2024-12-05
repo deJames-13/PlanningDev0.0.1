@@ -10,15 +10,15 @@ import {
 
 import React from 'react'
 
-export default function AppSidebarSearch({ items, onSearch }) {
+export default function AppSidebarSearch({ items, shown, onSearch = () => { } }) {
 
     const handleNavSearch = (e) => {
         const search = e.target.value;
         onSearch(search);
     }
 
-    return (
-        <div className='p-2 d-md-block'>
+    return shown && (
+        <div className={`p-2 d-md-block`}>
             <CFormInput
                 type="text"
                 id="search-input"

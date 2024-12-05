@@ -164,13 +164,6 @@ export default function BudgetChart({
         </CCardBody>
         <CCardFooter>
           {/* LineChartTable */}
-          {
-            rates?.length > 0 && (
-              <h6 className="card-title mb-0 mr-2">
-                Utilization Rate
-              </h6>
-            )
-          }
           <CRow
             xs={{
               cols: 1,
@@ -181,28 +174,12 @@ export default function BudgetChart({
             xl={{ cols: 5 }}
             className="mb-2 text-center flex-column-reverse flex-lg-row"
           >
-            {rates && getPaginatedData(rates)?.map((item, index, items) => (
-              <CCol
-                className={classNames({
-                  'd-none d-xl-block': index + 1 === items.length,
-                  'd-none d-lg-block': index + 1 === items.length - 1,
-                  'd-none d-md-block': index + 1 === items.length - 2,
-                })}
-                key={`progress_${index}`}
-              >
-                <div className="text-body-secondary">{item.title}</div>
-                <div className="fw-semibold text-truncate">
-                  {item.percent}%
-                </div>
-                <CProgress thin className="mt-2" color={item.color} value={item.percent} />
-              </CCol>
-            ))}
 
             {fund && (
               <CTable>
                 <CTableHead>
                   <CTableRow>
-                    <CTableHeaderCell scope="col"></CTableHeaderCell>
+                    {/* <CTableHeaderCell scope="col"></CTableHeaderCell> */}
                     {getPaginatedData(fund.labels).map((label, idx) => (
                       <CTableHeaderCell key={`label_${idx}`} scope="col">
                         {label}
@@ -215,10 +192,24 @@ export default function BudgetChart({
                     fund.datasets.map((dataset, idx) => {
                       return (
                         <CTableRow key={`dataset_${idx}`}>
-                          <CTableHeaderCell scope="row" key={`dataset_label_${idx}`}>{dataset.label}</CTableHeaderCell>
-                          {getPaginatedData(dataset.data).map((data, idx) => (
-                            <CTableDataCell key={`data_${idx}`}>{data}</CTableDataCell>
-                          ))}
+                          {/* <CTableHeaderCell scope="row" key={`dataset_label_${idx}`} className='col-sm'>
+                            {dataset.label}
+                          </CTableHeaderCell> */}
+                          {getPaginatedData(dataset.data).map((data, idx) => {
+
+                            return dataset.label == 'Utilization Rate' ? (
+                              <CTableDataCell key={`data_${idx}`}>
+                                <div className="fw-semibold text-truncate">
+                                  {data}
+                                </div>
+                                <CProgress thin className="mt-2" value={parseInt(data.replace('%', ''))} />
+                              </CTableDataCell>
+                            ) : (
+                              <CTableDataCell key={`data_${idx}`}>
+                                {data}
+                              </CTableDataCell>
+                            )
+                          })}
                         </CTableRow>
                       )
 
@@ -226,6 +217,7 @@ export default function BudgetChart({
                   }
                 </CTableBody>
               </CTable>)}
+
 
           </CRow>
           {/* Pagination Controls */}

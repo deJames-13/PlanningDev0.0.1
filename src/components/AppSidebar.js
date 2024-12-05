@@ -71,8 +71,6 @@ const AppSidebar = () => {
         />
       </CSidebarHeader>
 
-      <AppSidebarSearch items={navBar} onSearch={handleNavSearch} />
-
 
       <AppSidebarNav items={navBar} />
 

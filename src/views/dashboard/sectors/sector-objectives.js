@@ -54,7 +54,7 @@ export default function ObjectivesOverview({ name }) {
             xs={12}
             md={6}
             style={{
-              height: '50vh',
+              height: '100vh',
               overflowY: 'auto',
             }}
             className={`d-flex flex-column ${reversed ? 'flex-column-reverse' : ''}`}

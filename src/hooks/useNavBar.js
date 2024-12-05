@@ -1,7 +1,11 @@
 import {
     cilBuilding,
+    cilChartLine,
     cilLayers,
+    cilList,
+    cilPlus,
     cilSpeedometer,
+    cilSpreadsheet
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
@@ -12,42 +16,88 @@ import {
 } from '@coreui/react'
 
 import React from 'react'
-
+import { useSelector } from 'react-redux'
+import AppSidebarSearch from 'src/components/AppSidebarSearch'
+import dashboardNav from 'src/views/dashboard/navigation'
 import { departments } from 'src/views/dashboard/sectors/data'
 
-const mapDepartmentsToNav = (departments) => {
-    return departments.map((department) => {
-        let name = department.name.length > 20 ? <span className='text-wrap'>
-            {department.name}
-        </span> : department.name;
 
-        if (department.type === 'title') {
-            return {
-                component: CNavTitle,
-                name: name,
-            }
-        } else if (department.children) {
-            return {
-                component: CNavGroup,
-                name: <span className='text-bold'>{name}</span>,
-                to: `/dashboard/sectors/${department.id || department.name.toLowerCase().replace(/\s+/g, '-')}`,
-                icon: <CIcon icon={cilLayers} customClassName="nav-icon" />,
-                items: mapDepartmentsToNav(department.children),
-            }
-        } else {
-            return {
-                component: CNavItem,
-                name: name,
-                to: `/dashboard/sectors/${department.id}`,
-                icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
-            }
-        }
-    })
-}
 
 const useNavBar = () => {
     const [navigations, setNavigations] = React.useState([])
+    const { sidebarShow, unfoldable } = useSelector((state) => state.theme)
 
+
+    const mapDepartmentsToNav = (departments) => {
+        return departments.map((department) => {
+            let name = department.name.length > 20 ? <span className='text-wrap'>
+                {department.name}
+            </span> : department.name;
+
+            if (department.type === 'title') {
+                return {
+                    component: CNavTitle,
+                    name: name,
+                    icon: <></>,
+                }
+            } else if (department.children) {
+                return {
+                    component: CNavGroup,
+                    name: <span className='text-bold'>{name}</span>,
+                    to: `/dashboard/sectors/${department.id || department.name.toLowerCase().replace(/\s+/g, '-')}`,
+                    icon: <CIcon icon={cilLayers} customClassName="nav-icon" />,
+                    items: mapDepartmentsToNav(department.children),
+                }
+            } else {
+                return {
+                    component: CNavItem,
+                    name: name,
+                    to: `/dashboard/sectors/${department.id}`,
+                    icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
+                }
+            }
+        })
+    }
+    const defaultNavs = ({ departments, onFilter = () => { }, ...props }) => {
+        return [
+            ...dashboardNav,
+            {
+                component: CNavTitle,
+                name: 'Departments and Sectoral Offices',
+            },
+            {
+                component: AppSidebarSearch,
+                onSearch: onFilter,
+                type: 'custom',
+                shown: sidebarShow && !unfoldable,
+            },
+            {
+                component: CNavGroup,
+                name: 'Manage Offices',
+                icon: <CIcon icon={cilList} customClassName="nav-icon" />,
+                items: [
+                    {
+                        component: CNavItem,
+                        name: 'View Table',
+                        to: '/dashboard/sectors/table',
+                        icon: <CIcon icon={cilSpreadsheet} customClassName="nav-icon" />,
+                    },
+                    {
+                        component: CNavItem,
+                        name: 'Create Office',
+                        to: '/dashboard/sectors/add',
+                        icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
+                    },
+                ]
+            },
+            {
+                component: CNavGroup,
+                name: 'View Offices',
+                items: mapDepartmentsToNav(departments),
+                icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
+            },
+        ]
+    }
     const filterNavigations = (searchChars = null) => {
         let filtered;
         if (searchChars) {
@@ -62,6 +112,8 @@ const useNavBar = () => {
                             ...department,
                             children: children
                         }
+                    } else if (department.name.toLowerCase().includes(searchChars.toLowerCase())) {
+                        return department
                     } else {
                         return null
                     }
@@ -80,40 +132,20 @@ const useNavBar = () => {
         filtered = filtered.filter((department) => department !== null)
 
 
-        setNavigations([
-            {
-                component: CNavItem,
-                name: 'Dashboard',
-                to: '/dashboard',
-                icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-            },
-            {
-                component: CNavTitle,
-                name: 'Manage Offices',
-            },
-            ...mapDepartmentsToNav(filtered),
-        ])
+        setNavigations(defaultNavs({
+            departments: filtered,
+            onFilter: filterNavigations
+        }))
     }
 
-
-
-
-
     React.useEffect(() => {
-        setNavigations([
-            {
-                component: CNavItem,
-                name: 'Dashboard',
-                to: '/dashboard',
-                icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-            },
-            {
-                component: CNavTitle,
-                name: 'Manage Offices',
-            },
-            ...mapDepartmentsToNav(departments),
-        ]);
-    }, [])
+        setNavigations(defaultNavs({
+            departments: departments,
+            onFilter: filterNavigations
+        }));
+    }, [unfoldable, sidebarShow])
+
+
 
     return {
         navigations,
