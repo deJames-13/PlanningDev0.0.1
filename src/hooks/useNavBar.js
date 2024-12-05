@@ -48,18 +48,37 @@ const mapDepartmentsToNav = (departments) => {
 const useNavBar = () => {
     const [navigations, setNavigations] = React.useState([])
 
-    const filterNavigations = (searchChars = '') => {
+    const filterNavigations = (searchChars = null) => {
+        let filtered;
+        if (searchChars) {
+            filtered = departments.map((department) => {
+                if (department.children) {
+                    let children = department.children.filter((child) => {
+                        return child.name.toLowerCase().includes(searchChars.toLowerCase())
+                    })
 
-        const filtered = departments.filter((nav) => {
-            if (nav.component === CNavTitle) {
-                return true
-            } else if (nav.component === CNavGroup) {
-                let children = filterNavigations(nav.items, searchChars)
-                return children.length > 0
-            } else {
-                return nav.name.toLowerCase().includes(searchChars.toLowerCase())
-            }
-        })
+                    if (children.length > 0) {
+                        return {
+                            ...department,
+                            children: children
+                        }
+                    } else {
+                        return null
+                    }
+                } else {
+                    if (department.name.toLowerCase().includes(searchChars.toLowerCase())) {
+                        return department
+                    } else {
+                        return null
+                    }
+                }
+            })
+        } else {
+            filtered = departments
+        }
+
+        filtered = filtered.filter((department) => department !== null)
+
 
         setNavigations([
             {
