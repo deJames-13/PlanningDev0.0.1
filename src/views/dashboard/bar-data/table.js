@@ -12,16 +12,19 @@ import { useEffect, useState } from 'react'
 import Table from 'src/components/table'
 import googleSheetStyle from 'src/components/table/googleSheetsStyle'
 import useBarData from '../hooks/useBarData'
+import tableData from './table-data'
 
 export default function BarDataTable() {
-    const { data, table, fetchDatas } = useBarData()
+    const { data, table, setTable, fetchDatas } = useBarData()
 
     useEffect(() => {
         fetchDatas()
     }, [])
     useEffect(() => {
-        console.log(table);
-    }, [data], table)
+        if (data.length) {
+            setTable(tableData(data));
+        }
+    }, [data])
 
 
     return (

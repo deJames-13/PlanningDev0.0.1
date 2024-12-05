@@ -19,7 +19,7 @@
 
 - [ ] BAR Data Form
     - [ ] Add, Edit Delete, View
-- [ ] BAR Table
+- [x] BAR Table
 
 
 - [ ] Particulars Form

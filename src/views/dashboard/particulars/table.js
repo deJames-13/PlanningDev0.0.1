@@ -8,10 +8,23 @@ import {
     CCardHeader,
     CSpinner,
 } from '@coreui/react'
-import React from 'react'
+import { useEffect } from 'react'
 import Table from 'src/components/table'
+import useParticular from '../hooks/useParticular'
+import tableData from './table-data'
 
 export default function ParticularDataTable() {
+    const { data, table, setTable, fetchDatas } = useParticular()
+
+    useEffect(() => {
+        fetchDatas()
+    }, [])
+    useEffect(() => {
+        if (data.length) {
+            setTable(tableData(data));
+        }
+    }, [data])
+
     return (
         <CCard>
             <CCardHeader>
@@ -43,7 +56,11 @@ export default function ParticularDataTable() {
                 </div>
             </CCardHeader>
             <CCardBody>
-                <Table />
+                <Table
+                    columns={table.columns}
+                    data={table.data}
+                    tableData={table}
+                />
             </CCardBody>
             <CCardFooter>
 
