@@ -1,3 +1,4 @@
+import { CCol, CRow } from '@coreui/react';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import BudgetChart from '../budget';
@@ -16,7 +17,20 @@ export default function Sector() {
             <hr />
             <BudgetChart sector={sector?.id} />
             <hr />
-            <SectorObjectives name={sector?.id} />
+            <CRow>
+                <CCol
+                    style={{
+                        height: "100vh",
+                        overflow: "auto",
+                    }}
+                >
+                    <SectorObjectives name={sector?.id} />
+                </CCol>
+                <CCol>
+                    <h4>Actions</h4>
+                    <br />
+                </CCol>
+            </CRow>
 
         </>
     )
