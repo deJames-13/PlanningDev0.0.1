@@ -2,7 +2,7 @@ import { CSpinner, useColorModes } from '@coreui/react'
 import React, { Suspense, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'
-import router from './routes/index'
+import router from './routes/_index'
 
 // import 'src/assets/css/style.css'
 import './scss/style.scss'

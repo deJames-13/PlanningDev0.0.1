@@ -14,7 +14,7 @@ import {
 
 
 import logo from 'src/assets/images/logo.png';
-import navigation from '../_nav';
+import navigation from './_nav;
 import { AppSidebarNav } from './AppSidebarNav';
 
 const AppSidebar = () => {

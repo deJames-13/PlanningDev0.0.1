@@ -5,7 +5,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 import React from 'react'
 import App from './App'
-import { persistor, store } from './store'
+import { persistor, store } from './states/store'
 
 
 

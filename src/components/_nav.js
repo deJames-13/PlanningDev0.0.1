@@ -10,7 +10,7 @@ import CIcon from '@coreui/icons-react'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 import React from 'react'
 
-import { sectors } from './views/dashboard/sectors'
+import { sectors } from '../views/dashboard/sectors'
 
 const _nav = [
   {
