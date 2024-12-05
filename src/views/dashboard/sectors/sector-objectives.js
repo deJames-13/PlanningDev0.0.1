@@ -1,6 +1,6 @@
-import { cilArrowBottom, cilArrowTop } from '@coreui/icons';
+import { cilCaretBottom, cilCaretTop } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
-import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react';
+import { CCard, CCardBody, CCardHeader, CCol, CRow, CSpinner } from '@coreui/react';
 import { useEffect, useState } from 'react';
 import useObjectiveCharter from '../hooks/useObjectiveCharter';
 import QualityObjectives, { ProgressSummary } from '../objectives/index';
@@ -28,12 +28,13 @@ export default function ObjectivesOverview({ name }) {
             alignItems: 'center',
             gap: '1rem',
           }}>
-            <h4>Objectives Overview</h4>
-            <button
-              className="btn btn-sm btn-ghost-primary"
-              onClick={handleReverse}>
-              <CIcon icon={reversed ? cilArrowTop : cilArrowBottom} />
-            </button>
+
+            <div className="d-flex items-align-center gap-2">
+              <h4>Objectives Overview</h4>
+              {isLoading && <span>
+                <CSpinner size="sm" variant="grow" color='primary' />
+              </span>}
+            </div>
           </div>
           {
             data?.lastUpdate && (
@@ -41,12 +42,11 @@ export default function ObjectivesOverview({ name }) {
             )
           }
         </div>
-        {isLoading && (
-          <div className="spinner-border text-primary float-end" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        )
-        }
+        <button
+          className="btn btn-sm btn-ghost-primary"
+          onClick={handleReverse}>
+          <CIcon icon={reversed ? cilCaretTop : cilCaretBottom} />
+        </button>
       </CCardHeader>
       <CCardBody>
         <CRow className={`flex-column-reverse flex-md-row`}>

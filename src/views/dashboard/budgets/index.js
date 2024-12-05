@@ -11,6 +11,7 @@ import {
   CCol,
   CProgress,
   CRow,
+  CSpinner,
   CTable,
   CTableBody,
   CTableDataCell,
@@ -100,17 +101,16 @@ export default function BudgetChart({
     <>
       <CCard className="mb-4">
         <CCardBody>
-          {updating && (
-            <div className="spinner-border text-primary float-end" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          )
-          }
           <CRow>
             <CCol sm={5}>
-              <h4 id="traffic" className="card-title mb-0 mr-2">
-                {data?.title ? data.title : 'Budget Overview'}
-              </h4>
+              <div className="d-flex items-align-center gap-2">
+                <h4 id="traffic" className="card-title mb-0 mr-2">
+                  {data?.title ? data.title : 'Budget Overview'}
+                </h4>
+                {updating && <span>
+                  <CSpinner size="sm" variant="grow" color='primary' />
+                </span>}
+              </div>
 
               <div className="small text-body-secondary">
                 {rates && rates?.length > 0 && `${rates[0].title} - ${rates[rates.length - 1].title}`}
