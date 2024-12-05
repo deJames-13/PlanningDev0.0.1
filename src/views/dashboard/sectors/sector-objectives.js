@@ -3,7 +3,7 @@ import React from 'react';
 import ObjectivesOverview from '../objectives/index';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetObjMutation } from 'src/states/api/objective';
+import { useGetObjMutation } from 'src/states/api/charts';
 import {
   getObjectiveFailure,
   getObjectiveStart,

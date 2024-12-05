@@ -2,7 +2,7 @@ import { apiSlice } from './index';
 
 const chartApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        getBARChart: builder.mutation({
+        getBAR: builder.mutation({
             query: (name) => {
                 let url = '?route=bar1';
                 return {
@@ -11,7 +11,7 @@ const chartApiSlice = apiSlice.injectEndpoints({
                 }
             },
         }),
-        getBudgetChart: builder.mutation({
+        getBudget: builder.mutation({
             query: (name) => {
                 let url = '?route=budgets';
                 if (name && name !== 'all') {
@@ -34,6 +34,10 @@ const chartApiSlice = apiSlice.injectEndpoints({
         }),
     })
 });
-
+export const {
+    useGetBARMutation,
+    useGetBudgetMutation,
+    useGetObjMutation
+} = chartApiSlice;
 export default chartApiSlice;
 

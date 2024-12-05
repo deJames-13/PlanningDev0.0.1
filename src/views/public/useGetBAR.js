@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetBARMutation } from 'src/states/api/bar';
+import { useGetBARMutation } from 'src/states/api/charts';
 import { setBarData } from 'src/states/slices/bar';
 
 export default function useGetBAR() {
@@ -9,7 +9,7 @@ export default function useGetBAR() {
     const [data, setData] = React.useState(null);
     const [getBAR] = useGetBARMutation();
 
-    const fetchBarData = React.useCallback(async()=>{
+    const fetchBarData = React.useCallback(async () => {
         if (barData?.length > 0) {
             setData(barData);
         }

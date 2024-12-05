@@ -2,7 +2,7 @@ import React from 'react';
 
 import { getStyle } from '@coreui/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetBudgetMutation } from 'src/states/api/budget';
+import { useGetBudgetMutation } from 'src/states/api/charts';
 
 import {
   getBudgetFailure,
