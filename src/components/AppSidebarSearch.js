@@ -18,7 +18,7 @@ export default function AppSidebarSearch({ items, onSearch }) {
     }
 
     return (
-        <div className='p-2 d-none d-md-block'>
+        <div className='p-2 d-md-block'>
             <CFormInput
                 type="text"
                 id="search-input"
