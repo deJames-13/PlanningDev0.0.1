@@ -14,18 +14,31 @@ import {
 
 
 import logo from 'src/assets/images/logo.png';
-import navigation from './_nav';
 import { AppSidebarNav } from './AppSidebarNav';
 
+import useNavBar from 'src/hooks/useNavBar';
+import AppSidebarSearch from './AppSidebarSearch';
+
 const AppSidebar = () => {
+  const {
+    navigations: navBar,
+    filterNavigations,
+  } = useNavBar();
+
   const dispatch = useDispatch()
   const { sidebarShow, unfoldable } = useSelector((state) => state.theme)
+
   const toggleSidebar = (visible) => {
     dispatch(setTheme({ sidebarShow: visible }));
   };
+
   const toggleFoldable = () => {
     dispatch(setTheme({ unfoldable: !unfoldable }));
   };
+
+  const handleNavSearch = (search) => {
+    return filterNavigations(search);
+  }
 
 
   return (
@@ -57,7 +70,13 @@ const AppSidebar = () => {
           onClick={() => toggleSidebar(false)}
         />
       </CSidebarHeader>
-      <AppSidebarNav items={navigation} />
+
+      <AppSidebarSearch items={navBar} onSearch={handleNavSearch} />
+
+
+      <AppSidebarNav items={navBar} />
+
+
       <CSidebarFooter className="border-top d-none d-lg-flex">
         <CSidebarToggler
           onClick={() => toggleFoldable()}

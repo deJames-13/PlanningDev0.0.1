@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import BudgetChart from './budget/budget';
-import { sectors } from './sectors.old';
+import { sectors } from './sectors/data.old';
 import SectorObjectives from './sectors/sector-objectives';
 
 export default function Sector() {
