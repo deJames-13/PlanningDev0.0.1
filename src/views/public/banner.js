@@ -5,7 +5,7 @@ export default function GuestPageBanner() {
         <section class="page-banner">
             <div class="page-banner-bg bg_cover"
                 style={{
-                    backgroundImage: 'url(src/assets/images/page-banner.png)',
+                    backgroundImage: 'url(../../assets/images/page-banner.png)',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat'

@@ -1,10 +1,16 @@
 import React from 'react';
+import bgImage from '../../assets/images/footer-image.png';
 
 export default function GuestPageFooter() {
   return (
     <section className="footer-area bg_cover"
       style={{
-        backgroundImage: "url(src/assets/images/footer-image.png)"
+        backgroundImage: `url(${bgImage})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        paddingTop: 50,
+        paddingBottom: 50,
       }}
 
     >
