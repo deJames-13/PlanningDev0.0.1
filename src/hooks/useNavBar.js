@@ -1,11 +1,6 @@
 import {
     cilBuilding,
-    cilChartLine,
     cilLayers,
-    cilList,
-    cilPlus,
-    cilSpeedometer,
-    cilSpreadsheet
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
@@ -62,33 +57,10 @@ const useNavBar = () => {
         return [
             ...dashboardNav,
             {
-                component: CNavTitle,
-                name: 'Departments and Sectoral Offices',
-            },
-            {
                 component: AppSidebarSearch,
                 onSearch: onFilter,
                 type: 'custom',
                 shown: sidebarShow && !unfoldable,
-            },
-            {
-                component: CNavGroup,
-                name: 'Manage Offices',
-                icon: <CIcon icon={cilList} customClassName="nav-icon" />,
-                items: [
-                    {
-                        component: CNavItem,
-                        name: 'View Table',
-                        to: '/dashboard/sectors/table',
-                        icon: <CIcon icon={cilSpreadsheet} customClassName="nav-icon" />,
-                    },
-                    {
-                        component: CNavItem,
-                        name: 'Create Office',
-                        to: '/dashboard/sectors/add',
-                        icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
-                    },
-                ]
             },
             {
                 component: CNavGroup,
