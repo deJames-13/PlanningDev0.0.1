@@ -50,7 +50,7 @@ export default function GuestHeader() {
                 <div className="header-link">
                   <a className="login" href="https://ers.tup.edu.ph/aims/students/">ERS Student</a>
                   <a className="register" href="https://ers.tup.edu.ph/aims/faculty/">ERS Faculty</a>
-                  <a className="register" href="#">WebAdmin</a>
+                  <a className="register" href="/dashboard">WebAdmin</a>
                 </div>
               </div>
             </div>
