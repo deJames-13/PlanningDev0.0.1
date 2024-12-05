@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function BarDataTable() {
+export default function DepartmentForm() {
     return (
         <div>
 

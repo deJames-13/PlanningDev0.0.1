@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import BudgetChart from '../budget';
+import BudgetChart from '../budgets';
 import { sectors } from './data.old';
 import SectorObjectives from './sector-objectives';
 

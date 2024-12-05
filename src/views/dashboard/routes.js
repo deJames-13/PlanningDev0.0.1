@@ -1,5 +1,17 @@
-import BarDataForm from './bar/form.js'
-import BarDataTable from './bar/table.js'
+import BarDataForm from './bar-data/form.js'
+import BudgetForm from './budgets/form.js'
+import DepartmentForm from './departments/form.js'
+import ParticularForm from './particulars/form.js'
+import SectorForm from './sectors/form.js'
+
+import BarDataTable from './bar-data/table.js'
+import BudgetTable from './budgets/table.js'
+import DepartmentTable from './departments/table.js'
+import ParticularTable from './particulars/table.js'
+import SectorTable from './sectors/table.js'
+
+
+
 import Dashboard from './Dashboard.js'
 import Sector from './sectors'
 
@@ -16,46 +28,35 @@ export default [
     },
     // Departments
     {
-        element: <BarDataForm />,
+        element: <DepartmentForm />,
         name: 'New Department',
         path: '/dashboard/departments/add',
     },
     {
-        element: <BarDataTable />,
+        element: <DepartmentTable />,
         name: 'Departments Table',
         path: '/dashboard/departments/table',
     },
     // Sectors
     {
-        element: <BarDataForm />,
-        name: 'New Department',
-        path: '/dashboard/departments/add',
-    },
-    {
-        element: <BarDataTable />,
-        name: 'Departments Table',
-        path: '/dashboard/departments/table',
-    },
-    // Sectors
-    {
-        element: <BarDataForm />,
+        element: <SectorForm />,
         name: 'New Sector',
         path: '/dashboard/sectors/add',
     },
     {
-        element: <BarDataTable />,
+        element: <SectorTable />,
         name: 'Sectors Table',
         path: '/dashboard/sectors/table',
     },
 
     // Budgets
     {
-        element: <BarDataForm />,
+        element: <BudgetForm />,
         name: 'New Budget',
         path: '/dashboard/budgets/add',
     },
     {
-        element: <BarDataTable />,
+        element: <BudgetTable />,
         name: 'Budgets Table',
         path: '/dashboard/budgets/table',
     },
@@ -72,12 +73,12 @@ export default [
     },
     // BAR DATA: Particulars
     {
-        element: <BarDataForm />,
+        element: <ParticularForm />,
         name: 'New Particular',
         path: '/dashboard/particulars/add',
     },
     {
-        element: <BarDataTable />,
+        element: <ParticularTable />,
         name: 'Particulars Table',
         path: '/dashboard/particulars/table',
     },
