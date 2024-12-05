@@ -1,13 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { startLoading, stopLoading } from '../slices/loading.js';
-const API = import.meta.env.VITE_APPSCRIPT_URL;
+
+const API = import.meta.env.VITE_API_URL;
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: API,
+  baseUrl: `${API}/api`,
   // credentials: 'include',
 });
 
 const _baseQuery = async (args, api, extraOptions) => {
+  console.clear()
   api.dispatch(startLoading());
   try {
     const result = await baseQuery(args, api, extraOptions);

@@ -1,50 +1,56 @@
 export default function resourceBuilder(resource) {
+    let name = resource.split('-').map((word, idx) => {
+        if (idx === 0) {
+            return word;
+        }
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join('');
     return (builder) => ({
-        index: builder.query({
+        [`${name}Index`]: builder.mutation({
             query: (qStr) => ({
                 url: `${resource}${qStr ? qStr : ''}`,
                 method: 'GET',
             })
         }),
-        thrashed: builder.query({
+        [`${name}Thrashed`]: builder.mutation({
             query: (qStr) => ({
                 url: `${resource}/thrashed${qStr ? qStr : ''}`,
                 method: 'GET',
             })
         }),
-        all: builder.query({
+        [`${name}All`]: builder.mutation({
             query: (qStr) => ({
                 url: `${resource}/all${qStr ? qStr : ''}`,
                 method: 'GET',
             })
         }),
-        show: builder.query({
+        [`${name}Show`]: builder.mutation({
             query: ({ id, qStr }) => ({
                 url: `${resource}/${id}${qStr ? qStr : ''}`,
                 method: 'GET',
             })
         }),
-        store: builder.mutation({
+        [`${name}Store`]: builder.mutation({
             query: (data) => ({
                 url: `${resource}`,
                 method: 'POST',
                 body: data
             })
         }),
-        update: builder.mutation({
+        [`${name}Update`]: builder.mutation({
             query: ({ id, data }) => ({
                 url: `${resource}/${id}`,
                 method: 'PUT',
                 body: data
             })
         }),
-        destroy: builder.mutation({
+        [`${name}Destroy`]: builder.mutation({
             query: (id) => ({
                 url: `${resource}/${id}`,
                 method: 'DELETE',
             })
         }),
-        restore: builder.mutation({
+        [`${name}Restore`]: builder.mutation({
             query: (id) => ({
                 url: `${resource}/${id}/restore`,
                 method: 'POST',

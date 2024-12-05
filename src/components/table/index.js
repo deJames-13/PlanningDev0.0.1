@@ -1,3 +1,7 @@
+// change icon
+import { cilSortAlphaDown } from '@coreui/icons';
+import CIcon from '@coreui/icons-react';
+
 
 import React from 'react';
 import DataTable from "react-data-table-component";
@@ -13,6 +17,7 @@ export default function Table({
     return (
         <DataTableExtensions {...tableData}>
             <DataTable
+                sortIcon={<CIcon icon={cilSortAlphaDown} />}
                 columns={columns}
                 data={data}
                 noHeader
@@ -20,7 +25,7 @@ export default function Table({
                 defaultSortAsc={true}
                 pagination
                 highlightOnHover
-                dense
+                pointerOnHover
                 {...props}
 
             />

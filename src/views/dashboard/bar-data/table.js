@@ -8,10 +8,22 @@ import {
     CCardHeader,
     CSpinner,
 } from '@coreui/react'
-import React from 'react'
+import { useEffect, useState } from 'react'
 import Table from 'src/components/table'
+import googleSheetStyle from 'src/components/table/googleSheetsStyle'
+import useBarData from '../hooks/useBarData'
 
 export default function BarDataTable() {
+    const { data, table, fetchDatas } = useBarData()
+
+    useEffect(() => {
+        fetchDatas()
+    }, [])
+    useEffect(() => {
+        console.log(table);
+    }, [data], table)
+
+
     return (
         <CCard>
             <CCardHeader>
@@ -43,7 +55,12 @@ export default function BarDataTable() {
                 </div>
             </CCardHeader>
             <CCardBody>
-                <Table />
+                <Table
+                    tableData={table}
+                    columns={table.columns}
+                    data={table.data}
+                    customStyles={googleSheetStyle}
+                />
             </CCardBody>
             <CCardFooter>
 
