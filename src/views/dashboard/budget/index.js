@@ -45,23 +45,6 @@ export default function BudgetChart({
     return data.slice(startIndex, endIndex);
   };
 
-  useEffect(() => {
-    setUpdating(true)
-    getBudgetData(sector).then(() => setUpdating(false))
-  }, [activeTab, sector])
-
-  useEffect(() => {
-    const idx = data.labels.indexOf(activeTab) || 0
-    setTabs(data.labels.slice(idx, idx + 2))
-    if (data?.annual) {
-      const fund = data?.annual?.datasets?.find(item => item.name === activeTab)
-      const ratesData = data?.progressRates[activeTab] || Object.values(data?.progressRates)[0] || []
-
-      setFund(fund)
-      setRates(ratesData)
-    }
-  }, [data])
-
   const onTab = (tab, direction) => {
     const idx = data.labels.indexOf(tab)
     setActiveTab(tab)
@@ -82,6 +65,23 @@ export default function BudgetChart({
       setTabs(nextTabs)
     }
   }
+
+  useEffect(() => {
+    setUpdating(true)
+    getBudgetData(sector).then(() => setUpdating(false))
+  }, [activeTab, sector])
+
+  useEffect(() => {
+    const idx = data.labels.indexOf(activeTab) || 0
+    setTabs(data.labels.slice(idx, idx + 2))
+    if (data?.annual) {
+      const fund = data?.annual?.datasets?.find(item => item.name === activeTab)
+      const ratesData = data?.progressRates[activeTab] || Object.values(data?.progressRates)[0] || []
+
+      setFund(fund)
+      setRates(ratesData)
+    }
+  }, [data])
 
   useEffect(() => {
     setCurrentPage(1);
