@@ -1,12 +1,9 @@
-import CIcon from '@coreui/icons-react'
+import { cilCheck } from '@coreui/icons';
+import CIcon from '@coreui/icons-react';
+import { CProgress, CProgressStacked } from '@coreui/react';
+import React from 'react';
 
-import { cilCheck, cilFlagAlt } from '@coreui/icons'
-import { CCard, CCardBody, CCardHeader, CProgress } from '@coreui/react'
-
-import React from 'react'
-import QualityObjectives from './quality-objectives'
-
-const objectivesExample = [
+const defaultProps = [
   {
     id: 0, label: 'Absorb', quarterlies: [
       {
@@ -33,12 +30,9 @@ const objectivesExample = [
     }
   },
 ];
-const progressGroupExample = [
-  { title: 'Total Acommplished', icon: cilCheck, value: 53 },
-  { title: 'Total Target', icon: cilFlagAlt, value: 70 },
-]
-function ProgrssSummary({ summary }) {
-  return (
+
+export function ProgressSummary({ summary }) {
+  return summary?.length > 0 && (
     <>
       {
         summary.map((item, index) => (
@@ -46,7 +40,7 @@ function ProgrssSummary({ summary }) {
             <div className="progress-group-header">
               <CIcon className="me-2" icon={item.icon} size="lg" />
               <span>{item.title}</span>
-              <span className="ms-auto fw-semibold">{item.value}</span>
+              <span className="ms-auto fw-semibold">{item.value}%</span>
             </div>
             <div className="progress-group-bars">
               {item.progress && (
@@ -60,39 +54,119 @@ function ProgrssSummary({ summary }) {
   )
 }
 
-export default function ObjectivesOverview({
-  data: {
-    objectives = objectivesExample,
-    progressGroup = progressGroupExample,
-    last_updated = (new Date()).toLocaleString(),
-  } = {},
-  loading = false,
-}) {
-
+export function ObjectiveCard({ item, index }) {
   return (
-    <CCard className="mb-4">
-      <CCardHeader className='d-flex justify-content-between items-align-center'>
-        <div>
-          <h4>Objectives Overview</h4>
-          {
-            last_updated && (
-              <span className="small text-muted">Last Updated: {last_updated}</span>
-            )
-          }
+    <div className="progress-group mb-4"
+      key={`${index}-${item.index}`}
+    >
+      <div className="progress-group-bars">
+        <div className="d-flex items-align-center gap-2">
+          <h6 className='text-body-secondary'>
+            {index + 1}.
+          </h6>
+          <h6>
+            {item.name}
+          </h6>
         </div>
-        {loading && (
-          <div className="spinner-border text-primary float-end" role="status">
-            <span className="visually-hidden">Loading...</span>
+
+        {item.quarterlies.map((quarter, index) => {
+          let color = 'success';
+          let percent = (quarter.accomplishment / quarter.target) * 100;
+          if (percent < 50) {
+            color = 'danger';
+          } else if (percent < 100) {
+            color = 'warning';
+          }
+          return (
+            <CProgress
+              key={`${index}-${quarter.index}`}
+              value={percent}
+              color={color}
+              className="mb-1"
+            >
+              <span
+                className="text-body-secondary small"
+                style={{
+                  justifyContent: 'end',
+                  itemAlign: 'center',
+                  display: 'flex',
+                  gap: '0.5rem',
+                }}
+              >
+                <strong>
+                  {quarter.accomplishment} / {quarter.target}
+                </strong>
+                {
+                  percent >= 100 && (
+                    <CIcon icon={cilCheck} />
+                  )
+                }
+              </span>
+            </CProgress>
+          );
+
+        })}
+        <div className="d-flex justify-content-between">
+          <div className="text-body-secondary small">
+            Accomplishment - {item.total.accomplishment} / {item.total.target}
           </div>
-        )
-        }
-      </CCardHeader>
-      <CCardBody>
+        </div>
+        <CProgressStacked>
+          {item.quarterlies.map((quarter, index) => {
+            let color = 'success';
+            if (item.total.accomplishment < item.total.target) {
+              color = 'warning';
+            }
+            if (item.total.accomplishment < item.total.target / 2) {
+              color = 'danger';
+            }
+            let percent = (quarter.accomplishment / item.total.target) * 100;
 
-        <ProgrssSummary summary={progressGroup} />
-        <QualityObjectives objectives={objectives} />
+            return (
+              <CProgress
+                key={`${index}-${quarter.index}`}
+                value={percent}
+                color={color}
+                className="mb-1"
+              >
+                <span
+                  className="text-body-secondary small"
+                  style={{
+                    justifyContent: 'end',
+                    itemAlign: 'center',
+                    display: 'flex',
+                    gap: '0.5rem',
+                  }}
+                >
+                  <strong>
+                    {/* {quarter.accomplishment} | */}
+                  </strong>
+                  {
+                    percent >= 100 && (
+                      <CIcon icon={cilCheck} />
+                    )
+                  }
+                </span>
+              </CProgress>
+            );
+          })}
+          &nbsp;{parseFloat((item.total.accomplishment / item.total.target) * 100).toFixed(2)}%
+        </CProgressStacked>
+      </div>
+    </div>)
+}
 
-      </CCardBody>
-    </CCard>
+
+export default function QualityObjectives({
+  objectives = defaultProps,
+}) {
+  return (
+    <>
+      {objectives.map((item, index) => (
+        <ObjectiveCard item={item} index={index} key={index} />
+      ))}
+    </>
   )
 }
+
+
