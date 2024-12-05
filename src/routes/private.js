@@ -1,7 +1,7 @@
 import React from 'react'
 import DashboardLayout from '../layout/DashboardLayout.js'
 import Dashboard from '../views/dashboard/Dashboard.js'
-import Sector from '../views/dashboard/Sector.js'
+import Sector from '../views/dashboard/sectors'
 
 const privateRoutes = [
   {

@@ -1,9 +1,10 @@
 import React from 'react'
 
-import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
-import BudgetChart from './budget/budget'
-import ObjectivesOverview from './objectives/index'
+import BudgetChart from './budget'
+
+// import WidgetsBrand from '../widgets/WidgetsBrand'
+// import ObjectivesOverview from './objectives/index'
 
 const Dashboard = () => {
   return (
@@ -13,10 +14,10 @@ const Dashboard = () => {
 
       {/* TRAFFIC/LINE CHART */}
       <BudgetChart />
-    
+
 
       {/* <ObjectivesOverview /> */}
-      
+
     </>
   )
 }

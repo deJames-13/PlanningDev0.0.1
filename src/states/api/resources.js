@@ -9,12 +9,16 @@ const resources = [
     'budget-annual',
     'particular',
     'particular-value',
-].map(resource => {
-    return {
-        [resource]: apiSlice.injectEndpoints({
-            endpoints: resourceBuilder(resource)
-        })
-    }
-});
+];
 
-export default resources;
+const resourceEndpoints = resources.reduce((acc, resource) => {
+    const endpoints = resourceBuilder(resource);
+    return {
+        ...acc,
+        [resource]: apiSlice.injectEndpoints({
+            endpoints,
+        }),
+    };
+}, {});
+
+export default resourceEndpoints;
