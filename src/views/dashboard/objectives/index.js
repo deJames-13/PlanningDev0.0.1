@@ -40,7 +40,7 @@ export function ProgressSummary({ summary }) {
             <div className="progress-group-header">
               <CIcon className="me-2" icon={item.icon} size="lg" />
               <span>{item.title}</span>
-              <span className="ms-auto fw-semibold">{item.value}%</span>
+              <span className="ms-auto fw-semibold">{item.value} {item?.progress ? '%' : ''}  </span>
             </div>
             <div className="progress-group-bars">
               {item.progress && (

@@ -1,4 +1,4 @@
-import { cilCheck, cilFlagAlt } from '@coreui/icons';
+import { cilCheck, cilCheckCircle, cilFlagAlt } from '@coreui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetObjMutation } from 'src/states/api/charts';
@@ -15,9 +15,9 @@ const transformData = (data) => {
     return {
         objectives: data,
         progressGroup: [
-            { title: '', icon: cilCheck, value: parseFloat((totalAccomplished / totalTarget * 100).toFixed(2)), progress: true },
-            { title: 'Total Acommplished', icon: cilFlagAlt, value: totalAccomplished, },
+            { title: 'Total Acommplished', icon: cilCheckCircle, value: totalAccomplished, },
             { title: 'Total Target', icon: cilFlagAlt, value: totalTarget, },
+            { title: '', icon: cilCheck, value: parseFloat((totalAccomplished / totalTarget * 100).toFixed(2)), progress: true },
         ],
         last_updated: (new Date()).toLocaleString()
     }

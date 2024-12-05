@@ -4,6 +4,7 @@ import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react';
 import { useEffect, useState } from 'react';
 import useObjectiveCharter from '../hooks/useObjectiveCharter';
 import QualityObjectives, { ProgressSummary } from '../objectives/index';
+import SectorActions from './sector-actions';
 
 export default function ObjectivesOverview({ name }) {
   const { data, setData, isLoading, fetchtData } = useObjectiveCharter({ name });
@@ -48,19 +49,22 @@ export default function ObjectivesOverview({ name }) {
         }
       </CCardHeader>
       <CCardBody>
-        <CRow>
+        <CRow className={`flex-column-reverse flex-md-row`}>
           <CCol
+            xs={12}
+            md={6}
             style={{
-              height: '100vh',
+              height: '50vh',
               overflowY: 'auto',
             }}
-
             className={`d-flex flex-column ${reversed ? 'flex-column-reverse' : ''}`}
           >
             {data?.objectives?.length > 0 && <QualityObjectives objectives={data.objectives} />}
           </CCol>
-          <CCol>
+          <CCol xs={12} md={6} className='flex-column-reverse flex-md-row'>
             {data?.progressGroup && <ProgressSummary summary={data.progressGroup} />}
+            <hr />
+            <SectorActions />
           </CCol>
         </CRow>
       </CCardBody>
