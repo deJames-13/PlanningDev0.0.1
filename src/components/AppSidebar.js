@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTheme } from 'src/slices/theme';
+import { setTheme } from 'src/states/slices/theme';
 
 import {
   CCloseButton,
@@ -14,7 +14,7 @@ import {
 
 
 import logo from 'src/assets/images/logo.png';
-import navigation from './_nav;
+import navigation from './_nav';
 import { AppSidebarNav } from './AppSidebarNav';
 
 const AppSidebar = () => {

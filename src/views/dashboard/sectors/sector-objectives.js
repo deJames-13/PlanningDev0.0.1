@@ -3,13 +3,13 @@ import React from 'react';
 import ObjectivesOverview from '../objectives/index';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetObjMutation } from 'src/api/objective';
+import { useGetObjMutation } from 'src/states/api/objective';
 import {
   getObjectiveFailure,
   getObjectiveStart,
   getObjectiveSuccess,
   setSector,
-} from 'src/slices/objective';
+} from 'src/states/slices/objective';
 
 const transformData = (data) => {
   let totalAccomplished = data.reduce((acc, curr) => acc + curr.total.accomplishment, 0);

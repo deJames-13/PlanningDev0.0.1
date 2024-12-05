@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetBARMutation } from 'src/api/bar';
-import { setBarData } from 'src/slices/bar';
+import { useGetBARMutation } from 'src/states/api/bar';
+import { setBarData } from 'src/states/slices/bar';
 
 export default function useGetBAR() {
     const dispatch = useDispatch();

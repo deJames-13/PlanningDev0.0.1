@@ -2,14 +2,14 @@ import React from 'react';
 
 import { getStyle } from '@coreui/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetBudgetMutation } from 'src/api/budget';
+import { useGetBudgetMutation } from 'src/states/api/budget';
 
 import {
   getBudgetFailure,
   getBudgetStart,
   getBudgetSuccess,
   setSector,
-} from 'src/slices/budget';
+} from 'src/states/slices/budget';
 
 const random = () => Math.round(Math.random() * 100)
 const defaultLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']

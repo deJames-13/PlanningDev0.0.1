@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { startLoading, stopLoading } from './slices/loading';
+import { startLoading, stopLoading } from '../slices/loading.js';
 const API = import.meta.env.VITE_APPSCRIPT_URL;
 
 const baseQuery = fetchBaseQuery({

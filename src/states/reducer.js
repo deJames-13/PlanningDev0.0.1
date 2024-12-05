@@ -1,5 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { apiSlice } from './api';
+import { apiSlice } from './api/index';
 import barReducer from './slices/bar';
 import budgetReducer from './slices/budget';
 import loadingReducer from './slices/loading';

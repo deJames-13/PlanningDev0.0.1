@@ -1,8 +1,8 @@
-import { apiSlice } from '../api.js';
+import { apiSlice } from './index';
 
 export const budgetApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-    getBudget: builder.mutation({
+        getBudget: builder.mutation({
             query: (name) => {
                 let url = '?route=budgets';
                 if (name && name !== 'all') {
@@ -13,7 +13,7 @@ export const budgetApiSlice = apiSlice.injectEndpoints({
                     method: 'GET',
                 }
             },
-        }), 
+        }),
     })
 });
 

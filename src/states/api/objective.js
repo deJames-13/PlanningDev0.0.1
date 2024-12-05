@@ -1,8 +1,8 @@
-import { apiSlice } from '../api.js';
+import { apiSlice } from './index';
 
 export const objectiveApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-    getObj: builder.mutation({
+        getObj: builder.mutation({
             query: (name) => {
                 let url = `?route=obj&name=${name}`;
                 return {
@@ -10,7 +10,7 @@ export const objectiveApiSlice = apiSlice.injectEndpoints({
                     method: 'GET',
                 }
             },
-        }), 
+        }),
     })
 });
 
