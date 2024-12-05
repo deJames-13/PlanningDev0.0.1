@@ -64,12 +64,12 @@ export default [
     {
         element: <BarDataForm />,
         name: 'New Report',
-        path: '/dashboard/bar/add',
+        path: '/dashboard/bar-data/add',
     },
     {
         element: <BarDataTable />,
         name: 'Reports Table',
-        path: '/dashboard/bar/table',
+        path: '/dashboard/bar-data/table',
     },
     // BAR DATA: Particulars
     {

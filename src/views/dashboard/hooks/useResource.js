@@ -1,17 +1,26 @@
+import * as changeCase from "change-case";
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import resourceEndpoints from 'src/states/api/resources.js';
 
+
 export default function useResource(resourceName) {
+    const nav = useNavigate();
     // MUTATIONS ########################################################
-    const resource = resourceEndpoints[resourceName];
-    const [index] = resource[`use${resourceName.charAt(0).toUpperCase() + resourceName.slice(1)}IndexMutation`]();
-    const [thrashed] = resource[`use${resourceName.charAt(0).toUpperCase() + resourceName.slice(1)}ThrashedMutation`]();
-    const [all] = resource[`use${resourceName.charAt(0).toUpperCase() + resourceName.slice(1)}AllMutation`]();
-    const [show] = resource[`use${resourceName.charAt(0).toUpperCase() + resourceName.slice(1)}ShowMutation`]();
-    const [store] = resource[`use${resourceName.charAt(0).toUpperCase() + resourceName.slice(1)}StoreMutation`]();
-    const [update] = resource[`use${resourceName.charAt(0).toUpperCase() + resourceName.slice(1)}UpdateMutation`]();
-    const [destroy] = resource[`use${resourceName.charAt(0).toUpperCase() + resourceName.slice(1)}DestroyMutation`]();
-    const [restore] = resource[`use${resourceName.charAt(0).toUpperCase() + resourceName.slice(1)}RestoreMutation`]();
+    const camelCaseName = changeCase.camelCase(resourceName);
+    const kebabCaseName = changeCase.kebabCase(resourceName);
+    const pascalCaseName = changeCase.pascalCase(resourceName);
+    const capitalizeName = changeCase.capitalCase(resourceName);
+    const resource = resourceEndpoints[camelCaseName];
+
+    const [index] = resource[`use${pascalCaseName}IndexMutation`]();
+    const [thrashed] = resource[`use${pascalCaseName}ThrashedMutation`]();
+    const [all] = resource[`use${pascalCaseName}AllMutation`]();
+    const [show] = resource[`use${pascalCaseName}ShowMutation`]();
+    const [store] = resource[`use${pascalCaseName}StoreMutation`]();
+    const [update] = resource[`use${pascalCaseName}UpdateMutation`]();
+    const [destroy] = resource[`use${pascalCaseName}DestroyMutation`]();
+    const [restore] = resource[`use${pascalCaseName}RestoreMutation`]();
     // MUTATIONS END ####################################################
 
     // STATES ########################################################
@@ -20,6 +29,9 @@ export default function useResource(resourceName) {
         columns: [],
         data: []
     });
+    const tableStates = ['index', 'thrashed', 'all'];
+    const [tableState, setTableState] = React.useState(tableStates[0]);
+    const [nextTableState, setNextTableState] = React.useState(tableStates[1]);
     const [current, setCurrent] = React.useState(null);
     const [selected, setSelected] = React.useState([]);
     const [thrashedData, setThrashedData] = React.useState([]);
@@ -82,21 +94,115 @@ export default function useResource(resourceName) {
 
     // STATES END ####################################################
 
+    // EVENTS ########################################################
+
+    const onToggleTable = (state) => {
+        if (!state) state = tableStates[0];
+        const idx = tableStates.indexOf(state);
+        const nextIdx = idx + 1 === tableStates.length ? 0 : idx + 1;
+        const nextState = tableStates[nextIdx];
+        setNextTableState(nextState);
+        setTableState(state);
+
+        if (state === 'index') {
+            fetchDatas();
+        } else if (state === 'thrashed') {
+            fetchThrashed();
+        } else if (state === 'all') {
+            fetchAll();
+        }
+    }
+
+    const onStore = async (data) => {
+        return doStore(data).then((response) => {
+            fetchDatas();
+            return response;
+        });
+    }
+
+    const onUpdate = async (id, data) => {
+        return doUpdate(id, data).then((response) => {
+            fetchDatas();
+            return response;
+        });
+    }
+
+    const onDestroy = async (id) => {
+        return doDestroy(id).then((response) => {
+            fetchDatas();
+            return response;
+        });
+    }
+
+    const onRestore = async (id) => {
+        return doRestore(id).then((response) => {
+            fetchDatas();
+            return response;
+        });
+    }
+
+
+
+    // EVENTS END ####################################################
+
+    // NAVIGATIONS ########################################################
+    const toForm = (id = null) => {
+        if (id) {
+            return nav(`/dashboard/${kebabCaseName}/edit/${id}`);
+        }
+        return nav(`/dashboard/${kebabCaseName}/add`);
+    }
+    const toView = (id) => {
+        nav(`/dashboard/${kebabCaseName}/view/${id}`);
+    }
+    // NAVIGATIONS END ####################################################
+
+
+
+
     return {
-        fetchDatas,
-        fetchThrashed,
-        fetchAll,
-        fetchData,
-        doStore,
-        doUpdate,
-        doDestroy,
-        doRestore,
+        names: {
+            camelCaseName,
+            kebabCaseName,
+            pascalCaseName,
+            capitalizeName,
+        },
+        actions: {
+            fetchDatas,
+            fetchThrashed,
+            fetchAll,
+            fetchData,
+            doStore,
+            doUpdate,
+            doDestroy,
+            doRestore
+        },
         // STATES
-        data,
-        current,
-        selected,
-        thrashedData,
-        table,
-        setTable,
+        states: {
+            data,
+            current,
+            selected,
+            thrashedData,
+            table,
+            tableState,
+            nextTableState,
+            setTable,
+            setCurrent,
+            setSelected,
+            setTableState
+        },
+        // EVENTS
+        events: {
+            onToggleTable,
+            onStore,
+            onUpdate,
+            onDestroy,
+            onRestore
+        },
+        // NAVIGATIONS
+        navigate: {
+            toForm,
+            toView
+        }
     }
 }

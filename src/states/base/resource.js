@@ -1,10 +1,8 @@
+import * as changeCase from "change-case";
+
 export default function resourceBuilder(resource) {
-    let name = resource.split('-').map((word, idx) => {
-        if (idx === 0) {
-            return word;
-        }
-        return word.charAt(0).toUpperCase() + word.slice(1);
-    }).join('');
+    let name = changeCase.camelCase(resource);
+
     return (builder) => ({
         [`${name}Index`]: builder.mutation({
             query: (qStr) => ({

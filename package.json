@@ -21,6 +21,7 @@
     "@coreui/utils": "^2.0.2",
     "@popperjs/core": "^2.11.8",
     "@reduxjs/toolkit": "^2.3.0",
+    "change-case": "^5.4.4",
     "chart.js": "^4.4.4",
     "chartjs-plugin-datalabels": "^2.2.0",
     "classnames": "^2.5.1",

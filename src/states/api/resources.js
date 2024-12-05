@@ -1,3 +1,4 @@
+import * as changeCase from "change-case";
 import resourceBuilder from '../base/resource';
 import { apiSlice } from './index';
 
@@ -13,16 +14,8 @@ const resources = [
 ];
 
 const resourceEndpoints = resources.reduce((acc, resource) => {
-    let name = resource.split('-').map((word, idx) => {
-        if (idx === 0) {
-            return word;
-        }
-        return word.charAt(0).toUpperCase() + word.slice(1);
-    }).join('');
+    let name = changeCase.camelCase(resource);
     const endpoints = resourceBuilder(resource);
-
-
-
     return {
         ...acc,
         [name]: apiSlice.injectEndpoints({

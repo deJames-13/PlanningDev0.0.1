@@ -55,13 +55,13 @@ export default [
             {
                 component: CNavItem,
                 name: 'View Table',
-                to: '/dashboard/bar/table',
+                to: '/dashboard/bar-data/table',
                 icon: <CIcon icon={cilSpreadsheet} customClassName="nav-icon" />,
             },
             {
                 component: CNavItem,
                 name: 'Append Data',
-                to: '/dashboard/bar/add',
+                to: '/dashboard/bar-data/add',
                 icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
             },
         ]

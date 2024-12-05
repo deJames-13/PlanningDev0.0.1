@@ -6,7 +6,7 @@ export default (data) => {
             {
                 cell: (row) => <CFormCheck
                     color='primary'
-                    id={`barData_${row.id}`}
+                    id={`particular_${row.id}`}
                     style={{
                         borderColor: 'primary',
                     }}

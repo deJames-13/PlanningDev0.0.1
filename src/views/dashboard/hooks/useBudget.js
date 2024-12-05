@@ -1,6 +1,6 @@
-import React from 'react'
+import useResource from './useResource';
 
 export default function useBudget() {
-    return {}
+    return useResource('budgets')
 
 }

@@ -1,5 +1,6 @@
-import React from 'react'
+import useResource from './useResource';
 
-export default function useObjective() {
-    return {}
+export default function useObjectives() {
+    return useResource('objectives')
+
 }
