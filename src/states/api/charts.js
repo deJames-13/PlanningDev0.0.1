@@ -1,33 +1,27 @@
 import { apiSlice } from './index';
-
+let resource = 'charts';
 const chartApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getBAR: builder.mutation({
-            query: (name) => {
-                let url = '?route=bar1';
+            query: (qStr) => {
                 return {
-                    url: url,
+                    url: `${resource}/bar1${qStr ? `?${qStr}` : ''}`,
                     method: 'GET',
                 }
             },
         }),
         getBudget: builder.mutation({
-            query: (name) => {
-                let url = '?route=budgets';
-                if (name && name !== 'all') {
-                    url = `?route=budget&name=${name}`;
-                }
+            query: (qStr) => {
                 return {
-                    url: url,
+                    url: `${resource}/budgets${qStr ? `?${qStr}` : ''}`,
                     method: 'GET',
                 }
             },
         }),
         getObj: builder.mutation({
-            query: (name) => {
-                let url = `?route=obj&name=${name}`;
+            query: (qStr) => {
                 return {
-                    url: url,
+                    url: `${resource}/obj${qStr ? `?${qStr}` : ''}`,
                     method: 'GET',
                 }
             },

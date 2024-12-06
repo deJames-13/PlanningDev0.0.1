@@ -9,7 +9,7 @@ import 'src/scss/style.scss'
 
 
 const App = () => {
-  const { isColorModeSet, setColorMode } = useColorModes('dashboard-theme')
+  const { isColorModeSet, setColorMode, colorMode } = useColorModes('dashboard-theme')
   const { colorMode: storedTheme } = useSelector((state) => state.theme)
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.href.split('?')[1])
@@ -17,7 +17,9 @@ const App = () => {
     if (theme) {
       setColorMode(theme)
     }
-
+    if (storedTheme !== colorMode) {
+      setColorMode(storedTheme)
+    }
     if (isColorModeSet()) {
       return
     }
