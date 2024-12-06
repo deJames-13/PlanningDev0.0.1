@@ -2,15 +2,6 @@ import React from 'react';
 import FormikForm from 'src/components/form';
 import * as Yup from 'yup';
 
-const CustomSelectComponent = ({ field, form, ...props }) => {
-    return (
-        <select {...field} {...props}>
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
-        </select>
-    );
-}
-
 const ExampleForm = () => {
     const initialValues = {
         name: '',

@@ -9,6 +9,17 @@ const FieldWrapper = ({ field }) => {
             let { options, ...props } = field;
             FieldComponent = <FormikSelect field={props} options={options} />;
             break;
+        case 'textarea':
+            FieldComponent = (
+                <Field
+                    as="textarea"
+                    name={field.name}
+                    id={field.name}
+                    className="form-control"
+                    {...field.props}
+                />
+            );
+            break;
         default:
             FieldComponent = (
                 <Field
