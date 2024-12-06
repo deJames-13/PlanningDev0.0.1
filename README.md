@@ -1,5 +1,9 @@
 # TODO List
 
+- [ ] Charts fallback display (Skeleton for empty datasets)
+- [ ] Objectives fallback display
+- [ ] Public Page BAR1 Data sets fallback display
+
 - [ ] Departments Form
     - [ ] Add, Edit Delete, View
 - [ ] Departments Table

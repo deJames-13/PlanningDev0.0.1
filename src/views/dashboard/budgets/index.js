@@ -222,7 +222,7 @@ export default function BudgetChart({
           </CRow>
           {/* Pagination Controls */}
           {
-            rates?.length > itemsPerPage && (
+            fund?.datasets?.length > itemsPerPage && (
               <div className="d-flex justify-content-between mt-3">
                 <button
                   className="btn btn-primary"
@@ -234,7 +234,7 @@ export default function BudgetChart({
                 <span>Page {currentPage}</span>
                 <button
                   className="btn btn-primary"
-                  disabled={rates && currentPage * itemsPerPage >= rates.length && fund && currentPage * itemsPerPage >= fund.datasets.length}
+                  disabled={fund?.datasets && currentPage * itemsPerPage >= fund?.datasets?.length && currentPage * itemsPerPage >= fund.datasets.length}
                   onClick={() => setCurrentPage(currentPage + 1)}
                 >
                   Next
