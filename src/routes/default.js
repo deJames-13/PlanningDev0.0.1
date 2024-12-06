@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { ExampleTable } from '../components/examples/Table'
+import ExampleForm from '../components/examples/ExampleForm'
 const GuestPage = React.lazy(() => import('../views/public/index'))
 
 const defaultRoutes = [
@@ -11,8 +11,8 @@ const defaultRoutes = [
     name: 'TUP-T'
   },
   {
-    element: <ExampleTable />,
-    path: '/example/table',
+    element: <ExampleForm />,
+    path: '/example/form',
     exact: true,
     name: 'TUP-T'
   },
