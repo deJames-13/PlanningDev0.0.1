@@ -6,6 +6,7 @@ import ParticularForm from './form'
 
 export default function ParticularModal({
     onSubmit = () => { },
+    onCancel = () => { },
     open = false,
     ...props
 }) {
@@ -16,6 +17,12 @@ export default function ParticularModal({
     useEffect(() => {
         setVisible(open)
     }, [open])
+
+    useEffect(() => {
+        if (!visible) {
+            onCancel()
+        }
+    }, [visible])
 
     return (
         <>
@@ -59,7 +66,14 @@ export default function ParticularModal({
                         Close
                     </CButton>
                     <CButton color="primary" onClick={() => {
-                        Object.keys(errors).length === 0 && onSubmit(particular)
+                        if (Object.keys(errors).length === 0) {
+                            onSubmit({
+                                ...particular,
+                                id: props?.particular?.id || null
+                            })
+                            setVisible(false)
+                        }
+
                     }}>Save changes</CButton>
                 </CModalFooter>
             </CModal>

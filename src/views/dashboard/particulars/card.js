@@ -3,7 +3,7 @@ import CIcon from '@coreui/icons-react'
 import { CButton } from '@coreui/react'
 import React from 'react'
 
-export function ValueCard({ value, onRemove = () => { }, onEdit = () => { } }) {
+export function ValueCard({ value, onRemove = () => { }, onEdit = () => { }, noActions = false }) {
     return value && (
         <>
 
@@ -52,14 +52,25 @@ export function ValueCard({ value, onRemove = () => { }, onEdit = () => { } }) {
                         }%
                     </span>
                 </span>
-                <span className='d-flex justify-content-between col-sm-2'>
-                    <CButton color="info" variant='outline' size='sm' onClick={onEdit}>
-                        <CIcon icon={cilPen} />
-                    </CButton>
-                    <CButton color="danger" variant='outline' size='sm' onClick={onRemove}>
-                        <CIcon icon={cilTrash} />
-                    </CButton>
-                </span>
+                {
+                    !noActions &&
+                    <span className='d-flex justify-content-between col-sm-2'>
+                        <span className='d-flex gap-2'>
+                            <CButton
+                                color='info'
+                                onClick={onEdit}
+                            >
+                                <CIcon icon={cilPen} />
+                            </CButton>
+                            <CButton
+                                color='danger'
+                                onClick={onRemove}
+                            >
+                                <CIcon icon={cilTrash} />
+                            </CButton>
+                        </span>
+                    </span>
+                }
             </div>
             <hr className='d-sm-none' />
         </>
@@ -69,13 +80,10 @@ export function ValueCard({ value, onRemove = () => { }, onEdit = () => { } }) {
 export function ValuesCard({
     values,
     setValues,
+    noActions = false,
     editValue = () => { },
     removeValue = () => { }
 }) {
-    const handleRemove = (index) => {
-        setValues((values || []).filter((_, i) => i !== index))
-    }
-
     return values.length > 0 && (
         <>
             <div className='d-none d-sm-block'>
@@ -101,6 +109,7 @@ export function ValuesCard({
             {(values || []).map((value, index) => <ValueCard
                 key={index}
                 value={value}
+                noActions={noActions}
                 onEdit={() => editValue(value)}
                 onRemove={() => removeValue(value)}
             />
@@ -110,19 +119,49 @@ export function ValuesCard({
 }
 
 
-export default function ParticularCard({ particular }) {
+export default function ParticularCard({
+    particular,
+    onEdit = () => { },
+    onRemove = () => { },
+}) {
     return particular && (
         <>
             <div>
-                <h5>
-                    {particular.title}
-                </h5>
-                <p className='text-small'>
-                    {particular.description}
-                </p>
+                <div className="d-flex items-align-center justify-content-between">
+                    <div>
+                        <i className='fs-6'>{particular.id}</i>
+                        <h5>
+                            {particular.title}
+                        </h5>
+                        <p className='text-small'>
+                            {particular.description}
+                        </p>
+                    </div>
+                    <div>
+                        <span className='d-flex justify-content-between col-sm-2'>
+                            <span className='d-flex gap-2'>
+                                <CButton
+                                    color='info'
+                                    onClick={() => onEdit(particular)}
+                                >
+                                    <CIcon icon={cilPen} />
+                                </CButton>
+                                <CButton
+                                    color='danger'
+                                    onClick={() => onRemove(particular)}
+                                >
+                                    <CIcon icon={cilTrash} />
+                                </CButton>
+                            </span>
+                        </span>
+                    </div>
+                </div>
                 <hr />
                 {
-                    <ValuesCard values={particular?.values || []} />
+                    <ValuesCard
+                        values={particular?.values || []}
+                        noActions={true}
+                    />
                 }
                 <hr />
             </div>

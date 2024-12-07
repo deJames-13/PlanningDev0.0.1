@@ -24,13 +24,21 @@ export default function ParticularForm({
     isModal,
     onChanges = () => { },
     onErrors = () => { },
-    value = {},
-
+    particular = {},
 }) {
-    const fields = isModal ? formSchema.fields.map(field => field.name === 'bar_data_id' ? { custom: true } : field) : formSchema.fields
-    const [data, setData] = useState(value)
+    const fields = isModal ?
+        formSchema.fields.map(field => field.name === 'bar_data_id' ? { custom: true } : field)
+        : formSchema.fields
+
+    const initialValues = fields.reduce((acc, field) => {
+        acc[field.name] = particular && particular[`${field?.name}`] || field?.initialValue || '';
+        return acc;
+    }, {})
+
+
+    const [data, setData] = useState(particular)
     const [currentValue, setCurrentValue] = useState(null)
-    const [values, setValues] = useState(value?.values || [])
+    const [values, setValues] = useState(particular?.values || [])
     const saveValue = (value) => {
         const newValues = values.filter(v => v.year !== value.year)
         newValues.push(value)
@@ -70,7 +78,7 @@ export default function ParticularForm({
                     title={title}
                     watchChanges={handleChanges}
                     subtitle={subtitle}
-                    form={{ ...formSchema, fields: fields }}
+                    form={{ ...formSchema, fields: fields, initialValues: initialValues }}
                     noSubmit={isModal}
                 >
                 </ResourceForm>
@@ -113,6 +121,7 @@ export default function ParticularForm({
                         {
                             values.length > 0 ?
                                 <ValuesCard
+                                    noActions={isModal}
                                     values={values}
                                     editValue={(value) => setCurrentValue(value)}
                                     removeValue={(value) => setValues(values.filter(v => v.year !== value.year))}

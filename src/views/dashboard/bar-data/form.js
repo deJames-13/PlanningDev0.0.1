@@ -6,7 +6,7 @@ import {
     CRow,
 } from '@coreui/react'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ResourceForm from '../components/ResourceForm'
 import ParticularCard from '../particulars/card'
 import ParticularForm from '../particulars/modal'
@@ -21,10 +21,21 @@ export default function BarDataForm() {
 
     const saveParticular = (particular) => {
         const newParticulars = particulars.filter(p => p.id !== particular.id)
-        newParticulars.push(particular)
+        newParticulars.push({
+            ...particular,
+            id: `tempId_${new Date().getTime()}`
+        })
         setParticulars(newParticulars)
         setCurrent(null)
     }
+
+    useEffect(() => {
+        setData(prev => ({
+            ...prev,
+            particulars: particulars
+        }))
+    }, [particulars])
+
 
 
     return (
@@ -43,6 +54,7 @@ export default function BarDataForm() {
             >
                 <ResourceForm
                     resource={resource}
+                    onSubmit={handleSubmit}
                     title={'BAR Data Form'}
                     subtitle={'Fill out necessary input for the report'}
                     form={formSchema}
@@ -76,16 +88,21 @@ export default function BarDataForm() {
                         </h4>
                         <ParticularForm
                             onSubmit={saveParticular}
+                            onCancel={() => setCurrent(null)}
                             onRemove={() => setParticulars(prev => prev.filter(p => p.id !== current.id))}
                             onEdit={(particular) => setCurrent(particular)}
-                            value={current}
+                            particular={current}
                             open={current !== null}
 
                         />
                     </CCardHeader>
                     <CCardBody>
                         {
-                            particulars?.length > 0 ? particulars.map((particular, index) => <ParticularCard key={index} particular={particular} />)
+                            particulars?.length > 0 ? particulars.map((particular, index) => <ParticularCard key={index}
+                                particular={particular}
+                                onEdit={() => setCurrent(particular)}
+                                onRemove={() => setParticulars(prev => prev.filter(p => p.id !== particular.id))}
+                            />)
                                 : <h4>No particulars Added.</h4>
                         }
                     </CCardBody>

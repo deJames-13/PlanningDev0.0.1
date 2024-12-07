@@ -52,7 +52,8 @@ export default function FormValuesModal({
     value = {},
     open = false,
     onSubmit = () => { },
-    onCancel = () => { }
+    onCancel = () => { },
+
 }) {
     const [visible, setVisible] = useState(open);
     const [current, setCurrent] = useState(value);
@@ -61,6 +62,12 @@ export default function FormValuesModal({
     useEffect(() => {
         setVisible(open);
     }, [open]);
+
+    useEffect(() => {
+        if (!visible) {
+            onCancel()
+        }
+    }, [visible])
 
     return (
         <>
