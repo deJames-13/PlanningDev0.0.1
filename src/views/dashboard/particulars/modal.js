@@ -1,14 +1,21 @@
 import { cilPlus } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ParticularForm from './form'
 
 export default function ParticularModal({
     onSubmit = () => { },
+    open = false,
     ...props
 }) {
-    const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(open)
+    const [particular, setParticular] = useState(props.value || {})
+    const [errors, setErrors] = useState({})
+
+    useEffect(() => {
+        setVisible(open)
+    }, [open])
 
     return (
         <>
@@ -42,6 +49,8 @@ export default function ParticularModal({
                 >
                     <ParticularForm
                         isModal
+                        onChanges={setParticular}
+                        onErrors={setErrors}
                         {...props}
                     />
                 </CModalBody>
@@ -49,7 +58,9 @@ export default function ParticularModal({
                     <CButton color="secondary" onClick={() => setVisible(false)}>
                         Close
                     </CButton>
-                    <CButton color="primary" onClick={onSubmit}>Save changes</CButton>
+                    <CButton color="primary" onClick={() => {
+                        Object.keys(errors).length === 0 && onSubmit(particular)
+                    }}>Save changes</CButton>
                 </CModalFooter>
             </CModal>
         </>

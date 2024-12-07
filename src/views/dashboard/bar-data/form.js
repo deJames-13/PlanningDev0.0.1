@@ -17,6 +17,14 @@ const resource = 'bar-data'
 export default function BarDataForm() {
     const [data, setData] = useState({})
     const [particulars, setParticulars] = useState([])
+    const [current, setCurrent] = useState(null)
+
+    const saveParticular = (particular) => {
+        const newParticulars = particulars.filter(p => p.id !== particular.id)
+        newParticulars.push(particular)
+        setParticulars(newParticulars)
+        setCurrent(null)
+    }
 
 
     return (
@@ -66,7 +74,14 @@ export default function BarDataForm() {
                         <h4>
                             Particulars
                         </h4>
-                        <ParticularForm />
+                        <ParticularForm
+                            onSubmit={saveParticular}
+                            onRemove={() => setParticulars(prev => prev.filter(p => p.id !== current.id))}
+                            onEdit={(particular) => setCurrent(particular)}
+                            value={current}
+                            open={current !== null}
+
+                        />
                     </CCardHeader>
                     <CCardBody>
                         {

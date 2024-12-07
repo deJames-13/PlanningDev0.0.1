@@ -22,10 +22,9 @@ const subtitle = 'Fill out necessary input for the report'
 // #############################################################################################
 export default function ParticularForm({
     isModal,
-    onSave = () => { },
-    onRemove = () => { },
-    onEdit = () => { },
-    value = {}
+    onChanges = () => { },
+    onErrors = () => { },
+    value = {},
 
 }) {
     const fields = isModal ? formSchema.fields.map(field => field.name === 'bar_data_id' ? { custom: true } : field) : formSchema.fields
@@ -36,8 +35,22 @@ export default function ParticularForm({
         const newValues = values.filter(v => v.year !== value.year)
         newValues.push(value)
         setValues(newValues)
+        setData({ ...data, values: newValues })
+        onChanges({ ...data, values: newValues })
         setCurrentValue(null)
     }
+
+    const handleChanges = (data, errors) => {
+        const newData = {
+            ...data,
+            values: values
+        }
+        setData(newData)
+        onChanges(newData)
+        onErrors(errors)
+    }
+
+
 
     return (
         <CRow
@@ -55,6 +68,7 @@ export default function ParticularForm({
                 <ResourceForm
                     resource={resource}
                     title={title}
+                    watchChanges={handleChanges}
                     subtitle={subtitle}
                     form={{ ...formSchema, fields: fields }}
                     noSubmit={isModal}
