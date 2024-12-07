@@ -15,6 +15,7 @@ export default function ResourceForm({
     title,
     subtitle,
     form,
+    children
 }) {
     const {
         names: { capitalizeName },
@@ -48,7 +49,9 @@ export default function ResourceForm({
                     fields={form.fields}
                     onSubmit={() => { }}
                     onChanges={watchChanges}
-                />
+                >
+                    {children}
+                </FormikForm>
             </CCardBody>
 
         </CCard>

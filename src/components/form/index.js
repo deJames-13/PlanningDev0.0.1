@@ -9,6 +9,7 @@ const FormikForm = ({
     fields = [],
     onSubmit = () => { },
     onChanges = () => { },
+    children,
 }) => {
     return (
         <Formik
@@ -22,7 +23,11 @@ const FormikForm = ({
                 }, [values]);
 
                 return (
-                    <Form>
+                    <Form style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '100%'
+                    }}>
                         {fields.map((field) => (
                             <div key={field.name} className="mb-3">
                                 <label htmlFor={field.name} className="form-label">{field.label}</label>
@@ -30,9 +35,16 @@ const FormikForm = ({
                                 <ErrorMessage name={field.name} component="div" className="text-danger" />
                             </div>
                         ))}
-                        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                            Submit
-                        </button>
+
+                        {children}
+
+                        <div style={{
+                            marginTop: 'auto'
+                        }}>
+                            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                                Submit
+                            </button>
+                        </div>
                     </Form>
                 );
             }}
