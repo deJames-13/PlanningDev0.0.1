@@ -2,22 +2,11 @@ import React from 'react'
 
 import { CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle } from '@coreui/react'
 import BarChart from 'src/components/charts/bar'
+import ChartSkeleton from 'src/components/skeletons/chart'
+
 import { BAR_DATA } from './data'
 
-const chartSkeleton = (
-  <div className="d-flex justify-content-center align-items-center"
-    style={{
-      height: '300px',
-      width: '100%',
-      backgroundColor: 'lightgray'
 
-    }}
-  >
-    <div className="spinner-border" role="status">
-      <span className="sr-only">Loading...</span>
-    </div>
-  </div>
-)
 
 const _indicators = [
   {
@@ -88,7 +77,7 @@ export default function ParticularsCard(
           {chartData && <BarChart
             data={chartData}
             labels="years"
-          /> || chartSkeleton}
+          /> || <ChartSkeleton />}
         </div>
       </div>
       <div className='col-lg-4 pb-10'>

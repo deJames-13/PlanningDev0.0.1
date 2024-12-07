@@ -52,21 +52,19 @@ const AppSidebar = () => {
       onVisibleChange={toggleSidebar}
     >
       <CSidebarHeader className="border-bottom">
-        <Link to="/">
-          <CSidebarBrand className='text-decoration-none'>
-            <div className="d-flex flex align-items-center gap-2 sidebar-brand-full">
-              <CImage src={logo}
-                style={{
-                  height: 32,
-                  aspectRatio: 1,
-                }}
-              />
-              <span className="fw-bold text-wrap sidebar-brand-full">
-                Dashboard
-              </span>
-            </div>
-          </CSidebarBrand>
-        </Link>
+        <CSidebarBrand className='text-decoration-none'>
+          <div className="d-flex flex align-items-center gap-2 sidebar-brand-full">
+            <CImage src={logo}
+              style={{
+                height: 32,
+                aspectRatio: 1,
+              }}
+            />
+            <span className="fw-bold text-wrap sidebar-brand-full">
+              Dashboard
+            </span>
+          </div>
+        </CSidebarBrand>
         <CCloseButton
           className="d-lg-none"
           dark

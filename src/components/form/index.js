@@ -9,6 +9,7 @@ const FormikForm = ({
     fields = [],
     onSubmit = () => { },
     onChanges = () => { },
+    noSubmit,
     children,
 }) => {
     return (
@@ -17,10 +18,10 @@ const FormikForm = ({
             validationSchema={validationSchema || Yup.object({})}
             onSubmit={onSubmit}
         >
-            {({ isSubmitting, values }) => {
+            {({ isSubmitting, values, errors }) => {
                 useEffect(() => {
-                    onChanges(values);
-                }, [values]);
+                    onChanges(values, errors);
+                }, [values, errors]);
 
                 return (
                     <Form style={{
@@ -28,7 +29,7 @@ const FormikForm = ({
                         flexDirection: 'column',
                         height: '100%'
                     }}>
-                        {fields.map((field) => (
+                        {fields.map((field) => !field?.custom && (
                             <div key={field.name} className="mb-3">
                                 <label htmlFor={field.name} className="form-label">{field.label}</label>
                                 <FieldWrapper field={field} />
@@ -38,13 +39,15 @@ const FormikForm = ({
 
                         {children}
 
-                        <div style={{
-                            marginTop: 'auto'
-                        }}>
-                            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                                Submit
-                            </button>
-                        </div>
+                        {
+                            !noSubmit && (
+                                <div>
+                                    <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                                        Submit
+                                    </button>
+                                </div>
+                            )
+                        }
                     </Form>
                 );
             }}

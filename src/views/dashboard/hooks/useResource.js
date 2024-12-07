@@ -1,11 +1,16 @@
 import * as changeCase from "change-case";
 import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import resourceEndpoints from 'src/states/api/resources.js';
+import { setResource } from 'src/states/slices/resources.js';
 
 
 export default function useResource(resourceName) {
     const nav = useNavigate();
+    const dispatch = useDispatch();
+    const { [resourceName]: resourceState = null } = useSelector((state) => state.resources);
+
     // MUTATIONS ########################################################
     const camelCaseName = changeCase.camelCase(resourceName);
     const kebabCaseName = changeCase.kebabCase(resourceName);
@@ -37,8 +42,13 @@ export default function useResource(resourceName) {
     const [thrashedData, setThrashedData] = React.useState([]);
 
     const fetchDatas = React.useCallback(async (qStr) => {
+        if (resourceState) {
+            setData(resourceState);
+        }
+
         return await index(qStr).unwrap().then((response) => {
             setData(response.data);
+            dispatch(setResource({ resource: resourceName, data: response.data }));
             return response;
         });
     }, [index]);
@@ -180,6 +190,7 @@ export default function useResource(resourceName) {
         // STATES
         states: {
             data,
+            resourceState,
             current,
             selected,
             thrashedData,

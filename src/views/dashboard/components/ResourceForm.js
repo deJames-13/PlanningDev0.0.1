@@ -15,6 +15,9 @@ export default function ResourceForm({
     title,
     subtitle,
     form,
+    watchChanges,
+    noSubmit,
+    onSubmit,
     children
 }) {
     const {
@@ -25,14 +28,10 @@ export default function ResourceForm({
         events,
     } = useResource(resource)
 
-    const watchChanges = (values) => {
-        console.log(values)
-    }
-
-
     return (
         <CCard style={{
-            height: '100%'
+            height: '100%',
+            width: '100%'
         }}>
             <CCardHeader>
                 <h4>
@@ -49,6 +48,7 @@ export default function ResourceForm({
                     fields={form.fields}
                     onSubmit={() => { }}
                     onChanges={watchChanges}
+                    noSubmit={noSubmit}
                 >
                     {children}
                 </FormikForm>

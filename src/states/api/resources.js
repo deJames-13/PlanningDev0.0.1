@@ -10,7 +10,6 @@ const resources = [
     'budget-annual',
     'bar-data',
     'particular',
-    'particular-value',
 ];
 
 const resourceEndpoints = resources.reduce((acc, resource) => {

@@ -1,46 +1,53 @@
 import {
-    CButton,
     CCard,
     CCardBody,
-    CCardFooter,
     CCardHeader,
     CCol,
     CRow,
-    CSpinner
 } from '@coreui/react'
 
+import { useState } from 'react'
 import ResourceForm from '../components/ResourceForm'
-import ParticularForm from '../particulars/form'
+import ParticularCard from '../particulars/card'
+import ParticularForm from '../particulars/modal'
+import ChartPreview from './chart-preview'
 import * as formSchema from './form-schema'
 
+const resource = 'bar-data'
 export default function BarDataForm() {
+    const [data, setData] = useState({})
+    const [particulars, setParticulars] = useState([])
+
 
     return (
         <CRow
-            className='gap-4 gap-lg-0'
-            style={{
-                height: '80vh',
-                marginBottom: '1rem'
-            }}
-            xs={1} lg={2}
+            className='gap-4 gap-md-0'
+            style={
+                {
+                    height: '80vh',
+                    overflow: 'auto',
+                    marginBottom: '1rem'
+                }
+            }
         >
             <CCol
                 lg={6}
             >
                 <ResourceForm
-                    resource={'bar-data'}
+                    resource={resource}
                     title={'BAR Data Form'}
                     subtitle={'Fill out necessary input for the report'}
                     form={formSchema}
+                    logChanges={true}
                 >
-                    <CButton className='my-2' color='secondary' variant='outline' style={{
-                        width: '100%'
-                    }}>
-                        Add Particulars
-                    </CButton>
                 </ResourceForm>
             </CCol>
-            <CCol className='gap-4 d-flex flex-column'>
+            <CCol className='gap-4 d-flex flex-column' style={
+                {
+                    height: '100%',
+                    overflow: 'auto'
+                }
+            }>
                 {/* Chart Preview */}
                 <CCard>
                     <CCardHeader>
@@ -49,7 +56,7 @@ export default function BarDataForm() {
                         </h4>
                     </CCardHeader>
                     <CCardBody>
-                        <CSpinner />
+                        <ChartPreview data={data} />
                     </CCardBody>
                 </CCard>
 
@@ -59,9 +66,13 @@ export default function BarDataForm() {
                         <h4>
                             Particulars
                         </h4>
+                        <ParticularForm />
                     </CCardHeader>
                     <CCardBody>
-                        <CSpinner />
+                        {
+                            particulars?.length > 0 ? particulars.map((particular, index) => <ParticularCard key={index} particular={particular} />)
+                                : <h4>No particulars Added.</h4>
+                        }
                     </CCardBody>
                 </CCard>
 

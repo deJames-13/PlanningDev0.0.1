@@ -17,7 +17,7 @@ export default function ObjectiveForm() {
 
     return (
         <CRow
-            className='gap-4 gap-lg-0'
+            className='gap-4 gap-md-0'
             style={{
                 height: '80vh',
                 marginBottom: '1rem'
