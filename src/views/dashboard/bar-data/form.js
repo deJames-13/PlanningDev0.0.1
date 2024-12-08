@@ -24,27 +24,31 @@ export default function BarDataForm() {
     const [current, setCurrent] = useState(null)
 
     const saveParticular = (particular) => {
-        const newParticulars = particulars?.legnth ? particulars.filter(p => p.id !== particular.id) : []
+        const newParticulars = particulars?.length ? particulars.filter(p => p.id !== particular.id) : []
         newParticulars.push({
-            id: `tempId_${new Date().getTime()}`,
             ...particular,
+            id: particular?.id ?? `tempId_${new Date().getTime()}`,
         })
         newParticulars.reverse();
         setParticulars(newParticulars)
+        setData(prev => ({
+            ...prev,
+            particulars: newParticulars
+        }))
+        alert(JSON.stringify(newParticulars))
         setCurrent(null)
     }
 
     useEffect(() => {
-        setData(prev => ({
-            ...prev,
-            particulars: particulars
-        }))
-    }, [particulars])
+        setParticulars(data?.particulars ?? []);
+    }, [data])
 
     const handleChanges = (values) => {
-        setParticulars(values.particulars)
+        setData(prev => ({
+            ...prev,
+            ...values,
+        }))
     }
-
 
     return (
         <CRow

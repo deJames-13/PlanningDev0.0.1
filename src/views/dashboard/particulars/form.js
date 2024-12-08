@@ -42,7 +42,12 @@ export default function ParticularForm({
     }
 
     const handleChanges = (data, errors) => {
-        const newData = { ...data, values }
+        const newData = {
+            ...data,
+            values: values
+        }
+
+        setData(newData)
         onChanges(newData)
         onErrors(errors)
     }
@@ -50,6 +55,8 @@ export default function ParticularForm({
     useEffect(() => {
         setData(particular)
     }, [particular])
+
+
 
     return (
         <CRow
@@ -74,7 +81,6 @@ export default function ParticularForm({
                         fields: isModal ?
                             formSchema.fields.map(field => field.name === 'bar_data_id' ? { custom: true } : field)
                             : formSchema.fields,
-
                         initialValues: formSchema.fields.reduce((acc, field) => {
                             acc[field.name] = data && data[`${field?.name}`] || field?.initialValue || '';
                             return acc;

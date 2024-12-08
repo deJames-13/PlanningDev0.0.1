@@ -109,7 +109,7 @@ export default function useResource(resourceName) {
     const doStore = React.useCallback(async (data) => {
         return await store(data).unwrap().then((response) => {
             setCurrent(response);
-            nav(`/dashboard/${kebabCaseName}/edit/${id}`);
+            nav(`/dashboard/${kebabCaseName}/edit/${response?.data?.id}`);
             return response;
         });
     }, [store]);
