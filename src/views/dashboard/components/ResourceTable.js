@@ -1,4 +1,4 @@
-import { cilHistory, cilPlus, cilTrash } from '@coreui/icons'
+import { cilHistory, cilPen, cilPlus, cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import {
     CButton,
@@ -10,8 +10,10 @@ import {
 } from '@coreui/react'
 
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Table from 'src/components/table'
 import googleSheetStyle from 'src/components/table/googleSheetsStyle'
+import Swal from 'sweetalert2'
 import useResource from '../hooks/useResource'
 
 export default function ResourceTable({
@@ -21,22 +23,76 @@ export default function ResourceTable({
     subtitle,
 }) {
     const {
-        names: { capitalizeName },
+        names: { capitalizeName, kebabCaseName },
         states: { data, table, setTable, tableState, nextTableState, loading },
         actions: { fetchDatas },
         navigate,
-        events,
+        events: { onDestroy },
     } = useResource(resource)
+
+
+    const handleDelete = async (row) => {
+        return await onDestroy(row.id).then(() => {
+            Swal.fire(
+                'Deleted!',
+                'Your data has been deleted.',
+                'success'
+            )
+        }).catch(() => {
+            Swal.fire(
+                'Error!',
+                'An error occurred while deleting your data.',
+                'error'
+            )
+        })
+    }
+
+    const onDelete = (row) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this data!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleDelete(row)
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelled',
+                    'Your data is safe :)',
+                    'error'
+                )
+            }
+        });
+    }
+
 
     useEffect(() => {
         fetchDatas()
     }, [])
+
     useEffect(() => {
         if (data.length && tableData) {
-            setTable(tableData(data));
+            setTable(tableData(data, ({ row }) => {
+                return (
+                    <>
+                        <div>
+                            <Link to={`/dashboard/${kebabCaseName}/edit/` + row.id} className="btn btn-sm btn-info btn-outline">
+                                <CIcon icon={cilPen} />
+                            </Link>
+                            <button type='button' onClick={() => onDelete(row)} className="btn btn-sm btn-danger btn-outline">
+                                <CIcon icon={cilTrash} />
+                            </button>
+                        </div>
+
+                    </>
+                )
+
+            }));
         }
     }, [data])
-
 
     return (
         <CCard>

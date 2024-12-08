@@ -2,6 +2,7 @@ import * as changeCase from "change-case";
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 import resourceEndpoints from 'src/states/api/resources.js';
 import { setResource } from 'src/states/slices/resources.js';
 
@@ -118,6 +119,7 @@ export default function useResource(resourceName) {
         setLoading(true);
         return await store(data).unwrap().then((response) => {
             setCurrent(response);
+            toast.success('Successfully added');
             nav(`/dashboard/${kebabCaseName}/edit/${response?.data?.id}`);
             setLoading(false);
             return response;
@@ -128,6 +130,7 @@ export default function useResource(resourceName) {
         setLoading(true);
         return await update({ id, data }).unwrap().then((response) => {
             setCurrent(response);
+            toast.success('Successfully updated');
             setLoading(false);
             return response;
         });
@@ -137,6 +140,7 @@ export default function useResource(resourceName) {
         setLoading(true);
         return await destroy(id).unwrap().then((response) => {
             setCurrent(response);
+            toast.success('Successfully deleted');
             setLoading(false);
             return response;
         });
@@ -146,6 +150,7 @@ export default function useResource(resourceName) {
         setLoading(true);
         return await restore(id).unwrap().then((response) => {
             setCurrent(response);
+            toast.success('Successfully restored');
             setLoading(false);
             return response;
         });
@@ -188,6 +193,13 @@ export default function useResource(resourceName) {
     const onDestroy = async (id) => {
         return doDestroy(id).then((response) => {
             fetchDatas();
+            setData(data.filter(d => d.id !== id));
+            dispatch(setResource({
+                resource: resourceName,
+                data: data.filter(d => d.id !== id),
+                type: 'list'
+            }));
+
             return response;
         });
     }

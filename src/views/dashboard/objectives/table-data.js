@@ -1,6 +1,6 @@
 
 import { CFormCheck } from '@coreui/react';
-export default (data) => {
+export default (data, actions) => {
     return {
         columns: [
 
