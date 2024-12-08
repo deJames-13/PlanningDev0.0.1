@@ -11,7 +11,12 @@ import {
 
 import ResourceForm from '../components/ResourceForm'
 import * as formSchema from './form-schema'
-
+// CONSTANTS
+// ###################################################################
+const RESOURCE = 'objectives'
+const TITLE = 'Quality Objectives Form'
+const SUBTITLE = 'Fill out necessary input for the report'
+// ###################################################################
 export default function ObjectiveForm() {
 
 
@@ -25,9 +30,9 @@ export default function ObjectiveForm() {
         >
             <CCol>
                 <ResourceForm
-                    resource={'objectives'}
-                    title={'Quality Objectives Form'}
-                    subtitle={'Fill out necessary input for the report'}
+                    resource={RESOURCE}
+                    title={TITLE}
+                    subtitle={SUBTITLE}
                     form={formSchema}
                 >
                 </ResourceForm>

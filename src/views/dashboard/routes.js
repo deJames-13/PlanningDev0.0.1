@@ -1,12 +1,14 @@
 import BarDataForm from './bar-data/form.js'
 import BudgetForm from './budgets/form.js'
 import DepartmentForm from './departments/form.js'
+import ObjectiveForm from './objectives/form.js'
 import ParticularForm from './particulars/form.js'
 import SectorForm from './sectors/form.js'
 
 import BarDataTable from './bar-data/table.js'
 import BudgetTable from './budgets/table.js'
 import DepartmentTable from './departments/table.js'
+import ObjectiveTable from './objectives/table.js'
 import ParticularTable from './particulars/table.js'
 import SectorTable from './sectors/table.js'
 
@@ -26,6 +28,8 @@ export default [
         name: 'Sectors',
         path: '/dashboard/sectors/:sector',
     },
+
+
     // Departments
     {
         element: <DepartmentForm />,
@@ -33,10 +37,17 @@ export default [
         path: '/dashboard/departments/add',
     },
     {
+        element: <DepartmentForm />,
+        name: 'Edit Department',
+        path: '/dashboard/departments/edit/:id',
+    },
+    {
         element: <DepartmentTable />,
         name: 'Departments Table',
         path: '/dashboard/departments/table',
     },
+
+
     // Sectors
     {
         element: <SectorForm />,
@@ -44,10 +55,16 @@ export default [
         path: '/dashboard/sectors/add',
     },
     {
+        element: <SectorForm />,
+        name: 'Edit Sector',
+        path: '/dashboard/sectors/edit/:id',
+    },
+    {
         element: <SectorTable />,
         name: 'Sectors Table',
         path: '/dashboard/sectors/table',
     },
+
 
     // Budgets
     {
@@ -56,10 +73,35 @@ export default [
         path: '/dashboard/budgets/add',
     },
     {
+        element: <BudgetForm />,
+        name: 'Edit Budget',
+        path: '/dashboard/budgets/edit/:id',
+    },
+    {
         element: <BudgetTable />,
         name: 'Budgets Table',
         path: '/dashboard/budgets/table',
     },
+
+
+    // Objectives
+    {
+        element: <ObjectiveForm />,
+        name: 'New Quality Objective',
+        path: '/dashboard/objectives/add',
+    },
+    {
+        element: <ObjectiveForm />,
+        name: 'Edit Quality Objective',
+        path: '/dashboard/objectives/edit/:id',
+    },
+    {
+        element: <ObjectiveTable />,
+        name: 'Quality Objectives',
+        path: '/dashboard/objectives/table',
+    },
+
+
     // BAR DATA
     {
         element: <BarDataForm />,
@@ -76,11 +118,18 @@ export default [
         name: 'Reports Table',
         path: '/dashboard/bar-data/table',
     },
+
+
     // BAR DATA: Particulars
     {
         element: <ParticularForm />,
         name: 'New Particular',
         path: '/dashboard/particulars/add',
+    },
+    {
+        element: <ParticularForm />,
+        name: 'Edit Particular',
+        path: '/dashboard/particulars/edit/:id',
     },
     {
         element: <ParticularTable />,

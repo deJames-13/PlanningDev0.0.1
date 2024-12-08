@@ -13,8 +13,12 @@ import ParticularCard from '../particulars/card'
 import ParticularForm from '../particulars/modal'
 import ChartPreview from './chart-preview'
 import * as formSchema from './form-schema'
-
-const resource = 'bar-data'
+// CONSTANTS
+// ###################################################################
+const RESOURCE = 'bar-data'
+const TITLE = 'BAR Data Form'
+const SUBTITLE = 'Fill out necessary input for the report'
+// ###################################################################
 export default function BarDataForm() {
     const { id = null } = useParams()
 
@@ -70,9 +74,9 @@ export default function BarDataForm() {
                     id={id}
                     form={formSchema}
                     formData={data}
-                    resource={resource}
-                    title={'BAR Data Form'}
-                    subtitle={'Fill out necessary input for the report'}
+                    resource={RESOURCE}
+                    title={TITLE}
+                    subtitle={SUBTITLE}
                     onChanges={handleChanges}
                 >
                 </ResourceForm>

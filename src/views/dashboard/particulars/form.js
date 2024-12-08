@@ -10,15 +10,14 @@ import { useEffect, useState } from 'react'
 import ResourceForm from '../components/ResourceForm'
 import { ValuesCard } from './card'
 import ChartPreview from './chart-preview'
-import * as formSchema from './form-schema'
 import FormValues from './form-values'
 
-
+import * as formSchema from './form-schema'
 // CONSTANTS
 // #############################################################################################
-const resource = 'particular'
-const title = 'Particular Information Form'
-const subtitle = 'Fill out necessary input for the report'
+const RESOURCE = 'particular'
+const TITLE = 'Particular Information Form'
+const SUBTITLE = 'Fill out necessary input for the report'
 // #############################################################################################
 export default function ParticularForm({
     isModal,
@@ -76,10 +75,10 @@ export default function ParticularForm({
                 lg={isModal ? 12 : 6}
             >
                 <ResourceForm
-                    resource={resource}
-                    title={title}
+                    resource={RESOURCE}
+                    title={TITLE}
+                    subtitle={SUBTITLE}
                     onChanges={handleChanges}
-                    subtitle={subtitle}
                     form={{
                         ...formSchema,
                         fields: isModal ?

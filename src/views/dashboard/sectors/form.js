@@ -11,7 +11,12 @@ import {
 
 import ResourceForm from '../components/ResourceForm'
 import * as formSchema from './form-schema'
-
+// CONSTANTS
+// ###################################################################
+const RESOURCE = 'sectors'
+const TITLE = 'Sectoral Offices Form'
+const SUBTITLE = 'Fill out necessary input for the report'
+// ###################################################################
 export default function SectorForm() {
 
     return (
@@ -24,9 +29,9 @@ export default function SectorForm() {
         >
             <CCol>
                 <ResourceForm
-                    resource={'sectors'}
-                    title={'Sectoral Offices Form'}
-                    subtitle={'Fill out necessary input for the report'}
+                    resource={RESOURCE}
+                    title={TITLE}
+                    subtitle={SUBTITLE}
                     form={formSchema}
                 >
                 </ResourceForm>

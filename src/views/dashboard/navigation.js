@@ -43,6 +43,25 @@ export default [
         ]
     },
     {
+        component: CNavGroup,
+        name: 'Manage Objectives',
+        icon: <CIcon icon={cilList} customClassName="nav-icon" />,
+        items: [
+            {
+                component: CNavItem,
+                name: 'View Table',
+                to: '/dashboard/objectives/table',
+                icon: <CIcon icon={cilSpreadsheet} customClassName="nav-icon" />,
+            },
+            {
+                component: CNavItem,
+                name: 'Append Data',
+                to: '/dashboard/objectives/add',
+                icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
+            },
+        ]
+    },
+    {
         component: CNavTitle,
         name: 'Budget Accountability Report (BAR) ',
     },

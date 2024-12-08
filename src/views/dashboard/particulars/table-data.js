@@ -1,6 +1,8 @@
 
 import { CFormCheck } from '@coreui/react';
 export default (data, actions) => {
+    const Actions = actions;
+    let resource = 'particulars';
     return {
         columns: [
             {
@@ -28,10 +30,8 @@ export default (data, actions) => {
             },
             {
                 name: <strong>Title</strong>,
-                selector: row => row.title,
+                selector: row => <a href={`/dashboard/${resource}/edit/` + row.id}>{row.title}</a>,
                 sortable: true,
-
-
             },
             {
                 name: <strong>Description</strong>,

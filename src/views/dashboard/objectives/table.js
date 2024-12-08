@@ -7,7 +7,7 @@ export default function ObjectivesTable() {
         <ResourceTable
             resource='objectives'
             tableData={tableData}
-            title='Objectives Data'
+            title='Quality Objectives'
             subtitle='This is the objectives table'
         />
     )
