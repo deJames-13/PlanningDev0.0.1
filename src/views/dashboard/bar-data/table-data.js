@@ -1,4 +1,6 @@
 
+import { cilPen, cilTrash } from '@coreui/icons';
+import CIcon from '@coreui/icons-react';
 import { CFormCheck } from '@coreui/react';
 export default (data) => {
     return {
@@ -53,6 +55,14 @@ export default (data) => {
                 name: <strong>Actions</strong>,
                 sortable: false,
                 selector: null,
+                cell: (row) => <div>
+                    <a href={'/dashboard/bar-data/edit/' + row.id} className="btn btn-sm btn-info btn-outline">
+                        <CIcon icon={cilPen} />
+                    </a>
+                    <a href={'/dashboard/bar-data/delete/' + row.id} className="btn btn-sm btn-danger btn-outline">
+                        <CIcon icon={cilTrash} />
+                    </a>
+                </div>
             },
         ],
         data: data.map(d => ({

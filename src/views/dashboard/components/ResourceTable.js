@@ -22,7 +22,7 @@ export default function ResourceTable({
 }) {
     const {
         names: { capitalizeName },
-        states: { data, table, setTable, tableState, nextTableState },
+        states: { data, table, setTable, tableState, nextTableState, loading },
         actions: { fetchDatas },
         navigate,
         events,
@@ -37,6 +37,7 @@ export default function ResourceTable({
         }
     }, [data])
 
+
     return (
         <CCard>
             <CCardHeader>
@@ -48,30 +49,39 @@ export default function ResourceTable({
                         {subtitle}
                     </div>
                     <div className="p-3 d-flex items-align-center gap-2">
-                        <CButton onClick={() => navigate.toForm()} color='success' variant='outline'>
-                            <CIcon icon={cilPlus} />
-                            <span style={{
-                                paddingLeft: '3px'
-                            }}>
-                                Add
-                            </span>
-                        </CButton>
-                        <CButton onClick={() => events.onToggleTable(nextTableState)} color='info' variant='outline' className="text-capitalize">
-                            <CIcon icon={cilHistory} />
-                            <span style={{
-                                paddingLeft: '3px'
-                            }}>
-                                {nextTableState === 'index' ? 'Active' : nextTableState}
-                            </span>
-                        </CButton>
-                        <CButton color='danger' variant='outline'>
-                            <CIcon icon={cilTrash} />
-                            <span style={{
-                                paddingLeft: '3px'
-                            }}>
-                                Delete All
-                            </span>
-                        </CButton>
+                        {
+                            !loading &&
+                            <>
+
+                                <CButton onClick={() => navigate.toForm()} color='success' variant='outline'>
+                                    <CIcon icon={cilPlus} />
+                                    <span style={{
+                                        paddingLeft: '3px'
+                                    }}>
+                                        Add
+                                    </span>
+                                </CButton>
+                                <CButton onClick={() => events.onToggleTable(nextTableState)} color='info' variant='outline' className="text-capitalize">
+                                    <CIcon icon={cilHistory} />
+                                    <span style={{
+                                        paddingLeft: '3px'
+                                    }}>
+                                        {nextTableState === 'index' ? 'Active' : nextTableState}
+                                    </span>
+                                </CButton>
+                                <CButton color='danger' variant='outline'>
+                                    <CIcon icon={cilTrash} />
+                                    <span style={{
+                                        paddingLeft: '3px'
+                                    }}>
+                                        Delete All
+                                    </span>
+                                </CButton>
+                            </>
+                        }
+
+                        {loading && <CSpinner />}
+
                     </div>
                 </div>
             </CCardHeader>

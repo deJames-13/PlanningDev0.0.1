@@ -39,13 +39,14 @@ export default function useResource(resourceName) {
     const [nextTableState, setNextTableState] = React.useState(tableStates[1]);
     const [current, setCurrent] = React.useState(null);
     const [selected, setSelected] = React.useState([]);
+    const [loading, setLoading] = React.useState(false);
     const [thrashedData, setThrashedData] = React.useState([]);
 
     const fetchDatas = React.useCallback(async (qStr) => {
         if (resources.list) {
             setData(resources.list);
         }
-
+        setLoading(true);
         return await index(qStr).unwrap().then((response) => {
             setData(response.data);
             dispatch(setResource({
@@ -53,6 +54,7 @@ export default function useResource(resourceName) {
                 data: response.data,
                 type: 'list'
             }));
+            setLoading(false);
             return response;
         });
     }, [index]);
@@ -61,6 +63,7 @@ export default function useResource(resourceName) {
         if (resources.thrashed) {
             setThrashedData(resources.thrashed);
         }
+        setLoading(true);
         return await thrashed(qStr).unwrap().then((response) => {
             setThrashedData(response);
             dispatch(setResource({
@@ -68,6 +71,7 @@ export default function useResource(resourceName) {
                 data: response,
                 type: 'thrashed'
             }));
+            setLoading(false);
             return response;
         });
     }, [thrashed]);
@@ -76,6 +80,7 @@ export default function useResource(resourceName) {
         if (resources.all) {
             setData(resources.all);
         }
+        setLoading(true);
         return await all(qStr).unwrap().then((response) => {
             setData(response);
             dispatch(setResource({
@@ -83,6 +88,7 @@ export default function useResource(resourceName) {
                 data: response,
                 type: 'all'
             }));
+            setLoading(false);
             return response;
         });
     }, [all]);
@@ -91,6 +97,7 @@ export default function useResource(resourceName) {
         if (resources.detail) {
             setCurrent(resources.detail);
         }
+        setLoading(true);
         return await show({ id, qStr }).unwrap().then((response) => {
             setCurrent(response);
             dispatch(setResource({
@@ -98,6 +105,7 @@ export default function useResource(resourceName) {
                 data: response,
                 type: 'detail'
             }));
+            setLoading(false);
             return response;
         }).catch((error) => {
             if (error.status === 404) {
@@ -107,30 +115,38 @@ export default function useResource(resourceName) {
     }, [show]);
 
     const doStore = React.useCallback(async (data) => {
+        setLoading(true);
         return await store(data).unwrap().then((response) => {
             setCurrent(response);
             nav(`/dashboard/${kebabCaseName}/edit/${response?.data?.id}`);
+            setLoading(false);
             return response;
         });
     }, [store]);
 
     const doUpdate = React.useCallback(async (id, data) => {
+        setLoading(true);
         return await update({ id, data }).unwrap().then((response) => {
             setCurrent(response);
+            setLoading(false);
             return response;
         });
     }, [update]);
 
     const doDestroy = React.useCallback(async (id) => {
+        setLoading(true);
         return await destroy(id).unwrap().then((response) => {
             setCurrent(response);
+            setLoading(false);
             return response;
         });
     }, [destroy]);
 
     const doRestore = React.useCallback(async (id) => {
+        setLoading(true);
         return await restore(id).unwrap().then((response) => {
             setCurrent(response);
+            setLoading(false);
             return response;
         });
     }, [restore]);
@@ -228,6 +244,7 @@ export default function useResource(resourceName) {
             table,
             tableState,
             nextTableState,
+            loading,
             setTable,
             setCurrent,
             setSelected,
