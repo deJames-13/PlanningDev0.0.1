@@ -22,7 +22,7 @@ const SmartSelect = ({ options = [], initialValue, count = 10, ...props }) => {
 
     useEffect(() => {
         if (initialValue) {
-            setSelectedOption(options.find(o => o.value === initialValue));
+            setSelectedOption((options || []).find(o => o.value === initialValue));
         }
     }, [initialValue]);
 

@@ -83,12 +83,10 @@ export default function BarDataForm() {
                 >
                 </ResourceForm>
             </CCol>
-            <CCol className='gap-4 d-flex flex-column' style={
-                {
-                    height: '100%',
-                    overflow: 'auto'
-                }
-            }>
+            <CCol className='gap-4 d-flex flex-column' style={{
+                height: '100%',
+                overflow: 'auto'
+            }}>
                 {/* Chart Preview */}
                 <CCard>
                     <CCardHeader>
