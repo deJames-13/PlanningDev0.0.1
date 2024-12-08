@@ -1,20 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+    all: {},
+    list: {},
+    detail: {},
+    thrashed: {},
+    previouslyDeleted: {},
+    previouslyUpdated: {},
+    previouslyCreated: {},
+};
 
 const resourceSlice = createSlice({
     name: "resources",
     initialState,
     reducers: {
         setResource: (state, action) => {
-            const { resource, data } = action.payload;
+            const { resource, data, type = 'all' } = action.payload;
             if (!resource || !data) return;
-            state[resource] = data;
+            state[type][resource] = data;
         },
         deleteResource: (state, action) => {
-            const { resource } = action.payload;
+            const { resource, type } = action.payload;
             if (!resource) return;
-            delete state.resources[resource];
+            state[type][resource] = undefined;
         },
         clear: (state) => {
             state.resources = {};

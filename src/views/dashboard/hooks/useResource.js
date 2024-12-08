@@ -9,7 +9,10 @@ import { setResource } from 'src/states/slices/resources.js';
 export default function useResource(resourceName) {
     const nav = useNavigate();
     const dispatch = useDispatch();
-    const { [resourceName]: resourceState = null } = useSelector((state) => state.resources);
+    const { [resourceName]: resourceList = null } = useSelector((state) => state?.list || {});
+    const { [resourceName]: resourceDetail = null } = useSelector((state) => state?.detail || {});
+    const { [resourceName]: resourceThrashed = null } = useSelector((state) => state?.thrashed || {});
+    const { [resourceName]: resourceAll = null } = useSelector((state) => state?.all || {});
 
     // MUTATIONS ########################################################
     const camelCaseName = changeCase.camelCase(resourceName);
@@ -42,34 +45,62 @@ export default function useResource(resourceName) {
     const [thrashedData, setThrashedData] = React.useState([]);
 
     const fetchDatas = React.useCallback(async (qStr) => {
-        if (resourceState) {
-            setData(resourceState);
+        if (resourceList) {
+            setData(resourceList);
         }
 
         return await index(qStr).unwrap().then((response) => {
             setData(response.data);
-            dispatch(setResource({ resource: resourceName, data: response.data }));
+            dispatch(setResource({
+                resource: resourceName,
+                data: response.data,
+                type: 'list'
+            }));
             return response;
         });
     }, [index]);
 
     const fetchThrashed = React.useCallback(async (qStr) => {
+        if (resourceThrashed) {
+            setThrashedData(resourceThrashed);
+        }
         return await thrashed(qStr).unwrap().then((response) => {
             setThrashedData(response);
+            dispatch(setResource({
+                resource: resourceName,
+                data: response,
+                type: 'thrashed'
+            }));
             return response;
         });
     }, [thrashed]);
 
     const fetchAll = React.useCallback(async (qStr) => {
+        if (resourceAll) {
+            setData(resourceAll);
+        }
         return await all(qStr).unwrap().then((response) => {
             setData(response);
+            dispatch(setResource({
+                resource: resourceName,
+                data: response,
+                type: 'all'
+            }));
             return response;
         });
     }, [all]);
 
     const fetchData = React.useCallback(async (id, qStr) => {
+        if (resourceDetail) {
+            setCurrent(resourceDetail);
+        }
         return await show({ id, qStr }).unwrap().then((response) => {
             setCurrent(response);
+            dispatch(setResource({
+                resource: resourceName,
+                data: response,
+                type: 'detail'
+            }));
             return response;
         });
     }, [show]);
@@ -105,7 +136,6 @@ export default function useResource(resourceName) {
     // STATES END ####################################################
 
     // EVENTS ########################################################
-
     const onToggleTable = (state) => {
         if (!state) state = tableStates[0];
         const idx = tableStates.indexOf(state);
@@ -190,7 +220,6 @@ export default function useResource(resourceName) {
         // STATES
         states: {
             data,
-            resourceState,
             current,
             selected,
             thrashedData,

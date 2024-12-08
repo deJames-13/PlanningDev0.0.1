@@ -76,7 +76,7 @@ export default function ParticularForm({
                 <ResourceForm
                     resource={resource}
                     title={title}
-                    watchChanges={handleChanges}
+                    onChanges={handleChanges}
                     subtitle={subtitle}
                     form={{ ...formSchema, fields: fields, initialValues: initialValues }}
                     noSubmit={isModal}

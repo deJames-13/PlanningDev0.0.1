@@ -67,6 +67,11 @@ export default [
         path: '/dashboard/bar-data/add',
     },
     {
+        element: <BarDataForm />,
+        name: 'Edit Report',
+        path: '/dashboard/bar-data/edit/:id',
+    },
+    {
         element: <BarDataTable />,
         name: 'Reports Table',
         path: '/dashboard/bar-data/table',

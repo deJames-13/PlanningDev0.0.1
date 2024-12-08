@@ -5,11 +5,11 @@ import FieldWrapper from './field';
 
 const FormikForm = ({
     initialValues = {},
-    validationSchema,
     fields = [],
+    noSubmit,
+    validationSchema,
     onSubmit = () => { },
     onChanges = () => { },
-    noSubmit,
     children,
 }) => {
     return (

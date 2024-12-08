@@ -129,7 +129,7 @@ export default function ParticularCard({
             <div>
                 <div className="d-flex items-align-center justify-content-between">
                     <div>
-                        <i className='fs-6'>{particular.id}</i>
+                        <i className='fs-6'>ID: {particular.id}</i>
                         <h5>
                             {particular.title}
                         </h5>

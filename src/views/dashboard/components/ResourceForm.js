@@ -8,26 +8,39 @@ import {
 } from '@coreui/react'
 import FormikForm from 'src/components/form'
 
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import useResource from '../hooks/useResource'
+
+
 export default function ResourceForm({
     resource,
     title,
     subtitle,
     form,
-    watchChanges,
     noSubmit,
-    onSubmit,
+    onChanges = () => { },
+    onSubmit = () => { },
     children
 }) {
     const {
         names: { capitalizeName },
-        states: { data, table, setTable, tableState, nextTableState },
-        actions: { fetchDatas },
-        navigate,
-        events,
+        states: { current },
+        actions: { fetchData, doStore, doUpdate, doDestroy },
     } = useResource(resource)
+    const { id = null } = useParams()
 
+
+
+
+    useEffect(() => {
+        if (id) fetchData(id)
+    }, [id])
+
+    useEffect(() => {
+        if (current?.data)
+            onChanges(current.data)
+    }, [current])
     return (
         <CCard style={{
             height: '100%',
@@ -43,11 +56,15 @@ export default function ResourceForm({
             </CCardHeader>
             <CCardBody>
                 <FormikForm
-                    initialValues={form.initialValues}
+                    initialValues={current?.data ? form.fields.reduce((acc, field) => {
+                        acc[field.name] = current.data[field.name]
+                        return acc
+                    }, {}) : form.initialValues}
+
                     validationSchema={form.validationSchema}
                     fields={form.fields}
-                    onSubmit={() => { }}
-                    onChanges={watchChanges}
+                    onSubmit={onSubmit}
+                    onChanges={onChanges}
                     noSubmit={noSubmit}
                 >
                     {children}

@@ -7,6 +7,7 @@ import {
 } from '@coreui/react'
 
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import ResourceForm from '../components/ResourceForm'
 import ParticularCard from '../particulars/card'
 import ParticularForm from '../particulars/modal'
@@ -15,6 +16,8 @@ import * as formSchema from './form-schema'
 
 const resource = 'bar-data'
 export default function BarDataForm() {
+
+    // STATES
     const [data, setData] = useState({})
     const [particulars, setParticulars] = useState([])
     const [current, setCurrent] = useState(null)
@@ -41,28 +44,27 @@ export default function BarDataForm() {
         console.log(values)
     }
 
+    const handleChanges = (values) => {
+        setParticulars(values.particulars)
+    }
+
 
     return (
         <CRow
             className='gap-4 gap-md-0'
-            style={
-                {
-                    height: '80vh',
-                    overflow: 'auto',
-                    marginBottom: '1rem'
-                }
-            }
-        >
-            <CCol
-                lg={6}
-            >
+            style={{
+                height: '80vh',
+                overflow: 'auto',
+                marginBottom: '1rem'
+            }}>
+            <CCol lg={6}>
                 <ResourceForm
                     resource={resource}
                     onSubmit={handleSubmit}
                     title={'BAR Data Form'}
                     subtitle={'Fill out necessary input for the report'}
+                    onChanges={handleChanges}
                     form={formSchema}
-                    logChanges={true}
                 >
                 </ResourceForm>
             </CCol>
