@@ -9,10 +9,7 @@ import { setResource } from 'src/states/slices/resources.js';
 export default function useResource(resourceName) {
     const nav = useNavigate();
     const dispatch = useDispatch();
-    const { [resourceName]: resourceList = null } = useSelector((state) => state?.list || {});
-    const { [resourceName]: resourceDetail = null } = useSelector((state) => state?.detail || {});
-    const { [resourceName]: resourceThrashed = null } = useSelector((state) => state?.thrashed || {});
-    const { [resourceName]: resourceAll = null } = useSelector((state) => state?.all || {});
+    const resources = useSelector((state) => state?.resources || {});
 
     // MUTATIONS ########################################################
     const camelCaseName = changeCase.camelCase(resourceName);
@@ -45,8 +42,8 @@ export default function useResource(resourceName) {
     const [thrashedData, setThrashedData] = React.useState([]);
 
     const fetchDatas = React.useCallback(async (qStr) => {
-        if (resourceList) {
-            setData(resourceList);
+        if (resources.list) {
+            setData(resources.list);
         }
 
         return await index(qStr).unwrap().then((response) => {
@@ -61,8 +58,8 @@ export default function useResource(resourceName) {
     }, [index]);
 
     const fetchThrashed = React.useCallback(async (qStr) => {
-        if (resourceThrashed) {
-            setThrashedData(resourceThrashed);
+        if (resources.thrashed) {
+            setThrashedData(resources.thrashed);
         }
         return await thrashed(qStr).unwrap().then((response) => {
             setThrashedData(response);
@@ -76,8 +73,8 @@ export default function useResource(resourceName) {
     }, [thrashed]);
 
     const fetchAll = React.useCallback(async (qStr) => {
-        if (resourceAll) {
-            setData(resourceAll);
+        if (resources.all) {
+            setData(resources.all);
         }
         return await all(qStr).unwrap().then((response) => {
             setData(response);
@@ -91,8 +88,8 @@ export default function useResource(resourceName) {
     }, [all]);
 
     const fetchData = React.useCallback(async (id, qStr) => {
-        if (resourceDetail) {
-            setCurrent(resourceDetail);
+        if (resources.detail) {
+            setCurrent(resources.detail);
         }
         return await show({ id, qStr }).unwrap().then((response) => {
             setCurrent(response);
@@ -102,6 +99,10 @@ export default function useResource(resourceName) {
                 type: 'detail'
             }));
             return response;
+        }).catch((error) => {
+            if (error.status === 404) {
+                nav('/404');
+            }
         });
     }, [show]);
 

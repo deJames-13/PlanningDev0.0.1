@@ -41,6 +41,8 @@ export default function ResourceForm({
         if (current?.data)
             onChanges(current.data)
     }, [current])
+
+
     return (
         <CCard style={{
             height: '100%',

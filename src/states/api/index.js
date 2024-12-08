@@ -9,7 +9,7 @@ const baseQuery = fetchBaseQuery({
 });
 
 const _baseQuery = async (args, api, extraOptions) => {
-  console.clear()
+  // console.clear()
   api.dispatch(startLoading());
   try {
     const result = await baseQuery(args, api, extraOptions);

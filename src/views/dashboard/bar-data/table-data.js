@@ -28,7 +28,7 @@ export default (data) => {
             },
             {
                 name: <strong>Title</strong>,
-                selector: row => row.title,
+                selector: row => <a href={"/dashboard/bar-data/edit/" + row.id}>{row.title}</a>,
                 sortable: true,
 
 

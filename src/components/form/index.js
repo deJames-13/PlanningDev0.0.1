@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import FieldWrapper from './field';
 
@@ -17,6 +17,7 @@ const FormikForm = ({
             initialValues={initialValues}
             validationSchema={validationSchema || Yup.object({})}
             onSubmit={onSubmit}
+            enableReinitialize
         >
             {({ isSubmitting, values, errors }) => {
                 useEffect(() => {
