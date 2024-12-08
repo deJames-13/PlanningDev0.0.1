@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom'
 import ResourceForm from '../ResourceForm'
 
 
+import useResourceOptions from '../../hooks/useResourceOptions'
 import * as formSchema from './form-schema'
 // CONSTANTS
 // ###################################################################
@@ -22,6 +23,7 @@ const SUBTITLE = 'Fill out necessary input for the report'
 // ###################################################################
 export default function ObjectiveForm() {
     const { id = null } = useParams()
+    const options = useResourceOptions({ resourceName: 'sectors' })
 
     // ###################################################################
     // TODO: SECTORS DYNAMIC SELECTION 

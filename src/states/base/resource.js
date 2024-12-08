@@ -6,25 +6,25 @@ export default function resourceBuilder(resource) {
     return (builder) => ({
         [`${name}Index`]: builder.mutation({
             query: (qStr) => ({
-                url: `${resource}${qStr ? qStr : ''}`,
+                url: `${resource}${qStr ? `?${qStr}` : ''}`,
                 method: 'GET',
             })
         }),
         [`${name}Thrashed`]: builder.mutation({
             query: (qStr) => ({
-                url: `${resource}/thrashed${qStr ? qStr : ''}`,
+                url: `${resource}/thrashed${qStr ? `?${qStr}` : ''}`,
                 method: 'GET',
             })
         }),
         [`${name}All`]: builder.mutation({
             query: (qStr) => ({
-                url: `${resource}/all${qStr ? qStr : ''}`,
+                url: `${resource}/all${qStr ? `?${qStr}` : ''}`,
                 method: 'GET',
             })
         }),
         [`${name}Show`]: builder.mutation({
             query: ({ id, qStr }) => ({
-                url: `${resource}/${id}${qStr ? qStr : ''}`,
+                url: `${resource}/${id}${qStr ? `?${qStr}` : ''}`,
                 method: 'GET',
             })
         }),

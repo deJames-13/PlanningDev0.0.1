@@ -10,6 +10,7 @@ import FormikForm from 'src/components/form'
 
 import { useCallback, useEffect, useState } from 'react'
 import useResource from '../hooks/useResource'
+import { initialValues } from './budgets/form-schema'
 
 
 export default function ResourceForm({
@@ -76,8 +77,18 @@ export default function ResourceForm({
                         return acc
                     }, {}) : form.initialValues}
 
+                    fields={form.fields.map(field => {
+                        if (field.name === 'sector_id') {
+                            return {
+                                ...field,
+                                initialValue: current?.data?.sector_id,
+                            }
+                        }
+                        return field
+                    })}
+
                     validationSchema={form.validationSchema}
-                    fields={form.fields}
+
                     onSubmit={handleSubmit}
                     onChanges={onChanges}
                     noSubmit={noSubmit}

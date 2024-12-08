@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom'
 import ResourceForm from '../ResourceForm'
 
 
+import useResourceOptions from '../../hooks/useResourceOptions'
 import * as formSchema from './form-schema'
 // CONSTANTS
 // ###################################################################
@@ -22,10 +23,7 @@ const SUBTITLE = 'Fill out necessary input for the report'
 // ###################################################################
 export default function SectorForm() {
     const { id = null } = useParams()
-
-    // ###################################################################
-    // TODO: DEPARTMENTS DYNAMIC SELECTION 
-    // ###################################################################
+    const options = useResourceOptions({ resourceName: 'departments' })
 
     return (
         <CRow

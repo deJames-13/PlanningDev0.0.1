@@ -13,6 +13,7 @@ import { ValuesCard } from './card'
 import ChartPreview from './chart-preview'
 import FormValues from './form-values'
 
+import useResourceOptions from '../../hooks/useResourceOptions'
 import * as formSchema from './form-schema'
 // CONSTANTS
 // #############################################################################################
@@ -27,6 +28,8 @@ export default function ParticularForm({
     particular = {},
 }) {
     const { id = null } = useParams()
+    const options = useResourceOptions({ resourceName: 'bar_data' })
+
 
     const [data, setData] = useState(null)
     const [currentValue, setCurrentValue] = useState(null)
