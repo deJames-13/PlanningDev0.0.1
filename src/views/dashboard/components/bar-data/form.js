@@ -8,7 +8,7 @@ import {
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import ResourceForm from '../components/ResourceForm'
+import ResourceForm from '../ResourceForm'
 import ParticularCard from '../particulars/card'
 import ParticularForm from '../particulars/modal'
 import ChartPreview from './chart-preview'

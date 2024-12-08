@@ -17,7 +17,7 @@ import logo from 'src/assets/images/logo.png';
 import { AppSidebarNav } from './AppSidebarNav';
 
 import { Link } from 'react-router-dom';
-import useNavBar from 'src/hooks/useNavBar';
+import useNavBar from 'src/views/dashboard/hooks/useNavBar';
 import AppSidebarSearch from './AppSidebarSearch';
 
 const AppSidebar = () => {

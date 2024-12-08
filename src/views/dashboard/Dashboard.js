@@ -1,7 +1,7 @@
 import React from 'react'
 
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
-import BudgetChart from './budgets'
+import BudgetChart from './components/budgets'
 
 // import WidgetsBrand from '../widgets/WidgetsBrand'
 

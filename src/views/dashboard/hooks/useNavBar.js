@@ -13,8 +13,8 @@ import {
 import React from 'react'
 import { useSelector } from 'react-redux'
 import AppSidebarSearch from 'src/components/AppSidebarSearch'
-import dashboardNav from 'src/views/dashboard/navigation'
-import { departments } from 'src/views/dashboard/sectors/data'
+import { departments } from '../components/sectors/data'
+import dashboardNav from '../navigation'
 
 
 

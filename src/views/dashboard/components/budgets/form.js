@@ -10,7 +10,7 @@ import {
 } from '@coreui/react'
 
 import { useParams } from 'react-router-dom'
-import ResourceForm from '../components/ResourceForm'
+import ResourceForm from '../ResourceForm'
 
 
 import * as formSchema from './form-schema'

@@ -2,7 +2,7 @@ import { cilCaretBottom, cilCaretTop } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import { CCard, CCardBody, CCardHeader, CCol, CRow, CSpinner } from '@coreui/react';
 import { useEffect, useState } from 'react';
-import useObjectiveCharter from '../hooks/useObjectiveCharter';
+import useObjectiveCharter from '../../hooks/useObjectiveCharter';
 import QualityObjectives, { ProgressSummary } from '../objectives/index';
 import SectorActions from './sector-actions';
 

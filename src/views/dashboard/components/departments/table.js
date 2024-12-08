@@ -1,5 +1,5 @@
 
-import ResourceTable from '../components/ResourceTable'
+import ResourceTable from '../ResourceTable'
 import tableData from './table-data'
 
 export default function DepartmentTable() {

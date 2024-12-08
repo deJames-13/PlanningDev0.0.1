@@ -1,21 +1,21 @@
-import BarDataForm from './bar-data/form.js'
-import BudgetForm from './budgets/form.js'
-import DepartmentForm from './departments/form.js'
-import ObjectiveForm from './objectives/form.js'
-import ParticularForm from './particulars/form.js'
-import SectorForm from './sectors/form.js'
+import BarDataForm from './components/bar-data/form.js'
+import BudgetForm from './components/budgets/form.js'
+import DepartmentForm from './components/departments/form.js'
+import ObjectiveForm from './components/objectives/form.js'
+import ParticularForm from './components/particulars/form.js'
+import SectorForm from './components/sectors/form.js'
 
-import BarDataTable from './bar-data/table.js'
-import BudgetTable from './budgets/table.js'
-import DepartmentTable from './departments/table.js'
-import ObjectiveTable from './objectives/table.js'
-import ParticularTable from './particulars/table.js'
-import SectorTable from './sectors/table.js'
+import BarDataTable from './components/bar-data/table.js'
+import BudgetTable from './components/budgets/table.js'
+import DepartmentTable from './components/departments/table.js'
+import ObjectiveTable from './components/objectives/table.js'
+import ParticularTable from './components/particulars/table.js'
+import SectorTable from './components/sectors/table.js'
 
 
 
 import Dashboard from './Dashboard.js'
-import Sector from './sectors'
+import Sector from './components/sectors'
 
 export default [
     {

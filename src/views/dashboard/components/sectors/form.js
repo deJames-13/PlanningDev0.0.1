@@ -10,19 +10,22 @@ import {
 } from '@coreui/react'
 
 import { useParams } from 'react-router-dom'
-import ResourceForm from '../components/ResourceForm'
+import ResourceForm from '../ResourceForm'
 
 
-import useResource from '../hooks/useResource'
 import * as formSchema from './form-schema'
 // CONSTANTS
 // ###################################################################
-const RESOURCE = 'departments'
-const TITLE = 'Department Form'
+const RESOURCE = 'sectors'
+const TITLE = 'Sectoral Offices Form'
 const SUBTITLE = 'Fill out necessary input for the report'
 // ###################################################################
-export default function DepartmentForm() {
+export default function SectorForm() {
     const { id = null } = useParams()
+
+    // ###################################################################
+    // TODO: DEPARTMENTS DYNAMIC SELECTION 
+    // ###################################################################
 
     return (
         <CRow
@@ -43,6 +46,5 @@ export default function DepartmentForm() {
                 </ResourceForm>
             </CCol>
         </CRow>
-
     )
 }
