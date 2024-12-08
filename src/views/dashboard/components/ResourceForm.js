@@ -8,16 +8,17 @@ import {
 } from '@coreui/react'
 import FormikForm from 'src/components/form'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import useResource from '../hooks/useResource'
 
 
 export default function ResourceForm({
+    form,
+    formData,
     resource,
     title,
     subtitle,
-    form,
     noSubmit,
     onChanges = () => { },
     onSubmit = () => { },
@@ -30,7 +31,18 @@ export default function ResourceForm({
     } = useResource(resource)
     const { id = null } = useParams()
 
+    const handleSubmit = useCallback((values) => {
+        const payload = {
+            id,
+            ...formData,
+            ...values,
+        };
+        if (id)
+            return doUpdate(id, payload)
+        else
+            return doStore(payload)
 
+    }, [formData]);
 
 
     useEffect(() => {
@@ -65,7 +77,7 @@ export default function ResourceForm({
 
                     validationSchema={form.validationSchema}
                     fields={form.fields}
-                    onSubmit={onSubmit}
+                    onSubmit={handleSubmit}
                     onChanges={onChanges}
                     noSubmit={noSubmit}
                 >

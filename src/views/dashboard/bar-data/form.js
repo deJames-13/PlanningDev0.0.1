@@ -39,11 +39,6 @@ export default function BarDataForm() {
         }))
     }, [particulars])
 
-
-    const handleSubmit = (values) => {
-        console.log(values)
-    }
-
     const handleChanges = (values) => {
         setParticulars(values.particulars)
     }
@@ -59,12 +54,12 @@ export default function BarDataForm() {
             }}>
             <CCol lg={6}>
                 <ResourceForm
+                    form={formSchema}
+                    formData={data}
                     resource={resource}
-                    onSubmit={handleSubmit}
                     title={'BAR Data Form'}
                     subtitle={'Fill out necessary input for the report'}
                     onChanges={handleChanges}
-                    form={formSchema}
                 >
                 </ResourceForm>
             </CCol>
