@@ -27,7 +27,7 @@ export default function ResourceTable({
         states: { data, table, setTable, tableState, nextTableState, loading },
         actions: { fetchDatas },
         navigate,
-        events: { onDestroy },
+        events: { onDestroy, onToggleTable },
     } = useResource(resource)
 
 
@@ -117,7 +117,7 @@ export default function ResourceTable({
                                         Add
                                     </span>
                                 </CButton>
-                                <CButton onClick={() => events.onToggleTable(nextTableState)} color='info' variant='outline' className="text-capitalize">
+                                <CButton onClick={() => onToggleTable(nextTableState)} color='info' variant='outline' className="text-capitalize">
                                     <CIcon icon={cilHistory} />
                                     <span style={{
                                         paddingLeft: '3px'

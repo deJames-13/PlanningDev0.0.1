@@ -23,6 +23,16 @@ export const fields = [
         as: 'textarea',
         initialValue: '',
     },
+    {
+        name: 'type',
+        label: 'Type',
+        as: 'select',
+        initialValue: 'division',
+        options: [
+            { value: 'division', label: 'Division' },
+            { value: 'department', label: 'Department' },
+        ],
+    },
 ]
 
 export const validationSchema = Yup.object({

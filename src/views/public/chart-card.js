@@ -33,6 +33,7 @@ export default function ParticularsCard(
   }
 
   React.useEffect(() => {
+    console.log(data);
     if (data?.indicators?.length > 0) {
       setIndicators(data.indicators)
       setCurrentIndicator(data.indicators[0])
@@ -58,7 +59,6 @@ export default function ParticularsCard(
       })
     }
   }, [currentIndicator])
-
 
   return (
     <div className={`row col-lg-12 ${reversed ? 'flex-row-reverse' : ''}`}>
@@ -115,18 +115,21 @@ export default function ParticularsCard(
             const totalAccomplishment = currentIndicator.values.reduce((sum, value) => sum + (parseFloat(value.accomplishment) || 0), 0);
             const percentage = ((totalAccomplishment / totalTarget) * 100).toFixed(2);
             return (
-              <p>
-                Accomplishments show a percentage of <strong>{percentage}%</strong> from the target goal of <strong>
-                  {totalTarget.toFixed(2)}
-                </strong>.
-              </p>
+              <>
+                <hr />
+                <p>
+                  {currentIndicator?.description}
+                </p>
+                <p>
+                  Accomplishments show a percentage of <strong>{percentage}%</strong> from the target goal of <strong>
+                    {totalTarget.toFixed(2)}
+                  </strong>.
+                </p>
+              </>
             );
           })()}
 
           <br />
-          <p>
-            {interpretations}
-          </p>
 
         </div>
       </div>
