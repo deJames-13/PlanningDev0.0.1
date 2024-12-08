@@ -28,7 +28,7 @@ export const fields = [
 
 export const validationSchema = Yup.object({
     title: Yup.string().required('Required'),
-    description: Yup.string().required('Required'),
+    description: Yup.string(),
     type: Yup.string().required('Required'),
 });
 

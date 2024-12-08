@@ -58,6 +58,7 @@ export default function ParticularModal({
                     <ParticularForm
                         isModal
                         onErrors={setErrors}
+                        onChanges={setParticular}
                         {...props}
                     />
                 </CModalBody>

@@ -24,12 +24,12 @@ export default function BarDataForm() {
     const [current, setCurrent] = useState(null)
 
     const saveParticular = (particular) => {
-        const newParticulars = particulars.filter(p => p.id !== particular.id)
+        const newParticulars = particulars?.legnth ? particulars.filter(p => p.id !== particular.id) : []
         newParticulars.push({
             id: `tempId_${new Date().getTime()}`,
             ...particular,
         })
-        newParticulars.reversed();
+        newParticulars.reverse();
         setParticulars(newParticulars)
         setCurrent(null)
     }

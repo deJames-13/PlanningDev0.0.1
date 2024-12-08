@@ -53,7 +53,7 @@ export default function ChartPreview({ data }) {
                                     <CDropdownItem key={index}
                                         onClick={() => setCurrent(particular)}
                                     >
-                                        {particular?.title.split(':')[0].trim()}
+                                        {particular?.title && particular?.title?.split(':')[0].trim()}
                                     </CDropdownItem>
                                 ))}
                             </CDropdownMenu>
