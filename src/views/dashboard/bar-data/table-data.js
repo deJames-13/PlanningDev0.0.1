@@ -43,7 +43,11 @@ export default (data) => {
                 name: <strong>Particulars</strong>,
                 selector: row => row.particulars,
                 sortable: true,
-                cell: c => <span>{c?.particulars?.length > 0 && c.particulars.map(p => p.title).join(', ')}</span>
+                cell: c => (<div>{
+                    c?.particulars?.length > 0 && c.particulars.map((p, i) => <><span>
+                        <a href={'/dashboard/particulars/edit/' + p.id} key={i}>{p.title.split(':')[0].slice(0, 10) + '...'}</a></span><br /></> || <span>No Particulars</span>)
+                }
+                </div>)
             },
             {
                 name: <strong>Actions</strong>,

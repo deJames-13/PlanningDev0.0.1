@@ -35,6 +35,7 @@ export default function ResourceForm({
             id,
             ...formData,
             ...values,
+            action: id ? 'update' : 'store'
         };
         if (id)
             return doUpdate(id, payload)
