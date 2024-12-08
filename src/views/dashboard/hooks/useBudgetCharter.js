@@ -4,6 +4,7 @@ import { getStyle } from '@coreui/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetBudgetMutation } from 'src/states/api/charts';
 
+import { toast } from 'react-toastify';
 import {
   getBudgetFailure,
   getBudgetStart,
@@ -172,6 +173,7 @@ export const useBudgetCharting = (name) => {
       }
     }).catch(e => {
       dispatch(getBudgetFailure(e))
+      toast.error('NOT IMPLEMENTED YET')
     });
   }
 

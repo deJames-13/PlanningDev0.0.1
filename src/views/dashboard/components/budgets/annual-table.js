@@ -23,7 +23,7 @@ export default function AnnualTable({
                 {
                     values.map((item, index) => (
                         <tr key={index}>
-                            <td>{item.year}</td>
+                            <td><strong>{item.year}</strong></td>
                             <td>{item.target}</td>
                             <td>{item.accomplishment}</td>
                             <td>{item.utilization_rate}</td>

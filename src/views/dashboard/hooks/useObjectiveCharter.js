@@ -49,6 +49,7 @@ export default function useObjectiveCharter({ name }) {
             }
         }).catch(e => {
             dispatch(getObjectiveFailure());
+            toast.error('NOT IMPLEMENTED YET')
         });
     }, [name]);
 

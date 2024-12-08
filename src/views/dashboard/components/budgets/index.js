@@ -20,6 +20,7 @@ import {
 } from '@coreui/react'
 
 import LineChart from 'src/components/charts/line'
+import ChartSkeleton from 'src/components/skeletons/chart'
 
 const selectTabs = ['Budget']
 
@@ -156,7 +157,7 @@ export default function BudgetChart({
           </CRow>
 
           {
-            fund && <LineChart chartData={fund} max={parseInt(fund.maxAllotment + (fund.maxAllotment * 0.25))} average={fund.meanValue} />
+            fund ? <LineChart chartData={fund} max={parseInt(fund.maxAllotment + (fund.maxAllotment * 0.25))} average={fund.meanValue} /> : <ChartSkeleton />
           }
 
 

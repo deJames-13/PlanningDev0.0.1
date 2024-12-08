@@ -63,8 +63,6 @@ export default function ObjectivesOverview({ name }) {
           </CCol>
           <CCol xs={12} md={6} className='flex-column-reverse flex-md-row'>
             {data?.progressGroup && <ProgressSummary summary={data.progressGroup} />}
-            <hr />
-            <SectorActions />
           </CCol>
         </CRow>
       </CCardBody>

@@ -11,17 +11,17 @@ const chartApiSlice = apiSlice.injectEndpoints({
             },
         }),
         getBudget: builder.mutation({
-            query: (qStr) => {
+            query: (name) => {
                 return {
-                    url: `${resource}/budgets${qStr ? `?${qStr}` : ''}`,
+                    url: `${resource}/budgets${name ? `?sector_name=${name}` : ''}`,
                     method: 'GET',
                 }
             },
         }),
         getObj: builder.mutation({
-            query: (qStr) => {
+            query: (name) => {
                 return {
-                    url: `${resource}/obj${qStr ? `?${qStr}` : ''}`,
+                    url: `${resource}/objectives${name ? `?sector_name=${name}` : ''}`,
                     method: 'GET',
                 }
             },
