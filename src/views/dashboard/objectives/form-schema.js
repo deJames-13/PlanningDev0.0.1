@@ -15,8 +15,8 @@ export const fields = [
     {
         name: 'sector_id',
         label: 'Sector',
-        placeHolder: 'Select a sector',
-        as: 'smart=select',
+        placeholder: 'Select a sector',
+        as: 'smart-select',
         options: [],
         required: false,
     },

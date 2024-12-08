@@ -29,7 +29,7 @@ export const fields = [
     {
         name: 'sector_id',
         label: 'Sector',
-        placeHolder: 'Select Sector',
+        placeholder: 'Select Sector',
         as: 'smart-select',
         options: []
     },

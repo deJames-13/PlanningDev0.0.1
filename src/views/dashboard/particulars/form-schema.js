@@ -17,7 +17,7 @@ export const fields = [
     {
         name: 'bar_data_id',
         label: 'From Report: ',
-        placeHolder: 'Select which report to include',
+        placeholder: 'Select which report to include',
         as: 'smart-select',
         options: [],
     },

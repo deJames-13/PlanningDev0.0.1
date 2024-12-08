@@ -2,15 +2,15 @@ import { Field } from 'formik';
 import { useState } from 'react';
 
 
-const FormikSelect = ({ options, field }) => {
-    const { placeHolder = '', ...props } = field;
+const FormikSelect = ({ options, field = {} }) => {
+    const { placeholder = null, ...props } = field;
     const [value, setValue] = useState(field?.value || '');
 
     return (
         <Field as="select" className="form-select" value={props?.value || ''} {...props}>
             {
                 !value &&
-                <option value="" disabled>{placeHolder || 'Select an option'}</option>
+                <option value="" disabled>{placeholder || 'Select an option'}</option>
             }
             {options.map((option) => (
                 <option

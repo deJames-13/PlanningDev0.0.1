@@ -29,8 +29,8 @@ export const fields = [
     {
         name: 'department_id',
         label: 'Department',
-        placeHolder: 'Select Department',
-        as: 'select',
+        placeholder: 'Select Department',
+        as: 'smart-select',
         options: [],
         required: false,
     },

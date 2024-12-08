@@ -5,7 +5,6 @@ export const fields = [
         name: 'title',
         label: 'Title',
         placeholder: 'Provide a title for the bar data',
-        required: true,
     },
     {
         name: 'description',
