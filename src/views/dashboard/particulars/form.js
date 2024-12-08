@@ -121,7 +121,6 @@ export default function ParticularForm({
                         {
                             values.length > 0 ?
                                 <ValuesCard
-                                    noActions={isModal}
                                     values={values}
                                     editValue={(value) => setCurrentValue(value)}
                                     removeValue={(value) => setValues(values.filter(v => v.year !== value.year))}

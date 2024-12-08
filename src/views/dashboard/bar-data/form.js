@@ -37,6 +37,10 @@ export default function BarDataForm() {
     }, [particulars])
 
 
+    const handleSubmit = (values) => {
+        console.log(values)
+    }
+
 
     return (
         <CRow
