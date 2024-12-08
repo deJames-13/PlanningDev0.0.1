@@ -56,6 +56,10 @@ export default function ParticularForm({
         setData(particular)
     }, [particular])
 
+    useEffect(() => {
+        onChanges({ ...data, values })
+    }, [values])
+
 
 
     return (

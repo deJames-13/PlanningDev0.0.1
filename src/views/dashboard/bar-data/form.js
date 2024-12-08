@@ -39,16 +39,23 @@ export default function BarDataForm() {
         setCurrent(null)
     }
 
-    useEffect(() => {
-        setParticulars(data?.particulars ?? []);
-    }, [data])
-
     const handleChanges = (values) => {
         setData(prev => ({
             ...prev,
             ...values,
         }))
     }
+    const handleRemove = (particular) => {
+        setParticulars(prev => prev.filter(p => p.id !== particular.id))
+        setData(prev => ({
+            ...prev,
+            particulars: prev.particulars.filter(p => p.id !== particular.id)
+        }))
+    }
+
+    useEffect(() => {
+        setParticulars(data?.particulars ?? []);
+    }, [data])
 
     return (
         <CRow
@@ -99,7 +106,6 @@ export default function BarDataForm() {
                             particular={current}
                             onSubmit={saveParticular}
                             onCancel={() => setCurrent(null)}
-                            onRemove={() => setParticulars(prev => prev.filter(p => p.id !== current.id))}
                         />
                     </CCardHeader>
                     <CCardBody>
@@ -107,7 +113,7 @@ export default function BarDataForm() {
                             particulars?.length > 0 ? particulars.map((particular, index) => <ParticularCard key={index}
                                 particular={particular}
                                 onEdit={(particular) => setCurrent(particular)}
-                                onRemove={() => setParticulars(prev => prev.filter(p => p.id !== particular.id))}
+                                onRemove={handleRemove}
                             />)
                                 : <h4>No particulars Added.</h4>
                         }
