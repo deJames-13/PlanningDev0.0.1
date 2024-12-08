@@ -9,11 +9,11 @@ import {
 import FormikForm from 'src/components/form'
 
 import { useCallback, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import useResource from '../hooks/useResource'
 
 
 export default function ResourceForm({
+    id,
     form,
     formData,
     resource,
@@ -29,7 +29,6 @@ export default function ResourceForm({
         states: { current },
         actions: { fetchData, doStore, doUpdate, doDestroy },
     } = useResource(resource)
-    const { id = null } = useParams()
 
     const handleSubmit = useCallback((values) => {
         const payload = {

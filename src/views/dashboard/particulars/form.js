@@ -6,7 +6,7 @@ import {
     CRow,
 } from '@coreui/react'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ResourceForm from '../components/ResourceForm'
 import { ValuesCard } from './card'
 import ChartPreview from './chart-preview'
@@ -26,19 +26,12 @@ export default function ParticularForm({
     onErrors = () => { },
     particular = {},
 }) {
-    const fields = isModal ?
-        formSchema.fields.map(field => field.name === 'bar_data_id' ? { custom: true } : field)
-        : formSchema.fields
 
-    const initialValues = fields.reduce((acc, field) => {
-        acc[field.name] = particular && particular[`${field?.name}`] || field?.initialValue || '';
-        return acc;
-    }, {})
-
-
-    const [data, setData] = useState(particular)
+    const [data, setData] = useState(null)
     const [currentValue, setCurrentValue] = useState(null)
     const [values, setValues] = useState(particular?.values || [])
+
+
     const saveValue = (value) => {
         const newValues = values.filter(v => v.year !== value.year)
         newValues.push(value)
@@ -49,16 +42,14 @@ export default function ParticularForm({
     }
 
     const handleChanges = (data, errors) => {
-        const newData = {
-            ...data,
-            values: values
-        }
-        setData(newData)
+        const newData = { ...data, values }
         onChanges(newData)
         onErrors(errors)
     }
 
-
+    useEffect(() => {
+        setData(particular)
+    }, [particular])
 
     return (
         <CRow
@@ -78,7 +69,17 @@ export default function ParticularForm({
                     title={title}
                     onChanges={handleChanges}
                     subtitle={subtitle}
-                    form={{ ...formSchema, fields: fields, initialValues: initialValues }}
+                    form={{
+                        ...formSchema,
+                        fields: isModal ?
+                            formSchema.fields.map(field => field.name === 'bar_data_id' ? { custom: true } : field)
+                            : formSchema.fields,
+
+                        initialValues: formSchema.fields.reduce((acc, field) => {
+                            acc[field.name] = data && data[`${field?.name}`] || field?.initialValue || '';
+                            return acc;
+                        }, {})
+                    }}
                     noSubmit={isModal}
                 >
                 </ResourceForm>

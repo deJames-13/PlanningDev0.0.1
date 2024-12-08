@@ -11,7 +11,7 @@ export default function ParticularModal({
     ...props
 }) {
     const [visible, setVisible] = useState(open)
-    const [particular, setParticular] = useState(props.value || {})
+    const [particular, setParticular] = useState(props.particular || {})
     const [errors, setErrors] = useState({})
 
     useEffect(() => {
@@ -33,6 +33,7 @@ export default function ParticularModal({
                 </span>
             </CButton>
             <CModal
+                fullscreen="xl"
                 size='lg'
                 backdrop="static"
                 visible={visible}
@@ -56,7 +57,6 @@ export default function ParticularModal({
                 >
                     <ParticularForm
                         isModal
-                        onChanges={setParticular}
                         onErrors={setErrors}
                         {...props}
                     />

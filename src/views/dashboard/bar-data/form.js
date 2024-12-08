@@ -16,6 +16,7 @@ import * as formSchema from './form-schema'
 
 const resource = 'bar-data'
 export default function BarDataForm() {
+    const { id = null } = useParams()
 
     // STATES
     const [data, setData] = useState({})
@@ -25,9 +26,10 @@ export default function BarDataForm() {
     const saveParticular = (particular) => {
         const newParticulars = particulars.filter(p => p.id !== particular.id)
         newParticulars.push({
+            id: `tempId_${new Date().getTime()}`,
             ...particular,
-            id: `tempId_${new Date().getTime()}`
         })
+        newParticulars.reversed();
         setParticulars(newParticulars)
         setCurrent(null)
     }
@@ -54,6 +56,7 @@ export default function BarDataForm() {
             }}>
             <CCol lg={6}>
                 <ResourceForm
+                    id={id}
                     form={formSchema}
                     formData={data}
                     resource={resource}
@@ -88,20 +91,18 @@ export default function BarDataForm() {
                             Particulars
                         </h4>
                         <ParticularForm
+                            open={current !== null}
+                            particular={current}
                             onSubmit={saveParticular}
                             onCancel={() => setCurrent(null)}
                             onRemove={() => setParticulars(prev => prev.filter(p => p.id !== current.id))}
-                            onEdit={(particular) => setCurrent(particular)}
-                            particular={current}
-                            open={current !== null}
-
                         />
                     </CCardHeader>
                     <CCardBody>
                         {
                             particulars?.length > 0 ? particulars.map((particular, index) => <ParticularCard key={index}
                                 particular={particular}
-                                onEdit={() => setCurrent(particular)}
+                                onEdit={(particular) => setCurrent(particular)}
                                 onRemove={() => setParticulars(prev => prev.filter(p => p.id !== particular.id))}
                             />)
                                 : <h4>No particulars Added.</h4>
