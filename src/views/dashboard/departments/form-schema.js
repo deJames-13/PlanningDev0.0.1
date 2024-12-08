@@ -10,23 +10,20 @@ export const fields = [
     {
         name: 'short_name',
         label: 'Short Name',
-        initialValue: '',
     },
     {
         name: 'full_name',
         label: 'Full Name',
-        initialValue: '',
     },
     {
         name: 'description',
         label: 'Description',
         as: 'textarea',
-        initialValue: '',
     },
     {
         name: 'type',
         label: 'Type',
-        as: 'select',
+        as: 'smart-select',
         initialValue: 'division',
         options: [
             { value: 'division', label: 'Division' },

@@ -9,7 +9,10 @@ import {
     CSpinner
 } from '@coreui/react'
 
+import { useParams } from 'react-router-dom'
 import ResourceForm from '../components/ResourceForm'
+
+
 import * as formSchema from './form-schema'
 // CONSTANTS
 // ###################################################################
@@ -18,20 +21,26 @@ const TITLE = 'Sectoral Offices Form'
 const SUBTITLE = 'Fill out necessary input for the report'
 // ###################################################################
 export default function SectorForm() {
+    const { id = null } = useParams()
+
+    // ###################################################################
+    // TODO: DEPARTMENTS DYNAMIC SELECTION 
+    // ###################################################################
 
     return (
         <CRow
             className='gap-4 gap-md-0'
             style={{
                 height: '80vh',
+                overflow: 'auto',
                 marginBottom: '1rem'
-            }}
-        >
-            <CCol>
+            }}>
+            <CCol lg={6}>
                 <ResourceForm
+                    id={id}
                     resource={RESOURCE}
-                    title={TITLE}
                     subtitle={SUBTITLE}
+                    title={TITLE}
                     form={formSchema}
                 >
                 </ResourceForm>

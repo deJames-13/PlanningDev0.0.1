@@ -4,24 +4,21 @@ export const fields = [
     {
         name: 'title',
         label: 'Title',
-        initialValue: '',
     },
     {
         name: 'description',
         label: 'Description',
-        initialValue: '',
         as: 'textarea',
     },
     {
         name: 'type',
         label: 'Type',
-        initialValue: '',
     },
     {
         name: 'bar_data_id',
         label: 'From Report: ',
         placeHolder: 'Select which report to include',
-        as: 'select',
+        as: 'smart-select',
         options: [],
     },
 ]

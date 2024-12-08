@@ -10,38 +10,28 @@ export const fields = [
     {
         name: 'title',
         label: 'Title',
-        initialValue: '',
-        required: true,
     },
     {
         name: 'description',
         label: 'Description',
         as: 'textarea',
-        initialValue: '',
-        required: false,
     },
     {
         name: 'current_year',
         label: 'Current Year',
-        initialValue: '',
-        required: true,
     },
     {
         name: 'current_quarter',
         label: 'Current Quarter',
         type: 'number',
         maxLength: 4,
-        initialValue: '',
-        required: false,
     },
     {
         name: 'sector_id',
         label: 'Sector',
         placeHolder: 'Select Sector',
-        as: 'select',
-        options: [],
-        initialValue: '',
-        required: false,
+        as: 'smart-select',
+        options: []
     },
 ]
 

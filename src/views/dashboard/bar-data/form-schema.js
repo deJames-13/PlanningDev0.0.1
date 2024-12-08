@@ -4,7 +4,6 @@ export const fields = [
     {
         name: 'title',
         label: 'Title',
-        initialValue: '',
         placeholder: 'Provide a title for the bar data',
         required: true,
     },
@@ -12,7 +11,6 @@ export const fields = [
         name: 'description',
         label: 'Description',
         as: 'textarea',
-        initialValue: '',
         placeholder: 'Proivde a description for the bar data',
     },
 ]

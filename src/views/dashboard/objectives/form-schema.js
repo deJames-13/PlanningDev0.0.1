@@ -4,23 +4,20 @@ export const fields = [
     {
         name: 'title',
         label: 'Title',
-        initialValue: '',
         required: true,
     },
     {
         name: 'description',
         label: 'Description',
         as: 'textarea',
-        initialValue: '',
         required: false,
     },
     {
         name: 'sector_id',
         label: 'Sector',
         placeHolder: 'Select a sector',
-        as: 'select',
+        as: 'smart=select',
         options: [],
-        initialValue: '',
         required: false,
     },
 ]

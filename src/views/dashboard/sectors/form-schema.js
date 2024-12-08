@@ -4,21 +4,18 @@ export const fields = [
     {
         name: 'name',
         label: 'Name',
-        initialValue: '',
         placeholder: 'Name',
         type: 'text',
     },
     {
         name: 'short_name',
         label: 'Short Name',
-        initialValue: '',
         placeholder: 'Short Name',
         type: 'text',
     },
     {
         name: 'full_name',
         label: 'Full Name',
-        initialValue: '',
         placeholder: 'Full Name',
         type: 'text',
     },
@@ -26,7 +23,6 @@ export const fields = [
         name: 'description',
         label: 'Description',
         as: 'textarea',
-        initialValue: '',
         placeholder: 'Description',
         type: 'text',
     },
@@ -36,7 +32,6 @@ export const fields = [
         placeHolder: 'Select Department',
         as: 'select',
         options: [],
-        initialValue: '',
         required: false,
     },
 ]

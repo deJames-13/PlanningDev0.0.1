@@ -2,24 +2,27 @@ import { Field } from 'formik';
 import React from 'react';
 import FormikDatePicker from './date-picker';
 import FormikSelect from './select';
+import SmartSelect from './smart-select';
 
 const FieldWrapper = ({ field }) => {
     let FieldComponent;
+    let { options, as, initialValue, ...props } = field;
     switch (field.as) {
         case 'select':
-            let { options, as, ...props } = field;
-            FieldComponent = <FormikSelect field={props} options={options} />;
+            FieldComponent = <FormikSelect options={options} {...props} />;
+            break;
+        case 'smart-select':
+            FieldComponent = <SmartSelect options={options} initialValue={initialValue} {...props} />;
             break;
         case 'date':
-            FieldComponent = <FormikDatePicker field={field} />;
+            FieldComponent = <FormikDatePicker {...props} />;
             break;
         case 'month':
-            FieldComponent = <FormikDatePicker field={field} dateFormat="month" />;
+            FieldComponent = <FormikDatePicker {...props} dateFormat="month" />;
             break;
         case 'year':
-            FieldComponent = <FormikDatePicker field={field} dateFormat="year" />;
+            FieldComponent = <FormikDatePicker {...props} dateFormat="year" />;
             break;
-
         case 'textarea':
             FieldComponent = (
                 <Field
@@ -27,7 +30,7 @@ const FieldWrapper = ({ field }) => {
                     name={field.name}
                     id={field.name}
                     className="form-control"
-                    {...field.props}
+                    {...props}
                 />
             );
             break;
@@ -38,16 +41,12 @@ const FieldWrapper = ({ field }) => {
                     name={field.name}
                     id={field.name}
                     className="form-control"
-                    {...field.props}
+                    {...props}
                 />
             );
             break;
     }
-    return (
-        <>
-            {FieldComponent}
-        </>
-    );
+    return <>{FieldComponent}</>;
 };
 
 export default FieldWrapper;

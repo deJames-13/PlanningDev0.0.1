@@ -31,6 +31,7 @@ export default function ResourceForm({
     } = useResource(resource)
 
     const handleSubmit = useCallback((values) => {
+        alert(JSON.stringify(values, null, 2))
         const payload = {
             id,
             ...formData,

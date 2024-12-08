@@ -7,6 +7,7 @@ import {
 } from '@coreui/react'
 
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import ResourceForm from '../components/ResourceForm'
 import { ValuesCard } from './card'
 import ChartPreview from './chart-preview'
@@ -25,6 +26,7 @@ export default function ParticularForm({
     onErrors = () => { },
     particular = {},
 }) {
+    const { id = null } = useParams()
 
     const [data, setData] = useState(null)
     const [currentValue, setCurrentValue] = useState(null)
@@ -75,9 +77,10 @@ export default function ParticularForm({
                 lg={isModal ? 12 : 6}
             >
                 <ResourceForm
+                    id={!isModal ? id : null}
                     resource={RESOURCE}
-                    title={TITLE}
                     subtitle={SUBTITLE}
+                    title={TITLE}
                     onChanges={handleChanges}
                     form={{
                         ...formSchema,

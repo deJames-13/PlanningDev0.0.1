@@ -12,6 +12,8 @@ import ResourceForm from '../components/ResourceForm'
 import ParticularCard from '../particulars/card'
 import ParticularForm from '../particulars/modal'
 import ChartPreview from './chart-preview'
+
+
 import * as formSchema from './form-schema'
 // CONSTANTS
 // ###################################################################
@@ -72,11 +74,11 @@ export default function BarDataForm() {
             <CCol lg={6}>
                 <ResourceForm
                     id={id}
-                    form={formSchema}
-                    formData={data}
                     resource={RESOURCE}
-                    title={TITLE}
                     subtitle={SUBTITLE}
+                    title={TITLE}
+                    formData={data}
+                    form={formSchema}
                     onChanges={handleChanges}
                 >
                 </ResourceForm>
