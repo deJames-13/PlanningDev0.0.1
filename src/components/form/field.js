@@ -1,6 +1,7 @@
 import { Field } from 'formik';
 import React from 'react';
 import FormikDatePicker from './date-picker';
+import InputGroup from './input-group';
 import FormikSelect from './select';
 import SmartSelect from './smart-select';
 
@@ -8,6 +9,15 @@ const FieldWrapper = ({ field }) => {
     let FieldComponent;
     let { options, as, initialValue, ...props } = field;
     switch (field.as) {
+        case 'group':
+            FieldComponent = <InputGroup field={field} />
+            break;
+        case 'divider':
+            FieldComponent = <hr />;
+            break;
+        case 'title':
+            FieldComponent = <span className='text-uppercase fw-bold fs-6' {...props}>{field.label}</span>;
+            break;
         case 'select':
             FieldComponent = <FormikSelect options={options} {...props} />;
             break;

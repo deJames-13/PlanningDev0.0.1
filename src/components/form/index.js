@@ -34,7 +34,9 @@ const FormikForm = ({
                             <div key={field.name} className="mb-3">
                                 <label htmlFor={field.name} className="form-label">{field.label}</label>
                                 <FieldWrapper field={field} />
-                                <ErrorMessage name={field.name} component="div" className="text-danger" />
+                                <ErrorMessage name={field.name} component="div" className="text-danger fst-italic" style={{
+                                    fontSize: '0.9rem',
+                                }} />
                             </div>
                         ))}
 
