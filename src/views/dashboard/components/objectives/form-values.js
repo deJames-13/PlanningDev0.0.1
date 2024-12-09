@@ -54,18 +54,18 @@ export function FormValues({
                     fields: [
                         {
                             name: `target_${i + 1}`,
-                            initialValue: quarters[i]?.target || 0,
+                            initialValue: quarters.find(q => q.quarter === i + 1)?.target || 0,
                             colSpan: 4,
                         },
                         {
                             name: `accomplishment_${i + 1}`,
-                            initialValue: quarters[i]?.accomplishment || 0,
+                            initialValue: quarters.find(q => q.quarter === i + 1)?.accomplishment || 0,
                             colSpan: 4,
                         },
                         {
                             name: `percentage_${i + 1}`,
                             colSpan: 4,
-                            initialValue: parseFloat(quarters[i]?.accomplishment / quarters[i]?.target * 100).toFixed(2) || 0,
+                            initialValue: parseFloat(quarters.find(q => q.quarter === i + 1)?.accomplishment / quarters.find(q => q.quarter === i + 1)?.target * 100).toFixed(2) || 0,
                             disabled: true,
                         }
                     ]
@@ -77,7 +77,7 @@ export function FormValues({
         let total = {};
         let newValues = {
             ...data,
-            quarters: quarters.map((q, i) => {
+            quarters: data.quarters.map((q, i) => {
                 let target = parseFloat(formValues[`target_${i + 1}`]) || 0;
                 let accomplishment = parseFloat(formValues[`accomplishment_${i + 1}`]) || 0;
                 let percentage = parseFloat(accomplishment / target * 100).toFixed(2) || 0;
@@ -85,7 +85,7 @@ export function FormValues({
                     target: (total.target || 0) + target,
                     accomplishment: (total.accomplishment || 0) + accomplishment,
                 }
-                return { target, accomplishment, percentage }
+                return { ...q, target, accomplishment, percentage }
             })
         };
         total.percentage = parseFloat(total.accomplishment / total.target * 100).toFixed(2) || 0;
@@ -103,7 +103,7 @@ export function FormValues({
     }, [value]);
 
 
-    return fields?.length && (
+    return fields?.length > 0 && (
         <FormikForm
             fields={fields}
 

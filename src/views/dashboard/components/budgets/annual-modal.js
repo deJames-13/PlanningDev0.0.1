@@ -59,19 +59,19 @@ export function FormValues({
                     {
                         name: `allotment_${i + 1}`,
                         // label: 'Allotment',
-                        initialValue: data?.quarters && data?.quarters[i].allotment || '',
+                        initialValue: data?.quarters.find(q => q.quarter == i + 1)?.allotment || '',
                         colSpan: 4,
                     },
                     {
                         name: `obligated_${i + 1}`,
                         // label: 'Obligated',
-                        initialValue: data?.quarters && data?.quarters[i].obligated || '',
+                        initialValue: data?.quarters.find(q => q.quarter == i + 1)?.obligated || '',
                         colSpan: 4,
                     },
                     {
                         name: `utilization_rate_${i + 1}`,
                         // label: 'Utilization Rate (%)',
-                        initialValue: data?.quarters && data?.quarters[i].utilization_rate || '',
+                        initialValue: data?.quarters.find(q => q.quarter == i + 1)?.utilization_rate || '',
                         colSpan: 4,
                         disabled: true,
                     }
@@ -84,11 +84,11 @@ export function FormValues({
         let newValue = {
             ...data,
             year: formValues.year,
-            quarters: quarters.map((quarter, i) => {
+            quarters: data?.quarters.map((q, i) => {
                 let allotment = parseFloat(formValues[`allotment_${i + 1}`]) || 0;
                 let obligated = parseFloat(formValues[`obligated_${i + 1}`]) || 0;
                 let utilization_rate = parseFloat((obligated / allotment) * 100).toFixed(2) || 0;
-                return { allotment, obligated, utilization_rate }
+                return { ...q, allotment, obligated, utilization_rate }
             }),
         }
         newValue.allotment = totalAllotment(newValue.quarters);
@@ -100,11 +100,12 @@ export function FormValues({
     }
 
     useEffect(() => {
+        if (!value?.quarters) return;
         setFields(makeFields(value));
         setData(value);
     }, [value]);
 
-    return fields?.length && (
+    return fields?.length > 0 && (
         <div className="pb-5">
             <FormikForm
                 fields={fields}
