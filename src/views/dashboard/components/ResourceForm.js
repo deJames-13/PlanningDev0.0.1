@@ -23,6 +23,7 @@ export default function ResourceForm({
     noSubmit,
     onChanges = () => { },
     onSubmit = () => { },
+    style,
     children
 }) {
     const {
@@ -61,7 +62,9 @@ export default function ResourceForm({
     return (
         <CCard style={{
             height: '100%',
-            width: '100%'
+            width: '100%',
+            ...style
+
         }}>
             <CCardHeader>
                 <h4>

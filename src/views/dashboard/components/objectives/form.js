@@ -18,6 +18,7 @@ import useResourceOptions from '../../hooks/useResourceOptions'
 import ChartPreview from './chart-preview'
 import * as formSchema from './form-schema'
 import QuarterliesModal from './form-values'
+import QuarterSummary from './quarter-summary'
 // CONSTANTS
 // ###################################################################
 const RESOURCE = 'objectives'
@@ -29,10 +30,14 @@ export default function ObjectiveForm() {
     const { options, loading } = useResourceOptions({ resourceName: 'sectors' })
 
     const [data, setData] = useState(null)
-    const [quaters, setQuarters] = useState([])
+    const [quarters, setQuarters] = useState([])
+
+    const handleSaveQuarter = (values) => {
+        console.log(values)
+
+    }
 
     const handleChanges = (values) => {
-        console.log(values)
         setData(values)
     }
 
@@ -72,6 +77,9 @@ export default function ObjectiveForm() {
                         }),
                     }}
                     onChanges={handleChanges}
+                    style={{
+                        height: 'auto',
+                    }}
                 >
                 </ResourceForm>
             </CCol>
@@ -96,66 +104,13 @@ export default function ObjectiveForm() {
                             <h4>Quarterlies</h4>
                             <QuarterliesModal
                                 value={data}
-                                onSubmit={() => { }}
+                                onSubmit={handleSaveQuarter}
                                 onCancel={() => { }}
                             />
                         </div>
                     </CCardHeader>
                     <CCardBody className='px-4'>
-                        {/* TOTAL */}
-                        <div>
-                            <span className='fw-bold text-uppercase' style={{
-                                fontSize: '1rem'
-                            }}>
-                                Total
-                            </span>
-                            <div className="d-flex justify-content-between items-align-center flex-wrap">
-                                <div className='d-flex flex-column'>
-                                    <span className='fw-bold'>Target</span>
-                                    <span>{data?.total?.target}</span>
-                                </div>
-                                <div className='d-flex flex-column'>
-                                    <span className='fw-bold'>Accomplishment</span>
-                                    <span>{data?.total?.accomplishment}</span>
-                                </div>
-                                <div className='d-flex flex-column'>
-                                    <span className='fw-bold'>Percantage</span>
-                                    <span className='fst-italic'>{data?.total?.percentage || parseFloat(data?.total?.accomplishment / data?.total?.target * 100 || 0).toFixed(2)}%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <hr />
-                        {/* QUARTERS SUMMARY */}
-                        {
-                            quaters?.length > 0 && quaters.map((quarter, index) => (
-                                <div key={index}>
-                                    <span className='fw-bold text-uppercase' style={{
-                                        fontSize: '1rem'
-                                    }}>
-                                        Quarter {index + 1}
-                                    </span>
-                                    <div className="d-flex justify-content-between items-align-center flex-wrap">
-                                        <div className='d-flex flex-column'>
-                                            {/* <span className='fw-bold'>Target</span> */}
-                                            <span>{quarter.target}</span>
-                                        </div>
-                                        <div className='d-flex flex-column'>
-                                            {/* <span className='fw-bold'>Accomplishment</span> */}
-                                            <span>{quarter.accomplishment}</span>
-                                        </div>
-                                        <div className='d-flex flex-column'>
-                                            {/* <span className='fw-bold'>Percantage</span> */}
-                                            <span className='fst-italic'>{quarter.percentage || parseFloat(quarter.accomplishment / quarter.target * 100).toFixed(2)}%</span>
-                                        </div>
-                                    </div>
-
-
-                                    <hr />
-
-
-                                </div>
-                            ))
-                        }
+                        <QuarterSummary quarters={quarters} />
                     </CCardBody>
                 </CCard>
             </CCol>

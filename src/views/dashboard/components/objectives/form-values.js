@@ -14,57 +14,64 @@ export function FormValues({
 }) {
     const [data, setData] = useState(value);
     const [fields, setFields] = useState([]);
-    const makeFields = useCallback((data) => ([
-        {
-            as: 'group',
-            name: 'total',
-            label: <span className='text-uppercase'><strong>Total</strong></span>,
-            fields: [
-                {
-                    name: 'target',
-                    label: 'Target',
-                    disabled: true,
-                    colSpan: 4,
-                },
-                {
-                    name: 'accomplishment',
-                    label: 'Accomplishment',
-                    disabled: true,
-                    colSpan: 4,
-                },
-                {
-                    name: 'percentage',
-                    label: '(%)',
-                    disabled: true,
-                    colSpan: 4,
-                },
-            ]
-        },
-        ...quarters.map((q, i) => (
+    const makeFields = useCallback((data) => {
+        let quarters = data?.quarters || [];
+        return [
             {
-                name: `quarter_${i + 1}`,
-                label: <strong>Quarter {i + 1}</strong>,
                 as: 'group',
+                name: 'total',
+                label: <span className='text-uppercase'><strong>Total</strong></span>,
                 fields: [
                     {
-                        name: `target_${i + 1}`,
-                        // label: 'Target',
-                        colSpan: 4,
-                    },
-                    {
-                        name: `accomplishment_${i + 1}`,
-                        // label: 'Accomplishment',
-                        colSpan: 4,
-                    },
-                    {
-                        name: `percentage_${i + 1}`,
-                        // label: '(%)',
-                        colSpan: 4,
+                        name: 'target',
+                        label: 'Target',
+                        initialValue: data?.total?.target || 0,
                         disabled: true,
-                    }
+                        colSpan: 4,
+                    },
+                    {
+                        name: 'accomplishment',
+                        label: 'Accomplishment',
+                        initialValue: data?.total?.accomplishment || 0,
+                        initialValue: 0,
+                        disabled: true,
+                        colSpan: 4,
+                    },
+                    {
+                        name: 'percentage',
+                        label: '(%)',
+                        initialValue: data?.total?.percentage || 0,
+                        disabled: true,
+                        colSpan: 4,
+                    },
                 ]
-            })),
-    ]), [data]);
+            },
+            ...quarters.map((q, i) => (
+                {
+                    name: `quarter_${i + 1}`,
+                    label: <strong>Quarter {i + 1}</strong>,
+                    as: 'group',
+                    fields: [
+                        {
+                            name: `target_${i + 1}`,
+                            initialValue: quarters[i]?.target || 0,
+                            colSpan: 4,
+                        },
+                        {
+                            name: `accomplishment_${i + 1}`,
+                            initialValue: quarters[i]?.accomplishment || 0,
+                            colSpan: 4,
+                        },
+                        {
+                            name: `percentage_${i + 1}`,
+                            colSpan: 4,
+                            initialValue: parseFloat(quarters[i]?.accomplishment / quarters[i]?.target * 100).toFixed(2) || 0,
+                            disabled: true,
+                        }
+                    ]
+                })),
+        ]
+    }, [data]);
 
     const handleChanges = (formValues, errors) => {
         let total = {};
@@ -83,14 +90,18 @@ export function FormValues({
         };
         total.percentage = parseFloat(total.accomplishment / total.target * 100).toFixed(2) || 0;
         newValues.total = total;
+        setData(newValues)
+        setFields(makeFields(newValues));
         onChanges(newValues, errors)
     }
 
 
     useEffect(() => {
+        if (!value?.quarters) return;
         setFields(makeFields(value));
         setData(value);
     }, [value]);
+
 
     return fields?.length && (
         <FormikForm
@@ -133,23 +144,19 @@ export default function QuarterliesModal({
     onCancel = () => { },
 }) {
     const [visible, setVisible] = useState(open);
-    const [current, setCurrent] = useState(null);
+    const [current, setCurrent] = useState(value);
     const [errors, setErrors] = useState({});
+
     useEffect(() => {
-        if (value && open) {
+        if (value) {
             setCurrent(value);
             setVisible(true);
         }
     }, [value]);
-    useEffect(() => {
-        if (!visible) {
-            onCancel()
-        }
-    }, [visible])
+
     return (
         <>
             <CButton color="primary" onClick={() => {
-                setCurrent(null);
                 setVisible(true);
             }} className='d-flex align-items-center'>
                 <CIcon icon={cilPen} />
