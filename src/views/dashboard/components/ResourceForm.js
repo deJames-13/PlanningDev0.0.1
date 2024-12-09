@@ -66,7 +66,7 @@ export default function ResourceForm({
                 <h4>
                     {title || `${capitalizeName(resource)} Form`}
                 </h4>
-                <p>
+                <p className='text-secondary'>
                     {subtitle}
                 </p>
             </CCardHeader>
