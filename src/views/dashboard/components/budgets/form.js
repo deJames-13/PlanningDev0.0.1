@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import useResourceOptions from '../../hooks/useResourceOptions'
 import ResourceForm from '../ResourceForm'
+import AnnualModal from './annual-modal'
 import AnnualTable from './annual-table'
 import ChartPreview from './chart-preview'
 import * as formSchema from './form-schema'
@@ -84,7 +85,6 @@ export default function BudgetForm() {
             </CCol>
 
             <CCol lg={7} className='gap-4 d-flex flex-column' style={{
-                height: '100%',
                 overflowY: 'auto',
                 overflowX: 'hidden'
             }}>
@@ -101,9 +101,7 @@ export default function BudgetForm() {
                     <CCardHeader>
                         <div className="d-flex items-align-center justify-content-between">
                             <h4>Annual Data</h4>
-                            <CButton color='primary'>
-                                <CIcon icon={cilPlus} />
-                            </CButton>
+                            <AnnualModal />
                         </div>
                     </CCardHeader>
                     <CCardBody className='px-4'>

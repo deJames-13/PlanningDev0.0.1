@@ -28,7 +28,7 @@ export default function ParticularModal({
         <>
             <CButton color="primary" onClick={() => setVisible(!visible)} className='d-flex align-items-center'>
                 <CIcon icon={cilPlus} />
-                <span>
+                <span className='d-none d-md-block'>
                     Add Particulars
                 </span>
             </CButton>
@@ -49,6 +49,7 @@ export default function ParticularModal({
                     </CModalTitle>
                 </CModalHeader>
                 <CModalBody
+                    className='px-0 mx-0 container-fluid'
                     style={{
                         width: '100%',
                         display: 'flex',
