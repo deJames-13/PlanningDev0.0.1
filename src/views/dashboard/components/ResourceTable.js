@@ -97,21 +97,21 @@ export default function ResourceTable({
     return (
         <CCard>
             <CCardHeader>
-                <div className="d-flex justify-content-between items-align-center">
+                <div className="d-flex flex-column flex-lg-row justify-content-lg-between items-align-center">
                     <div>
                         <h4 className='text-capitalize'>
                             {`${capitalizeName} Table` || title}
                         </h4>
                         {subtitle}
                     </div>
-                    <div className="p-3 d-flex items-align-center gap-2">
+                    <div className="p-3 d-flex items-align-center justify-content-end gap-2">
                         {
                             !loading &&
                             <>
 
                                 <CButton onClick={() => navigate.toForm()} color='success' variant='outline'>
                                     <CIcon icon={cilPlus} />
-                                    <span style={{
+                                    <span className='d-none d-lg-inline-block' style={{
                                         paddingLeft: '3px'
                                     }}>
                                         Add
@@ -119,7 +119,7 @@ export default function ResourceTable({
                                 </CButton>
                                 <CButton onClick={() => onToggleTable(nextTableState)} color='info' variant='outline' className="text-capitalize">
                                     <CIcon icon={cilHistory} />
-                                    <span style={{
+                                    <span className='d-none d-lg-inline-block' style={{
                                         paddingLeft: '3px'
                                     }}>
                                         {nextTableState === 'index' ? 'Active' : nextTableState}
@@ -127,7 +127,7 @@ export default function ResourceTable({
                                 </CButton>
                                 <CButton color='danger' variant='outline'>
                                     <CIcon icon={cilTrash} />
-                                    <span style={{
+                                    <span className='d-none d-lg-inline-block' style={{
                                         paddingLeft: '3px'
                                     }}>
                                         Delete All

@@ -23,7 +23,7 @@ export default function GuestPageFooter() {
                 <ul className="link-list">
                   <li><a href="https://www.lbp-eservices.com/egps/portal/index.jsp">Landbank
                     E-Payment</a></li>
-                  <li><a href="index.html#">TUP VMGO</a></li>
+                  <li><a href="https://tupt.edu.ph#">TUP VMGO</a></li>
                   <li><a href="https://ers.tup.edu.ph/aims/students/">ERS For Students</a></li>
                   <li><a href="https://ers.tup.edu.ph/aims/faculty/">ERS For Faculty</a></li>
                 </ul>
@@ -68,7 +68,7 @@ export default function GuestPageFooter() {
                   </li>
                   <li>
                     <p><a href="mailto_/taguig%40tup.edu.html">taguig@tup.edu.ph</a></p>
-                    <p><a href="index.html#">www..tupt.edu.ph</a></p>
+                    <p><a href="https://tupt.edu.ph#">www..tupt.edu.ph</a></p>
                   </li>
                 </ul>
               </div>
@@ -87,7 +87,7 @@ export default function GuestPageFooter() {
             </div>
             <div className="col-lg-6">
               <div className="copyright text-end">
-                <p>Developed and Maintained by <a href="index.html#">UITC</a></p>
+                <p>Developed and Maintained by <a href="https://tupt.edu.ph#">UITC</a></p>
               </div>
             </div>
           </div>
