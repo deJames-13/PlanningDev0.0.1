@@ -18,7 +18,7 @@ export default function ObjectivesOverview({ name }) {
   useEffect(() => {
     fetchtData(name);
   }, [name]);
-  return (
+  return data?.objectives?.length > 0 && (
     <CCard className="mb-4">
       <CCardHeader className='d-flex justify-content-between items-align-center'>
         <div>

@@ -1,6 +1,7 @@
 import { cilCheck, cilCheckCircle, cilFlagAlt } from '@coreui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { useGetObjMutation } from 'src/states/api/charts';
 import {
     getObjectiveFailure,
@@ -38,18 +39,19 @@ export default function useObjectiveCharter({ name }) {
         dispatch(setSector(name));
         dispatch(getObjectiveStart());
         getObj(name).then((res) => {
-            if (res?.data) {
-                let { data } = res.data
-                let formatted = transformData(data)
-                if (objState.currentSector && objState.currentSector === name) {
-                    setData(formatted);
-                };
-                dispatch(getObjectiveSuccess({ [name]: formatted }));
+            // if (res?.data) {
+            //     let { data } = res.data
+            //     let formatted = transformData(data)
+            //     if (objState.currentSector && objState.currentSector === name) {
+            //         setData(formatted);
+            //     };
+            //     dispatch(getObjectiveSuccess({ [name]: formatted }));
 
-            }
+            // }
+            toast.info('Objective data is not available');
         }).catch(e => {
             dispatch(getObjectiveFailure());
-            toast.error('NOT IMPLEMENTED YET')
+            console.error(e);
         });
     }, [name]);
 

@@ -73,15 +73,18 @@ const makeRates = (labels, values) => {
   return progressRates;
 }
 const transformData = (data) => {
-
   const labels = [];
   const annualLabels = data[0].annual.map(a => a.year);
-  const keys = Object.keys(data[0].annual[0]);
+  // const keys = Object.keys(data[0].annual[0]);
+  const keys = ['year', 'allotment', 'obligated', 'utilization_rate'];
 
   const annualDatasets = data.map(item => {
-    labels.push(item.name);
+    labels.push(item.name || item.title);
+    let allotement = item.annual.map(a => parseFloat(a[keys[1]] || 0));
+    let obligated = item.annual.map(a => parseFloat(a[keys[2]] || 0));
+    let rate = item.annual.map(a => parseFloat(parseFloat(a[keys[1]] || 0) / parseFloat(a[keys[2]] || 0)).toFixed(2));
     return {
-      name: item.name,
+      name: item.name || item.title,
       labels: annualLabels,
       datasets: [
         {
@@ -91,7 +94,7 @@ const transformData = (data) => {
           pointHoverBackgroundColor: getStyle('--cui-danger'),
           borderWidth: 1,
           borderDash: [8, 5],
-          data: item.annual.map(a => a[keys[1]])
+          data: allotement,
         },
         {
           label: keys[2] || 'Obligated',
@@ -100,7 +103,7 @@ const transformData = (data) => {
           pointHoverBackgroundColor: getStyle('--cui-info'),
           borderWidth: 2,
           fill: true,
-          data: item.annual.map(a => a[keys[2]])
+          data: obligated,
         },
         {
           label: keys[3] || 'Rate',
@@ -109,12 +112,12 @@ const transformData = (data) => {
           pointHoverBackgroundColor: getStyle('--cui-danger'),
           borderWidth: 0,
           borderDash: [8, 5],
-          data: item.annual.map(a => `${(parseFloat(a[keys[3]] || 0) * 100).toFixed(2)}%`),
+          data: rate,
         },
       ],
-      maxAllotment: Math.max(...item.annual.map(a => a.Allotment)),
-      meanValue: item.annual.map(a => (a.Allotment + a.Obligated) / 2),
-      progressRates: makeRates(annualLabels, item.annual.map(a => a["Utilization Rate"]))
+      maxAllotment: Math.max(...item.annual.map(a => parseFloat(a[keys[1]] || 0))),
+      meanValue: item.annual.map(a => (parseFloat(a[keys[1]] || 0) + parseFloat(a[keys[2]] || 0)).toFixed(2) / 2),
+      progressRates: makeRates(annualLabels, rate)
 
     }
   })
@@ -173,7 +176,7 @@ export const useBudgetCharting = (name) => {
       }
     }).catch(e => {
       dispatch(getBudgetFailure(e))
-      toast.error('NOT IMPLEMENTED YET')
+      console.error(e)
     });
   }
 

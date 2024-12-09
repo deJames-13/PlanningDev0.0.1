@@ -34,7 +34,7 @@ export default function BudgetChart({
   const [rates, setRates] = useState([])
   const [fund, setFund] = useState(null)
 
-  const [activeTab, setActiveTab] = useState(selectTabs[0])
+  const [activeTab, setActiveTab] = useState(null)
   const [updating, setUpdating] = useState(false)
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -76,11 +76,12 @@ export default function BudgetChart({
     const idx = data.labels.indexOf(activeTab) || 0
     setTabs(data.labels.slice(idx, idx + 2))
     if (data?.annual) {
-      const fund = data?.annual?.datasets?.find(item => item.name === activeTab)
+      const fund = data?.annual?.datasets?.find(item => item.name === activeTab) || data?.annual?.datasets[0]
       const ratesData = data?.progressRates[activeTab] || Object.values(data?.progressRates)[0] || []
 
       setFund(fund)
       setRates(ratesData)
+      console.log(fund)
     }
   }, [data])
 
@@ -95,7 +96,6 @@ export default function BudgetChart({
       setItemsPerPage(5);
     }
   }, [window.innerWidth]);
-
 
   return (
     <>
@@ -197,12 +197,12 @@ export default function BudgetChart({
                           </CTableHeaderCell> */}
                           {getPaginatedData(dataset.data).map((data, idx) => {
 
-                            return dataset.label == 'Utilization Rate' ? (
+                            return dataset.label == 'utilization_rate' ? (
                               <CTableDataCell key={`data_${idx}`}>
                                 <div className="fw-semibold text-truncate">
-                                  {data}
+                                  {data * 100}%
                                 </div>
-                                <CProgress thin className="mt-2" value={parseInt(data.replace('%', ''))} />
+                                <CProgress thin className="mt-2" value={parseInt(data * 100)} />
                               </CTableDataCell>
                             ) : (
                               <CTableDataCell key={`data_${idx}`}>
