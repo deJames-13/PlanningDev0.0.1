@@ -68,11 +68,16 @@ export default function BudgetForm() {
         <CRow
             className='gap-4 gap-md-0'
             style={{
-                height: '80vh',
+                height: '100vh',
                 overflow: 'auto',
                 marginBottom: '1rem'
             }}>
-            <CCol lg={5}>
+            <CCol lg={5} style={{
+                height: '100%',
+                overflow: 'auto',
+                position: 'sticky',
+                top: 0,
+            }}>
                 <ResourceForm
                     id={id}
                     resource={RESOURCE}

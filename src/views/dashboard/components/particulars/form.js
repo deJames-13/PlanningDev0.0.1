@@ -70,7 +70,7 @@ export default function ParticularForm({
         <CRow
             className={isModal ? 'container-fluid' : 'gap-4 gap-md-0'}
             style={isModal ? {} : {
-                height: '80vh',
+                height: '100vh',
                 marginBottom: '1rem',
                 overflow: 'auto',
             }}
@@ -78,6 +78,12 @@ export default function ParticularForm({
             <CCol
                 className='container-fluid'
                 lg={isModal ? 12 : 6}
+                style={{
+                    height: '100%',
+                    overflow: 'auto',
+                    position: 'sticky',
+                    top: 0,
+                }}
             >
                 <ResourceForm
                     id={!isModal ? id : null}

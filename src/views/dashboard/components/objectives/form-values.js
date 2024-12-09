@@ -33,7 +33,6 @@ export function FormValues({
                         name: 'accomplishment',
                         label: 'Accomplishment',
                         initialValue: data?.total?.accomplishment || 0,
-                        initialValue: 0,
                         disabled: true,
                         colSpan: 4,
                     },
