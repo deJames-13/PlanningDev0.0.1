@@ -20,7 +20,7 @@ import {
 
 
 import CIcon from '@coreui/icons-react'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { setTheme } from 'src/states/slices/theme'

@@ -1,34 +1,34 @@
 # TODO List
 
-- [ ] Charts fallback display (Skeleton for empty datasets)
+- [x] Charts fallback display (Skeleton for empty datasets)
 - [ ] Objectives fallback display
-- [ ] Public Page BAR1 Data sets fallback display
+- [x] Public Page BAR1 Data sets fallback display
 
-- [ ] Departments Form
+- [x] Departments Form
     - [ ] Add, Edit Delete, View
-- [ ] Departments Table
+- [x] Departments Table
 
-- [ ] Sectors Form
+- [x] Sectors Form
     - [ ] Add, Edit Delete, View
-- [ ] Sectors Table
+- [x] Sectors Table
 
-- [ ] Budgets Form
+- [x] Budgets Form
     - [ ] Add, Edit Delete, View
-- [ ] Budgets Table
+- [x] Budgets Table
 
-- [ ] Quality Objectives Form
+- [x] Quality Objectives Form
     - [ ] Add, Edit Delete, View
-- [ ] Quality Objectives Table
+- [x] Quality Objectives Table
 
 
-- [ ] BAR Data Form
+- [x] BAR Data Form
     - [ ] Add, Edit Delete, View
 - [x] BAR Table
 
 
 - [ ] Particulars Form
     - [ ] Add, Edit Delete, View
-- [ ] Particulars Table
+- [x] Particulars Table
 
 
 

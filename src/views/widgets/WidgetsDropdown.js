@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'

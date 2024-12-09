@@ -127,7 +127,7 @@ export default function ParticularCard({
     return particular && (
         <>
             <div>
-                <div className="d-flex items-align-center justify-content-between">
+                <div className="d-md-flex items-align-center justify-content-between">
                     <div>
                         {/* <i className='fs-6'>ID: {particular.id}</i> */}
                         <h5>

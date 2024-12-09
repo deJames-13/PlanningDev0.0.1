@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import logo from '../../assets/images/logo.png';
 import tuptTextPng from '../../assets/images/tupt-text.png';
 import noLogo from '../../assets/images/tupt_portal_banner_no_logo.png';
@@ -43,7 +43,7 @@ export default function GuestHeader() {
           <div className="container">
             <div className="header-top-wrapper d-flex flex-wrap justify-content-sm-between">
               <div className="header-top-left">
-                <ul className="header-meta">
+                <ul className="header-meta m-0">
                   <li id="datetime">
                     <span>{date.toLocaleString()}</span>
                   </li>
@@ -76,7 +76,7 @@ export default function GuestHeader() {
             <div className="row">
               <div className="col-lg-2">
                 <div className="logo-img header-logo">
-                  <a href="index.html"><img src={logo} alt="Logo" /></a>
+                  <a href="https://tupt.edu.ph"><img src={logo} alt="Logo" /></a>
                 </div>
               </div>
               <div className="col-lg-10 position-static banner-text">

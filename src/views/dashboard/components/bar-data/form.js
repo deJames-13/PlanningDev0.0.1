@@ -41,7 +41,6 @@ export default function BarDataForm() {
             ...prev,
             particulars: newParticulars
         }))
-        alert(JSON.stringify(newParticulars))
         setCurrent(null)
     }
 
@@ -102,15 +101,17 @@ export default function BarDataForm() {
                 {/* Particular Lists */}
                 <CCard>
                     <CCardHeader>
-                        <h4>
-                            Particulars
-                        </h4>
-                        <ParticularForm
-                            open={current !== null}
-                            particular={current}
-                            onSubmit={saveParticular}
-                            onCancel={() => setCurrent(null)}
-                        />
+                        <div className="d-flex justify-content-between items-align-center flex-wrap">
+                            <h4>
+                                Particulars
+                            </h4>
+                            <ParticularForm
+                                open={current !== null}
+                                particular={current}
+                                onSubmit={saveParticular}
+                                onCancel={() => setCurrent(null)}
+                            />
+                        </div>
                     </CCardHeader>
                     <CCardBody>
                         {

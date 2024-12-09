@@ -2,7 +2,7 @@ import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react';
 import {
   CChartBar,
 } from '@coreui/react-chartjs';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
 const _chartData = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],

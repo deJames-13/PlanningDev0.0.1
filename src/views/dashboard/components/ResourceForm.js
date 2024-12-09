@@ -23,6 +23,7 @@ export default function ResourceForm({
     noSubmit,
     onChanges = () => { },
     onSubmit = () => { },
+    style,
     children
 }) {
     const {
@@ -33,6 +34,7 @@ export default function ResourceForm({
 
     const handleSubmit = useCallback((values) => {
         alert(JSON.stringify(values, null, 2))
+
         const payload = {
             id,
             ...formData,
@@ -60,13 +62,15 @@ export default function ResourceForm({
     return (
         <CCard style={{
             height: '100%',
-            width: '100%'
+            width: '100%',
+            ...style
+
         }}>
             <CCardHeader>
                 <h4>
                     {title || `${capitalizeName(resource)} Form`}
                 </h4>
-                <p>
+                <p className='text-secondary'>
                     {subtitle}
                 </p>
             </CCardHeader>

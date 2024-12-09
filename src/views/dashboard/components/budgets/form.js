@@ -1,3 +1,5 @@
+import { cilPlus } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 import {
     CButton,
     CCard,
@@ -13,6 +15,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import useResourceOptions from '../../hooks/useResourceOptions'
 import ResourceForm from '../ResourceForm'
+import AnnualModal from './annual-modal'
 import AnnualTable from './annual-table'
 import ChartPreview from './chart-preview'
 import * as formSchema from './form-schema'
@@ -32,7 +35,23 @@ export default function BudgetForm() {
     const [annual, setAnnual] = useState([])
     const [current, setCurrent] = useState(null)
 
-    const saveAnnual = (annual) => { }
+    const saveAnnual = (annual) => {
+        const newAnnual = (data?.annual || []).filter(a => a.id !== annual.id || a.year !== annual.year)
+        newAnnual.push({
+            ...annual,
+            id: annual?.id ? annual?.id : filterAnnual.length + 1
+        });
+        const newData = {
+            ...data,
+            annual: newAnnual
+        }
+        newAnnual.reverse();
+        setData(newData)
+    }
+
+    const removeAnnual = (annual) => {
+        console.log(annual)
+    }
 
     const handleChanges = (values) => {
         setData(prev => ({
@@ -41,12 +60,9 @@ export default function BudgetForm() {
         }))
     }
 
-    const handleRemove = (annual) => { }
-
     useEffect(() => {
         if (data?.annual) setAnnual(data.annual)
     }, [data])
-
 
     return (
         <CRow
@@ -82,7 +98,6 @@ export default function BudgetForm() {
             </CCol>
 
             <CCol lg={7} className='gap-4 d-flex flex-column' style={{
-                height: '100%',
                 overflowY: 'auto',
                 overflowX: 'hidden'
             }}>
@@ -90,26 +105,36 @@ export default function BudgetForm() {
                     <CCardHeader>
                         <h4>Chart Preview</h4>
                     </CCardHeader>
-                    <CCardBody className='px-4'>
-                        <ChartPreview values={annual} />
+                    <CCardBody className='p-0 px-lg-4'>
+                        <ChartPreview values={data?.annual} />
                     </CCardBody>
                 </CCard>
 
                 <CCard>
                     <CCardHeader>
-                        <h4>Annual Data</h4>
+                        <div className="d-flex items-align-center justify-content-between">
+                            <h4>Annual Data</h4>
+                            <AnnualModal
+                                value={current}
+                                open={current !== null}
+                                onSubmit={saveAnnual}
+                                onCancel={() => setCurrent(null)}
+                            />
+                        </div>
                     </CCardHeader>
                     <CCardBody className='px-4'>
                         {
                             loading ?
                                 <CSpinner />
-                                : <AnnualTable values={annual} />
+                                : <AnnualTable
+                                    values={annual}
+                                    onEdit={setCurrent}
+                                    onRemove={removeAnnual}
+                                />
                         }
                     </CCardBody>
                 </CCard>
-
             </CCol>
-
         </CRow>
 
     )

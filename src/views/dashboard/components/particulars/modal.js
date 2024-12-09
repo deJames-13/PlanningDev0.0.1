@@ -1,7 +1,7 @@
 import { cilPlus } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ParticularForm from './form'
 
 export default function ParticularModal({
@@ -26,9 +26,12 @@ export default function ParticularModal({
 
     return (
         <>
-            <CButton color="primary" onClick={() => setVisible(!visible)} className='d-flex align-items-center'>
+            <CButton color="primary" onClick={() => {
+                setParticular(null)
+                setVisible(true)
+            }} className='d-flex align-items-center'>
                 <CIcon icon={cilPlus} />
-                <span>
+                <span className='d-none d-md-block'>
                     Add Particulars
                 </span>
             </CButton>
@@ -37,7 +40,10 @@ export default function ParticularModal({
                 size='lg'
                 backdrop="static"
                 visible={visible}
-                onClose={() => setVisible(false)}
+                onClose={() => {
+                    setParticular(null)
+                    setVisible(true)
+                }}
                 aria-labelledby="formParticularsModal"
                 scrollable
             >
@@ -49,6 +55,7 @@ export default function ParticularModal({
                     </CModalTitle>
                 </CModalHeader>
                 <CModalBody
+                    className='px-0 mx-0 container-fluid'
                     style={{
                         width: '100%',
                         display: 'flex',

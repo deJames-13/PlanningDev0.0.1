@@ -1,14 +1,14 @@
 import { CChartLine } from '@coreui/react-chartjs';
 import { getStyle } from '@coreui/utils';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 Chart.register(ChartDataLabels);
 
-export default function LineChart({ chartData, max = null,  average = null}) {
+export default function LineChart({ chartData, max = null, average = null }) {
   const chartRef = useRef(null);
-  
+
 
   useEffect(() => {
     document.documentElement.addEventListener('ColorSchemeChange', () => {
@@ -35,7 +35,7 @@ export default function LineChart({ chartData, max = null,  average = null}) {
     return null;
   }
 
-  
+
 
   const formattedDatasets = chartData.datasets.map(dataset => {
     return {
@@ -44,7 +44,8 @@ export default function LineChart({ chartData, max = null,  average = null}) {
     }
   });
 
-  return (
+  return (<>
+
     <CChartLine
       ref={chartRef}
       style={{ height: '300px', marginTop: '40px' }}
@@ -104,6 +105,15 @@ export default function LineChart({ chartData, max = null,  average = null}) {
         },
       }}
     />
+    <p>
+      <i className='d-sm-none d-block text-secondary fw-light' style={{
+        fontSize: '0.8rem',
+        textAlign: 'center',
+      }}>
+        Can't view chart properly on small screen. Please view on larger screen.
+      </i>
+    </p>
+  </>
   );
 }
 

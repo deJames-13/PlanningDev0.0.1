@@ -2,13 +2,13 @@
 import { CFormCheck } from '@coreui/react';
 export default (data, actions) => {
     const Actions = actions;
-    let resource = 'departments';
+    let resource = 'objectives';
     return {
         columns: [
             {
                 cell: (row) => <CFormCheck
                     color='primary'
-                    id={`objectives_${row.id}`}
+                    id={`${resource}_${row.id}`}
                     style={{
                         borderColor: 'primary',
                     }}
