@@ -41,7 +41,6 @@ export default function BarDataForm() {
             ...prev,
             particulars: newParticulars
         }))
-        alert(JSON.stringify(newParticulars))
         setCurrent(null)
     }
 

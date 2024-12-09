@@ -33,7 +33,6 @@ export default function ParticularsCard(
   }
 
   React.useEffect(() => {
-    console.log(data);
     if (data?.indicators?.length > 0) {
       setIndicators(data.indicators)
       setCurrentIndicator(data.indicators[0])
@@ -73,11 +72,15 @@ export default function ParticularsCard(
           >
             {title}
           </h3>
-
           {chartData && <BarChart
             data={chartData}
             labels="years"
           /> || <ChartSkeleton />}
+
+          <p className='fw-light fs-6 italic'>
+            {data?.description}
+          </p>
+
         </div>
       </div>
       <div className='col-lg-4 pb-10'>
@@ -118,12 +121,11 @@ export default function ParticularsCard(
               <>
                 <hr />
                 <p>
-                  {currentIndicator?.description}
-                </p>
-                <p>
-                  Accomplishments show a percentage of <strong>{percentage}%</strong> from the target goal of <strong>
-                    {totalTarget.toFixed(2)}
-                  </strong>.
+                  {currentIndicator?.description || <>
+                    Accomplishments show a percentage of <strong>{percentage}%</strong> from the target goal of <strong>
+                      {totalTarget.toFixed(2)}
+                    </strong>.
+                  </>}
                 </p>
               </>
             );
