@@ -26,7 +26,10 @@ export default function ParticularModal({
 
     return (
         <>
-            <CButton color="primary" onClick={() => setVisible(!visible)} className='d-flex align-items-center'>
+            <CButton color="primary" onClick={() => {
+                setParticular(null)
+                setVisible(true)
+            }} className='d-flex align-items-center'>
                 <CIcon icon={cilPlus} />
                 <span className='d-none d-md-block'>
                     Add Particulars
@@ -37,7 +40,10 @@ export default function ParticularModal({
                 size='lg'
                 backdrop="static"
                 visible={visible}
-                onClose={() => setVisible(false)}
+                onClose={() => {
+                    setParticular(null)
+                    setVisible(true)
+                }}
                 aria-labelledby="formParticularsModal"
                 scrollable
             >

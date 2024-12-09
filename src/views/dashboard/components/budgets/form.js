@@ -35,7 +35,22 @@ export default function BudgetForm() {
     const [annual, setAnnual] = useState([])
     const [current, setCurrent] = useState(null)
 
-    const saveAnnual = (annual) => { }
+    const saveAnnual = (annual) => {
+        const newAnnual = (data?.annual || []).filter(a => a.id !== annual.id || a.year !== annual.year)
+        newAnnual.push({
+            ...annual,
+            id: annual?.id ? annual?.id : filterAnnual.length + 1
+        });
+        const newData = {
+            ...data,
+            annual: newAnnual
+        }
+        newAnnual.reverse();
+        setData(newData)
+    }
+    const removeAnnual = (annual) => {
+        console.log(annual)
+    }
 
     const handleChanges = (values) => {
         setData(prev => ({
@@ -44,7 +59,6 @@ export default function BudgetForm() {
         }))
     }
 
-    const handleRemove = (annual) => { }
 
     useEffect(() => {
         if (data?.annual) setAnnual(data.annual)
@@ -93,7 +107,7 @@ export default function BudgetForm() {
                         <h4>Chart Preview</h4>
                     </CCardHeader>
                     <CCardBody className='p-0 px-lg-4'>
-                        <ChartPreview values={annual} />
+                        <ChartPreview values={data?.annual} />
                     </CCardBody>
                 </CCard>
 
@@ -101,14 +115,23 @@ export default function BudgetForm() {
                     <CCardHeader>
                         <div className="d-flex items-align-center justify-content-between">
                             <h4>Annual Data</h4>
-                            <AnnualModal />
+                            <AnnualModal
+                                value={current}
+                                open={current !== null}
+                                onSubmit={saveAnnual}
+                                onCancel={() => setCurrent(null)}
+                            />
                         </div>
                     </CCardHeader>
                     <CCardBody className='px-4'>
                         {
                             loading ?
                                 <CSpinner />
-                                : <AnnualTable values={annual} />
+                                : <AnnualTable
+                                    values={annual}
+                                    onEdit={setCurrent}
+                                    onRemove={removeAnnual}
+                                />
                         }
                     </CCardBody>
                 </CCard>

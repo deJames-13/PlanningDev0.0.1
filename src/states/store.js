@@ -9,29 +9,24 @@ import storage from "redux-persist/lib/storage";
 import { apiSlice } from './api';
 import rootReducer from './reducer';
 
-export const persistConfig = {
+const persistConfig = {
   key: "root",
   storage,
+  blacklist: [apiSlice.reducerPath],
 };
 
-export const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      // serializableCheck: {
-      //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      // },
-      immutableCheck: false,
-      serializableCheck: false,
-
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
     }).concat(apiSlice.middleware),
-
   devTools: 'development',
 });
 
 setupListeners(store.dispatch);
 export const persistor = persistStore(store);
-
-
-

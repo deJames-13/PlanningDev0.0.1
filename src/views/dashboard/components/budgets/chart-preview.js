@@ -11,15 +11,15 @@ export default function ChartPreview({ values }) {
             datasets: [
                 {
                     label: 'Target',
-                    data: values?.map(({ target }) => target),
+                    data: values?.map(({ allotment }) => allotment),
                 },
                 {
                     label: 'Accomplishment',
-                    data: values?.map(({ accomplishment }) => accomplishment),
+                    data: values?.map(({ obligated }) => obligated),
                 },
                 {
                     label: 'Rate',
-                    data: values?.map(({ variance }) => variance),
+                    data: values?.map(({ utilization_rate }) => utilization_rate),
                 }
             ],
         })

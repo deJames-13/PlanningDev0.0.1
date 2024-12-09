@@ -6,11 +6,11 @@ import DataTable from "react-data-table-component";
 
 
 function AnnualTableAlt({
-    values,
-    handleRemove = () => { },
-    handleEdit = () => { }
+    values = [],
+    onRemove = () => { },
+    onEdit = () => { }
 }) {
-    return (
+    return !(values?.length > 0) ? '' : (
 
         <div className='d-sm-none'>
             {
@@ -23,32 +23,34 @@ function AnnualTableAlt({
                                 <span>{item.year}</span>
                             </div>
                             <div className='d-flex flex-wrap justify-content-between col-12'>
-                                <span><strong>Target:</strong></span>
+                                <span><strong>Allotment:</strong></span>
                                 <br />
-                                <span>{item.target}</span>
+                                <span>{item.allotment}</span>
                             </div>
                             <div className='d-flex flex-wrap justify-content-between col-12'>
-                                <span><strong>Accomplishment:</strong></span>
+                                <span><strong>Obligated:</strong></span>
                                 <br />
-                                <span>{item.accomplishment}</span>
+                                <span>{item.obligated}</span>
                             </div>
                             <div className='d-flex flex-wrap justify-content-between col-12'>
                                 <span><strong>Rate (%):</strong></span>
                                 <br />
-                                <span>{item.utilization_rate}</span>
+                                <span>{item.utilization_rate || parseFloat(
+                                    (item.obligated / item.allotment) * 100
+                                )}</span>
                             </div>
                             <span className='d-flex justify-content-between col-12'>
                                 <CButton
                                     color='info'
                                     size='sm'
-                                    onClick={() => handleEdit(item)}
+                                    onClick={() => onEdit(item)}
                                 >
                                     <CIcon icon={cilPen} />
                                 </CButton>
                                 <CButton
                                     color='danger'
                                     size='sm'
-                                    onClick={() => handleRemove(item)}
+                                    onClick={() => onRemove(item)}
                                 >
                                     <CIcon icon={cilTrash} />
                                 </CButton>
@@ -63,12 +65,15 @@ function AnnualTableAlt({
 }
 
 export default function AnnualTable({
-    values,
-    handleRemove = () => { },
-    handleEdit = () => { }
+    values = [],
+    onRemove = () => { },
+    onEdit = () => { }
 }) {
+    if (!typeof values === 'array') {
+        values = []
+    }
 
-    return (
+    return !(values?.length > 0) ? '' : (
         <>
             <div className='d-none d-sm-block'>
                 <DataTable
@@ -81,13 +86,13 @@ export default function AnnualTable({
                             sortable: true,
                         },
                         {
-                            name: <span className='text-uppercase fw-bold'>target</span>,
-                            selector: row => row.target,
+                            name: <span className='text-uppercase fw-bold'>allotment</span>,
+                            selector: row => row.allotment,
                             sortable: true,
                         },
                         {
-                            name: <span className='text-uppercase fw-bold'>accomplishment</span>,
-                            selector: row => row.accomplishment,
+                            name: <span className='text-uppercase fw-bold'>obligated</span>,
+                            selector: row => row.obligated,
                             sortable: true,
                         },
                         {
@@ -106,14 +111,14 @@ export default function AnnualTable({
                                     <CDropdownMenu>
                                         <CDropdownItem
                                             className='text-info d-flex gap-2'
-                                            onClick={() => handleEdit(row)}
+                                            onClick={() => onEdit(row)}
                                         >
                                             <CIcon icon={cilPen} />
                                             Edit
                                         </CDropdownItem>
                                         <CDropdownItem
                                             className='text-danger d-flex gap-2'
-                                            onClick={() => handleRemove(row)}
+                                            onClick={() => onRemove(row)}
                                         >
                                             <CIcon icon={cilTrash} />
                                             Remove
@@ -137,8 +142,8 @@ export default function AnnualTable({
 
             <AnnualTableAlt
                 values={values}
-                handleRemove={handleRemove}
-                handleEdit={handleEdit}
+                onRemove={onRemove}
+                onEdit={onEdit}
             />
         </>
     )

@@ -31,13 +31,7 @@ const FormikForm = ({
                         height: '100%'
                     }}>
                         {fields.map((field) => !field?.custom && (
-                            <div key={field.name} className="mb-3">
-                                <label htmlFor={field.name} className="form-label">{field.label}</label>
-                                <FieldWrapper field={field} />
-                                <ErrorMessage name={field.name} component="div" className="text-danger fst-italic" style={{
-                                    fontSize: '0.9rem',
-                                }} />
-                            </div>
+                            <FieldWrapper key={field?.name} field={field} />
                         ))}
 
                         {children}

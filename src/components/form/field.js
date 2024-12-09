@@ -1,19 +1,18 @@
-import { Field } from 'formik';
+import { ErrorMessage, Field } from 'formik';
 import React from 'react';
 import FormikDatePicker from './date-picker';
 import InputGroup from './input-group';
 import FormikSelect from './select';
 import SmartSelect from './smart-select';
 
-const FieldWrapper = ({ field }) => {
+const FieldWrapper = ({ field = {} }) => {
     let FieldComponent;
-    let { options, as, initialValue, ...props } = field;
+    let { options = [], as = 'divider', initialValue = {}, ...props } = field;
     switch (field.as) {
+        case 'divider':
+            return <hr />;
         case 'group':
             FieldComponent = <InputGroup field={field} />
-            break;
-        case 'divider':
-            FieldComponent = <hr />;
             break;
         case 'title':
             FieldComponent = <span className='text-uppercase fw-bold fs-6' {...props}>{field.label}</span>;
@@ -56,7 +55,16 @@ const FieldWrapper = ({ field }) => {
             );
             break;
     }
-    return <>{FieldComponent}</>;
+    return <>
+        <div key={field?.name} className="mb-3">
+            <label htmlFor={field?.name} className="form-label">{field?.label}</label>
+            {FieldComponent}
+            <ErrorMessage name={field?.name} component="div" className="text-danger fst-italic" style={{
+                fontSize: '0.9rem',
+            }} />
+        </div>
+
+    </>;
 };
 
 export default FieldWrapper;
