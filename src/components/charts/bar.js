@@ -43,6 +43,7 @@ export default function BarChart({
           />
         </CCardBody>
       </CCard>
+
     </>
   )
 }

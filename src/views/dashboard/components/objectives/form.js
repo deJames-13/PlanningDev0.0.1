@@ -93,7 +93,7 @@ export default function ObjectiveForm() {
                     <CCardHeader>
                         <h4>Chart Preview</h4>
                     </CCardHeader>
-                    <CCardBody className='p-0 px-lg-4'>
+                    <CCardBody className='p-1 px-lg-4'>
                         <ChartPreview values={data?.quarters} />
                     </CCardBody>
                 </CCard>
