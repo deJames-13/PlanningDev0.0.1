@@ -1,3 +1,5 @@
+import { cilPlus } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 import {
     CButton,
     CCard,
@@ -90,14 +92,19 @@ export default function BudgetForm() {
                     <CCardHeader>
                         <h4>Chart Preview</h4>
                     </CCardHeader>
-                    <CCardBody className='px-4'>
+                    <CCardBody className='p-0 px-lg-4'>
                         <ChartPreview values={annual} />
                     </CCardBody>
                 </CCard>
 
                 <CCard>
                     <CCardHeader>
-                        <h4>Annual Data</h4>
+                        <div className="d-flex items-align-center justify-content-between">
+                            <h4>Annual Data</h4>
+                            <CButton color='primary'>
+                                <CIcon icon={cilPlus} />
+                            </CButton>
+                        </div>
                     </CCardHeader>
                     <CCardBody className='px-4'>
                         {

@@ -73,7 +73,7 @@ export default function FormValuesModal({
         <>
             <CButton color="primary" onClick={() => setVisible(!visible)} className='d-flex align-items-center'>
                 <CIcon icon={cilPlus} />
-                <span>{label}</span>
+                <span className='d-none d-lg-bloc'>{label}</span>
             </CButton>
             <CModal
                 backdrop="static"
