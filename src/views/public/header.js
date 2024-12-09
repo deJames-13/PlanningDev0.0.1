@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import logo from '../../assets/images/logo.png';
 import tuptTextPng from '../../assets/images/tupt-text.png';
 import noLogo from '../../assets/images/tupt_portal_banner_no_logo.png';

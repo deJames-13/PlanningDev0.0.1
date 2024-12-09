@@ -16,7 +16,7 @@ const SmartSelect = ({ options = [], initialValue, count = 10, ...props }) => {
     };
 
     const handleInputChange = (inputValue) => {
-        const filteredOptions = (options?.filter || [])(o => o.label.toLowerCase().includes(inputValue.toLowerCase()));
+        const filteredOptions = (options || []).filter(o => o.label.toLowerCase().includes(inputValue.toLowerCase()));
         setDefaultOptions(filteredOptions.slice(0, count));
     }
 

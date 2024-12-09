@@ -1,16 +1,14 @@
-import { cilPlus } from '@coreui/icons';
+import { cilPen, cilPlus } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react';
+
 import { useCallback, useEffect, useState } from 'react';
 import FormikForm from 'src/components/form';
 import * as Yup from 'yup';
-
 const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
 
-const totalAllotment = (quarters) => quarters.reduce((acc, quarter) => acc + (parseFloat(quarter.allotment) || 0), 0);
-const totalObligated = (quarters) => quarters.reduce((acc, quarter) => acc + (parseFloat(quarter.obligated) || 0), 0);
-
 export function FormValues({
+    onSubmit = () => { },
     onChanges = () => { },
     value = {},
 }) {
@@ -18,33 +16,25 @@ export function FormValues({
     const [fields, setFields] = useState([]);
     const makeFields = useCallback((data) => ([
         {
-            name: 'year',
-            label: 'Year',
-            initialValue: data?.year || '',
-        },
-        {
+            as: 'group',
             name: 'total',
             label: <span className='text-uppercase'><strong>Total</strong></span>,
-            as: 'group',
             fields: [
                 {
-                    name: 'allotment',
-                    label: 'Allotment',
-                    initialValue: data?.allotment || '',
+                    name: 'target',
+                    label: 'Target',
                     disabled: true,
                     colSpan: 4,
                 },
                 {
-                    name: 'obligated',
-                    label: 'Obligated',
-                    initialValue: data?.obligated || '',
+                    name: 'accomplishment',
+                    label: 'Accomplishment',
                     disabled: true,
                     colSpan: 4,
                 },
                 {
-                    name: 'rate',
-                    label: 'Utilization Rate',
-                    initialValue: data?.utilization_rate || '',
+                    name: 'percentage',
+                    label: '(%)',
                     disabled: true,
                     colSpan: 4,
                 },
@@ -57,47 +47,45 @@ export function FormValues({
                 as: 'group',
                 fields: [
                     {
-                        name: `allotment_${i + 1}`,
-                        // label: 'Allotment',
-                        initialValue: data?.quarters && data?.quarters[i].allotment || '',
+                        name: `target_${i + 1}`,
+                        // label: 'Target',
                         colSpan: 4,
                     },
                     {
-                        name: `obligated_${i + 1}`,
-                        // label: 'Obligated',
-                        initialValue: data?.quarters && data?.quarters[i].obligated || '',
+                        name: `accomplishment_${i + 1}`,
+                        // label: 'Accomplishment',
                         colSpan: 4,
                     },
                     {
-                        name: `utilization_rate_${i + 1}`,
-                        // label: 'Utilization Rate (%)',
-                        initialValue: data?.quarters && data?.quarters[i].utilization_rate || '',
+                        name: `percentage_${i + 1}`,
+                        // label: '(%)',
                         colSpan: 4,
                         disabled: true,
                     }
                 ]
             })),
-    ]), [data])
-
+    ]), [data]);
 
     const handleChanges = (formValues, errors) => {
-        let newValue = {
+        let total = {};
+        let newValues = {
             ...data,
-            year: formValues.year,
-            quarters: quarters.map((quarter, i) => {
-                let allotment = parseFloat(formValues[`allotment_${i + 1}`]) || 0;
-                let obligated = parseFloat(formValues[`obligated_${i + 1}`]) || 0;
-                let utilization_rate = parseFloat((obligated / allotment) * 100).toFixed(2) || 0;
-                return { allotment, obligated, utilization_rate }
-            }),
-        }
-        newValue.allotment = totalAllotment(newValue.quarters);
-        newValue.obligated = totalObligated(newValue.quarters);
-        newValue.utilization_rate = parseFloat((newValue.obligated / newValue.allotment) * 100).toFixed(2) || 0;
-        setData(newValue);
-        setFields(makeFields(newValue));
-        onChanges(newValue, errors);
+            quarters: quarters.map((q, i) => {
+                let target = parseFloat(formValues[`target_${i + 1}`]) || 0;
+                let accomplishment = parseFloat(formValues[`accomplishment_${i + 1}`]) || 0;
+                let percentage = parseFloat(accomplishment / target * 100).toFixed(2) || 0;
+                total = {
+                    target: (total.target || 0) + target,
+                    accomplishment: (total.accomplishment || 0) + accomplishment,
+                }
+                return { target, accomplishment, percentage }
+            })
+        };
+        total.percentage = parseFloat(total.accomplishment / total.target * 100).toFixed(2) || 0;
+        newValues.total = total;
+        onChanges(newValues, errors)
     }
+
 
     useEffect(() => {
         setFields(makeFields(value));
@@ -105,40 +93,40 @@ export function FormValues({
     }, [value]);
 
     return fields?.length && (
-        <div className="pb-5">
-            <FormikForm
-                fields={fields}
+        <FormikForm
+            fields={fields}
 
-                initialValues={fields.reduce((acc, field) => {
-                    if (field.fields) {
-                        field.fields.forEach(f => {
-                            acc[f.name] = f.initialValue || '';
-                        });
-                    } else {
-                        acc[field.name] = field.initialValue || '';
-                    }
-                    return acc;
-                }, {})}
+            initialValues={fields.reduce((acc, field) => {
+                if (field.fields) {
+                    field.fields.forEach(f => {
+                        acc[f.name] = f.initialValue || '';
+                    });
+                } else {
+                    acc[field.name] = field.initialValue || '';
+                }
+                return acc;
+            }, {})}
 
-                validationSchema={Yup.object(fields.reduce((acc, field) => {
-                    if (field.fields) {
-                        field.fields.forEach(f => {
-                            acc[f.name] = Yup.number('Must be a number').positive('Must be a positive number');
-                        });
-                    } else {
-                        acc[field.name] = Yup.number('Must be a number').positive('Must be a positive number').required('Required');
-                    }
-                    return acc;
-                }, {}))}
+            validationSchema={Yup.object(fields.reduce((acc, field) => {
+                if (field.fields) {
+                    field.fields.forEach(f => {
+                        acc[f.name] = Yup.number('Must be a number').positive('Must be a positive number');
+                    });
+                } else {
+                    acc[field.name] = Yup.number('Must be a number').positive('Must be a positive number').required('Required');
+                }
+                return acc;
+            }, {}))}
 
-                onChanges={handleChanges}
-                noSubmit
-            />
-        </div>
+            onSubmit={onSubmit}
+            onChanges={handleChanges}
+            noSubmit
+        />
     );
 }
 
-export default function AnnualModal({
+
+export default function QuarterliesModal({
     open,
     value = {},
     onSubmit = () => { },
@@ -147,41 +135,37 @@ export default function AnnualModal({
     const [visible, setVisible] = useState(open);
     const [current, setCurrent] = useState(null);
     const [errors, setErrors] = useState({});
-
     useEffect(() => {
-        if (value) {
+        if (value && open) {
             setCurrent(value);
             setVisible(true);
         }
     }, [value]);
-
-
     useEffect(() => {
         if (!visible) {
             onCancel()
         }
     }, [visible])
-
     return (
         <>
             <CButton color="primary" onClick={() => {
                 setCurrent(null);
                 setVisible(true);
             }} className='d-flex align-items-center'>
-                <CIcon icon={cilPlus} />
+                <CIcon icon={cilPen} />
             </CButton>
             <CModal
                 size='lg'
                 backdrop="static"
                 visible={visible}
                 onClose={() => setVisible(false)}
-                aria-labelledby="budgetAnnualModal"
+                aria-labelledby="objectiveQuarterlyModal"
                 alignment="center"
                 scrollable
             >
                 <CModalHeader className='container-fluid'>
-                    <CModalTitle id="budgetAnnualModal">
-                        <strong>Insert Annual Data</strong>
+                    <CModalTitle id="objectiveQuarterlyModal">
+                        <strong>Quarterlies Data</strong>
                     </CModalTitle>
                 </CModalHeader>
                 <CModalBody className='container-fluid mx-auto'>

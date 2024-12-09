@@ -48,6 +48,7 @@ export default function BudgetForm() {
         newAnnual.reverse();
         setData(newData)
     }
+
     const removeAnnual = (annual) => {
         console.log(annual)
     }
@@ -59,11 +60,9 @@ export default function BudgetForm() {
         }))
     }
 
-
     useEffect(() => {
         if (data?.annual) setAnnual(data.annual)
     }, [data])
-
 
     return (
         <CRow
@@ -135,9 +134,7 @@ export default function BudgetForm() {
                         }
                     </CCardBody>
                 </CCard>
-
             </CCol>
-
         </CRow>
 
     )

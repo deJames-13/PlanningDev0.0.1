@@ -8,7 +8,7 @@ export default function InputGroup({ field }) {
     const { colSpan, ...rest } = field
     return (
         <div className='row'>
-
+            <hr />
             {
                 field?.fields && field?.fields.map((field, index) => {
                     return (

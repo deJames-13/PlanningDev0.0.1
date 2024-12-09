@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { CChartLine } from '@coreui/react-chartjs'
 import { getStyle } from '@coreui/utils'
 
 const random = () => Math.round(Math.random() * 100)
 const defaultLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-const defaultDatasets =  [
+const defaultDatasets = [
   {
     label: 'My First dataset',
     backgroundColor: `rgba(${getStyle('--cui-info-rgb')}, .1)`,

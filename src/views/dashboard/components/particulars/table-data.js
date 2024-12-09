@@ -8,7 +8,7 @@ export default (data, actions) => {
             {
                 cell: (row) => <CFormCheck
                     color='primary'
-                    id={`particular_${row.id}`}
+                    id={`${resource}_${row.id}`}
                     style={{
                         borderColor: 'primary',
                     }}

@@ -57,7 +57,9 @@ const FieldWrapper = ({ field = {} }) => {
     }
     return <>
         <div key={field?.name} className="mb-3">
-            <label htmlFor={field?.name} className="form-label">{field?.label}</label>
+            <label htmlFor={field?.name} className="form-label fw-6 text-uppercase fw-bold text-muted" style={{
+                fontSize: '0.8rem',
+            }}>{field?.label}</label>
             {FieldComponent}
             <ErrorMessage name={field?.name} component="div" className="text-danger fst-italic" style={{
                 fontSize: '0.9rem',
