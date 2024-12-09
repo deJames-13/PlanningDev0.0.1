@@ -6,23 +6,25 @@ export default function ChartPreview({ values }) {
     const [chartData, setChartData] = useState(null)
 
     useEffect(() => {
-        setChartData({
-            labels: values?.map(({ year }) => year),
-            datasets: [
-                {
-                    label: 'Target',
-                    data: values?.map(({ allotment }) => allotment),
-                },
-                {
-                    label: 'Accomplishment',
-                    data: values?.map(({ obligated }) => obligated),
-                },
-                {
-                    label: 'Rate',
-                    data: values?.map(({ utilization_rate }) => utilization_rate),
-                }
-            ],
-        })
+        if (values) {
+            setChartData({
+                labels: values?.map(({ year }) => year),
+                datasets: [
+                    {
+                        label: 'Target',
+                        data: values?.map(({ allotment }) => allotment),
+                    },
+                    {
+                        label: 'Accomplishment',
+                        data: values?.map(({ obligated }) => obligated),
+                    },
+                    {
+                        label: 'Rate',
+                        data: values?.map(({ utilization_rate }) => utilization_rate),
+                    }
+                ],
+            })
+        }
     }, [values])
     return (
         <>
