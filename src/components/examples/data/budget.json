@@ -1,0 +1,194 @@
+{
+	"title": "Annual Budget",
+	"description": "This is the annual budget for department X.",
+	"current_year": 2024,
+	"current_quarter": 1,
+	"updated_at": "2024-12-09T02:33:55.000000Z",
+	"created_at": "2024-12-09T02:33:55.000000Z",
+	"id": 1,
+	"annual": [
+		{
+			"id": 1,
+			"year": "2022",
+			"allotment": "1000000.00",
+			"obligated": "800000.00",
+			"utilization_rate": "80.00",
+			"budget_id": 1,
+			"deleted_at": null,
+			"created_at": "2024-12-09T02:33:56.000000Z",
+			"updated_at": "2024-12-09T02:33:56.000000Z",
+			"quarters": [
+				{
+					"id": 1,
+					"quarter": 1,
+					"label": "Q1",
+					"allotment": "250000.00",
+					"obligated": "200000.00",
+					"utilization_rate": "80.00",
+					"budget_annual_id": 1,
+					"deleted_at": null,
+					"created_at": "2024-12-09T02:33:57.000000Z",
+					"updated_at": "2024-12-09T02:33:57.000000Z"
+				},
+				{
+					"id": 2,
+					"quarter": 2,
+					"label": "Q2",
+					"allotment": "250000.00",
+					"obligated": "200000.00",
+					"utilization_rate": "80.00",
+					"budget_annual_id": 1,
+					"deleted_at": null,
+					"created_at": "2024-12-09T02:33:57.000000Z",
+					"updated_at": "2024-12-09T02:33:57.000000Z"
+				},
+				{
+					"id": 3,
+					"quarter": 3,
+					"label": "Q3",
+					"allotment": "250000.00",
+					"obligated": "200000.00",
+					"utilization_rate": "80.00",
+					"budget_annual_id": 1,
+					"deleted_at": null,
+					"created_at": "2024-12-09T02:33:57.000000Z",
+					"updated_at": "2024-12-09T02:33:57.000000Z"
+				},
+				{
+					"id": 4,
+					"quarter": 4,
+					"label": "Q4",
+					"allotment": "250000.00",
+					"obligated": "200000.00",
+					"utilization_rate": "80.00",
+					"budget_annual_id": 1,
+					"deleted_at": null,
+					"created_at": "2024-12-09T02:33:58.000000Z",
+					"updated_at": "2024-12-09T02:33:58.000000Z"
+				}
+			]
+		},
+		{
+			"id": 2,
+			"year": "2023",
+			"allotment": "1000000.00",
+			"obligated": "800000.00",
+			"utilization_rate": "80.00",
+			"budget_id": 1,
+			"deleted_at": null,
+			"created_at": "2024-12-09T02:33:58.000000Z",
+			"updated_at": "2024-12-09T02:33:58.000000Z",
+			"quarters": [
+				{
+					"id": 5,
+					"quarter": 1,
+					"label": "Q1",
+					"allotment": "250000.00",
+					"obligated": "200000.00",
+					"utilization_rate": "80.00",
+					"budget_annual_id": 2,
+					"deleted_at": null,
+					"created_at": "2024-12-09T02:33:58.000000Z",
+					"updated_at": "2024-12-09T02:33:58.000000Z"
+				},
+				{
+					"id": 6,
+					"quarter": 2,
+					"label": "Q2",
+					"allotment": "250000.00",
+					"obligated": "200000.00",
+					"utilization_rate": "80.00",
+					"budget_annual_id": 2,
+					"deleted_at": null,
+					"created_at": "2024-12-09T02:33:59.000000Z",
+					"updated_at": "2024-12-09T02:33:59.000000Z"
+				},
+				{
+					"id": 7,
+					"quarter": 3,
+					"label": "Q3",
+					"allotment": "250000.00",
+					"obligated": "200000.00",
+					"utilization_rate": "80.00",
+					"budget_annual_id": 2,
+					"deleted_at": null,
+					"created_at": "2024-12-09T02:33:59.000000Z",
+					"updated_at": "2024-12-09T02:33:59.000000Z"
+				},
+				{
+					"id": 8,
+					"quarter": 4,
+					"label": "Q4",
+					"allotment": "250000.00",
+					"obligated": "200000.00",
+					"utilization_rate": "80.00",
+					"budget_annual_id": 2,
+					"deleted_at": null,
+					"created_at": "2024-12-09T02:34:00.000000Z",
+					"updated_at": "2024-12-09T02:34:00.000000Z"
+				}
+			]
+		},
+		{
+			"id": 3,
+			"year": "2024",
+			"allotment": "1000000.00",
+			"obligated": "800000.00",
+			"utilization_rate": "80.00",
+			"budget_id": 1,
+			"deleted_at": null,
+			"created_at": "2024-12-09T02:34:00.000000Z",
+			"updated_at": "2024-12-09T02:34:00.000000Z",
+			"quarters": [
+				{
+					"id": 9,
+					"quarter": 1,
+					"label": "Q1",
+					"allotment": "250000.00",
+					"obligated": "200000.00",
+					"utilization_rate": "80.00",
+					"budget_annual_id": 3,
+					"deleted_at": null,
+					"created_at": "2024-12-09T02:34:01.000000Z",
+					"updated_at": "2024-12-09T02:34:01.000000Z"
+				},
+				{
+					"id": 10,
+					"quarter": 2,
+					"label": "Q2",
+					"allotment": "250000.00",
+					"obligated": "200000.00",
+					"utilization_rate": "80.00",
+					"budget_annual_id": 3,
+					"deleted_at": null,
+					"created_at": "2024-12-09T02:34:01.000000Z",
+					"updated_at": "2024-12-09T02:34:01.000000Z"
+				},
+				{
+					"id": 11,
+					"quarter": 3,
+					"label": "Q3",
+					"allotment": "250000.00",
+					"obligated": "200000.00",
+					"utilization_rate": "80.00",
+					"budget_annual_id": 3,
+					"deleted_at": null,
+					"created_at": "2024-12-09T02:34:01.000000Z",
+					"updated_at": "2024-12-09T02:34:01.000000Z"
+				},
+				{
+					"id": 12,
+					"quarter": 4,
+					"label": "Q4",
+					"allotment": "250000.00",
+					"obligated": "200000.00",
+					"utilization_rate": "80.00",
+					"budget_annual_id": 3,
+					"deleted_at": null,
+					"created_at": "2024-12-09T02:34:02.000000Z",
+					"updated_at": "2024-12-09T02:34:02.000000Z"
+				}
+			]
+		}
+	]
+}
