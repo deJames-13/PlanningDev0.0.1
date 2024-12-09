@@ -103,6 +103,7 @@ export default function ObjectiveForm() {
                         <div className="d-flex items-align-center justify-content-between">
                             <h4>Quarterlies</h4>
                             <QuarterliesModal
+                                open={false}
                                 value={data}
                                 onSubmit={handleSaveQuarter}
                                 onCancel={() => { }}

@@ -150,7 +150,6 @@ export default function QuarterliesModal({
     useEffect(() => {
         if (value) {
             setCurrent(value);
-            setVisible(true);
         }
     }, [value]);
 
