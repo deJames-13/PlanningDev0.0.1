@@ -65,7 +65,7 @@ export default function ParticularModal({
                     }}
                 >
                     <ParticularForm
-                        isModal
+                        isModal={true}
                         onErrors={setErrors}
                         onChanges={setParticular}
                         {...props}

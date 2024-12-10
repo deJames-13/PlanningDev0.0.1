@@ -60,8 +60,11 @@ export default function FormValuesModal({
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
-        setVisible(open);
-    }, [open]);
+        if (value) {
+            setCurrent(value);
+            setVisible(true);
+        }
+    }, [value]);
 
     useEffect(() => {
         if (!visible) {
@@ -71,7 +74,7 @@ export default function FormValuesModal({
 
     return (
         <>
-            <CButton color="primary" onClick={() => setVisible(!visible)} className='d-flex align-items-center'>
+            <CButton color="primary" onClick={() => setVisible(true)} className='d-flex align-items-center'>
                 <CIcon icon={cilPlus} />
                 <span className='d-none d-lg-bloc'>{label}</span>
             </CButton>

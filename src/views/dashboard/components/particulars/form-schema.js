@@ -28,6 +28,8 @@ export const validationSchema = Yup.object({
     title: Yup.string().required('Required'),
     // description: Yup.string(),
     type: Yup.string().required('Required'),
+    bar_data_id: Yup.number().required('Required')
+
 });
 
 export const initialValues = fields.reduce((acc, field) => {

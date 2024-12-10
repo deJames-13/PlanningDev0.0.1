@@ -48,18 +48,25 @@ export default function ResourceForm({
 
     }, [formData, id]);
 
+    const handleChanges = useCallback((values, errors) => {
+        onChanges({
+            ...formData,
+            ...values,
+        }, errors)
+    }, [formData])
 
     useEffect(() => {
-        if (id) fetchData(id)
-        if (!id) {
-            onChanges(null)
+        if (id)
+            fetchData(id)
+        else {
+            handleChanges(null)
             setCurrent(null)
         }
     }, [id])
 
     useEffect(() => {
         if (current?.data)
-            onChanges(current.data)
+            handleChanges(current.data)
     }, [current])
 
 
@@ -102,7 +109,7 @@ export default function ResourceForm({
                     validationSchema={form.validationSchema}
 
                     onSubmit={handleSubmit}
-                    onChanges={onChanges}
+                    onChanges={handleChanges}
                     noSubmit={noSubmit}
                     submitLabel={id ? 'Update' : 'Save'}
                 >

@@ -22,47 +22,42 @@ const TITLE = 'Particular Information Form'
 const SUBTITLE = 'Fill out necessary input for the particular information'
 // #############################################################################################
 export default function ParticularForm({
-    isModal,
+    isModal = false,
     onChanges = () => { },
     onErrors = () => { },
     particular = {},
 }) {
     const { id = null } = useParams()
-    const options = useResourceOptions({ resourceName: 'bar_data' })
-
+    const { options, loading } = useResourceOptions({ resourceName: 'bar_data' })
 
     const [data, setData] = useState(null)
+    const [values, setValues] = useState([])
     const [currentValue, setCurrentValue] = useState(null)
-    const [values, setValues] = useState(particular?.values || [])
 
 
     const saveValue = (value) => {
         const newValues = values.filter(v => v.year !== value.year)
         newValues.push(value)
-        setValues(newValues)
-        setData({ ...data, values: newValues })
-        onChanges({ ...data, values: newValues })
+        setData(prev => ({ ...prev, values: newValues }))
         setCurrentValue(null)
     }
 
     const handleChanges = (data, errors) => {
-        const newData = {
-            ...data,
-            values: values
-        }
-
-        setData(newData)
-        onChanges(newData)
+        setData(data)
         onErrors(errors)
     }
 
     useEffect(() => {
-        setData(particular)
-    }, [particular])
+        if (isModal && particular) {
+            setData(particular)
+            setValues(particular?.values || [])
+        }
+    }, [particular, isModal])
 
     useEffect(() => {
-        onChanges({ ...data, values })
-    }, [values])
+        setValues(data?.values || []);
+        onChanges(data);
+    }, [data])
 
 
 
@@ -77,7 +72,7 @@ export default function ParticularForm({
         >
             <CCol
                 className='container-fluid'
-                lg={isModal ? 12 : 6}
+                lg={isModal ? 12 : 5}
                 style={{
                     height: '100%',
                     overflow: 'auto',
@@ -87,15 +82,23 @@ export default function ParticularForm({
             >
                 <ResourceForm
                     id={!isModal ? id : null}
+                    formData={data}
                     resource={RESOURCE}
                     subtitle={SUBTITLE}
                     title={TITLE}
                     onChanges={handleChanges}
                     form={{
                         ...formSchema,
-                        fields: isModal ?
-                            formSchema.fields.map(field => field.name === 'bar_data_id' ? { custom: true } : field)
-                            : formSchema.fields,
+                        fields: formSchema.fields.map(field => {
+                            if (field.name === 'bar_data_id') {
+                                return !isModal ? {
+                                    ...field,
+                                    options: options?.length > 0 ? options : [],
+                                    loading: loading,
+                                } : { custom: true }
+                            }
+                            return field
+                        }),
                         initialValues: formSchema.fields.reduce((acc, field) => {
                             acc[field.name] = data && data[`${field?.name}`] || field?.initialValue || '';
                             return acc;
@@ -107,7 +110,7 @@ export default function ParticularForm({
             </CCol>
 
             <CCol className='gap-4 d-flex flex-column-reverse flex-md-column'
-                lg={isModal ? 12 : 6}
+                lg={isModal ? 12 : 7}
             >
                 {
                     !isModal &&
