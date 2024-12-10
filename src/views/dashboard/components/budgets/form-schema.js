@@ -40,7 +40,6 @@ export const validationSchema = Yup.object({
     description: Yup.string(),
     current_year: Yup.number().required('Required'),
     current_quarter: Yup.number('Input a valid number. (1-4)').min(1, 'Input a valid number. (1-4)').max(4, 'Input a valid number. (1-4)'),
-    sector_id: Yup.number('Select a valid sector'),
 });
 
 export const initialValues = fields.reduce((acc, field) => {

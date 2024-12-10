@@ -20,7 +20,7 @@ export function FormValues({
         {
             name: 'year',
             label: 'Year',
-            initialValue: data?.year || 0,
+            initialValue: data?.year || new Date().getFullYear(),
         },
         {
             name: 'total',
@@ -88,13 +88,19 @@ export function FormValues({
                 if (typeof q != 'object') q = {}
                 let allotment = parseFloat(formValues[`allotment_${i + 1}`]) || 0;
                 let obligated = parseFloat(formValues[`obligated_${i + 1}`]) || 0;
-                let utilization_rate = parseFloat((obligated / allotment) * 100).toFixed(2) || 0;
-                return { ...q, allotment, obligated, utilization_rate }
+                let utilization_rate = parseFloat(((obligated / allotment) * 100) || 0).toFixed(2) || 0;
+                return {
+                    ...q,
+                    allotment,
+                    obligated,
+                    utilization_rate,
+                    quarter: q?.quarter || i + 1,
+                }
             }),
         }
         newValue.allotment = totalAllotment(newValue.quarters);
         newValue.obligated = totalObligated(newValue.quarters);
-        newValue.utilization_rate = parseFloat((newValue.obligated / newValue.allotment) * 100).toFixed(2) || 0;
+        newValue.utilization_rate = parseFloat(((newValue.obligated / newValue.allotment) * 100) || 0).toFixed(2) || 0;
         setData(newValue);
         setFields(makeFields(newValue));
         onChanges(newValue, errors);
@@ -124,7 +130,7 @@ export function FormValues({
                 validationSchema={Yup.object(fields.reduce((acc, field) => {
                     if (field.fields) {
                         field.fields.forEach(f => {
-                            acc[f.name] = Yup.number('Must be a number').positive('Must be a positive number').optional();
+                            acc[f.name] = Yup.number('Must be a number').positive('Must be a positive number');
                         });
                     } else {
                         acc[field.name] = Yup.number('Must be a number').positive('Must be a positive number').required('Required');

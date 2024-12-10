@@ -13,7 +13,7 @@ export default function useResourceOptions({ resourceName }) {
     }, [])
 
     return {
-        options: data?.length > 0 && data.map((d) => ({ label: d.name, value: d.id })),
+        options: data?.length > 0 && data.map((d) => ({ label: d?.full_name || d?.short_name || d?.name, value: d.id })),
         loading: loading,
 
     }

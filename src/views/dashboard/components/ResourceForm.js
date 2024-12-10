@@ -26,7 +26,6 @@ export default function ResourceForm({
     style,
     children
 }) {
-    console.log(formData)
     const {
         names: { capitalizeName },
         states: { current, setCurrent },
@@ -41,13 +40,11 @@ export default function ResourceForm({
             ...values,
             action: id ? 'update' : 'store'
         };
-        alert(JSON.stringify(payload, null, 2))
 
-        // if (id)
-        //     return doUpdate(id, payload)
-        // else
-        //     return doStore(payload)
-        return 1
+        if (id)
+            return doUpdate(id, payload)
+        else
+            return doStore(payload)
 
     }, [formData]);
 
@@ -70,6 +67,8 @@ export default function ResourceForm({
         <CCard style={{
             height: '100%',
             width: '100%',
+            overflow: 'auto',
+            top: 0,
             ...style
 
         }}>

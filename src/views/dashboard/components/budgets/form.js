@@ -41,16 +41,22 @@ export default function BudgetForm() {
             ...annual,
             id: annual?.id ? annual?.id : newAnnual.length + 1
         });
+        newAnnual.reverse();
         const newData = {
             ...data,
             annual: newAnnual
         }
-        newAnnual.reverse();
         setData(newData)
     }
 
     const removeAnnual = (annual) => {
-        console.log(annual)
+        const newAnnual = (data?.annual || []).filter(a => a.id !== annual.id)
+        newAnnual.reverse();
+        const newData = {
+            ...data,
+            annual: newAnnual
+        }
+        setData(newData)
     }
 
     const handleChanges = (values) => {
@@ -85,6 +91,7 @@ export default function BudgetForm() {
             }}>
                 <ResourceForm
                     id={id}
+                    formData={data}
                     resource={RESOURCE}
                     subtitle={SUBTITLE}
                     title={TITLE}
@@ -132,7 +139,9 @@ export default function BudgetForm() {
                             />
                         </div>
                     </CCardHeader>
-                    <CCardBody className='px-4'>
+                    <CCardBody className='px-4' style={{
+                        overflowY: 'visible',
+                    }}>
                         {
                             loading ?
                                 <CSpinner />

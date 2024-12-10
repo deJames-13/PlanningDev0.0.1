@@ -11,29 +11,34 @@ const SmartSelect = ({ options = [], initialValue, count = 10, ...props }) => {
     const { setValue } = helpers;
 
     const handleChange = (selectedOption) => {
-        setValue(selectedOption.value);
-        setSelectedOption(selectedOption);
+        if (selectedOption.value === 'none') {
+            setValue(null);
+            setSelectedOption(null);
+        } else {
+            setValue(selectedOption.value);
+            setSelectedOption(selectedOption);
+        }
     };
 
     const handleInputChange = (inputValue) => {
         const filteredOptions = (options || []).filter(o => o.label.toLowerCase().includes(inputValue.toLowerCase()));
-        if (filteredOptions?.length != 0) {
+        if (filteredOptions?.length !== 0) {
             setDefaultOptions(filteredOptions.slice(0, count));
         }
-    }
-
-    useEffect(() => {
-        if (typeof initialValue == 'number') {
-            let option = defaultOptions.find(o => o.value == initialValue);
-            setSelectedOption(option);
-        }
-    }, [initialValue, defaultOptions]);
+    };
 
     useEffect(() => {
         if (options?.length > 0) {
-            setDefaultOptions(options)
+            setDefaultOptions(options.slice(0, count));
         }
-    }, [options])
+    }, [options, count]);
+
+    useEffect(() => {
+        if (initialValue) {
+            const option = options.find(o => o.value === initialValue);
+            setSelectedOption(option);
+        }
+    }, [initialValue, options]);
 
     return loading ? <CSpinner /> : (
         <div>
@@ -42,13 +47,14 @@ const SmartSelect = ({ options = [], initialValue, count = 10, ...props }) => {
                 {...props}
                 value={selectedOption}
                 onChange={handleChange}
-                options={defaultOptions}
+                options={[
+                    { label: 'None', value: 'none' },
+                    ...defaultOptions
+                ]}
                 onInputChange={handleInputChange}
                 isSearchable
             />
-            {meta.touched && meta.error ? (
-                <div className="text-danger">{meta.error}</div>
-            ) : null}
+
         </div>
     );
 };

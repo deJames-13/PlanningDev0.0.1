@@ -82,11 +82,6 @@ export default function ObjectiveForm() {
                         }),
                     }}
                     onChanges={handleChanges}
-                    style={{
-                        height: '100%',
-                        overflow: 'auto',
-                        top: 0,
-                    }}
                 >
                 </ResourceForm>
             </CCol>

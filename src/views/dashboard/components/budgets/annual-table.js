@@ -82,49 +82,44 @@ export default function AnnualTable({
                         {
                             name: <span className='text-uppercase fw-bold'>year</span>,
                             selector: row => row.year,
-                            width: '20%',
+                            width: '15%',
                             sortable: true,
                         },
                         {
                             name: <span className='text-uppercase fw-bold'>allotment</span>,
                             selector: row => row.allotment,
+                            width: '25%',
                             sortable: true,
                         },
                         {
                             name: <span className='text-uppercase fw-bold'>obligated</span>,
                             selector: row => row.obligated,
+                            width: '25%',
                             sortable: true,
                         },
                         {
                             name: <span className='text-uppercase fw-bold'>Rate</span>,
-                            width: '20%',
                             selector: row => row.utilization_rate,
                             sortable: true,
                         },
                         {
-                            width: '10%',
                             cell: (row) => (
-                                <CDropdown>
-                                    <CDropdownToggle>
-                                        <CIcon icon={cilMenu} />
-                                    </CDropdownToggle>
-                                    <CDropdownMenu>
-                                        <CDropdownItem
-                                            className='text-info d-flex gap-2'
-                                            onClick={() => onEdit(row)}
-                                        >
-                                            <CIcon icon={cilPen} />
-                                            Edit
-                                        </CDropdownItem>
-                                        <CDropdownItem
-                                            className='text-danger d-flex gap-2'
-                                            onClick={() => onRemove(row)}
-                                        >
-                                            <CIcon icon={cilTrash} />
-                                            Remove
-                                        </CDropdownItem>
-                                    </CDropdownMenu>
-                                </CDropdown>
+                                <>
+                                    <CButton
+                                        color='info'
+                                        size='sm'
+                                        onClick={() => onEdit(row)}
+                                    >
+                                        <CIcon icon={cilPen} />
+                                    </CButton>
+                                    <CButton
+                                        color='danger'
+                                        size='sm'
+                                        onClick={() => onRemove(row)}
+                                    >
+                                        <CIcon icon={cilTrash} />
+                                    </CButton>
+                                </>
                             ),
                         }
                     ]}
