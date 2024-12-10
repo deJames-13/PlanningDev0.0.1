@@ -199,9 +199,9 @@ export default function BudgetChart({
                             return dataset.label == 'utilization_rate' ? (
                               <CTableDataCell key={`data_${idx}`}>
                                 <div className="fw-semibold text-truncate">
-                                  {data * 100}%
+                                  {parseFloat(data * 100).toFixed(2)}%
                                 </div>
-                                <CProgress thin className="mt-2" value={parseInt(data * 100)} />
+                                <CProgress thin className="mt-2" value={parseInt(parseFloat(data * 100).toFixed(2))} />
                               </CTableDataCell>
                             ) : (
                               <CTableDataCell key={`data_${idx}`}>

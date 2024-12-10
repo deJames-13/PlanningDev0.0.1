@@ -85,7 +85,10 @@ const transformData = (data) => {
     labels.push(item.name || item.title);
     let allotement = item.annual.map(a => parseFloat(a[keys[1]] || 0));
     let obligated = item.annual.map(a => parseFloat(a[keys[2]] || 0));
-    let rate = item.annual.map(a => parseFloat(parseFloat(a[keys[1]] || 0) / parseFloat(a[keys[2]] || 0)).toFixed(2));
+    let rate = item.annual.map(a => {
+      let val = parseFloat(parseFloat(a[keys[2]] || 0) / parseFloat(a[keys[1]] || 0)).toFixed(2);
+      return isNaN(val) ? 0 : val;
+    });
     return {
       name: item.name || item.title,
       labels: annualLabels,
@@ -119,7 +122,7 @@ const transformData = (data) => {
         },
       ],
       maxAllotment: Math.max(...item.annual.map(a => parseFloat(a[keys[1]] || 0))),
-      meanValue: item.annual.map(a => (parseFloat(a[keys[1]] || 0) + parseFloat(a[keys[2]] || 0)).toFixed(2) / 2),
+      meanValue: item.annual.map(a => (parseFloat(a[keys[2]] || 0) + parseFloat(a[keys[1]] || 0)).toFixed(2) / 2),
       progressRates: makeRates(annualLabels, rate)
 
     }
