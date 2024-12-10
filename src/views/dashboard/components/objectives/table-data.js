@@ -29,6 +29,16 @@ export default (data, actions) => {
                 sortable: true,
             },
             {
+                name: <strong>Sector</strong>,
+                selector: row => <span>
+                    <a href={`/dashboard/sectors/` + row?.sector?.name}>
+                        {row?.sector?.full_name || row?.sector?.name}
+                    </a>
+                    {!row?.sector?.name && "N/A"}
+                </span>,
+                sortable: true,
+            },
+            {
                 name: <strong>Title</strong>,
                 selector: row => <a href={`/dashboard/${resource}/edit/` + row.id} className='text-break'>{row.title}</a>,
                 sortable: true,
@@ -38,16 +48,15 @@ export default (data, actions) => {
                 name: <strong>Description</strong>,
                 selector: row => <span className="text-break">{row.description}</span>,
                 sortable: true,
-                width: "40%",
             },
             {
-                name: <strong>Sector</strong>,
-                selector: row => <span>
-                    <a href={`/dashboard/sectors/` + row?.sector?.name}>
-                        {row?.sector?.full_name || row?.sector?.name}
-                    </a>
-                    {!row?.sector?.name && "N/A"}
-                </span>,
+                name: <strong>Target</strong>,
+                selector: row => <span className="text-break">{row.target}</span>,
+                sortable: true,
+            },
+            {
+                name: <strong>Accomplishment</strong>,
+                selector: row => <span className="text-break">{row.accomplishment}</span>,
                 sortable: true,
             },
             {
@@ -60,6 +69,8 @@ export default (data, actions) => {
             title: d.title,
             description: d.description,
             sector: d?.sector,
+            target: d?.total?.target,
+            accomplishment: d?.total?.accomplishment,
         }))
     }
 }

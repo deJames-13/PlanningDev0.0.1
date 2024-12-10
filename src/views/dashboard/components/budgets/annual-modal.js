@@ -84,7 +84,7 @@ export function FormValues({
         let newValue = {
             ...data,
             year: formValues.year,
-            quarters: (data?.quarters || quarters).map((q, i) => {
+            quarters: (data?.quarters.length > 0 ? data?.quarters : quarters).map((q, i) => {
                 if (typeof q != 'object') q = {}
                 let allotment = parseFloat(formValues[`allotment_${i + 1}`]) || 0;
                 let obligated = parseFloat(formValues[`obligated_${i + 1}`]) || 0;

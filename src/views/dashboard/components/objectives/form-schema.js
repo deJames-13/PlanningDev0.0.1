@@ -9,6 +9,7 @@ export const fields = [
     {
         name: 'description',
         label: 'Description',
+        initialValue: '',
         as: 'textarea',
         required: false,
     },
@@ -24,7 +25,6 @@ export const fields = [
 
 export const validationSchema = Yup.object({
     title: Yup.string().required('Required'),
-    description: Yup.string(),
     sector_id: Yup.number('Select a valid sector'),
 });
 

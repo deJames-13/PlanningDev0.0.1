@@ -75,11 +75,11 @@ export function FormValues({
     const handleChanges = (formValues, errors) => {
         let newValues = {
             ...data,
-            quarters: (data?.quarters || _quarters).map((q, i) => {
+            quarters: (data?.quarters.length > 0 ? data?.quarters : _quarters).map((q, i) => {
                 if (typeof q != 'object') q = {}
-                let target = parseFloat(formValues[`target_${i + 1}`]);
-                let accomplishment = parseFloat(formValues[`accomplishment_${i + 1}`]);
-                let percentage = parseFloat((accomplishment / target * 100).toFixed(2));
+                let target = parseFloat(formValues[`target_${i + 1}`] || 0);
+                let accomplishment = parseFloat(formValues[`accomplishment_${i + 1}`] || 0);
+                let percentage = parseFloat((parseFloat(accomplishment / target * 100) || 0).toFixed(2));
                 return {
                     ...q,
                     target,
@@ -101,6 +101,7 @@ export function FormValues({
         setFields(makeFields(newValues));
         onChanges(newValues, errors)
         console.clear()
+        console.log(newValues.quarters);
     }
 
     useEffect(() => {
