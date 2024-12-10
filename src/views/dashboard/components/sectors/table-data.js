@@ -30,9 +30,9 @@ export default (data, actions) => {
             },
             {
                 name: <strong>Name</strong>,
-                selector: row => <a href={`/dashboard/${resource}/edit/` + row?.id}>
+                selector: row => <Link to={`/dashboard/${resource}/edit/` + row?.id}>
                     {row?.name}
-                </a>,
+                </Link>,
                 sortable: true,
             },
             {

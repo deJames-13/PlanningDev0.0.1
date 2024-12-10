@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const SearchNavigation = ({ routes }) => {
     const [query, setQuery] = useState('');
@@ -43,9 +44,9 @@ const SearchNavigation = ({ routes }) => {
                 >
                     {filteredRoutes.map((route, index) => (
                         <li key={index} style={{ padding: '8px' }}>
-                            <a href={route.fullPath} style={{ textDecoration: 'none', color: 'black' }}>
+                            <Link to={route.fullPath} style={{ textDecoration: 'none', color: 'black' }}>
                                 {route.breadcrumb}
-                            </a>
+                            </Link>
                         </li>
                     ))}
                 </ul>

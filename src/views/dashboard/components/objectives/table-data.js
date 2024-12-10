@@ -1,5 +1,6 @@
 
 import { CFormCheck } from '@coreui/react';
+import { Link } from 'react-router-dom';
 export default (data, actions) => {
     const Actions = actions;
     let resource = 'objectives';
@@ -31,16 +32,16 @@ export default (data, actions) => {
             {
                 name: <strong>Sector</strong>,
                 selector: row => <span>
-                    <a href={`/dashboard/sectors/` + row?.sector?.name}>
+                    <Link to={`/dashboard/sectors/` + row?.sector?.name}>
                         {row?.sector?.full_name || row?.sector?.name}
-                    </a>
+                    </Link>
                     {!row?.sector?.name && "N/A"}
                 </span>,
                 sortable: true,
             },
             {
                 name: <strong>Title</strong>,
-                selector: row => <a href={`/dashboard/${resource}/edit/` + row.id} className='text-break'>{row.title}</a>,
+                selector: row => <Link to={`/dashboard/${resource}/edit/` + row.id} className='text-break'>{row.title}</Link>,
                 sortable: true,
                 width: "15%",
             },

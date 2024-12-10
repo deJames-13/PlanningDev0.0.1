@@ -1,5 +1,6 @@
 
 import { CFormCheck } from '@coreui/react';
+import { Link } from 'react-router-dom';
 export default (data, actions) => {
     const Actions = actions;
     let resource = 'departments';
@@ -30,7 +31,7 @@ export default (data, actions) => {
             },
             {
                 name: <strong>Name</strong>,
-                selector: row => <a href={`/dashboard/${resource}/edit/` + row.id}>{row.name}</a>,
+                selector: row => <Link to={`/dashboard/${resource}/edit/` + row.id}>{row.name}</Link>,
                 sortable: true,
             },
             {

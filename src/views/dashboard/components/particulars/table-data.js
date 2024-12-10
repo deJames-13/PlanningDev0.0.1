@@ -30,7 +30,7 @@ export default (data, actions) => {
             },
             {
                 name: <strong>Title</strong>,
-                selector: row => <a href={`/dashboard/${resource}/edit/` + row.id}>{row.title}</a>,
+                selector: row => <Link to={`/dashboard/${resource}/edit/` + row.id}>{row.title}</Link>,
                 sortable: true,
             },
             {

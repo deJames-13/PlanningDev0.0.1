@@ -1,5 +1,6 @@
 
 import { CFormCheck } from '@coreui/react';
+import { Link } from 'react-router-dom';
 export default (data, actions) => {
     const Actions = actions;
     let resource = 'bar-data';
@@ -30,7 +31,7 @@ export default (data, actions) => {
             },
             {
                 name: <strong>Title</strong>,
-                selector: row => <a href={`/dashboard/${resource}/edit/` + row.id}>{row.title}</a>,
+                selector: row => <Link to={`/dashboard/${resource}/edit/` + row.id}>{row.title}</Link>,
                 sortable: true,
             },
             {
@@ -44,7 +45,7 @@ export default (data, actions) => {
                 sortable: true,
                 cell: c => (<div>{
                     c?.particulars?.length > 0 && c.particulars.map((p, i) => <><span>
-                        <a href={'/dashboard/particular/edit/' + p.id} key={i}>{p.title.split(':')[0].slice(0, 10) + '...'}</a></span><br /></> || <span>No Particulars</span>)
+                        <Link to={'/dashboard/particular/edit/' + p.id} key={i}>{p.title.split(':')[0].slice(0, 10) + '...'}</Link></span><br /></> || <span>No Particulars</span>)
                 }
                 </div>)
             },
