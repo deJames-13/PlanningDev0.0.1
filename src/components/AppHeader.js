@@ -23,11 +23,15 @@ import CIcon from '@coreui/icons-react'
 import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import flattenRoutes from 'src/lib/flattenRoutes.js'
 import { setTheme } from 'src/states/slices/theme'
+import dashboardRoutes from 'src/views/dashboard/routes.js'
 import { AppHeaderDropdown } from './header/index'
 import { AppBreadcrumb } from './index'
+import SearchNavigation from './SearchNavigation'
 
 const AppHeader = () => {
+  const routes = flattenRoutes(dashboardRoutes)
   const headerRef = useRef()
   const { colorMode, setColorMode } = useColorModes('dashboard-theme')
 
@@ -81,6 +85,11 @@ const AppHeader = () => {
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav>
+
+
+          {/* <SearchNavigation routes={routes} /> */}
+
+          {/* THEME TOGGLERS */}
           <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
           </li>
@@ -136,7 +145,12 @@ const AppHeader = () => {
           <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
           </li>
-          {/* <AppHeaderDropdown /> */}
+
+          {/* USER MENU DROPDOWN */}
+          <AppHeaderDropdown />
+
+
+
         </CHeaderNav>
       </CContainer>
 

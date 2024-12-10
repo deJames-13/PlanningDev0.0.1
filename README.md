@@ -1,5 +1,47 @@
 # TODO List
 
+- [ ] User Authentication
+    - [ ] Basic auth
+        - [ ] username, password
+        - [ ] session token
+        - [ ] login, logout [no registration allowed]
+    - [ ] additional auth   
+        00
+        - [ ] user informations 
+            - [ ] basic infos
+            - [ ] image
+        01
+        - [ ] email auth/verification
+        - [ ] email/password recovery
+    
+- [ ] User Management
+    - [ ] roles: user(per sector),admin
+    - [ ] add,update,delete,view,
+
+<!-- MISC -->
+
+- [ ] Print Table data (datatable extension but not working/manual)
+- [ ] export pdf,csv (maybe laravel maatwebsite)
+Indexing
+- [ ] menu  search in nav bar
+- [ ] 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- FOR TESTING -->
+
 - [x] Charts fallback display (Skeleton for empty datasets)
 - [x] Objectives fallback display
 - [x] Public Page BAR1 Data sets fallback display
@@ -13,21 +55,21 @@
 - [x] Sectors Table
 
 - [x] Budgets Form
-    - [ ] ~~Add~~, ~~Edit~~ ~~Delete~~, ~~View~~
+    - [x] ~~Add~~, ~~Edit~~ ~~Delete~~, ~~View~~
 - [x] Budgets Table
 
 - [x] Quality Objectives Form
-    - [ ] ~~Add~~, ~~Edit~~ ~~Delete~~, ~~View~~
+    - [x] ~~Add~~, ~~Edit~~ ~~Delete~~, ~~View~~
 - [x] Quality Objectives Table
 
 
 - [x] BAR Data Form
-    - [ ] ~~Add~~, ~~Edit~~ ~~Delete~~, ~~View~~
+    - [x] ~~Add~~, ~~Edit~~ ~~Delete~~, ~~View~~
 - [x] BAR Table
 
 
-- [ ] Particulars Form
-    - [ ] Add, ~~Edit~~, ~~Delete~~, View
+- [x] Particulars Form
+    - [x] Add, ~~Edit~~, ~~Delete~~, View
 - [x] Particulars Table
 
 
