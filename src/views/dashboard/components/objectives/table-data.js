@@ -46,7 +46,7 @@ export default (data, actions) => {
             },
             {
                 name: <strong>Description</strong>,
-                selector: row => <span className="text-break">{row.description}</span>,
+                selector: row => <span className="text-break">{row?.description || 'No description'}</span>,
                 sortable: true,
             },
             {

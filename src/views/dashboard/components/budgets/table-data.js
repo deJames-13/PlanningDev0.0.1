@@ -36,9 +36,8 @@ export default (data, actions) => {
             },
             {
                 name: <strong>Description</strong>,
-                selector: row => <span className="text-break">{row.description}</span>,
+                selector: row => <span className="text-break">{row?.description || 'No description'}</span>,
                 sortable: true,
-                width: "40%",
             },
             {
                 name: <strong>Sector</strong>,
@@ -48,6 +47,21 @@ export default (data, actions) => {
                     </a>
                     {!row?.sector?.name && "N/A"}
                 </span>,
+                sortable: true,
+            },
+            {
+                name: <strong>Modified</strong>,
+                selector: row => <span className="text-break">{
+                    new Date(row.updated_at).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric',
+                        hour12: true,
+                    })
+                }</span>,
                 sortable: true,
             },
             {
@@ -63,6 +77,7 @@ export default (data, actions) => {
             title: d.title,
             description: d.description,
             sector: d?.sector,
+            updated_at: d.updated_at,
         }))
     }
 }
