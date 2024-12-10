@@ -33,12 +33,17 @@ export default function ObjectiveForm() {
     const [quarters, setQuarters] = useState([])
 
     const handleChanges = (values) => {
+        if (values == null) {
+            setData(null)
+            return
+        }
         setData(prev => ({ ...prev, ...values }))
     }
 
     useEffect(() => {
-        if (data?.quarters) setQuarters(data.quarters)
+        setQuarters(data?.quarters || [])
     }, [data])
+
 
     return (
         <CRow

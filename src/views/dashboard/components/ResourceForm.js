@@ -29,7 +29,7 @@ export default function ResourceForm({
     console.log(formData)
     const {
         names: { capitalizeName },
-        states: { current },
+        states: { current, setCurrent },
         actions: { fetchData, doStore, doUpdate, doDestroy },
     } = useResource(resource)
 
@@ -54,6 +54,10 @@ export default function ResourceForm({
 
     useEffect(() => {
         if (id) fetchData(id)
+        if (!id) {
+            onChanges(null)
+            setCurrent(null)
+        }
     }, [id])
 
     useEffect(() => {

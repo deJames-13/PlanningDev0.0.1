@@ -24,7 +24,9 @@ export default function ChartPreview({ values }) {
                     }
                 ],
             })
+            return
         }
+        setChartData(null)
     }, [values])
     return (
         <>

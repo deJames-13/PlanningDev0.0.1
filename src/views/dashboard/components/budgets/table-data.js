@@ -30,13 +30,28 @@ export default (data, actions) => {
             },
             {
                 name: <strong>Title</strong>,
-                selector: row => <a href={`/dashboard/${resource}/edit/` + row.id}>{row.title}</a>,
+                selector: row => <a href={`/dashboard/${resource}/edit/` + row.id} className='text-break'>{row.title}</a>,
                 sortable: true,
+                width: "15%",
             },
             {
                 name: <strong>Description</strong>,
-                selector: row => row.description,
+                selector: row => <span className="text-break">{row.description}</span>,
                 sortable: true,
+                width: "40%",
+            },
+            {
+                name: <strong>Sector</strong>,
+                selector: row => <span>
+                    <a href={`/dashboard/sectors/` + row?.sector?.name}>
+                        {row?.sector?.full_name || row?.sector?.name}
+                    </a>
+                    {!row?.sector?.name && "N/A"}
+                </span>,
+                sortable: true,
+            },
+            {
+                name: <strong>Actions</strong>,
             },
 
         ],
@@ -44,6 +59,7 @@ export default (data, actions) => {
             id: d.id,
             title: d.title,
             description: d.description,
+            sector: d?.sector,
         }))
     }
 }

@@ -73,7 +73,7 @@ export default function AnnualTable({
         values = []
     }
 
-    return !(values?.length > 0) ? '' : (
+    return (
         <>
             <div className='d-none d-sm-block'>
                 <DataTable

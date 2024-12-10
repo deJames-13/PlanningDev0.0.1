@@ -54,6 +54,11 @@ export default function BudgetForm() {
     }
 
     const handleChanges = (values) => {
+        if (values == null) {
+            setData(null)
+            setCurrent(null)
+            return
+        }
         setData(prev => ({
             ...prev,
             ...values,
@@ -61,7 +66,7 @@ export default function BudgetForm() {
     }
 
     useEffect(() => {
-        if (data?.annual) setAnnual(data.annual)
+        setAnnual(data?.annual || [])
     }, [data])
 
     return (
