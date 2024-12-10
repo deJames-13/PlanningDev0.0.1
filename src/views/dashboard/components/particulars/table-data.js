@@ -2,7 +2,7 @@
 import { CFormCheck } from '@coreui/react';
 export default (data, actions) => {
     const Actions = actions;
-    let resource = 'particulars';
+    let resource = 'particular';
     return {
         columns: [
             {

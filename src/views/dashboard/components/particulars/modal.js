@@ -85,7 +85,7 @@ export default function ParticularModal({
                             })
                             setVisible(false)
                         } else {
-                            toast.error('Please fill up the required fields')
+                            console.log(errors)
                         }
 
                     }}>Save changes</CButton>
