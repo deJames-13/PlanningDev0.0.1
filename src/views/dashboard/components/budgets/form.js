@@ -25,7 +25,7 @@ import * as formSchema from './form-schema'
 // ###################################################################
 const RESOURCE = 'budgets'
 const TITLE = 'Budget Data Form'
-const SUBTITLE = 'Fill out necessary input for the report'
+const SUBTITLE = 'Fill out necessary input for the budgets data'
 // ###################################################################
 export default function BudgetForm() {
     const { id = null } = useParams()

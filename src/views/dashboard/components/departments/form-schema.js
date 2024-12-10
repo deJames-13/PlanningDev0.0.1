@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 export const fields = [
     {
         name: 'name',
-        label: 'Name',
+        label: 'Name*',
         initialValue: '',
         required: true,
     },
@@ -22,7 +22,7 @@ export const fields = [
     },
     {
         name: 'type',
-        label: 'Type',
+        label: 'Type*',
         as: 'smart-select',
         initialValue: 'division',
         options: [

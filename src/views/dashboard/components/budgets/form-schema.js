@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 export const fields = [
     {
         name: 'title',
-        label: 'Title',
+        label: 'Title*',
     },
     {
         name: 'description',
@@ -18,18 +18,18 @@ export const fields = [
     },
     {
         name: 'current_year',
-        label: 'Current Year',
+        label: 'Current Year*',
     },
     {
         name: 'current_quarter',
-        label: 'Current Quarter',
+        label: 'Current Quarter*',
         type: 'number',
         maxLength: 4,
     },
     {
         name: 'sector_id',
         label: 'Sector',
-        placeholder: 'Select Sector',
+        placeholder: 'Select Sector*',
         as: 'smart-select',
         options: []
     },

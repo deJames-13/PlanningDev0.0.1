@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 export const fields = [
     {
         name: 'name',
-        label: 'Name',
+        label: 'Name*',
         placeholder: 'Name',
         type: 'text',
     },
@@ -24,11 +24,11 @@ export const fields = [
         label: 'Description',
         as: 'textarea',
         placeholder: 'Description',
-        type: 'text',
+        initialValue: '',
     },
     {
         name: 'department_id',
-        label: 'Department',
+        label: 'Department*',
         placeholder: 'Select Department',
         as: 'smart-select',
         options: [],

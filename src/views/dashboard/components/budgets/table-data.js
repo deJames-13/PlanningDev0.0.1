@@ -52,6 +52,9 @@ export default (data, actions) => {
             },
             {
                 name: <strong>Actions</strong>,
+                sortable: false,
+                selector: null,
+                cell: (row) => <Actions row={row} />
             },
 
         ],

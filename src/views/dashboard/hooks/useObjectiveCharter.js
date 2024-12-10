@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import DetailedToast from 'src/components/toast/detail';
 import { useGetObjMutation } from 'src/states/api/charts';
 import {
     getObjectiveFailure,
@@ -12,6 +13,7 @@ import {
 } from 'src/states/slices/objective';
 
 const transformData = (data) => {
+    if (!data?.length) return null
     let totalAccomplished = data.reduce((acc, curr) => acc + curr.total.accomplishment, 0);
     let totalTarget = data.reduce((acc, curr) => acc + curr.total.target, 0);
     return {
@@ -43,6 +45,15 @@ export default function useObjectiveCharter({ name }) {
             if (res?.data) {
                 let { data } = res.data
                 let formatted = transformData(data)
+                if (!formatted) {
+                    toast.error(
+                        <DetailedToast
+                            title={"Data Error"}
+                            message={"No data found for this sector"}
+                        />
+                    )
+                    return dispatch(getObjectiveFailure());
+                }
                 if (objState.currentSector && objState.currentSector === name) {
                     setData(formatted);
                 };
@@ -53,7 +64,12 @@ export default function useObjectiveCharter({ name }) {
             if (e.status == 404) {
                 nav('/404')
             }
-            toast.error(e.data?.message)
+            toast.error(
+                <DetailedToast
+                    title={"Request Error: " + e?.status}
+                    message={e?.data?.message}
+                />
+            )
             console.error(e);
         });
     }, [name]);

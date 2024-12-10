@@ -19,7 +19,7 @@ import * as formSchema from './form-schema'
 // #############################################################################################
 const RESOURCE = 'particular'
 const TITLE = 'Particular Information Form'
-const SUBTITLE = 'Fill out necessary input for the report'
+const SUBTITLE = 'Fill out necessary input for the particular information'
 // #############################################################################################
 export default function ParticularForm({
     isModal,

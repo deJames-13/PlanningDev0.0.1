@@ -33,6 +33,12 @@ export default (data, actions) => {
                 selector: row => <a href={`/dashboard/${resource}/edit/` + row.id}>{row.name}</a>,
                 sortable: true,
             },
+            {
+                name: <strong>Actions</strong>,
+                sortable: false,
+                selector: null,
+                cell: (row) => <Actions row={row} />
+            },
 
         ],
         data: data.map(d => ({

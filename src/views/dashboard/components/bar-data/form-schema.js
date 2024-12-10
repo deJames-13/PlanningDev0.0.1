@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 export const fields = [
     {
         name: 'title',
-        label: 'Title',
+        label: 'Title*',
         placeholder: 'Provide a title for the bar data',
     },
     {
@@ -16,7 +16,7 @@ export const fields = [
 
 export const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
-    description: Yup.string(),
+    // description: Yup.string(),
 });
 
 export const initialValues = fields.reduce((acc, field) => {

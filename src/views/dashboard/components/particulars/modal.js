@@ -2,6 +2,7 @@ import { cilPlus } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import ParticularForm from './form'
 
 export default function ParticularModal({
@@ -11,12 +12,17 @@ export default function ParticularModal({
     ...props
 }) {
     const [visible, setVisible] = useState(open)
-    const [particular, setParticular] = useState(props.particular || {})
+    const [particular, setParticular] = useState(props?.particular)
     const [errors, setErrors] = useState({})
 
+
     useEffect(() => {
-        setVisible(open)
-    }, [open])
+        if (props?.particular) {
+            setParticular(props?.particular);
+            setVisible(true);
+        }
+    }, [props?.particular]);
+
 
     useEffect(() => {
         if (!visible) {
@@ -27,7 +33,6 @@ export default function ParticularModal({
     return (
         <>
             <CButton color="primary" onClick={() => {
-                setParticular(null)
                 setVisible(true)
             }} className='d-flex align-items-center'>
                 <CIcon icon={cilPlus} />
@@ -40,10 +45,7 @@ export default function ParticularModal({
                 size='lg'
                 backdrop="static"
                 visible={visible}
-                onClose={() => {
-                    setParticular(null)
-                    setVisible(true)
-                }}
+                onClose={() => { setVisible(false) }}
                 aria-labelledby="formParticularsModal"
                 scrollable
             >
@@ -74,12 +76,16 @@ export default function ParticularModal({
                         Close
                     </CButton>
                     <CButton color="primary" onClick={() => {
-                        if (Object.keys(errors).length === 0) {
+                        if (errors == undefined)
+                            return toast.error('Please fill up the form')
+                        if (Object.keys(errors || {}).length === 0) {
                             onSubmit({
                                 ...particular,
                                 id: props?.particular?.id || null
                             })
                             setVisible(false)
+                        } else {
+                            toast.error('Please fill up the required fields')
                         }
 
                     }}>Save changes</CButton>

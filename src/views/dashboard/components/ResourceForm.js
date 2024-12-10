@@ -46,7 +46,7 @@ export default function ResourceForm({
         else
             return doStore(payload)
 
-    }, [formData]);
+    }, [formData, id]);
 
 
     useEffect(() => {
@@ -79,6 +79,11 @@ export default function ResourceForm({
                 <p className='text-secondary'>
                     {subtitle}
                 </p>
+                <span className="fst-italic fw-6 fw-italic text-muted" style={{
+                    fontSize: '0.8rem'
+                }}>
+                    * required fields
+                </span>
             </CCardHeader>
             <CCardBody>
                 <FormikForm
@@ -88,13 +93,10 @@ export default function ResourceForm({
                     }, {}) : form.initialValues}
 
                     fields={form.fields.map(field => {
-                        if (field.name === 'sector_id') {
-                            return {
-                                ...field,
-                                initialValue: current?.data?.sector_id,
-                            }
+                        return {
+                            ...field,
+                            initialValue: current?.data ? current.data[field.name] || " " : initialValues[field.name] || " ",
                         }
-                        return field
                     })}
 
                     validationSchema={form.validationSchema}
@@ -102,6 +104,7 @@ export default function ResourceForm({
                     onSubmit={handleSubmit}
                     onChanges={onChanges}
                     noSubmit={noSubmit}
+                    submitLabel={id ? 'Update' : 'Save'}
                 >
                     {children}
                 </FormikForm>

@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 export const fields = [
     {
         name: 'title',
-        label: 'Title',
+        label: 'Title*',
         required: true,
     },
     {
@@ -15,7 +15,7 @@ export const fields = [
     },
     {
         name: 'sector_id',
-        label: 'Sector',
+        label: 'Sector*',
         placeholder: 'Select a sector',
         as: 'smart-select',
         options: [],

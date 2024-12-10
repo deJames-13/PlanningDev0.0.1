@@ -7,6 +7,7 @@ const FormikForm = ({
     initialValues = {},
     fields = [],
     noSubmit,
+    submitLabel,
     validationSchema,
     onSubmit = () => { },
     onChanges = () => { },
@@ -40,7 +41,7 @@ const FormikForm = ({
                             !noSubmit && (
                                 <div>
                                     <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                                        Submit
+                                        {submitLabel || 'Submit'}
                                     </button>
                                 </div>
                             )

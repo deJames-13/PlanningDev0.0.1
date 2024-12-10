@@ -19,7 +19,7 @@ import * as formSchema from './form-schema'
 // ###################################################################
 const RESOURCE = 'departments'
 const TITLE = 'Department Form'
-const SUBTITLE = 'Fill out necessary input for the report'
+const SUBTITLE = 'Fill out necessary input for the department information'
 // ###################################################################
 export default function DepartmentForm() {
     const { id = null } = useParams()
@@ -32,7 +32,7 @@ export default function DepartmentForm() {
                 overflow: 'auto',
                 marginBottom: '1rem'
             }}>
-            <CCol lg={6} style={{
+            <CCol lg={12} style={{
                 height: '100%',
                 overflow: 'auto',
                 position: 'sticky',

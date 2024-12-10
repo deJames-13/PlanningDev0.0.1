@@ -2,10 +2,10 @@ import * as changeCase from "change-case";
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import DetailedToast from 'src/components/toast/detail';
 import resourceEndpoints from 'src/states/api/resources.js';
 import { setResource } from 'src/states/slices/resources.js';
-
 
 export default function useResource(resourceName) {
     const nav = useNavigate();
@@ -119,10 +119,23 @@ export default function useResource(resourceName) {
         setLoading(true);
         return await store(data).unwrap().then((response) => {
             setCurrent(response);
-            toast.success('Successfully added');
+            toast.success(
+                <DetailedToast
+                    title='Successfully added'
+                    message='The record has been successfully added'
+                />
+            );
             nav(`/dashboard/${kebabCaseName}/edit/${response?.data?.id}`);
             setLoading(false);
             return response;
+        }).catch((e) => {
+            setLoading(false);
+            toast.error(
+                <DetailedToast
+                    title='Error'
+                    message={e?.data?.message || 'An error occured'}
+                />
+            );
         });
     }, [store]);
 
@@ -130,9 +143,22 @@ export default function useResource(resourceName) {
         setLoading(true);
         return await update({ id, data }).unwrap().then((response) => {
             setCurrent(response);
-            toast.success('Successfully updated');
+            toast.success(
+                <DetailedToast
+                    title='Successfully updated'
+                    message='The record has been successfully updated'
+                />
+            );
             setLoading(false);
             return response;
+        }).catch((e) => {
+            setLoading(false);
+            toast.error(
+                <DetailedToast
+                    title='Error'
+                    message={e?.data?.message || 'An error occured'}
+                />
+            );
         });
     }, [update]);
 
@@ -140,7 +166,12 @@ export default function useResource(resourceName) {
         setLoading(true);
         return await destroy(id).unwrap().then((response) => {
             setCurrent(response);
-            toast.success('Successfully deleted');
+            toast.info(
+                <DetailedToast
+                    title='Successfully trashed'
+                    message='The record has been successfully trashed'
+                />
+            )
             setLoading(false);
             return response;
         });
@@ -150,7 +181,12 @@ export default function useResource(resourceName) {
         setLoading(true);
         return await restore(id).unwrap().then((response) => {
             setCurrent(response);
-            toast.success('Successfully restored');
+            toast.info(
+                <DetailedToast
+                    title='Successfully restored'
+                    message='The record has been successfully restored'
+                />
+            )
             setLoading(false);
             return response;
         });

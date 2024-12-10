@@ -49,6 +49,12 @@ export default (data, actions) => {
                 sortable: false,
                 selector: null,
             },
+            {
+                name: <strong>Actions</strong>,
+                sortable: false,
+                selector: null,
+                cell: (row) => <Actions row={row} />
+            },
         ],
         data: data.map(d => ({
             id: d.id,

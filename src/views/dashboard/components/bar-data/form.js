@@ -19,7 +19,7 @@ import * as formSchema from './form-schema'
 // ###################################################################
 const RESOURCE = 'bar-data'
 const TITLE = 'BAR Data Form'
-const SUBTITLE = 'Fill out necessary input for the report'
+const SUBTITLE = 'Fill out necessary input for the BAR1 reports'
 // ###################################################################
 export default function BarDataForm() {
     const { id = null } = useParams()
@@ -41,7 +41,6 @@ export default function BarDataForm() {
             ...prev,
             particulars: newParticulars
         }))
-        setCurrent(null)
     }
 
     const handleChanges = (values) => {
@@ -61,6 +60,7 @@ export default function BarDataForm() {
     useEffect(() => {
         setParticulars(data?.particulars ?? []);
     }, [data])
+
 
     return (
         <CRow
@@ -111,7 +111,6 @@ export default function BarDataForm() {
                                 Particulars
                             </h4>
                             <ParticularForm
-                                open={current !== null}
                                 particular={current}
                                 onSubmit={saveParticular}
                                 onCancel={() => setCurrent(null)}

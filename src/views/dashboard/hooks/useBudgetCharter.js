@@ -2,6 +2,7 @@ import React from 'react';
 
 import { getStyle } from '@coreui/utils';
 import { useDispatch, useSelector } from 'react-redux';
+import DetailedToast from 'src/components/toast/detail';
 import { useGetBudgetMutation } from 'src/states/api/charts';
 
 import { useNavigate } from 'react-router-dom';
@@ -74,6 +75,7 @@ const makeRates = (labels, values) => {
   return progressRates;
 }
 const transformData = (data) => {
+  if (!data[0]) return null;
   const labels = [];
   const annualLabels = data[0].annual.map(a => a.year);
   // const keys = Object.keys(data[0].annual[0]);
@@ -167,6 +169,16 @@ export const useBudgetCharting = (name) => {
     return getBudget(name).unwrap().then(res => {
       if (res.data) {
         const formatted = transformData(res.data);
+        if (!formatted) {
+          dispatch(getBudgetFailure('No data found'))
+          toast.error(
+            <DetailedToast
+              title={"Request Error: No data found"}
+              message={"No data found for this sector"}
+            />
+          )
+          return;
+        }
         if (budgetState.currentSector && budgetState.currentSector === name) {
           setData(formatted)
           setProgressRates(formatted.progressRates)
@@ -178,7 +190,12 @@ export const useBudgetCharting = (name) => {
       }
     }).catch(e => {
       dispatch(getBudgetFailure(e))
-      toast.error(e.data?.message)
+      toast.error(
+        <DetailedToast
+          title={"Request Error: " + e?.status}
+          message={e?.data?.message}
+        />
+      )
       console.error(e)
     });
   }

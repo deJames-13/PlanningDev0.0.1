@@ -7,7 +7,7 @@ import SmartSelect from './smart-select';
 
 const FieldWrapper = ({ field = {} }) => {
     let FieldComponent;
-    let { options = [], as = 'divider', initialValue = {}, ...props } = field;
+    let { options = [], as = 'divider', initialValue = " ", ...props } = field;
     switch (field.as) {
         case 'divider':
             return <hr />;
@@ -33,13 +33,14 @@ const FieldWrapper = ({ field = {} }) => {
             FieldComponent = <FormikDatePicker {...props} dateFormat="year" />;
             break;
         case 'textarea':
+            let { value = '', ...rest } = props;
             FieldComponent = (
                 <Field
                     as="textarea"
                     name={field.name}
                     id={field.name}
                     className="form-control"
-                    {...props}
+                    {...rest}
                 />
             );
             break;

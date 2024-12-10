@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import useResource from './useResource'
 
-export default function useResourceOptions({ resourceName }) {
+export default function useResourceOptions({ resourceName, labelKey = 'name', }) {
     const {
         actions: { fetchDatas },
         states: { data, loading },
@@ -13,7 +13,14 @@ export default function useResourceOptions({ resourceName }) {
     }, [])
 
     return {
-        options: data?.length > 0 && data.map((d) => ({ label: d?.full_name || d?.short_name || d?.name, value: d.id })),
+        options: data?.length > 0 && data.map((d) => ({
+            label: d?.full_name
+                || d?.short_name
+                || d?.name
+                || d?.title
+                || d[labelKey] || '',
+            value: d.id
+        })),
         loading: loading,
 
     }

@@ -23,7 +23,7 @@ import QuarterSummary from './quarter-summary'
 // ###################################################################
 const RESOURCE = 'objectives'
 const TITLE = 'Quality Objectives Form'
-const SUBTITLE = 'Fill out necessary input for the report'
+const SUBTITLE = 'Fill out necessary input for the quality objectives'
 // ###################################################################
 export default function ObjectiveForm() {
     const { id = null } = useParams()

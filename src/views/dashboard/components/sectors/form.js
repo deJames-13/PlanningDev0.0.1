@@ -19,12 +19,11 @@ import * as formSchema from './form-schema'
 // ###################################################################
 const RESOURCE = 'sectors'
 const TITLE = 'Sectoral Offices Form'
-const SUBTITLE = 'Fill out necessary input for the report'
+const SUBTITLE = 'Fill out necessary input for the sectoral offices'
 // ###################################################################
 export default function SectorForm() {
     const { id = null } = useParams()
-    const options = useResourceOptions({ resourceName: 'departments' })
-
+    const { options, loading } = useResourceOptions({ resourceName: 'departments' })
     return (
         <CRow
             className='gap-4 gap-md-0'
@@ -33,7 +32,7 @@ export default function SectorForm() {
                 overflow: 'auto',
                 marginBottom: '1rem'
             }}>
-            <CCol lg={6} style={{
+            <CCol lg={12} style={{
                 height: '100%',
                 overflow: 'auto',
                 position: 'sticky',
@@ -44,7 +43,19 @@ export default function SectorForm() {
                     resource={RESOURCE}
                     subtitle={SUBTITLE}
                     title={TITLE}
-                    form={formSchema}
+                    form={{
+                        ...formSchema,
+                        fields: formSchema.fields.map(field => {
+                            if (field.name === 'department_id') {
+                                return {
+                                    ...field,
+                                    options: options?.length > 0 ? options : [],
+                                    loading: loading,
+                                }
+                            }
+                            return field
+                        }),
+                    }}
                 >
                 </ResourceForm>
             </CCol>
