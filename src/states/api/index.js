@@ -5,7 +5,18 @@ const API = import.meta.env.VITE_API_URL;
 
 const baseQuery = fetchBaseQuery({
   baseUrl: `${API}/api`,
-  // credentials: 'include',
+  credentials: 'include',
+  // prepareHeaders: (headers, { getState }) => {
+  //   const token = getState().auth.token;
+  //   const XSRF = getState().auth.XSRF;
+  //   if (token) {
+  //     headers.set('Authorization', `Bearer ${token}`);
+  //   }
+  //   if (XSRF) {
+  //     headers.set('X-XSRF-TOKEN', XSRF);
+  //   }
+  //   return headers;
+  // },
 });
 
 const _baseQuery = async (args, api, extraOptions) => {
