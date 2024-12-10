@@ -173,8 +173,8 @@ export const useBudgetCharting = (name) => {
           dispatch(getBudgetFailure('No data found'))
           toast.error(
             <DetailedToast
-              title={"Request Error: No data found"}
-              message={"No data found for this sector"}
+              title={"No Data Found"}
+              message={"No data found for this sector!"}
             />
           )
           return;

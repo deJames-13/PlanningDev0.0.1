@@ -8,7 +8,6 @@ import resourcesReducer from './slices/resources';
 import themeReducer from './slices/theme';
 
 
-
 const rootReducer = combineReducers({
     theme: themeReducer,
     loading: loadingReducer,

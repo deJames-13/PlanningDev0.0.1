@@ -25,7 +25,7 @@ import ChartSkeleton from 'src/components/skeletons/chart'
 const selectTabs = ['Budget']
 
 export default function BudgetChart({
-  sector = 'all',
+  sector = 'none',
 }) {
 
   const { data, getBudgetData, progressRates } = useBudgetCharting()

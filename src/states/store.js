@@ -12,7 +12,11 @@ import rootReducer from './reducer';
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: [apiSlice.reducerPath],
+  blacklist: [
+    'api',
+    'theme',
+    'loading',
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
