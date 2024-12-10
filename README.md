@@ -1,5 +1,10 @@
 # TODO List
 
+- [ ] ROLES
+    - [ ] Super Admin - USER MANAGEMENT + ALL
+    - [ ] Admin - ALL with NO USER MANAGEMENT
+    - [ ] User - CRUD Encoding (Budgets, Quality Objectives, BAR) 
+
 - [ ] User Authentication
     - [ ] Basic auth
         - [ ] username, password
