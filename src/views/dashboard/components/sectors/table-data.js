@@ -8,7 +8,7 @@ export default (data, actions) => {
             {
                 cell: (row) => <CFormCheck
                     color='primary'
-                    id={`${resource}_${row.id}`}
+                    id={`${resource}_${row?.id}`}
                     style={{
                         borderColor: 'primary',
                     }}
@@ -24,15 +24,33 @@ export default (data, actions) => {
             },
             {
                 name: <strong>ID</strong>,
-                selector: row => row.id,
+                selector: row => row?.id,
                 width: '56px',
                 sortable: true,
             },
             {
                 name: <strong>Name</strong>,
-                selector: row => <a href={`/dashboard/${resource}/edit/` + row.id}>{row.name}</a>,
+                selector: row => <a href={`/dashboard/${resource}/edit/` + row?.id}>
+                    {row?.name}
+                </a>,
                 sortable: true,
             },
+            {
+                name: <strong>Department</strong>,
+                selector: row => row?.department || 'N/A',
+                sortable: true,
+            },
+            {
+                name: <strong>Objectives</strong>,
+                selector: row => row?.objectives,
+                sortable: true,
+            },
+            {
+                name: <strong>Budget</strong>,
+                selector: row => row?.budgets || 'N/A',
+                sortable: true,
+            },
+
             {
                 name: <strong>Actions</strong>,
                 sortable: false,
@@ -42,7 +60,11 @@ export default (data, actions) => {
         ],
         data: data.map(d => ({
             id: d.id,
-            name: d.name,
+            name: d?.full_name || d?.short_name || d?.name,
+            description: d.description,
+            department: d?.department?.full_name || d?.department?.short_name || d?.department?.name,
+            objectives: d?.objectives?.length,
+            budgets: d?.budgets?.length > 0 && d?.budgets[0].title,
         }))
     }
 }

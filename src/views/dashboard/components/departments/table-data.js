@@ -43,7 +43,9 @@ export default (data, actions) => {
         ],
         data: data.map(d => ({
             id: d.id,
-            name: d.name,
+            name: d?.full_name || d?.short_name || d?.name,
+            description: d.description,
+            sectors: 0,
         }))
     }
 }

@@ -75,7 +75,7 @@ const makeRates = (labels, values) => {
   return progressRates;
 }
 const transformData = (data) => {
-  if (!data[0]) return null;
+  if (!data?.length) return null;
   const labels = [];
   const annualLabels = data[0].annual.map(a => a.year);
   // const keys = Object.keys(data[0].annual[0]);
@@ -170,7 +170,6 @@ export const useBudgetCharting = (name) => {
       if (res.data) {
         const formatted = transformData(res.data);
         if (!formatted) {
-          dispatch(getBudgetFailure('No data found'))
           toast.error(
             <DetailedToast
               title={"No Data Found"}
