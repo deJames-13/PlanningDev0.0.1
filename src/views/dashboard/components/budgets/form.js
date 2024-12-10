@@ -39,7 +39,7 @@ export default function BudgetForm() {
         const newAnnual = (data?.annual || []).filter(a => a.id !== annual.id || a.year !== annual.year)
         newAnnual.push({
             ...annual,
-            id: annual?.id ? annual?.id : filterAnnual.length + 1
+            id: annual?.id ? annual?.id : newAnnual.length + 1
         });
         const newData = {
             ...data,
@@ -89,7 +89,7 @@ export default function BudgetForm() {
                             if (field.name === 'sector_id') {
                                 return {
                                     ...field,
-                                    options: options ?? [],
+                                    options: options?.length > 0 ? options : [],
                                     loading: loading,
                                 }
                             }

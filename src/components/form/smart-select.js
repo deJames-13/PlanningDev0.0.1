@@ -17,14 +17,23 @@ const SmartSelect = ({ options = [], initialValue, count = 10, ...props }) => {
 
     const handleInputChange = (inputValue) => {
         const filteredOptions = (options || []).filter(o => o.label.toLowerCase().includes(inputValue.toLowerCase()));
-        setDefaultOptions(filteredOptions.slice(0, count));
+        if (filteredOptions?.length != 0) {
+            setDefaultOptions(filteredOptions.slice(0, count));
+        }
     }
 
     useEffect(() => {
-        if (initialValue) {
-            setSelectedOption((options || []).find(o => o.value === initialValue));
+        if (typeof initialValue == 'number') {
+            let option = defaultOptions.find(o => o.value == initialValue);
+            setSelectedOption(option);
         }
-    }, [initialValue]);
+    }, [initialValue, defaultOptions]);
+
+    useEffect(() => {
+        if (options?.length > 0) {
+            setDefaultOptions(options)
+        }
+    }, [options])
 
     return loading ? <CSpinner /> : (
         <div>

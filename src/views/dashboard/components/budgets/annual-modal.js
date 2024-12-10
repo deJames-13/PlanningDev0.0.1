@@ -20,7 +20,7 @@ export function FormValues({
         {
             name: 'year',
             label: 'Year',
-            initialValue: data?.year || '',
+            initialValue: data?.year || 0,
         },
         {
             name: 'total',
@@ -30,21 +30,21 @@ export function FormValues({
                 {
                     name: 'allotment',
                     label: 'Allotment',
-                    initialValue: data?.allotment || '',
+                    initialValue: data?.allotment || 0,
                     disabled: true,
                     colSpan: 4,
                 },
                 {
                     name: 'obligated',
                     label: 'Obligated',
-                    initialValue: data?.obligated || '',
+                    initialValue: data?.obligated || 0,
                     disabled: true,
                     colSpan: 4,
                 },
                 {
                     name: 'rate',
                     label: 'Utilization Rate',
-                    initialValue: data?.utilization_rate || '',
+                    initialValue: data?.utilization_rate || 0,
                     disabled: true,
                     colSpan: 4,
                 },
@@ -59,19 +59,19 @@ export function FormValues({
                     {
                         name: `allotment_${i + 1}`,
                         // label: 'Allotment',
-                        initialValue: data?.quarters.find(q => q.quarter == i + 1)?.allotment || '',
+                        initialValue: data?.quarters.find(q => q.quarter == i + 1)?.allotment || 0,
                         colSpan: 4,
                     },
                     {
                         name: `obligated_${i + 1}`,
                         // label: 'Obligated',
-                        initialValue: data?.quarters.find(q => q.quarter == i + 1)?.obligated || '',
+                        initialValue: data?.quarters.find(q => q.quarter == i + 1)?.obligated || 0,
                         colSpan: 4,
                     },
                     {
                         name: `utilization_rate_${i + 1}`,
                         // label: 'Utilization Rate (%)',
-                        initialValue: data?.quarters.find(q => q.quarter == i + 1)?.utilization_rate || '',
+                        initialValue: data?.quarters.find(q => q.quarter == i + 1)?.utilization_rate || 0,
                         colSpan: 4,
                         disabled: true,
                     }
@@ -84,7 +84,8 @@ export function FormValues({
         let newValue = {
             ...data,
             year: formValues.year,
-            quarters: data?.quarters.map((q, i) => {
+            quarters: (data?.quarters || quarters).map((q, i) => {
+                if (typeof q != 'object') q = {}
                 let allotment = parseFloat(formValues[`allotment_${i + 1}`]) || 0;
                 let obligated = parseFloat(formValues[`obligated_${i + 1}`]) || 0;
                 let utilization_rate = parseFloat((obligated / allotment) * 100).toFixed(2) || 0;
@@ -100,7 +101,6 @@ export function FormValues({
     }
 
     useEffect(() => {
-        if (!value?.quarters) return;
         setFields(makeFields(value));
         setData(value);
     }, [value]);
@@ -113,10 +113,10 @@ export function FormValues({
                 initialValues={fields.reduce((acc, field) => {
                     if (field.fields) {
                         field.fields.forEach(f => {
-                            acc[f.name] = f.initialValue || '';
+                            acc[f.name] = f.initialValue || 0;
                         });
                     } else {
-                        acc[field.name] = field.initialValue || '';
+                        acc[field.name] = field.initialValue || 0;
                     }
                     return acc;
                 }, {})}
@@ -124,7 +124,7 @@ export function FormValues({
                 validationSchema={Yup.object(fields.reduce((acc, field) => {
                     if (field.fields) {
                         field.fields.forEach(f => {
-                            acc[f.name] = Yup.number('Must be a number').positive('Must be a positive number');
+                            acc[f.name] = Yup.number('Must be a number').positive('Must be a positive number').optional();
                         });
                     } else {
                         acc[field.name] = Yup.number('Must be a number').positive('Must be a positive number').required('Required');

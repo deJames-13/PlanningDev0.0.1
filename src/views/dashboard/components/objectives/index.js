@@ -2,6 +2,7 @@ import { cilCheck } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import { CProgress, CProgressStacked } from '@coreui/react';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const defaultProps = [
   {
@@ -64,12 +65,15 @@ export function ObjectiveCard({ item, index }) {
           <h6 className='text-body-secondary'>
             {index + 1}.
           </h6>
-          <h6>
-            {item.name}
-          </h6>
+          <Link to={item?.id ? `/dashboard/objectives/edit/${item?.id}` : '#'}>
+            <h6 className='link-opacity-100-hover'>
+              {item?.name || item?.title}
+            </h6>
+          </Link>
         </div>
+        <hr />
 
-        {item.quarterlies.map((quarter, index) => {
+        {(item?.quarterlies || item?.quarters || []).map((quarter, index) => {
           let color = 'success';
           let percent = (quarter.accomplishment / quarter.target) * 100;
           if (percent < 50) {
@@ -78,31 +82,43 @@ export function ObjectiveCard({ item, index }) {
             color = 'warning';
           }
           return (
-            <CProgress
-              key={`${index}-${quarter.index}`}
-              value={percent}
-              color={color}
-              className="mb-1"
-            >
-              <span
-                className="text-body-secondary small"
-                style={{
-                  justifyContent: 'end',
-                  itemAlign: 'center',
-                  display: 'flex',
-                  gap: '0.5rem',
-                }}
-              >
-                <strong>
-                  {quarter.accomplishment} / {quarter.target}
-                </strong>
-                {
-                  percent >= 100 && (
-                    <CIcon icon={cilCheck} />
-                  )
-                }
+            <div key={index} className='d-flex items-align-center' style={{
+              width: '100%',
+            }}>
+              <span className='text-uppercase fw-bold text-muted m-0 p-0' style={{
+                fontSize: '0.8rem',
+              }}>
+                {quarter.label}
               </span>
-            </CProgress>
+              <div className="container-fluid">
+
+                <CProgress
+                  key={`${index}-${quarter.index}`}
+                  value={percent}
+                  color={color}
+                  className="mb-1"
+                >
+                  <span
+                    className="text-body-secondary small"
+                    style={{
+                      justifyContent: 'end',
+                      itemAlign: 'center',
+                      display: 'flex',
+                      gap: '0.5rem',
+                    }}
+                  >
+                    <strong>
+                      {quarter.accomplishment} / {quarter.target}
+                    </strong>
+                    {
+                      percent >= 100 && (
+                        <CIcon icon={cilCheck} />
+                      )
+                    }
+                  </span>
+                </CProgress>
+              </div>
+            </div>
           );
 
         })}
@@ -112,7 +128,7 @@ export function ObjectiveCard({ item, index }) {
           </div>
         </div>
         <CProgressStacked>
-          {item.quarterlies.map((quarter, index) => {
+          {(item?.quarterlies || item?.quarters || []).map((quarter, index) => {
             let color = 'success';
             if (item.total.accomplishment < item.total.target) {
               color = 'warning';
@@ -152,6 +168,7 @@ export function ObjectiveCard({ item, index }) {
           })}
           &nbsp;{parseFloat((item.total.accomplishment / item.total.target) * 100).toFixed(2)}%
         </CProgressStacked>
+        <hr />
       </div>
     </div>)
 }

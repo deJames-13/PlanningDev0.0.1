@@ -1,6 +1,7 @@
 import { cilCheck, cilCheckCircle, cilFlagAlt } from '@coreui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetObjMutation } from 'src/states/api/charts';
 import {
@@ -25,7 +26,7 @@ const transformData = (data) => {
 }
 
 export default function useObjectiveCharter({ name }) {
-
+    const nav = useNavigate()
     const dispatch = useDispatch();
     const objState = useSelector(s => s.objective);
     const [getObj, { isLoading }] = useGetObjMutation();
@@ -39,18 +40,20 @@ export default function useObjectiveCharter({ name }) {
         dispatch(setSector(name));
         dispatch(getObjectiveStart());
         getObj(name).then((res) => {
-            // if (res?.data) {
-            //     let { data } = res.data
-            //     let formatted = transformData(data)
-            //     if (objState.currentSector && objState.currentSector === name) {
-            //         setData(formatted);
-            //     };
-            //     dispatch(getObjectiveSuccess({ [name]: formatted }));
-
-            // }
-            toast.info('Objective data is not available');
+            if (res?.data) {
+                let { data } = res.data
+                let formatted = transformData(data)
+                if (objState.currentSector && objState.currentSector === name) {
+                    setData(formatted);
+                };
+                dispatch(getObjectiveSuccess({ [name]: formatted }));
+            }
         }).catch(e => {
             dispatch(getObjectiveFailure());
+            if (e.status == 404) {
+                nav('/404')
+            }
+            toast.error(e.data?.message)
             console.error(e);
         });
     }, [name]);

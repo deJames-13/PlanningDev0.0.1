@@ -1,4 +1,5 @@
-import React from 'react'
+import { cilMagnifyingGlass } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 import {
   CButton,
   CCol,
@@ -8,8 +9,8 @@ import {
   CInputGroupText,
   CRow,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilMagnifyingGlass } from '@coreui/icons'
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Page404 = () => {
   return (
@@ -21,8 +22,11 @@ const Page404 = () => {
               <h1 className="float-start display-3 me-4">404</h1>
               <h4 className="pt-3">Oops! You{"'"}re lost.</h4>
               <p className="text-body-secondary float-start">
-                The page you are looking for was not found.
+                The page you are looking for was not found.&nbsp;
               </p>
+              <Link to={'/'}>
+                Go Back
+              </Link>
             </div>
             <CInputGroup className="input-prepend">
               <CInputGroupText>

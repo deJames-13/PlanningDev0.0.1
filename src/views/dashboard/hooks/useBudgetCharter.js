@@ -4,6 +4,7 @@ import { getStyle } from '@coreui/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetBudgetMutation } from 'src/states/api/charts';
 
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
   getBudgetFailure,
@@ -142,6 +143,7 @@ const transformData = (data) => {
 
 
 export const useBudgetCharting = (name) => {
+  const nav = useNavigate();
   const dispatch = useDispatch();
   const budgetState = useSelector(s => s.budget);
   const [getBudget] = useGetBudgetMutation();
@@ -176,6 +178,7 @@ export const useBudgetCharting = (name) => {
       }
     }).catch(e => {
       dispatch(getBudgetFailure(e))
+      toast.error(e.data?.message)
       console.error(e)
     });
   }

@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function QuarterSummary({ quarters }) {
+export default function QuarterSummary({ quarters = [] }) {
     const data = quarters.reduce((acc, quarter) => {
-        acc.total.target += parseFloat(quarter.target) || 0
-        acc.total.accomplishment += parseFloat(quarter.accomplishment) || 0
+        acc.total.target += parseFloat(quarter.target || 0)
+        acc.total.accomplishment += parseFloat(quarter.accomplishment || 0)
         return acc
     }, {
         total: {
@@ -49,11 +49,11 @@ export default function QuarterSummary({ quarters }) {
                     <div className="d-flex justify-content-between items-align-center flex-wrap">
                         <div className='d-flex flex-column'>
                             <span className='fw-bold'>Target</span>
-                            <span>{quarter.target}</span>
+                            <span>{quarter.target || 0}</span>
                         </div>
                         <div className='d-flex flex-column'>
                             <span className='fw-bold'>Accomplishment</span>
-                            <span>{quarter.accomplishment}</span>
+                            <span>{quarter.accomplishment || 0}</span>
                         </div>
                         <div className='d-flex flex-column'>
                             <span className='fw-bold'>Percentage</span>

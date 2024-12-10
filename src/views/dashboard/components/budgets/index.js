@@ -81,7 +81,6 @@ export default function BudgetChart({
 
       setFund(fund)
       setRates(ratesData)
-      console.log(fund)
     }
   }, [data])
 

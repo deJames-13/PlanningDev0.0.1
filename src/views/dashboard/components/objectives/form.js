@@ -32,19 +32,13 @@ export default function ObjectiveForm() {
     const [data, setData] = useState(null)
     const [quarters, setQuarters] = useState([])
 
-    const handleSaveQuarter = (values) => {
-        console.log(values)
-
-    }
-
     const handleChanges = (values) => {
-        setData(values)
+        setData(prev => ({ ...prev, ...values }))
     }
 
     useEffect(() => {
         if (data?.quarters) setQuarters(data.quarters)
     }, [data])
-
 
     return (
         <CRow
@@ -65,6 +59,7 @@ export default function ObjectiveForm() {
             }}>
                 <ResourceForm
                     id={id}
+                    formData={data}
                     resource={RESOURCE}
                     subtitle={SUBTITLE}
                     title={TITLE}
@@ -74,7 +69,7 @@ export default function ObjectiveForm() {
                             if (field.name === 'sector_id') {
                                 return {
                                     ...field,
-                                    options: options ?? [],
+                                    options: options?.length > 0 ? options : [],
                                     loading: loading,
                                 }
                             }
@@ -82,6 +77,11 @@ export default function ObjectiveForm() {
                         }),
                     }}
                     onChanges={handleChanges}
+                    style={{
+                        height: '100%',
+                        overflow: 'auto',
+                        top: 0,
+                    }}
                 >
                 </ResourceForm>
             </CCol>
@@ -107,7 +107,7 @@ export default function ObjectiveForm() {
                             <QuarterliesModal
                                 open={false}
                                 value={data}
-                                onSubmit={handleSaveQuarter}
+                                onSubmit={handleChanges}
                                 onCancel={() => { }}
                             />
                         </div>

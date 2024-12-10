@@ -35,11 +35,11 @@ const App = () => {
   }
 
   return (
-    <React.StrictMode>
-      <Suspense fallback={<Fallback />}>
-        <RouterProvider router={router} fallbackElement={<Fallback />} />
-      </Suspense>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <Suspense fallback={<Fallback />}>
+      <RouterProvider router={router} fallbackElement={<Fallback />} />
+    </Suspense>
+    // </React.StrictMode>
   )
 }
 

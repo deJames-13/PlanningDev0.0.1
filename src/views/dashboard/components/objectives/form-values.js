@@ -5,8 +5,8 @@ import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } 
 import { useCallback, useEffect, useState } from 'react';
 import FormikForm from 'src/components/form';
 import * as Yup from 'yup';
-const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
 
+const _quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
 export function FormValues({
     onSubmit = () => { },
     onChanges = () => { },
@@ -45,7 +45,7 @@ export function FormValues({
                     },
                 ]
             },
-            ...quarters.map((q, i) => (
+            ..._quarters.map((q, i) => (
                 {
                     name: `quarter_${i + 1}`,
                     label: <strong>Quarter {i + 1}</strong>,
@@ -64,7 +64,7 @@ export function FormValues({
                         {
                             name: `percentage_${i + 1}`,
                             colSpan: 4,
-                            initialValue: parseFloat(quarters.find(q => q.quarter === i + 1)?.accomplishment / quarters.find(q => q.quarter === i + 1)?.target * 100).toFixed(2) || 0,
+                            initialValue: quarters.find(q => q.quarter === i + 1)?.percentage || 0,
                             disabled: true,
                         }
                     ]
@@ -73,34 +73,41 @@ export function FormValues({
     }, [data]);
 
     const handleChanges = (formValues, errors) => {
-        let total = {};
         let newValues = {
             ...data,
-            quarters: data.quarters.map((q, i) => {
-                let target = parseFloat(formValues[`target_${i + 1}`]) || 0;
-                let accomplishment = parseFloat(formValues[`accomplishment_${i + 1}`]) || 0;
-                let percentage = parseFloat(accomplishment / target * 100).toFixed(2) || 0;
-                total = {
-                    target: (total.target || 0) + target,
-                    accomplishment: (total.accomplishment || 0) + accomplishment,
+            quarters: (data?.quarters || _quarters).map((q, i) => {
+                if (typeof q != 'object') q = {}
+                let target = parseFloat(formValues[`target_${i + 1}`]);
+                let accomplishment = parseFloat(formValues[`accomplishment_${i + 1}`]);
+                let percentage = parseFloat((accomplishment / target * 100).toFixed(2));
+                return {
+                    ...q,
+                    target,
+                    accomplishment,
+                    percentage,
+                    quarter: q?.quarter || i + 1,
                 }
-                return { ...q, target, accomplishment, percentage }
             })
         };
-        total.percentage = parseFloat(total.accomplishment / total.target * 100).toFixed(2) || 0;
-        newValues.total = total;
+        let totalTarget = newValues.quarters.reduce((acc, q) => acc = parseFloat(acc + (q.target || 0)), [])
+        let totalAccomplishment = newValues.quarters.reduce((acc, q) => acc = parseFloat(acc + (q.accomplishment || 0)), [])
+        let percentage = parseFloat((totalAccomplishment / totalTarget * 100).toFixed(2)) || 0;
+        newValues.total = {
+            target: totalTarget,
+            accomplishment: totalAccomplishment,
+            percentage,
+        };
         setData(newValues)
         setFields(makeFields(newValues));
         onChanges(newValues, errors)
+        console.clear()
     }
 
-
     useEffect(() => {
-        if (!value?.quarters) return;
+        if (!value) return;
         setFields(makeFields(value));
         setData(value);
     }, [value]);
-
 
     return fields?.length > 0 && (
         <FormikForm

@@ -26,6 +26,7 @@ export default function ResourceForm({
     style,
     children
 }) {
+    console.log(formData)
     const {
         names: { capitalizeName },
         states: { current },
@@ -33,7 +34,6 @@ export default function ResourceForm({
     } = useResource(resource)
 
     const handleSubmit = useCallback((values) => {
-        alert(JSON.stringify(values, null, 2))
 
         const payload = {
             id,
@@ -41,10 +41,13 @@ export default function ResourceForm({
             ...values,
             action: id ? 'update' : 'store'
         };
-        if (id)
-            return doUpdate(id, payload)
-        else
-            return doStore(payload)
+        alert(JSON.stringify(payload, null, 2))
+
+        // if (id)
+        //     return doUpdate(id, payload)
+        // else
+        //     return doStore(payload)
+        return 1
 
     }, [formData]);
 
