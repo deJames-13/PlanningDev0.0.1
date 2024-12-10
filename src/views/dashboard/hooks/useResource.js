@@ -7,6 +7,8 @@ import DetailedToast from 'src/components/toast/detail';
 import resourceEndpoints from 'src/states/api/resources.js';
 import { setResource } from 'src/states/slices/resources.js';
 
+const TABLE_STATES = ['index', 'thrashed'];
+
 export default function useResource(resourceName) {
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -35,17 +37,16 @@ export default function useResource(resourceName) {
         columns: [],
         data: []
     });
-    const tableStates = ['index', 'thrashed', 'all'];
-    const [tableState, setTableState] = React.useState(tableStates[0]);
-    const [nextTableState, setNextTableState] = React.useState(tableStates[1]);
+    const [tableState, setTableState] = React.useState(TABLE_STATES[0]);
+    const [nextTableState, setNextTableState] = React.useState(TABLE_STATES[1]);
     const [current, setCurrent] = React.useState(null);
     const [selected, setSelected] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const [thrashedData, setThrashedData] = React.useState([]);
 
     const fetchDatas = React.useCallback(async (qStr) => {
-        if (resources.list) {
-            setData(resources.list);
+        if (resources.list[resourceName]) {
+            setData(resources.list[resourceName]);
         }
         setLoading(true);
         return await index(qStr).unwrap().then((response) => {
@@ -61,15 +62,15 @@ export default function useResource(resourceName) {
     }, [index]);
 
     const fetchThrashed = React.useCallback(async (qStr) => {
-        if (resources.thrashed) {
-            setThrashedData(resources.thrashed);
+        if (resources.thrashed[resourceName]) {
+            setThrashedData(resources.thrashed[resourceName]);
         }
         setLoading(true);
         return await thrashed(qStr).unwrap().then((response) => {
-            setThrashedData(response);
+            setThrashedData(response.data);
             dispatch(setResource({
                 resource: resourceName,
-                data: response,
+                data: response.data,
                 type: 'thrashed'
             }));
             setLoading(false);
@@ -78,15 +79,15 @@ export default function useResource(resourceName) {
     }, [thrashed]);
 
     const fetchAll = React.useCallback(async (qStr) => {
-        if (resources.all) {
-            setData(resources.all);
+        if (resources.all[resourceName]) {
+            setData(resources.all[resourceName]);
         }
         setLoading(true);
         return await all(qStr).unwrap().then((response) => {
-            setData(response);
+            setData(response.data);
             dispatch(setResource({
                 resource: resourceName,
-                data: response,
+                data: response.data,
                 type: 'all'
             }));
             setLoading(false);
@@ -95,8 +96,8 @@ export default function useResource(resourceName) {
     }, [all]);
 
     const fetchData = React.useCallback(async (id, qStr) => {
-        if (resources.detail) {
-            setCurrent(resources.detail);
+        if (resources.detail[resourceName]) {
+            setCurrent(resources.detail[resourceName]);
         }
         setLoading(true);
         return await show({ id, qStr }).unwrap().then((response) => {
@@ -196,19 +197,21 @@ export default function useResource(resourceName) {
 
     // EVENTS ########################################################
     const onToggleTable = (state) => {
-        if (!state) state = tableStates[0];
-        const idx = tableStates.indexOf(state);
-        const nextIdx = idx + 1 === tableStates.length ? 0 : idx + 1;
-        const nextState = tableStates[nextIdx];
+        if (!state) state = TABLE_STATES[0];
+        const idx = TABLE_STATES.indexOf(state);
+        const nextIdx = idx + 1 === TABLE_STATES.length ? 0 : idx + 1;
+        const nextState = TABLE_STATES[nextIdx];
         setNextTableState(nextState);
         setTableState(state);
 
         if (state === 'index') {
-            fetchDatas();
+            setData([])
+            return fetchDatas();
         } else if (state === 'thrashed') {
-            fetchThrashed();
+            return fetchThrashed();
         } else if (state === 'all') {
-            fetchAll();
+            setData([])
+            return fetchAll();
         }
     }
 

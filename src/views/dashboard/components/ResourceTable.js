@@ -24,10 +24,18 @@ export default function ResourceTable({
 }) {
     const {
         names: { capitalizeName, kebabCaseName },
-        states: { data, table, setTable, tableState, nextTableState, loading },
+        states: {
+            data,
+            thrashedData,
+            table,
+            setTable,
+            tableState,
+            nextTableState,
+            loading
+        },
         actions: { fetchDatas },
         navigate,
-        events: { onDestroy, onToggleTable },
+        events: { onDestroy, onRestore: doRestore, onToggleTable },
     } = useResource(resource)
 
 
@@ -68,23 +76,46 @@ export default function ResourceTable({
         });
     }
 
+    const handleRestore = async (row) => {
+
+    }
+    const onRestore = (row) => {
+
+    }
+
 
     useEffect(() => {
         fetchDatas()
     }, [])
 
     useEffect(() => {
-        if (data.length && tableData) {
-            setTable(tableData(data, ({ row }) => {
+        let values = data;
+        if (tableState === 'thrashed') {
+            values = thrashedData;
+        }
+        console.log(tableState, values)
+        if (Array.isArray(values) && tableData) {
+            setTable(tableData(values, ({ row }) => {
                 return (
                     <>
                         <div>
-                            <Link to={`/dashboard/${kebabCaseName}/edit/` + row.id} className="btn btn-sm btn-info btn-outline">
-                                <CIcon icon={cilPen} />
-                            </Link>
-                            <button type='button' onClick={() => onDelete(row)} className="btn btn-sm btn-danger btn-outline">
-                                <CIcon icon={cilTrash} />
-                            </button>
+                            {
+                                tableState == 'index' &&
+                                <>
+                                    <Link to={`/dashboard/${kebabCaseName}/edit/` + row.id} className="btn btn-sm btn-info btn-outline">
+                                        <CIcon icon={cilPen} />
+                                    </Link>
+                                    <button type='button' onClick={() => onDelete(row)} className="btn btn-sm btn-danger btn-outline">
+                                        <CIcon icon={cilTrash} />
+                                    </button>
+                                </>
+                            }
+                            {
+                                tableState == 'thrashed' &&
+                                <button type='button' onClick={() => onRestore(row)} className="btn btn-sm btn-success btn-outline">
+                                    <CIcon icon={cilHistory} />
+                                </button>
+                            }
                         </div>
 
                     </>
@@ -92,7 +123,7 @@ export default function ResourceTable({
 
             }));
         }
-    }, [data])
+    }, [data, thrashedData, tableState])
 
     return (
         <CCard>

@@ -124,17 +124,17 @@ export default [
     {
         element: <ParticularForm />,
         name: 'New Particular',
-        path: '/dashboard/particulars/add',
+        path: '/dashboard/particular/add',
     },
     {
         element: <ParticularForm />,
         name: 'Edit Particular',
-        path: '/dashboard/particulars/edit/:id',
+        path: '/dashboard/particular/edit/:id',
     },
     {
         element: <ParticularTable />,
         name: 'Particulars Table',
-        path: '/dashboard/particulars/table',
+        path: '/dashboard/particular/table',
     },
 
 ]
