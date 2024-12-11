@@ -19,10 +19,6 @@ export const useLogoutAction = () => {
     return action;
 };
 
-const clearData = (dispatch) => {
-    dispatch(clearCart());
-    dispatch(clearOrder());
-}
 
 const useLogout = () => {
     const dispatch = useDispatch();
@@ -34,7 +30,6 @@ const useLogout = () => {
             try {
                 await logout();
                 await signOut();
-                clearData(dispatch);
                 navigate('/login');
                 toast.success('Logged out successfully');
             } catch (error) {

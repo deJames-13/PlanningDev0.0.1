@@ -30,6 +30,7 @@ export const authSlice = createSlice({
         logout: (state) => {
             state.userInfo = null;
             state.accessToken = null;
+            state.roles = null;
             localStorage.removeItem('userInfo');
             localStorage.removeItem('accessToken');
         },

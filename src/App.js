@@ -3,7 +3,6 @@ import React, { Suspense, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'
 import router from './routes/index'
-import { initializeApp } from './init'
 import 'src/assets/css/style.css'
 import 'src/scss/style.scss'
 
@@ -25,9 +24,7 @@ const App = () => {
     }
     setColorMode(storedTheme || 'light')
   }, [])
-  useEffect(() => {
-    initializeApp();
-  }, []);
+
 
   const Fallback = () => {
     return (
