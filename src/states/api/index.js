@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { startLoading, stopLoading } from '../slices/loading.js';
-import { setCredentials, logout } from '../slices/auth.js'
+import { setCredentials, logout } from '../slices/auth.js';
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -9,7 +9,13 @@ const baseQuery = fetchBaseQuery({
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.accessToken;
+    const csrfToken = document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN='));
+
     headers.set('Accept', 'application/json');
+
+    if (csrfToken) {
+      headers.set('X-XSRF-TOKEN', csrfToken.split('=')[1]);
+    }
 
     if (token) {
       headers.set('Authorization', `Bearer ${token}`);
@@ -19,7 +25,6 @@ const baseQuery = fetchBaseQuery({
 });
 
 const _baseQuery = async (args, api, extraOptions) => {
-  // console.clear()
   api.dispatch(startLoading());
   try {
     const result = await baseQuery(args, api, extraOptions);
@@ -57,4 +62,3 @@ export const apiSlice = createApi({
   baseQuery: _baseQuery,
   endpoints: (builder) => ({}),
 });
-

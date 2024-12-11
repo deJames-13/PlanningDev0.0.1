@@ -23,6 +23,8 @@ import GuestPageFooter from 'src/components/GuestFooter'
 import GuestHeader from 'src/components/GuestHeader'
 import useCheckAuth from 'src/hooks/useCheckAuth'
 
+import logo from 'src/assets/images/logo.png';
+
 import * as Yup from 'yup';
 
 
@@ -45,7 +47,6 @@ const Login = () => {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const userData = await login(values).unwrap();
-      console.log('User data:', userData);
       dispatch(setCredentials({
         userInfo: userData.user,
         token: userData.accessToken,
@@ -135,7 +136,7 @@ const Login = () => {
                 <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
                   <CCardBody className="text-center">
                     <div>
-                      <img src="src/assets/images/logo.png" alt="tupt-logo" width="100" />
+                      <img src={logo} alt="tupt-logo" width="100" />
                       <h2 className="fw-bolder">TUP-T Dashboard</h2>
                       <p className="text-white">
                         Welcome to the TUP Taguig Dashboard! Please login to continue.

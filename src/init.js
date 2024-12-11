@@ -9,6 +9,10 @@ export const initializeApp = async () => {
         if (!response.ok) {
             throw new Error('Failed to fetch CSRF token');
         }
+
+        // Log the cookies set by the server
+        console.log('Cookies:', document.cookie);
+
     } catch (error) {
         console.error('Error fetching CSRF token:', error);
     }
