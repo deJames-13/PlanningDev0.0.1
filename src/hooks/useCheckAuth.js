@@ -52,8 +52,6 @@ const useCheckAuth = (isPrivate = false) => {
     useEffect(() => {
 
         // Dashboard Access Control
-        console.clear();
-        console.log(isAdmin, isPrivate, roles, userInfo, accessToken)
         if (!isAdmin && isPrivate) {
             logout();
         }
