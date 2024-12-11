@@ -63,6 +63,7 @@ const useNavBar = () => {
                 shown: sidebarShow && !unfoldable,
             },
             {
+                roles: ['super-admin', 'admin',],
                 component: CNavGroup,
                 name: 'View Offices',
                 items: mapDepartmentsToNav(departments),

@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useLogoutAction } from './useLogout.js';
 
 const isDev = import.meta.env.VITE_CLIENT_ENV === 'development' && false;
-const ADMIN_ROLES = ['admin', 'super-admin'];
+const ADMIN_ROLES = ['admin', 'super-admin', 'user'];
 
 export const useGetAuth = () => {
     const { userInfo, accessToken, roles } = useSelector((state) => state.auth);

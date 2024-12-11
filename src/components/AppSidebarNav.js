@@ -4,10 +4,13 @@ import { NavLink } from 'react-router-dom'
 
 import SimpleBar from 'simplebar-react'
 import 'simplebar-react/dist/simplebar.min.css'
+import { useSelector } from 'react-redux'
 
 import { CBadge, CNavLink, CSidebarNav } from '@coreui/react'
 
 export const AppSidebarNav = ({ items }) => {
+  const { roles: userRoles } = useSelector((state) => state.auth)
+
   const navCustom = (item, index) => {
     const { component, type, ...rest } = item
     const Component = component
@@ -67,6 +70,13 @@ export const AppSidebarNav = ({ items }) => {
     <CSidebarNav as={SimpleBar}>
       {items &&
         items.map((item, index) => {
+          let { roles = [], ...rest } = item
+          roles.push('super-admin')
+          item = rest
+          if (roles && !roles.some((role) => userRoles.includes(role))) {
+            return
+          }
+
           if (item.items) {
             return navGroup(item, index)
           } else if (item?.type === 'custom') {

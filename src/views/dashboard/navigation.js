@@ -25,6 +25,27 @@ export default [
     },
     {
         component: CNavGroup,
+        roles: ['super-admin'],
+        name: 'Manage Users',
+        icon: <CIcon icon={cilChartLine} customClassName="nav-icon" />,
+        items: [
+            {
+                component: CNavItem,
+                name: 'View Table',
+                to: '/dashboard/users/table',
+                icon: <CIcon icon={cilSpreadsheet} customClassName="nav-icon" />,
+            },
+            {
+                component: CNavItem,
+                name: 'Append Data',
+                to: '/dashboard/users/add',
+                icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
+            },
+        ]
+    },
+    {
+        roles: ['super-admin', 'admin', 'user'],
+        component: CNavGroup,
         name: 'Manage Budgets',
         icon: <CIcon icon={cilChartLine} customClassName="nav-icon" />,
         items: [
@@ -43,6 +64,7 @@ export default [
         ]
     },
     {
+        roles: ['super-admin', 'admin', 'user'],
         component: CNavGroup,
         name: 'Manage Objectives',
         icon: <CIcon icon={cilList} customClassName="nav-icon" />,
@@ -66,6 +88,7 @@ export default [
         name: 'Budget Accountability Report (BAR) ',
     },
     {
+        roles: ['super-admin', 'admin', 'user'],
         component: CNavGroup,
         name: 'Manage Reports',
         to: '/dashboard/bar',
@@ -86,6 +109,7 @@ export default [
         ]
     },
     {
+        roles: ['super-admin', 'admin', 'user'],
         component: CNavGroup,
         name: 'Manage Particulars',
         icon: <CIcon icon={cilChart} customClassName="nav-icon" />,
@@ -109,6 +133,7 @@ export default [
         name: 'Departments and Sectoral Offices',
     },
     {
+        roles: ['super-admin', 'admin',],
         component: CNavGroup,
         name: 'Manage Departments',
         icon: <CIcon icon={cilList} customClassName="nav-icon" />,
@@ -128,6 +153,7 @@ export default [
         ]
     },
     {
+        roles: ['super-admin', 'admin',],
         component: CNavGroup,
         name: 'Manage Offices',
         icon: <CIcon icon={cilList} customClassName="nav-icon" />,

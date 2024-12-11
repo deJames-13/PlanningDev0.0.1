@@ -4,6 +4,7 @@ import DepartmentForm from './components/departments/form.js'
 import ObjectiveForm from './components/objectives/form.js'
 import ParticularForm from './components/particulars/form.js'
 import SectorForm from './components/sectors/form.js'
+import UserForm from './components/users/form.js'
 
 import BarDataTable from './components/bar-data/table.js'
 import BudgetTable from './components/budgets/table.js'
@@ -11,6 +12,7 @@ import DepartmentTable from './components/departments/table.js'
 import ObjectiveTable from './components/objectives/table.js'
 import ParticularTable from './components/particulars/table.js'
 import SectorTable from './components/sectors/table.js'
+import UserTable from './components/users/table.js'
 
 
 
@@ -27,6 +29,23 @@ export default [
         element: <Sector />,
         name: 'Sectors',
         path: '/dashboard/sectors/:sector',
+    },
+
+    // USERS
+    {
+        element: <UserForm />,
+        name: 'New User',
+        path: '/dashboard/users/add',
+    },
+    {
+        element: <UserForm />,
+        name: 'Edit User',
+        path: '/dashboard/users/edit/:id',
+    },
+    {
+        element: <UserTable />,
+        name: 'Users Table',
+        path: '/dashboard/users/table',
     },
 
 
