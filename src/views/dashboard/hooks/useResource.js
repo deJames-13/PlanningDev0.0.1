@@ -7,9 +7,14 @@ import DetailedToast from 'src/components/toast/detail';
 import resourceEndpoints from 'src/states/api/resources.js';
 import { setResource } from 'src/states/slices/resources.js';
 
+import useIsPermitted from 'src/hooks/useIsPermitted';
+
 const TABLE_STATES = ['index', 'thrashed'];
 
 export default function useResource(resourceName) {
+    const { roles } = useSelector((state) => state.auth);
+    const isPermitted = useIsPermitted({ roles, currentResource: resourceName });
+
     const nav = useNavigate();
     const dispatch = useDispatch();
     const resources = useSelector((state) => state?.resources || {});

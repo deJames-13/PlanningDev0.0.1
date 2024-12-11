@@ -35,4 +35,4 @@ const Page403 = () => {
   )
 }
 
-export default Page404
+export default Page403

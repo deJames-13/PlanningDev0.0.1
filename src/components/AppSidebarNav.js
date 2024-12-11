@@ -73,7 +73,7 @@ export const AppSidebarNav = ({ items }) => {
           let { roles = [], ...rest } = item
           roles.push('super-admin')
           item = rest
-          if (roles && !roles.some((role) => userRoles.includes(role))) {
+          if (item?.type != 'custom' && roles && !roles.some((role) => userRoles.includes(role))) {
             return
           }
 
