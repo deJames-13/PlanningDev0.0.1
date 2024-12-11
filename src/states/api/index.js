@@ -9,13 +9,10 @@ const baseQuery = fetchBaseQuery({
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.accessToken;
-    const csrfToken = document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN='));
 
     headers.set('Accept', 'application/json');
+    headers.set('Referer', window.location.origin);
 
-    if (csrfToken) {
-      headers.set('X-XSRF-TOKEN', csrfToken.split('=')[1]);
-    }
 
     if (token) {
       headers.set('Authorization', `Bearer ${token}`);
