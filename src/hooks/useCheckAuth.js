@@ -22,7 +22,7 @@ const useCheckAuth = (isPrivate = false) => {
     const { userInfo, accessToken, roles } = useSelector((state) => state.auth);
     const [profile] = authApi.useProfileMutation();
 
-    const isAdmin = userInfo?.id && roles.some(role => ADMIN_ROLES.includes(role)) && accessToken || isDev;
+    const isAdmin = userInfo?.id && roles?.some(role => ADMIN_ROLES.includes(role)) && accessToken || isDev;
 
     const fetchUser = async () => {
         const res = await profile().unwrap();
@@ -35,8 +35,6 @@ const useCheckAuth = (isPrivate = false) => {
         );
     };
 
-
-    console.log('userInfo', userInfo);
     useEffect(() => {
         if (!userInfo?.id && accessToken && isPrivate)
             fetchUser();
