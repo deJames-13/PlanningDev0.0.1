@@ -14,6 +14,7 @@ const persistConfig = {
   storage,
   blacklist: [
     'api',
+    'auth',
     'theme',
     'loading',
   ],

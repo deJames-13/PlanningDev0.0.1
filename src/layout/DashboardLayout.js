@@ -1,10 +1,11 @@
-import { CContainer, CSpinner } from '@coreui/react'
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { CContainer } from '@coreui/react'
 import { AppFooter, AppHeader, AppSidebar } from '../components/index'
+import useCheckAuth from 'src/hooks/useCheckAuth'
+import { Navigate, Outlet } from 'react-router-dom';
 
 const DashboardLayout = () => {
-  return (
+  const { isAdmin } = useCheckAuth(true);
+  return !isAdmin ? <Navigate to="/" /> : (
     <div>
       <AppSidebar />
       <div className="wrapper d-flex flex-column min-vh-100">

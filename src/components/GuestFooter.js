@@ -1,5 +1,5 @@
 import React from 'react';
-import bgImage from '../../assets/images/footer-image.png';
+import bgImage from '../assets/images/footer-image.png';
 
 export default function GuestPageFooter() {
   return (

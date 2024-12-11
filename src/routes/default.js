@@ -10,12 +10,6 @@ const defaultRoutes = [
     exact: true,
     name: 'TUP-T'
   },
-  {
-    element: <ExamplePage />,
-    path: '/example/radialbar',
-    exact: true,
-    name: 'TUP-T'
-  },
 ]
 
 export default defaultRoutes

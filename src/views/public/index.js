@@ -1,8 +1,7 @@
 import React from 'react'
-import GuestPageBanner from './banner'
 import GuestPageContent from './content'
-import GuestPageFooter from './footer'
-import GuestHeader from './header'
+import GuestPageFooter from 'src/components/GuestFooter'
+import GuestHeader from 'src/components/GuestHeader'
 
 export default function GuestPage() {
     return (
