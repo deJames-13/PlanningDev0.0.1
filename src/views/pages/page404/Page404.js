@@ -24,7 +24,7 @@ const Page404 = () => {
               <p className="text-body-secondary float-start">
                 The page you are looking for was not found.&nbsp;
               </p>
-              <Link to={'/'}>
+              <Link to={-3}>
                 Go Back
               </Link>
             </div>

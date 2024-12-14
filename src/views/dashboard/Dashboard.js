@@ -9,7 +9,7 @@ const Dashboard = () => {
   return (
     <>
       {/* CARD WIDGETS  */}
-      <WidgetsDropdown className="mb-4" />
+      {/* <WidgetsDropdown className="mb-4" /> */}
 
       {/* TRAFFIC/LINE CHART */}
       <BudgetChart />

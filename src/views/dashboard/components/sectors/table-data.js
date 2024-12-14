@@ -51,6 +51,11 @@ export default (data, actions) => {
                 selector: row => row?.budgets || 'N/A',
                 sortable: true,
             },
+            {
+                name: <strong></strong>,
+                selector: row => <Link to={"/dashboard/sectors/" + row.slug}>View</Link>,
+                sortable: false,
+            },
 
             {
                 name: <strong>Actions</strong>,
@@ -66,6 +71,7 @@ export default (data, actions) => {
             department: d?.department?.full_name || d?.department?.short_name || d?.department?.name,
             objectives: d?.objectives?.length,
             budgets: d?.budgets?.length > 0 && d?.budgets[0].title,
+            slug: d?.slug,
         }))
     }
 }
