@@ -46,13 +46,7 @@ export default function useObjectiveCharter({ name }) {
                 let { data } = res.data
                 let formatted = transformData(data)
                 if (!formatted) {
-                    toast.error(
-                        <DetailedToast
-                            title={"Data Error"}
-                            message={"No data found for this sector"}
-                        />
-                    )
-                    return dispatch(getObjectiveFailure());
+                    return;
                 }
                 if (objState.currentSector && objState.currentSector === name) {
                     setData(formatted);

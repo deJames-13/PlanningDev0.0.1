@@ -88,7 +88,7 @@ export function ObjectiveCard({ item, index }) {
               <span className='text-uppercase fw-bold text-muted m-0 p-0' style={{
                 fontSize: '0.8rem',
               }}>
-                {quarter.label}
+                {quarter.label || `Q${quarter.quarter}`}
               </span>
               <div className="container-fluid">
 

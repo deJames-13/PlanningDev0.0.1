@@ -13,7 +13,7 @@ const chartApiSlice = apiSlice.injectEndpoints({
         getBudget: builder.mutation({
             query: (name) => {
                 return {
-                    url: `${resource}/budgets${name ? `?sector_name=${name}` : ''}`,
+                    url: `${resource}/budgets${name ? `?sector_slug=${name}` : ''}`,
                     method: 'GET',
                 }
             },
@@ -21,7 +21,7 @@ const chartApiSlice = apiSlice.injectEndpoints({
         getObj: builder.mutation({
             query: (name) => {
                 return {
-                    url: `${resource}/objectives${name ? `?sector_name=${name}` : ''}`,
+                    url: `${resource}/objectives${name ? `?sector_slug=${name}` : ''}`,
                     method: 'GET',
                 }
             },

@@ -123,6 +123,7 @@ export default function BudgetChart({
             </CCol>
             <CCol sm={7} className="d-none d-md-block">
               <CButtonGroup className="float-end me-3">
+
                 {/* prev */}
                 <CButton
                   color="outline-secondary"
@@ -156,93 +157,117 @@ export default function BudgetChart({
           </CRow>
 
           {
-            fund ? <LineChart chartData={fund} max={parseInt(fund.maxAllotment + (fund.maxAllotment * 0.25))} average={fund.meanValue} /> : <ChartSkeleton />
+            fund ? <LineChart chartData={fund} max={parseInt(fund.maxAllotment + (fund.maxAllotment * 0.25))} average={fund.meanValue} />
+              : <div style={{
+                height: '300px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '1rem',
+              }}>
+                <div className="clearfix" style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '1rem',
+                }}>
+                  <div>
+                    <h4 className="pt-3">No data available.</h4>
+                    <p className="text-body-secondary float-start">
+                      Cannot find existing information about this chart.&nbsp;
+                    </p>
+                  </div>
+                </div>
+              </div>
           }
 
 
         </CCardBody>
-        <CCardFooter>
-          {/* LineChartTable */}
-          <CRow
-            xs={{
-              cols: 1,
-              gutter: 4,
-            }}
-            sm={{ cols: 2 }}
-            lg={{ cols: 4 }}
-            xl={{ cols: 5 }}
-            className="mb-2 text-center flex-column-reverse flex-lg-row"
-          >
+        {
+          fund &&
+          <CCardFooter>
+            {/* LineChartTable */}
+            <CRow
+              xs={{
+                cols: 1,
+                gutter: 4,
+              }}
+              sm={{ cols: 2 }}
+              lg={{ cols: 4 }}
+              xl={{ cols: 5 }}
+              className="mb-2 text-center flex-column-reverse flex-lg-row"
+            >
 
-            {fund && (
-              <CTable>
-                <CTableHead>
-                  <CTableRow>
-                    {/* <CTableHeaderCell scope="col"></CTableHeaderCell> */}
-                    {getPaginatedData(fund.labels).map((label, idx) => (
-                      <CTableHeaderCell key={`label_${idx}`} scope="col">
-                        {label}
-                      </CTableHeaderCell>
-                    ))}
-                  </CTableRow>
-                </CTableHead>
-                <CTableBody>
-                  {
-                    fund.datasets.map((dataset, idx) => {
-                      return (
-                        <CTableRow key={`dataset_${idx}`}>
-                          {/* <CTableHeaderCell scope="row" key={`dataset_label_${idx}`} className='col-sm'>
-                            {dataset.label}
-                          </CTableHeaderCell> */}
-                          {getPaginatedData(dataset.data).map((data, idx) => {
+              {fund && (
+                <CTable>
+                  <CTableHead>
+                    <CTableRow>
+                      {/* <CTableHeaderCell scope="col"></CTableHeaderCell> */}
+                      {getPaginatedData(fund.labels).map((label, idx) => (
+                        <CTableHeaderCell key={`label_${idx}`} scope="col">
+                          {label}
+                        </CTableHeaderCell>
+                      ))}
+                    </CTableRow>
+                  </CTableHead>
+                  <CTableBody>
+                    {
+                      fund.datasets.map((dataset, idx) => {
+                        return (
+                          <CTableRow key={`dataset_${idx}`}>
+                            {/* <CTableHeaderCell scope="row" key={`dataset_label_${idx}`} className='col-sm'>
+                              {dataset.label}
+                            </CTableHeaderCell> */}
+                            {getPaginatedData(dataset.data).map((data, idx) => {
 
-                            return dataset.label == 'utilization_rate' ? (
-                              <CTableDataCell key={`data_${idx}`}>
-                                <div className="fw-semibold text-truncate">
-                                  {parseFloat(data * 100).toFixed(2)}%
-                                </div>
-                                <CProgress thin className="mt-2" value={parseInt(parseFloat(data * 100).toFixed(2))} />
-                              </CTableDataCell>
-                            ) : (
-                              <CTableDataCell key={`data_${idx}`}>
-                                {data}
-                              </CTableDataCell>
-                            )
-                          })}
-                        </CTableRow>
-                      )
+                              return dataset.label == 'utilization_rate' ? (
+                                <CTableDataCell key={`data_${idx}`}>
+                                  <div className="fw-semibold text-truncate">
+                                    {parseFloat(data * 100).toFixed(2)}%
+                                  </div>
+                                  <CProgress thin className="mt-2" value={parseInt(parseFloat(data * 100).toFixed(2))} />
+                                </CTableDataCell>
+                              ) : (
+                                <CTableDataCell key={`data_${idx}`}>
+                                  {data}
+                                </CTableDataCell>
+                              )
+                            })}
+                          </CTableRow>
+                        )
 
-                    })
-                  }
-                </CTableBody>
-              </CTable>)}
+                      })
+                    }
+                  </CTableBody>
+                </CTable>)}
 
 
-          </CRow>
-          {/* Pagination Controls */}
-          {
-            fund?.datasets?.length > itemsPerPage && (
-              <div className="d-flex justify-content-between mt-3">
-                <button
-                  className="btn btn-primary"
-                  disabled={currentPage === 1}
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                >
-                  Previous
-                </button>
-                <span>Page {currentPage}</span>
-                <button
-                  className="btn btn-primary"
-                  disabled={fund?.datasets && currentPage * itemsPerPage >= fund?.datasets?.length && currentPage * itemsPerPage >= fund.datasets.length}
-                  onClick={() => setCurrentPage(currentPage + 1)}
-                >
-                  Next
-                </button>
-              </div>
-            )
-          }
+            </CRow>
+            {/* Pagination Controls */}
+            {
+              fund?.datasets?.length > itemsPerPage && (
+                <div className="d-flex justify-content-between mt-3">
+                  <button
+                    className="btn btn-primary"
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                  >
+                    Previous
+                  </button>
+                  <span>Page {currentPage}</span>
+                  <button
+                    className="btn btn-primary"
+                    disabled={fund?.datasets && currentPage * itemsPerPage >= fund?.datasets?.length && currentPage * itemsPerPage >= fund.datasets.length}
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                  >
+                    Next
+                  </button>
+                </div>
+              )
+            }
 
-        </CCardFooter>
+          </CCardFooter>
+        }
       </CCard>
     </>
   )

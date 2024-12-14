@@ -1,27 +1,20 @@
 # TODO List
+<!-- 10/14/2024 -->
+- [ ] Fix Schema
+    - [ ] Pending statuses
+        - [ ] BAR1 DATA - 'pending' - edit - delete - add
+        - [ ] Objectives - 'pending' - edit - delete - add
+        - [ ] Budgets - 'pending' - edit - delete - add
 
-- [ ] ROLES
-    - [ ] Super Admin - USER MANAGEMENT + ALL
-    - [x] Admin - ALL with NO USER MANAGEMENT
-    - [x] User - CRUD Encoding (Budgets, Quality Objectives, BAR) 
-
-- [ ] User Authentication
-    - [ ] Basic auth
-        - [x] username, password
-        - [x] session token
-        - [x] login, logout [no registration allowed]
-    - [ ] additional auth   
-        00
-        - [ ] user informations 
-            - [ ] basic infos
-            - [ ] image
-        01
-        - [ ] email auth/verification
-        - [ ] email/password recovery
     
-- [ ] User Management
-    - [ ] roles: user(per sector),admin
-    - [ ] add,update,delete,view,
+
+
+- [ ] Data Seeder
+    - [ ] BAR1 Data
+    - [ ] SECTORS
+    - [ ] Departments and Divisions
+
+
 
 <!-- MISC -->
 
@@ -36,12 +29,20 @@ Indexing
 
 
 
-<!-- TOOD -->
-- [ ] Protect Current User from deletion
-    - [ ] 
+- [x] Protect Current User from deletion
 
-
-
+- [ ] User Authentication
+    - [x] Basic auth
+        - [x] username, password
+        - [x] session token
+        - [x] login, logout [no registration allowed]
+    - [ ] additional auth   
+        01
+        - [ ] email auth/verification
+        - [ ] email/password recovery
+    
+- [x] User Management
+    - [x] add,update,delete,view,
 
 
 

@@ -173,12 +173,6 @@ export const useBudgetCharting = (name) => {
       if (res.data) {
         const formatted = transformData(res.data);
         if (!formatted) {
-          toast.error(
-            <DetailedToast
-              title={"No Data Found"}
-              message={"No data found for this sector!"}
-            />
-          )
           return;
         }
         if (budgetState.currentSector && budgetState.currentSector === name) {

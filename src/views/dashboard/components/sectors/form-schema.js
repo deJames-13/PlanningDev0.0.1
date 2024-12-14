@@ -8,12 +8,6 @@ export const fields = [
         type: 'text',
     },
     {
-        name: 'short_name',
-        label: 'Short Name',
-        placeholder: 'Short Name',
-        type: 'text',
-    },
-    {
         name: 'full_name',
         label: 'Full Name',
         placeholder: 'Full Name',

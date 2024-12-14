@@ -8,10 +8,6 @@ export const fields = [
         required: true,
     },
     {
-        name: 'short_name',
-        label: 'Short Name',
-    },
-    {
         name: 'full_name',
         label: 'Full Name',
     },

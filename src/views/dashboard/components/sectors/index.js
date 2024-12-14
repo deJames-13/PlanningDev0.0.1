@@ -1,21 +1,20 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import BudgetChart from '../budgets';
-import { sectors } from './data.old';
 import SectorObjectives from './sector-objectives';
 
 export default function Sector() {
-    let sector = useParams().sector
-    sector = sectors.filter((s) => s.id == sector)[0]
+    const { sector } = useParams();
+
     return (
         <>
             <h3>
-                {sector?.name}
+                Overview
             </h3>
             <hr />
-            <BudgetChart sector={sector?.id} />
+            <BudgetChart sector={sector} />
             <hr />
-            <SectorObjectives name={sector?.id} />
+            <SectorObjectives name={sector} />
         </>
     )
 }

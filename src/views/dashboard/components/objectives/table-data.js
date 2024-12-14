@@ -32,7 +32,7 @@ export default (data, actions) => {
             {
                 name: <strong>Sector</strong>,
                 selector: row => <span>
-                    <Link to={`/dashboard/sectors/` + row?.sector?.name}>
+                    <Link to={`/dashboard/sectors/` + row?.sector?.slug}>
                         {row?.sector?.full_name || row?.sector?.name}
                     </Link>
                     {!row?.sector?.name && "N/A"}
