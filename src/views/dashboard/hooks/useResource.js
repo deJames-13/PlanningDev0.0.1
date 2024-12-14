@@ -38,6 +38,7 @@ export default function useResource(resourceName) {
 
     // STATES ########################################################
     const [data, setData] = React.useState([]);
+    const [meta, setMeta] = React.useState({});
     const [table, setTable] = React.useState({
         columns: [],
         data: []
@@ -56,6 +57,7 @@ export default function useResource(resourceName) {
         setLoading(true);
         return await index(qStr).unwrap().then((response) => {
             setData(response.data);
+            setMeta(response.meta);
             dispatch(setResource({
                 resource: resourceName,
                 data: response.data,
@@ -73,6 +75,7 @@ export default function useResource(resourceName) {
         setLoading(true);
         return await thrashed(qStr).unwrap().then((response) => {
             setThrashedData(response.data);
+            setMeta(response.meta);
             dispatch(setResource({
                 resource: resourceName,
                 data: response.data,
@@ -90,6 +93,7 @@ export default function useResource(resourceName) {
         setLoading(true);
         return await all(qStr).unwrap().then((response) => {
             setData(response.data);
+            setMeta(response.meta);
             dispatch(setResource({
                 resource: resourceName,
                 data: response.data,
@@ -294,6 +298,7 @@ export default function useResource(resourceName) {
         // STATES
         states: {
             data,
+            meta,
             current,
             selected,
             thrashedData,
@@ -301,6 +306,7 @@ export default function useResource(resourceName) {
             tableState,
             nextTableState,
             loading,
+            setMeta,
             setTable,
             setCurrent,
             setSelected,

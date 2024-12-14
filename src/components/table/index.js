@@ -15,20 +15,17 @@ export default function Table({
     ...props
 }) {
     return (
-        <DataTableExtensions {...tableData}>
-            <DataTable
-                sortIcon={<CIcon icon={cilSortAlphaDown} />}
-                columns={columns}
-                data={data}
-                noHeader
-                defaultSortField="id"
-                defaultSortAsc={true}
-                pagination
-                highlightOnHover
-                pointerOnHover
-                {...props}
+        <DataTable
+            sortIcon={<CIcon icon={cilSortAlphaDown} />}
+            columns={columns}
+            data={data}
+            noHeader
+            defaultSortField="id"
+            defaultSortAsc={true}
+            highlightOnHover
+            pointerOnHover
+            {...props}
 
-            />
-        </DataTableExtensions>
+        />
     )
 }

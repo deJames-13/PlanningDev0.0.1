@@ -1,5 +1,6 @@
 
 import { CFormCheck } from '@coreui/react';
+import { Link } from 'react-router-dom';
 export default (data, actions) => {
     const Actions = actions;
     let resource = 'particular';
@@ -39,16 +40,6 @@ export default (data, actions) => {
                 sortable: true,
             },
             {
-                name: <strong>Type</strong>,
-                selector: row => row.type,
-                sortable: true,
-            },
-            {
-                name: <strong>Actions</strong>,
-                sortable: false,
-                selector: null,
-            },
-            {
                 name: <strong>Actions</strong>,
                 sortable: false,
                 selector: null,
@@ -59,7 +50,6 @@ export default (data, actions) => {
             id: d.id,
             title: d.title,
             description: d.description,
-            type: d.type,
         }))
     }
 }

@@ -1,5 +1,5 @@
 import BarChart from 'src/components/charts/bar'
-import ChartSkeleton from 'src/components/skeletons/chart'
+import NoResult from 'src/components/skeletons/no-result'
 
 import { useEffect, useState } from 'react'
 
@@ -32,7 +32,7 @@ export default function ChartPreview({ values }) {
             {
                 chartData ?
                     <BarChart data={chartData} labels="years" />
-                    : <ChartSkeleton />
+                    : <NoResult />
             }
         </>
     )

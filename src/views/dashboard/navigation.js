@@ -23,26 +23,58 @@ export default [
         name: 'Dashboard',
         to: '/dashboard',
         icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+        roles: ['super-admin', 'admin', 'user'],
     },
     {
+        component: CNavTitle,
+        name: 'Departments and Sectoral Offices',
+        roles: ['super-admin', 'admin',],
+    },
+    {
+        roles: ['super-admin', 'admin',],
         component: CNavGroup,
-        roles: ['super-admin'],
-        name: 'Manage Users',
-        icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
+        name: 'Manage Departments',
+        icon: <CIcon icon={cilList} customClassName="nav-icon" />,
         items: [
             {
                 component: CNavItem,
                 name: 'View Table',
-                to: '/dashboard/users/table',
+                to: '/dashboard/departments/table',
                 icon: <CIcon icon={cilSpreadsheet} customClassName="nav-icon" />,
             },
             {
                 component: CNavItem,
-                name: 'Append Data',
-                to: '/dashboard/users/add',
+                name: 'Create Departments',
+                to: '/dashboard/departments/add',
                 icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
             },
         ]
+    },
+    {
+        roles: ['super-admin', 'admin',],
+        component: CNavGroup,
+        name: 'Manage Offices',
+        icon: <CIcon icon={cilList} customClassName="nav-icon" />,
+        items: [
+            {
+                component: CNavItem,
+                name: 'View Table',
+                to: '/dashboard/sectors/table',
+                icon: <CIcon icon={cilSpreadsheet} customClassName="nav-icon" />,
+            },
+            {
+                component: CNavItem,
+                name: 'Create Office',
+                to: '/dashboard/sectors/add',
+                icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
+            },
+        ]
+    },
+
+    {
+        component: CNavTitle,
+        name: 'Sector Monitoring',
+        roles: ['super-admin', 'admin', 'user'],
     },
     {
         roles: ['super-admin', 'admin', 'user'],
@@ -87,6 +119,7 @@ export default [
     {
         component: CNavTitle,
         name: 'Budget Accountability Report (BAR) ',
+        roles: ['super-admin', 'admin', 'user'],
     },
     {
         roles: ['super-admin', 'admin', 'user'],
@@ -131,44 +164,25 @@ export default [
     },
     {
         component: CNavTitle,
-        name: 'Departments and Sectoral Offices',
+        name: 'Account Management ',
+        roles: ['super-admin'],
     },
     {
-        roles: ['super-admin', 'admin',],
         component: CNavGroup,
-        name: 'Manage Departments',
-        icon: <CIcon icon={cilList} customClassName="nav-icon" />,
+        roles: ['super-admin'],
+        name: 'Manage Users',
+        icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
         items: [
             {
                 component: CNavItem,
                 name: 'View Table',
-                to: '/dashboard/departments/table',
+                to: '/dashboard/users/table',
                 icon: <CIcon icon={cilSpreadsheet} customClassName="nav-icon" />,
             },
             {
                 component: CNavItem,
-                name: 'Create Departments',
-                to: '/dashboard/departments/add',
-                icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
-            },
-        ]
-    },
-    {
-        roles: ['super-admin', 'admin',],
-        component: CNavGroup,
-        name: 'Manage Offices',
-        icon: <CIcon icon={cilList} customClassName="nav-icon" />,
-        items: [
-            {
-                component: CNavItem,
-                name: 'View Table',
-                to: '/dashboard/sectors/table',
-                icon: <CIcon icon={cilSpreadsheet} customClassName="nav-icon" />,
-            },
-            {
-                component: CNavItem,
-                name: 'Create Office',
-                to: '/dashboard/sectors/add',
+                name: 'Append Data',
+                to: '/dashboard/users/add',
                 icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
             },
         ]

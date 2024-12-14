@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import RadialBarChart from 'src/components/charts/radial-bar'
-import ChartSkeleton from 'src/components/skeletons/chart'
+import NoResult from 'src/components/skeletons/no-result'
 const colors = {
     0: '#FF8042',
     1: '#FFBB28',
@@ -21,6 +21,6 @@ export default function ChartPreview({ values = [] }) {
             dataKey='percentage'
             labelFormatter={(value) => `Quarter ${value + 1}`}
         />
-    </div> : <ChartSkeleton />
+    </div> : <NoResult />
 
 }

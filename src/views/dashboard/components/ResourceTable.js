@@ -9,23 +9,36 @@ import {
     CSpinner,
 } from '@coreui/react'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Table from 'src/components/table'
 import googleSheetStyle from 'src/components/table/googleSheetsStyle'
+import Pagination from 'src/components/table/pagination.js';
 import Swal from 'sweetalert2'
 import useResource from '../hooks/useResource'
 
+const queryToStr = (query) => {
+    return Object.keys(query).map(key => key + '=' + query[key]).join('&');
+}
 export default function ResourceTable({
     resource,
     tableData,
     title,
     subtitle,
 }) {
+    const [query, setQuery] = useState({
+        page: 1,
+        limit: 10,
+        search: '',
+        orderBy: 'id',
+        sortedBy: 'asc',
+    })
+
     const {
         names: { capitalizeName, kebabCaseName },
         states: {
             data,
+            meta,
             thrashedData,
             table,
             setTable,
@@ -37,7 +50,6 @@ export default function ResourceTable({
         navigate,
         events: { onDestroy, onRestore: doRestore, onToggleTable },
     } = useResource(resource)
-
 
     const handleDelete = async (row) => {
         return await onDestroy(row.id).then(() => {
@@ -84,10 +96,17 @@ export default function ResourceTable({
 
     }
 
+    const handlePageChange = (page) => {
+        setQuery({
+            ...query,
+            page
+        })
+    }
+
 
     useEffect(() => {
-        fetchDatas()
-    }, [])
+        fetchDatas(queryToStr(query))
+    }, [query])
 
     useEffect(() => {
         let values = data;
@@ -173,12 +192,31 @@ export default function ResourceTable({
                 </div>
             </CCardHeader>
             <CCardBody>
+                {/* Search Filter */}
+                <div className="d-flex justify-content-end">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Search"
+                        value={query.search}
+                        onChange={(e) => setQuery({
+                            ...query,
+                            search: e.target.value
+                        })}
+                    />
+                </div>
+
                 <Table
                     tableData={table}
                     columns={table.columns}
                     data={table.data}
                     customStyles={googleSheetStyle}
                 />
+                {
+                    meta?.links &&
+                    <Pagination meta={meta} onPageChange={handlePageChange} />
+
+                }
             </CCardBody>
             <CCardFooter>
 

@@ -1,5 +1,5 @@
 import BarChart from 'src/components/charts/bar'
-import ChartSkeleton from 'src/components/skeletons/chart'
+import NoResult from 'src/components/skeletons/no-result'
 
 import { CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle } from '@coreui/react'
 import { useEffect, useState } from 'react'
@@ -66,7 +66,7 @@ export default function ChartPreview({ data }) {
             {
                 chartData ?
                     <BarChart data={chartData} labels="years" />
-                    : <ChartSkeleton />
+                    : <NoResult />
             }
         </>
     )

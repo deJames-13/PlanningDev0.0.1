@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import LineChart from 'src/components/charts/line'
-import ChartSkeleton from 'src/components/skeletons/chart'
+import NoResult from 'src/components/skeletons/no-result'
 
 export default function ChartPreview({ values }) {
     const [chartData, setChartData] = useState(null)
@@ -33,7 +33,7 @@ export default function ChartPreview({ values }) {
             {
                 chartData ?
                     <LineChart chartData={chartData} />
-                    : <ChartSkeleton />
+                    : <NoResult />
             }
         </>
     )
