@@ -34,6 +34,7 @@ export const departments = [
     { name: "ADAA's Office", id: "adaa" },
     {
         name: "Basic Arts and Sciences Department",
+        type: 'department',
         children: [
             { name: "BTVTE", id: "btvte" },
         ]
@@ -91,7 +92,7 @@ export const departments = [
 
     {
         name: 'Research and Extension',
-        type: 'title',
+        type: 'division',
     },
 
     { name: "ADRE's Office", id: "adre" },

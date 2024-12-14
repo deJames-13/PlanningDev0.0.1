@@ -15,7 +15,7 @@ export default (data, actions) => {
                     }}
 
                 />,
-                width: '56px',
+                width: '2%',
                 style: {
                     borderBottom: '1px solid #FFFFFF',
                     marginBottom: '-1px',
@@ -26,18 +26,20 @@ export default (data, actions) => {
             {
                 name: <strong>ID</strong>,
                 selector: row => row.id,
-                width: '56px',
+                width: '5%',
                 sortable: true,
             },
             {
                 name: <strong>Title</strong>,
                 selector: row => <Link to={`/dashboard/${resource}/edit/` + row.id}>{row.title}</Link>,
                 sortable: true,
+                width: '15%',
             },
             {
                 name: <strong>Description</strong>,
-                selector: row => <span className="text-break">{row?.description || 'No description'}</span>,
+                selector: row => <span className="text-break text-wrap">{row?.description?.split('.')[0] || 'No description'}</span>,
                 sortable: true,
+                width: '30%',
             },
             {
                 name: <strong>Particulars</strong>,
@@ -45,9 +47,9 @@ export default (data, actions) => {
                 sortable: true,
                 cell: c => (<div>{
                     c?.particulars?.length > 0 && c.particulars.map((p, i) => <><span>
-                        <Link to={'/dashboard/particular/edit/' + p.id} key={i}>{p.title.split(':')[0].slice(0, 10) + '...'}</Link></span><br /></> || <span>No Particulars</span>)
+                        <Link to={'/dashboard/particular/edit/' + p.id} key={i}>{p.title.split(':')[0]}</Link></span><br /></> || <span>No Particulars</span>)
                 }
-                </div>)
+                </div>),
             },
             {
                 name: <strong>Actions</strong>,

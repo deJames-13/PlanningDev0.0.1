@@ -12,10 +12,6 @@ export const fields = [
         as: 'textarea',
     },
     {
-        name: 'type',
-        label: <>Type <span className='fw-light fst-italic text-lowercase'>(output|outcome|any)*</span></>,
-    },
-    {
         name: 'bar_data_id',
         label: 'From Report: *',
         placeholder: 'Select which report to include',
@@ -26,10 +22,6 @@ export const fields = [
 
 export const validationSchema = Yup.object({
     title: Yup.string().required('Required'),
-    type: Yup.string().required('Required'),
-    // description: Yup.string(),
-    // bar_data_id: Yup.number().required('Required')
-
 });
 
 export const initialValues = fields.reduce((acc, field) => {

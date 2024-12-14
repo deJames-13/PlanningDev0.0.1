@@ -9,7 +9,7 @@ import { setResource } from 'src/states/slices/resources.js';
 
 import useIsPermitted from 'src/hooks/useIsPermitted';
 
-const TABLE_STATES = ['index', 'thrashed'];
+const TABLE_STATES = ['index', 'archived'];
 
 export default function useResource(resourceName) {
     const { roles } = useSelector((state) => state.auth);
