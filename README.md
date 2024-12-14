@@ -2,14 +2,14 @@
 
 - [ ] ROLES
     - [ ] Super Admin - USER MANAGEMENT + ALL
-    - [ ] Admin - ALL with NO USER MANAGEMENT
-    - [ ] User - CRUD Encoding (Budgets, Quality Objectives, BAR) 
+    - [x] Admin - ALL with NO USER MANAGEMENT
+    - [x] User - CRUD Encoding (Budgets, Quality Objectives, BAR) 
 
 - [ ] User Authentication
     - [ ] Basic auth
-        - [ ] username, password
-        - [ ] session token
-        - [ ] login, logout [no registration allowed]
+        - [x] username, password
+        - [x] session token
+        - [x] login, logout [no registration allowed]
     - [ ] additional auth   
         00
         - [ ] user informations 
@@ -36,7 +36,9 @@ Indexing
 
 
 
-
+<!-- TOOD -->
+- [ ] Protect Current User from deletion
+    - [ ] 
 
 
 

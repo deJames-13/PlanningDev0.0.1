@@ -22,7 +22,7 @@ import authApi from 'src/states/api/auth';
 import GuestPageFooter from 'src/components/GuestFooter'
 import GuestHeader from 'src/components/GuestHeader'
 import useCheckAuth from 'src/hooks/useCheckAuth'
-
+import { toast } from 'react-toastify'
 import logo from 'src/assets/images/logo.png';
 
 import * as Yup from 'yup';
@@ -45,19 +45,19 @@ const Login = () => {
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    try {
-      const userData = await login(values).unwrap();
+    return await login(values).unwrap().then(res => {
       dispatch(setCredentials({
-        userInfo: userData.user,
-        token: userData.accessToken,
-      }));
+        userInfo: res.user,
+        token: res.accessToken
+      }))
+      navigate('/dashboard')
+      toast.success('Login successful')
+    }).catch(e => {
+      if (e.status == 422) {
+        toast.error(e?.data?.message || 'Invalid credentials')
+      }
+    });
 
-      navigate('/dashboard');
-    } catch (error) {
-      console.error('Failed to login:', error);
-    } finally {
-      setSubmitting(false);
-    }
   };
 
   return (

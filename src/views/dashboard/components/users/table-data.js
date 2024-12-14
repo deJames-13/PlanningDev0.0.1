@@ -1,7 +1,10 @@
 
 import { CFormCheck } from '@coreui/react';
 import { Link } from 'react-router-dom';
+
+
 export default (data, actions) => {
+
     const Actions = actions;
     let resource = 'users';
     return {

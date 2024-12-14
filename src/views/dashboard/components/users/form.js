@@ -12,9 +12,10 @@ import {
 import { useParams } from 'react-router-dom'
 import ResourceForm from '../ResourceForm'
 
+import * as Yup from 'yup';
 
-import useResource from '../../hooks/useResource'
 import * as formSchema from './form-schema'
+import { useState } from 'react'
 // CONSTANTS
 // ###################################################################
 const RESOURCE = 'users'
@@ -23,6 +24,18 @@ const SUBTITLE = 'Fill out necessary input for the user information'
 // ###################################################################
 export default function UserForm() {
     const { id = null } = useParams()
+
+    const [data, setData] = useState(null)
+
+    const handleChanges = (values, errors) => {
+        console.log('values', values)
+        setData({
+            ...data,
+            ...values,
+        })
+    }
+
+
 
     return (
         <CRow
@@ -43,7 +56,33 @@ export default function UserForm() {
                     resource={RESOURCE}
                     subtitle={SUBTITLE}
                     title={TITLE}
-                    form={formSchema}
+                    form={{
+                        ...formSchema,
+                        fields: formSchema.fields.map(field => {
+                            if (field.name === 'password') {
+                                return {
+                                    ...field,
+                                    label: id ? 'New Password' : 'Password',
+                                    type: 'password',
+                                }
+                            }
+                            if (field.name === 'role') {
+                                field.options = [
+                                    { value: 'user', label: 'User' },
+                                    { value: 'admin', label: 'Admin' },
+                                    { value: 'super-admin', label: 'Super Admin' },
+                                ]
+                                field.initialValue = data?.role || 'user'
+                            }
+                            return field
+                        }),
+                        validationSchema: id ? Yup.object({
+                            username: Yup.string().required('Username is required').min(6, 'Username must be at least 6 characters').max(255, 'Username must be at most 20 characters'),
+                            email: Yup.string().email('Invalid email').required('Email is required'),
+                            role: Yup.string().required('Role is required'),
+                        }) : formSchema.validationSchema
+                    }}
+                    onChanges={handleChanges}
                 >
                 </ResourceForm>
             </CCol>

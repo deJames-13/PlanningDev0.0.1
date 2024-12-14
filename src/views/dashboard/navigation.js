@@ -7,7 +7,8 @@ import {
     cilList,
     cilPlus,
     cilSpeedometer,
-    cilSpreadsheet
+    cilSpreadsheet,
+    cilUser
 } from '@coreui/icons'
 import {
     CNavGroup,
@@ -27,7 +28,7 @@ export default [
         component: CNavGroup,
         roles: ['super-admin'],
         name: 'Manage Users',
-        icon: <CIcon icon={cilChartLine} customClassName="nav-icon" />,
+        icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
         items: [
             {
                 component: CNavItem,

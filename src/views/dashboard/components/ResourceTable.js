@@ -46,10 +46,11 @@ export default function ResourceTable({
                 'Your data has been deleted.',
                 'success'
             )
-        }).catch(() => {
+        }).catch((e) => {
+            const message = e?.data?.message || 'An error occurred while deleting your data.'
             Swal.fire(
                 'Error!',
-                'An error occurred while deleting your data.',
+                `${message}`,
                 'error'
             )
         })
@@ -93,7 +94,6 @@ export default function ResourceTable({
         if (tableState === 'thrashed') {
             values = thrashedData;
         }
-        console.log(tableState, values)
         if (Array.isArray(values) && tableData) {
             setTable(tableData(values, ({ row }) => {
                 return (

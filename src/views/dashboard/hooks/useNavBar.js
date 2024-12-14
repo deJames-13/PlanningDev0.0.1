@@ -23,13 +23,14 @@ const useNavBar = () => {
     const { sidebarShow, unfoldable } = useSelector((state) => state.theme)
 
 
-    const mapDepartmentsToNav = (departments) => {
+    const mapDepartmentsToNav = (departments = []) => {
+
         return departments.map((department) => {
             let name = department.name.length > 20 ? <span className='text-wrap'>
                 {department.name}
             </span> : department.name;
 
-            if (department.type === 'title') {
+            if (department.type === 'title' || department.type === 'division') {
                 return {
                     component: CNavTitle,
                     name: name,
@@ -53,22 +54,22 @@ const useNavBar = () => {
             }
         })
     }
-    const defaultNavs = ({ departments, onFilter = () => { }, ...props }) => {
+    const defaultNavs = ({ departments = [], onFilter = () => { }, ...props }) => {
         return [
             ...dashboardNav,
-            {
-                component: AppSidebarSearch,
-                onSearch: onFilter,
-                type: 'custom',
-                shown: sidebarShow && !unfoldable,
-            },
-            {
-                roles: ['super-admin', 'admin',],
-                component: CNavGroup,
-                name: 'View Offices',
-                items: mapDepartmentsToNav(departments),
-                icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
-            },
+            // {
+            //     component: AppSidebarSearch,
+            //     onSearch: onFilter,
+            //     type: 'custom',
+            //     shown: sidebarShow && !unfoldable,
+            // },
+            // {
+            //     roles: ['super-admin', 'admin',],
+            //     component: CNavGroup,
+            //     name: 'View Offices',
+            //     items: mapDepartmentsToNav(departments),
+            //     icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
+            // },
         ]
     }
     const filterNavigations = (searchChars = null) => {
@@ -113,7 +114,7 @@ const useNavBar = () => {
 
     React.useEffect(() => {
         setNavigations(defaultNavs({
-            departments: departments,
+            // departments: departments,
             onFilter: filterNavigations
         }));
     }, [unfoldable, sidebarShow])

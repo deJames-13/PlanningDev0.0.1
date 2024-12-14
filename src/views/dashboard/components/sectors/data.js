@@ -7,7 +7,7 @@ export const departments = [
 
     {
         name: 'Administrative and Finance Services Division',
-        type: 'title',
+        type: 'division',
     },
 
     { name: "ADAF's Office", id: "adaf" },
@@ -28,7 +28,7 @@ export const departments = [
 
     {
         name: 'Higher Education',
-        type: 'title',
+        type: 'division',
     },
 
     { name: "ADAA's Office", id: "adaa" },
@@ -40,6 +40,7 @@ export const departments = [
     },
     {
         name: "Civil and Allied Department",
+        type: 'department',
         children: [
             { name: "BSES", id: "bses" },
             { name: "BSCE", id: "bsce" },
@@ -49,6 +50,7 @@ export const departments = [
     },
     {
         name: "Mechanical and Allied Department",
+        type: 'department',
         children: [
             { name: "BSME", id: "bsme" },
             { name: "BETMT", id: "betmt" },
@@ -61,6 +63,7 @@ export const departments = [
     },
     {
         name: "Electrical and Allied Department",
+        type: 'department',
         children: [
             { name: "BSEE", id: "bsee" },
             { name: "BSECE", id: "bsece" },
@@ -73,6 +76,7 @@ export const departments = [
     },
     {
         name: "Office of Student Affairs",
+        type: 'department',
         children: [
             { name: "Registrar's Office", id: "registrar" },
             { name: "Learning Resource Center", id: "library" },

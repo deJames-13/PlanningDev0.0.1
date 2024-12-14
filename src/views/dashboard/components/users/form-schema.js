@@ -12,33 +12,33 @@ export const fields = [
         label: 'Email',
     },
     {
-        name: 'password',
-        label: 'Password',
-        type: 'password',
-    },
-    {
-        name: 'confirm_password',
-        label: 'Confirm Password',
-        type: 'password',
-    },
-    {
         name: 'role',
         label: 'Role*',
         as: 'smart-select',
-        initialValue: 'division',
+        initialValue: 'user',
         options: [
             { value: 'user', label: 'User' },
             { value: 'admin', label: 'Admin' },
             { value: 'super-admin', label: 'Super Admin' },
         ],
     },
+    {
+        name: 'password',
+        label: 'Password',
+        type: 'password',
+    },
+    {
+        name: 'password_confirmation',
+        label: 'Confirm Password',
+        type: 'password',
+    },
 ]
 
 export const validationSchema = Yup.object({
-    username: Yup.string().required('Username is required'),
+    username: Yup.string().required('Username is required').min(6, 'Username must be at least 6 characters').max(255, 'Username must be at most 20 characters'),
     email: Yup.string().email('Invalid email').required('Email is required'),
     password: Yup.string().required('Password is required'),
-    confirm_password: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
+    password_confirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
     role: Yup.string().required('Role is required'),
 });
 
