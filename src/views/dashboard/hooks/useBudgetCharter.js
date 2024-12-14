@@ -173,6 +173,7 @@ export const useBudgetCharting = (name) => {
       if (res.data) {
         const formatted = transformData(res.data);
         if (!formatted) {
+          setData(null)
           return;
         }
         if (budgetState.currentSector && budgetState.currentSector === name) {

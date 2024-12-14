@@ -61,7 +61,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-vh-100 d-flex flex-column">
+    <div className="min-vh-100 d-flex flex-column gap-5">
       <GuestHeader />
 
       <div className="bg-body-tertiary  d-flex flex-grow-1 flex-row align-items-center">
@@ -133,15 +133,15 @@ const Login = () => {
                     </Formik>
                   </CCardBody>
                 </CCard>
-                <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
+                <CCard className="text-white bg-primary py-5 d-none d-lg-block" style={{
+                  width: '44%'
+                }}>
                   <CCardBody className="text-center">
-                    <div>
-                      <img src={logo} alt="tupt-logo" width="100" />
-                      <h2 className="fw-bolder">TUP-T Dashboard</h2>
-                      <p className="text-white">
-                        Welcome to the TUP Taguig Dashboard! Please login to continue.
-                      </p>
-                    </div>
+                    <img src={logo} alt="tupt-logo" width="100" />
+                    <h2 className="fw-bolder">TUP-T Dashboard</h2>
+                    <p className="text-white">
+                      Welcome to the TUP Taguig Dashboard! Please login to continue.
+                    </p>
                   </CCardBody>
                 </CCard>
               </CCardGroup>
