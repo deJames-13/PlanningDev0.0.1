@@ -26,12 +26,30 @@ const chartApiSlice = apiSlice.injectEndpoints({
                 }
             },
         }),
+        getDeps: builder.mutation({
+            query: (name) => {
+                return {
+                    url: `public/departments`,
+                    method: 'GET',
+                }
+            },
+        }),
+        getSects: builder.mutation({
+            query: (name) => {
+                return {
+                    url: `public/sectors`,
+                    method: 'GET',
+                }
+            },
+        }),
     })
 });
 export const {
     useGetBARMutation,
     useGetBudgetMutation,
-    useGetObjMutation
+    useGetObjMutation,
+    useGetDepsMutation,
+    useGetSectsMutation,
 } = chartApiSlice;
 export default chartApiSlice;
 

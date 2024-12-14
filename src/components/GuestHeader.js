@@ -86,14 +86,6 @@ export default function GuestHeader() {
                   }}
                 />
               </div>
-              <div className="col-lg-12 position-static main-nav">
-                {/* <div className="nav-toggle"></div> */}
-                <nav className="nav-menus-wrapper">
-                  <ul className="nav-menu">
-                    {/* Add your navigation items here */}
-                  </ul>
-                </nav>
-              </div>
             </div>
           </div>
         </div>

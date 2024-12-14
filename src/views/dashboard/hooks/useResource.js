@@ -1,5 +1,5 @@
 import * as changeCase from "change-case";
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify";
@@ -11,11 +11,10 @@ import useIsPermitted from 'src/hooks/useIsPermitted';
 
 const TABLE_STATES = ['index', 'archived'];
 
-export default function useResource(resourceName) {
-    const { roles } = useSelector((state) => state.auth);
-    const isPermitted = useIsPermitted({ roles, currentResource: resourceName });
-
+export default function useResource(resourceName, isPublic = false) {
     const nav = useNavigate();
+    const { roles } = useSelector((state) => state.auth);
+    const isPermitted = useIsPermitted({ roles: roles || [], currentResource: resourceName }) || isPublic;
     const dispatch = useDispatch();
     const resources = useSelector((state) => state?.resources || {});
 
@@ -275,7 +274,11 @@ export default function useResource(resourceName) {
     }
     // NAVIGATIONS END ####################################################
 
-
+    useEffect(() => {
+        if (!isPermitted && !isPublic) {
+            nav('/');
+        }
+    }, [isPermitted]);
 
 
     return {

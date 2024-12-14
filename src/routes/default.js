@@ -1,11 +1,10 @@
 
 import React from 'react'
-import ExamplePage from 'src/components/examples/page'
-const GuestPage = React.lazy(() => import('../views/public/index'))
+const BARPage = React.lazy(() => import('../views/public/components/bar-page'))
 
 const defaultRoutes = [
   {
-    element: <GuestPage />,
+    element: <BARPage />,
     path: '/',
     exact: true,
     name: 'TUP-T'

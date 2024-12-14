@@ -1,23 +1,25 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BudgetChart from '../budgets';
 import SectorObjectives from './sector-objectives';
-import useResource from '../../hooks/useResource';
+import { useGetSectsMutation } from 'src/states/api/charts.js'
 
 export default function Sector() {
     const { sector } = useParams();
-    const {
-        actions: { fetchData },
-        states: { current }
-    } = useResource('sectors')
+    const [current, setCurrent] = useState({});
+    const [getSects, { isLoading }] = useGetSectsMutation()
 
     useEffect(() => {
-        fetchData(sector, 'is_slug=true')
-    }, [sector])
+        getSects().unwrap().then((res) => {
+            setCurrent(res.find((item) => item.slug === sector))
+        })
+    }, [])
+
+
     return (
         <>
             <h3>
-                {current?.data?.full_name || current?.data?.name}
+                {current?.full_name || current?.name}
             </h3>
             <hr />
             <BudgetChart sector={sector} />

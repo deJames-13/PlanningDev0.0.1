@@ -14,14 +14,13 @@ import {
 import CIcon from '@coreui/icons-react';
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCredentials } from 'src/states/slices/auth';
 import authApi from 'src/states/api/auth';
 
 import GuestPageFooter from 'src/components/GuestFooter'
 import GuestHeader from 'src/components/GuestHeader'
-import useCheckAuth from 'src/hooks/useCheckAuth'
 import { toast } from 'react-toastify'
 import logo from 'src/assets/images/logo.png';
 
@@ -29,7 +28,11 @@ import * as Yup from 'yup';
 
 
 const Login = () => {
-  useCheckAuth();
+  const { userInfo } = useSelector(state => state.auth);
+  if (userInfo?.id) {
+    return <Navigate to="/dashboard" />
+  }
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [login, { isLoading }] = authApi.useLoginMutation();

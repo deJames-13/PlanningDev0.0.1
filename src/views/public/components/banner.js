@@ -1,11 +1,11 @@
 import React from 'react'
 
-export default function GuestPageBanner() {
+export default function GuestPageBanner({ title }) {
     return (
-        <section class="page-banner">
+        <section class="page-banner p-0">
             <div class="page-banner-bg bg_cover"
                 style={{
-                    backgroundImage: 'url(../../assets/images/page-banner.png)',
+                    backgroundImage: 'url(src/assets/images/page-banner.png)',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat'
@@ -14,7 +14,7 @@ export default function GuestPageBanner() {
                 <div class="container">
                     <div class="banner-content text-center">
                         <h2 class="title">
-                            TUPT
+                            {title}
                         </h2>
                     </div>
                 </div>

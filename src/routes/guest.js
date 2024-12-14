@@ -5,22 +5,29 @@ const Register = React.lazy(() => import('../views/auth/Register'))
 const Page404 = React.lazy(() => import('../views/pages/page404/Page404'))
 const Page403 = React.lazy(() => import('../views/pages/page403/Page403'))
 const Page500 = React.lazy(() => import('../views/pages/page500/Page500'))
-const GuestPage = React.lazy(() => import('../views/public/index'))
+const SectoralPage = React.lazy(() => import('../views/public/components/sectoral-page'))
+const BarPage = React.lazy(() => import('../views/public/components/bar-page'))
 
 
 
 const guestRoutes = [
     {
-        element: <GuestPage />,
+        element: <BarPage />,
         path: '/',
         exact: true,
         name: 'TUP-T'
     },
     {
-        element: <GuestPage />,
+        element: <BarPage />,
         path: '/bar',
         exact: true,
         name: 'TUP-T'
+    },
+    {
+        element: <SectoralPage />,
+        path: '/sectors/:sector',
+        exact: true,
+        name: 'Sectoral'
     },
     {
         element: <Login />,

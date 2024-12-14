@@ -24,10 +24,14 @@ import { useLogoutAction } from 'src/hooks/useLogout.js';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-export default function useIsPermitted({ roles, currentResource }) {
+export default function useIsPermitted({ roles = [], currentResource }) {
     const nav = useNavigate()
     const [permitted, setPermitted] = useState(false);
     useEffect(() => {
+        if (roles.length === 0) {
+            setPermitted(false)
+        }
+
         let isPermitted = false;
         if (roles.includes('super-admin')) {
             isPermitted = true
@@ -46,8 +50,5 @@ export default function useIsPermitted({ roles, currentResource }) {
 
     }, [roles, currentResource])
 
-    if (!permitted) {
-        nav('/page403')
-    }
     return permitted
 }

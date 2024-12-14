@@ -48,7 +48,6 @@ const useCheckAuth = (isPrivate = false) => {
         return path;
     }
 
-
     useEffect(() => {
 
         // Dashboard Access Control
@@ -57,7 +56,7 @@ const useCheckAuth = (isPrivate = false) => {
         }
 
         // User and private route
-        else if (userInfo?.id && isPrivate) navigate(checkPath('/dashboard'));
+        else if (userInfo?.id && isPrivate) navigate('/dashboard');
 
         // No user and private route
         else if (!userInfo?.id && isPrivate || userInfo?.id && !accessToken) {

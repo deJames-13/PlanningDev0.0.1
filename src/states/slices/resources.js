@@ -5,9 +5,6 @@ const initialState = {
     list: {},
     detail: {},
     thrashed: {},
-    previouslyDeleted: {},
-    previouslyUpdated: {},
-    previouslyCreated: {},
 };
 
 const resourceSlice = createSlice({
