@@ -87,19 +87,19 @@ export default function AnnualTable({
                         },
                         {
                             name: <span className='text-uppercase fw-bold'>allotment</span>,
-                            selector: row => row.allotment,
+                            selector: row => parseFloat(row.allotment).toLocaleString(),
                             width: '25%',
                             sortable: true,
                         },
                         {
                             name: <span className='text-uppercase fw-bold'>obligated</span>,
-                            selector: row => row.obligated,
+                            selector: row => parseFloat(row.obligated).toLocaleString(),
                             width: '25%',
                             sortable: true,
                         },
                         {
                             name: <span className='text-uppercase fw-bold'>Rate</span>,
-                            selector: row => row.utilization_rate,
+                            selector: row => parseFloat(row.utilization_rate),
                             sortable: true,
                         },
                         {

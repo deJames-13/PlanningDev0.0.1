@@ -17,7 +17,6 @@ export default function useGetBAR() {
             if (response?.data?.length > 0) {
                 setData(response.data);
                 dispatch(setBarData(response.data));
-                console.log(response.data)
             }
         })
     }, [])

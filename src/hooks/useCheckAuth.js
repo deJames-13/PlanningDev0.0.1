@@ -55,8 +55,9 @@ const useCheckAuth = (isPrivate = false) => {
             logout();
         }
 
-        // User and private route
-        else if (userInfo?.id && isPrivate) navigate('/dashboard');
+        // User and private route and not currently in /dashboard/*
+        else if (userInfo?.id && isPrivate)
+            navigate(checkPath('/dashboard'));
 
         // No user and private route
         else if (!userInfo?.id && isPrivate || userInfo?.id && !accessToken) {

@@ -274,11 +274,6 @@ export default function useResource(resourceName, isPublic = false) {
     }
     // NAVIGATIONS END ####################################################
 
-    useEffect(() => {
-        if (!isPermitted && !isPublic) {
-            nav('/');
-        }
-    }, [isPermitted]);
 
 
     return {

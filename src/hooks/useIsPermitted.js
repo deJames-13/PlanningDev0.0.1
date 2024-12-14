@@ -45,7 +45,9 @@ export default function useIsPermitted({ roles = [], currentResource }) {
             isPermitted = true
         }
 
-        setPermitted(isPermitted)
+        if (!isPermitted && roles.length > 0) {
+            nav('/403')
+        }
 
 
     }, [roles, currentResource])

@@ -30,14 +30,14 @@ export function FormValues({
                 {
                     name: 'allotment',
                     label: 'Allotment',
-                    initialValue: data?.allotment || 0,
+                    initialValue: parseFloat(data?.allotment).toLocaleString() || 0,
                     disabled: true,
                     colSpan: 4,
                 },
                 {
                     name: 'obligated',
                     label: 'Obligated',
-                    initialValue: data?.obligated || 0,
+                    initialValue: data?.obligated.toLocaleString() || 0,
                     disabled: true,
                     colSpan: 4,
                 },
