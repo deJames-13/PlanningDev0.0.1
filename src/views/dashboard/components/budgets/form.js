@@ -19,6 +19,7 @@ import AnnualModal from './annual-modal'
 import AnnualTable from './annual-table'
 import ChartPreview from './chart-preview'
 import * as formSchema from './form-schema'
+import { useSelector } from 'react-redux'
 
 
 // CONSTANTS
@@ -28,6 +29,8 @@ const TITLE = 'Budget Data Form'
 const SUBTITLE = 'Fill out necessary input for the budgets data'
 // ###################################################################
 export default function BudgetForm() {
+    const { roles } = useSelector(state => state.auth);
+    const isAdmin = roles.includes('admin') || roles.includes('super-admin');
     const { id = null } = useParams()
     const { options, loading } = useResourceOptions({ resourceName: 'sectors' })
 
@@ -98,6 +101,9 @@ export default function BudgetForm() {
                     form={{
                         ...formSchema,
                         fields: formSchema.fields.map(field => {
+                            if (field.name === 'status') {
+                                return isAdmin ? field : null;
+                            }
                             if (field.name === 'sector_id') {
                                 return {
                                     ...field,
