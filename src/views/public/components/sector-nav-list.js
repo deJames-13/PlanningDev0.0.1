@@ -37,7 +37,7 @@ export default function SectorNavList() {
                 </>
             }
             <ul>
-                {list.map((item, index) => {
+                {list?.length > 0 && list.map((item, index) => {
 
                     if (item.type === 'division') {
                         return <li key={index} className="pl-3 fw-bold text-uppercase pt-3">
