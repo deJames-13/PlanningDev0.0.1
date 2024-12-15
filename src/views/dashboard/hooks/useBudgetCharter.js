@@ -148,7 +148,7 @@ const transformData = (data) => {
 const getFundFromYear = (data, year) => {
   if (!data?.length) return null;
   const yearData = data.find(d => d.year == year);
-  if (!yearData) return null;
+  if (!yearData?.quarters) return null;
   const quarterLabels = yearData.quarters.map(q => `Q${q.quarter}`);
   return {
     labels: quarterLabels,
