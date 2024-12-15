@@ -27,7 +27,7 @@ export default function ChartPreview({ values }) {
                 ],
             })
         }
-        if (chartBy === 'quarter') {
+        else if (chartBy === 'quarter') {
             const currentYearValues = values.find(({ year }) => year === currentYear)?.quarters
             if (!currentYearValues) {
                 setChartData(null)
@@ -67,44 +67,40 @@ export default function ChartPreview({ values }) {
 
     return (
         <>
-            {
-                (
-                    <div className={`d-flex justify-content-end py-3 gap-3`}>
-                        {
-                            chartBy === 'quarter' &&
-                            <CDropdown>
-                                <CDropdownToggle color="primary" className='text-capitalize'>
-                                    {currentYear || 'Select Year'}
-                                </CDropdownToggle>
-                                <CDropdownMenu>
-                                    {
-                                        years.map((year, index) => (
-                                            <CDropdownItem key={index} onClick={() => setCurrentYear(year)} className='text-capitalize'>
-                                                {year}
-                                            </CDropdownItem>
-                                        ))
-                                    }
-                                </CDropdownMenu>
+            <div className={`d-flex justify-content-end py-3 gap-3`}>
+                {
+                    chartBy === 'quarter' &&
+                    <CDropdown>
+                        <CDropdownToggle color="primary" className='text-capitalize'>
+                            {currentYear || 'Select Year'}
+                        </CDropdownToggle>
+                        <CDropdownMenu>
+                            {
+                                years.map((year, index) => (
+                                    <CDropdownItem key={index} onClick={() => setCurrentYear(year)} className='text-capitalize'>
+                                        {year}
+                                    </CDropdownItem>
+                                ))
+                            }
+                        </CDropdownMenu>
 
-                            </CDropdown>
+                    </CDropdown>
+                }
+                <CDropdown>
+                    <CDropdownToggle color="primary" className='text-capitalize'>
+                        By {chartBy}
+                    </CDropdownToggle>
+                    <CDropdownMenu>
+                        {
+                            _chartBy.map((item, index) => (
+                                <CDropdownItem key={index} onClick={() => setChartBy(item)} className='text-capitalize'>
+                                    {item}
+                                </CDropdownItem>
+                            ))
                         }
-                        <CDropdown>
-                            <CDropdownToggle color="primary" className='text-capitalize'>
-                                By {chartBy}
-                            </CDropdownToggle>
-                            <CDropdownMenu>
-                                {
-                                    _chartBy.map((item, index) => (
-                                        <CDropdownItem key={index} onClick={() => setChartBy(item)} className='text-capitalize'>
-                                            {item}
-                                        </CDropdownItem>
-                                    ))
-                                }
-                            </CDropdownMenu>
-                        </CDropdown>
-                    </div>
-                )
-            }
+                    </CDropdownMenu>
+                </CDropdown>
+            </div>
 
             {
                 chartData ?

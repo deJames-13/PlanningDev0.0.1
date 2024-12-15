@@ -40,12 +40,12 @@ export default function ResourceForm({
             ...values,
             action: id ? 'update' : 'store'
         };
-
         if (id)
             return doUpdate(id, payload)
         else
             return doStore(payload)
 
+        return payload;
     }, [formData, id]);
 
     const handleChanges = useCallback((values, errors) => {

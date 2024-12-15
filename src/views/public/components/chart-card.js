@@ -10,7 +10,7 @@ import { BAR_DATA } from './data'
 
 const _indicators = [
   {
-    name: "Outcome Indicator 1: Percentage of first-time licensure exam takers that pass the licensure exam.",
+    title: "Outcome Indicator 1: Percentage of first-time licensure exam takers that pass the licensure exam.",
   }
 ]
 
@@ -89,14 +89,14 @@ export default function ParticularsCard(
           <div className={`d-flex ${reversed ? 'justify-content-start' : 'justify-content-end'}`}>
             <CDropdown>
               <CDropdownToggle color="primary">
-                {currentIndicator?.name && currentIndicator?.name.split(':')[0].trim()}
+                {currentIndicator?.title && currentIndicator?.title.split(':')[0].trim()}
               </CDropdownToggle>
               <CDropdownMenu>
                 {indicators.map((indicator, index) => (
                   <CDropdownItem key={index}
                     onClick={() => handleIndicatorChange(indicator)}
                   >
-                    {indicator?.name.split(':')[0].trim()}
+                    {indicator?.title.split(':')[0].trim()}
                   </CDropdownItem>
                 ))}
               </CDropdownMenu>
@@ -107,7 +107,7 @@ export default function ParticularsCard(
 
           {/* Title */}
           <h4>
-            {currentIndicator?.name}
+            {currentIndicator?.title}
           </h4>
 
 

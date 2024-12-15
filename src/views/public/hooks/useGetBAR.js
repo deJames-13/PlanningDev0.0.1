@@ -15,12 +15,15 @@ export default function useGetBAR() {
         }
         return getBAR().unwrap().then((response) => {
             if (response?.data?.length > 0) {
-                setData(response.data);
-                dispatch(setBarData(response.data));
-                return response.data;
+                const newData = response.data.map((item) => ({
+                    ...item,
+                    indicators: item.particulars,
+                }));
+                setData(newData);
+                dispatch(setBarData(newData));
+                return newData;
             }
 
-            setData([]);
             dispatch(setBarData([]));
 
         })

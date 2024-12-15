@@ -9,7 +9,6 @@ const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
 const totalAccomplishment = (quarters) => quarters.reduce((acc, quarter) => acc + (parseFloat(quarter.accomplishment) || 0), 0);
 const totalTarget = (quarters) => quarters.reduce((acc, quarter) => acc + (parseFloat(quarter.target) || 0), 0);
 export function FormValues({
-    onSubmit = () => { },
     onChanges = () => { },
     value = {},
 }) {
@@ -19,7 +18,7 @@ export function FormValues({
         {
             name: 'year',
             label: 'Year',
-            initialValue: value?.year || '',
+            initialValue: value?.year || new Date().getFullYear(),
         },
         {
             name: 'total',
@@ -81,8 +80,11 @@ export function FormValues({
             year: formValues.year,
             quarters: (data?.quarters?.length > 0 ? data?.quarters : quarters).map((q, i) => {
                 if (typeof q != 'object') q = {}
+                let target = parseFloat(formValues[`target_${i + 1}`] || 1) || 0;
                 let accomplishment = parseFloat(formValues[`accomplishment_${i + 1}`]) || 0;
-                let target = parseFloat(formValues[`target_${i + 1}`]) || 0;
+
+                if (target === 0) accomplishment = 0;
+
                 let percentage = parseFloat(((accomplishment / target) * 100) || 0).toFixed(2) || 0;
                 return {
                     ...q,
@@ -109,17 +111,27 @@ export function FormValues({
 
     return fields?.length > 0 && (
         <FormikForm
+            fields={fields}
             initialValues={fields.reduce((acc, field) => {
-                acc[field.name] = field.initialValue;
+                if (field.fields) {
+                    field.fields.forEach(f => {
+                        acc[f.name] = f.initialValue || 0;
+                    });
+                } else {
+                    acc[field.name] = field.initialValue || 0;
+                }
                 return acc;
             }, {})}
-            validationSchema={Yup.object({
-                year: Yup.number().required('Required'),
-                accomplishment: Yup.number().required('Required'),
-                target: Yup.number().required('Required'),
-            })}
-            fields={fields}
-            onSubmit={onSubmit}
+            validationSchema={Yup.object(fields.reduce((acc, field) => {
+                if (field.fields) {
+                    field.fields.forEach(f => {
+                        acc[f.name] = Yup.number('Must be a number').positive('Must be a positive number');
+                    });
+                } else {
+                    acc[field.name] = Yup.number('Must be a number').required('Required').positive('Must be a positive number');
+                }
+                return acc;
+            }, {}))}
             onChanges={handleChanges}
             noSubmit
         />
