@@ -54,7 +54,7 @@ export default function ChartPreview({ values }) {
         if (values) {
             const reversedValues = [...values].reverse();
             setYears(reversedValues?.map(({ year }) => year))
-            if (reversedValues[0])
+            if (values[0])
                 setCurrentYear(values[0]?.year)
             return
         }

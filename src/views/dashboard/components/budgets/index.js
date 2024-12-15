@@ -9,6 +9,10 @@ import {
   CCardBody,
   CCardFooter,
   CCol,
+  CDropdown,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
   CProgress,
   CRow,
   CSpinner,
@@ -24,6 +28,7 @@ import LineChart from 'src/components/charts/line'
 import NoResult from 'src/components/skeletons/no-result'
 
 const selectTabs = ['Budget']
+const _chartBy = ['year', 'quarter']
 
 export default function BudgetChart({
   sector = 'none',
@@ -40,6 +45,10 @@ export default function BudgetChart({
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
+
+  const [chartBy, setChartBy] = useState(_chartBy[0])
+  const [years, setYears] = useState([])
+  const [currentYear, setCurrentYear] = useState(null)
 
   const getPaginatedData = (data) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -83,6 +92,7 @@ export default function BudgetChart({
 
       setFund(fund)
       setRates(ratesData)
+      console.log('fund', fund)
     }
   }, [data])
 
@@ -124,37 +134,87 @@ export default function BudgetChart({
               }
             </CCol>
             <CCol sm={7} className="d-none d-md-block">
-              <CButtonGroup className="float-end me-3">
+              <div className='d-flex align-items-center justify-content-end gap-2'>
 
-                {/* prev */}
-                <CButton
-                  color="outline-secondary"
-                  onClick={() => onTab(tabs[0], 'prev')}
-                  disabled={tabs && tabs[0] === data.labels[0]}
-                >
-                  {'<'}
-                </CButton>
+                {/* CHART BY DROP DOWN */}
+                {
+                  (
+                    <div className={`d-flex justify-content-end py-3 gap-3`}>
+                      {
+                        chartBy === 'quarter' &&
+                        <CDropdown>
+                          <CDropdownToggle color="primary" className='text-capitalize'>
+                            {currentYear || 'Select Year'}
+                          </CDropdownToggle>
+                          <CDropdownMenu>
+                            {
+                              years.map((year, index) => (
+                                <CDropdownItem key={index} onClick={() => setCurrentYear(year)} className='text-capitalize'>
+                                  {year}
+                                </CDropdownItem>
+                              ))
+                            }
+                          </CDropdownMenu>
+
+                        </CDropdown>
+                      }
+                      <CDropdown>
+                        <CDropdownToggle color="primary" className='text-capitalize'>
+                          By {chartBy}
+                        </CDropdownToggle>
+                        <CDropdownMenu>
+                          {
+                            _chartBy.map((item, index) => (
+                              <CDropdownItem key={index} onClick={() => setChartBy(item)} className='text-capitalize'>
+                                {item}
+                              </CDropdownItem>
+                            ))
+                          }
+                        </CDropdownMenu>
+                      </CDropdown>
+                    </div>
+                  )
+                }
 
 
-                {tabs && tabs.map((value, idx) => (
+                {/* BUDGET LIST */}
+                <CButtonGroup className="float-end me-3">
+                  {/* prev */}
                   <CButton
                     color="outline-secondary"
-                    key={`${value}_${idx}`}
-                    className="mx-0"
-                    onClick={() => onTab(value)}
-                    active={value === activeTab}
+                    onClick={() => onTab(tabs[0], 'prev')}
+                    disabled={tabs && tabs[0] === data.labels[0]}
                   >
-                    {value}
+                    {'<'}
                   </CButton>
-                ))}
-                {/* next */}
-                <CButton
-                  color="outline-secondary"
-                  onClick={() => onTab(tabs[1], 'next')}
-                  disabled={tabs && tabs[1] === data.labels[data.labels.length - 1]}
-                > {'>'} </CButton>
 
-              </CButtonGroup>
+
+                  {tabs && tabs.map((value, idx) => (
+                    <CButton
+                      color="outline-secondary"
+                      key={`${value}_${idx}`}
+                      className="mx-0"
+                      onClick={() => onTab(value)}
+                      active={value === activeTab}
+                    >
+                      {value}
+                    </CButton>
+                  ))}
+                  {/* next */}
+                  <CButton
+                    color="outline-secondary"
+                    onClick={() => onTab(tabs[1], 'next')}
+                    disabled={tabs && tabs[1] === data.labels[data.labels.length - 1]}
+                  > {'>'}
+                  </CButton>
+
+
+                </CButtonGroup>
+
+              </div>
+
+
+
             </CCol>
           </CRow>
 
