@@ -21,7 +21,7 @@ export default function BarOverview() {
         data?.length > 0 && data.map((item, idx) => (
           <ParticularsCard
             key={idx}
-            title={item?.name}
+            title={item?.title}
             data={item}
             reversed={idx % 2 !== 0}
           />

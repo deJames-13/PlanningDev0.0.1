@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 
 import { CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle } from '@coreui/react'
 import BarChart from 'src/components/charts/bar'
@@ -13,6 +13,7 @@ const _indicators = [
     title: "Outcome Indicator 1: Percentage of first-time licensure exam takers that pass the licensure exam.",
   }
 ]
+const _chartBy = ['year', 'quarter']
 
 export default function ParticularsCard(
   {
@@ -23,23 +24,90 @@ export default function ParticularsCard(
   }
 ) {
 
-  const [currentIndicator, setCurrentIndicator] = React.useState(_indicators[0])
-  const [indicators, setIndicators] = React.useState(_indicators)
-  const [chartData, setChartData] = React.useState(null);
+  const [currentIndicator, setCurrentIndicator] = useState(_indicators[0])
+  const [indicators, setIndicators] = useState(_indicators)
+  const [chartData, setChartData] = useState(null);
 
+
+  const [chartBy, setChartBy] = useState(_chartBy[0])
+  const [years, setYears] = useState([])
+  const [currentYear, setCurrentYear] = useState(null)
 
   const handleIndicatorChange = (indicator) => {
     setCurrentIndicator(indicator)
   }
+  const makeChart = (values, chartBy) => {
 
-  React.useEffect(() => {
+    if (chartBy === 'year') {
+      setChartData({
+        labels: values.map(value => value.year),
+        datasets: [
+          {
+            label: 'Target',
+            backgroundColor: '#f87979',
+            data: values.map(value => value.target)
+          },
+          {
+            label: 'Accomplishment',
+            backgroundColor: '#79f8b4',
+            data: values.map(value => value.accomplishment)
+          }
+        ]
+      })
+    }
+
+    else if (chartBy === 'quarter') {
+      const currentYearValues = values.find(({ year }) => year === currentYear)?.quarters
+      if (!currentYearValues) {
+        setChartData(null)
+        return
+      }
+
+      setChartData({
+        labels: currentYearValues.map(({ quarter }) => `Q${quarter}`),
+        datasets: [
+          {
+            label: 'Target',
+            backgroundColor: '#f87979',
+            data: currentYearValues.map(({ target }) => target)
+          },
+          {
+            label: 'Accomplishment',
+            backgroundColor: '#79f8b4',
+            data: currentYearValues.map(({ accomplishment }) => accomplishment)
+          }
+        ]
+      })
+    }
+
+  }
+
+  useEffect(() => {
     if (data?.indicators?.length > 0) {
       setIndicators(data.indicators)
       setCurrentIndicator(data.indicators[0])
     }
   }, [data])
 
-  React.useEffect(() => {
+
+  useEffect(() => {
+    if (currentIndicator?.values) {
+      const reversedValues = [...currentIndicator.values].reverse()
+      setYears(reversedValues.map(({ year }) => year))
+      if (currentIndicator.values[0])
+        setCurrentYear(currentIndicator.values[0].year)
+      return
+    }
+  }, [currentIndicator])
+
+  useEffect(() => {
+    if (currentIndicator?.values) {
+      makeChart(currentIndicator.values, chartBy)
+    }
+  }, [currentYear, chartBy])
+
+
+  useEffect(() => {
     if (currentIndicator?.values) {
       setChartData({
         labels: currentIndicator.values.map(value => value.year),
@@ -86,7 +154,40 @@ export default function ParticularsCard(
       <div className='col-lg-4 pb-10'>
         <div className="blog-details-content">
           {/* Dropdown */}
-          <div className={`d-flex ${reversed ? 'justify-content-start' : 'justify-content-end'}`}>
+          <div className={`d-flex gap-2 ${reversed ? 'flex-row-reverse' : ''} justify-content-end `}>
+            {
+              chartBy === 'quarter' &&
+              <CDropdown>
+                <CDropdownToggle color="primary" className='text-capitalize'>
+                  {currentYear || 'Select Year'}
+                </CDropdownToggle>
+                <CDropdownMenu>
+                  {
+                    years.map((year, index) => (
+                      <CDropdownItem key={index} onClick={() => setCurrentYear(year)} className='text-capitalize'>
+                        {year}
+                      </CDropdownItem>
+                    ))
+                  }
+                </CDropdownMenu>
+
+              </CDropdown>
+            }
+            <CDropdown>
+              <CDropdownToggle color="primary" className='text-capitalize'>
+                By {chartBy}
+              </CDropdownToggle>
+              <CDropdownMenu>
+                {
+                  _chartBy.map((item, index) => (
+                    <CDropdownItem key={index} onClick={() => setChartBy(item)} className='text-capitalize'>
+                      {item}
+                    </CDropdownItem>
+                  ))
+                }
+              </CDropdownMenu>
+            </CDropdown>
+
             <CDropdown>
               <CDropdownToggle color="primary">
                 {currentIndicator?.title && currentIndicator?.title.split(':')[0].trim()}
