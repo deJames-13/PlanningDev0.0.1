@@ -17,8 +17,7 @@ const _chartBy = ['year', 'quarter']
 
 export default function ParticularsCard(
   {
-    title = 'Higher Education',
-    interpretations = '',
+    title = '',
     reversed = false,
     data = BAR_DATA[0],
   }
@@ -138,7 +137,7 @@ export default function ParticularsCard(
               width: '100%',
             }}
           >
-            {title}
+            {title || 'Title'}
           </h3>
           {chartData && <BarChart
             data={chartData}
@@ -197,7 +196,7 @@ export default function ParticularsCard(
                   <CDropdownItem key={index}
                     onClick={() => handleIndicatorChange(indicator)}
                   >
-                    {indicator?.title.split(':')[0].trim()}
+                    {indicator?.title && indicator?.title.split(':')[0].trim()}
                   </CDropdownItem>
                 ))}
               </CDropdownMenu>
