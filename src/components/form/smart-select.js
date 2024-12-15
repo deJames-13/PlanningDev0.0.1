@@ -34,9 +34,11 @@ const SmartSelect = ({ options = [], initialValue, count = 10, ...props }) => {
     }, [options, count]);
 
     useEffect(() => {
-        if (initialValue) {
+        if (initialValue.trim() !== '') {
             const option = options.find(o => o.value === initialValue);
             setSelectedOption(option);
+        } else {
+            setSelectedOption(options.find(o => o.value === 'none'));
         }
     }, [initialValue, options]);
 
@@ -47,10 +49,7 @@ const SmartSelect = ({ options = [], initialValue, count = 10, ...props }) => {
                 {...props}
                 value={selectedOption}
                 onChange={handleChange}
-                options={[
-                    { label: 'None', value: 'none' },
-                    ...defaultOptions
-                ]}
+                options={defaultOptions}
                 onInputChange={handleInputChange}
                 isSearchable
             />

@@ -20,11 +20,13 @@ export const fields = [
     {
         name: 'current_year',
         label: 'Current Year*',
+        initialValue: new Date().getFullYear(),
     },
     {
         name: 'current_quarter',
         label: 'Current Quarter*',
         type: 'number',
+        initialValue: 1,
         maxLength: 4,
     },
     {

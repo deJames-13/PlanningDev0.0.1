@@ -101,7 +101,13 @@ export default function BudgetForm() {
                             if (field.name === 'sector_id') {
                                 return {
                                     ...field,
-                                    options: options?.length > 0 ? options : [],
+                                    options: options?.length > 0 ? [
+                                        {
+                                            value: 'none',
+                                            label: 'Campus Wide'
+                                        },
+                                        ...options
+                                    ] : [],
                                     loading: loading,
                                 }
                             }

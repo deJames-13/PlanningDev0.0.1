@@ -85,15 +85,23 @@ export default function BudgetChart({
   useEffect(() => {
     if (!data) return;
     const idx = data.labels.indexOf(activeTab) || 0
-    setTabs(data.labels.slice(idx, idx + 2))
+    const nextTabs = data.labels.slice(idx, idx + 2)
+    setTabs(nextTabs)
+    if (!activeTab && data.labels.length > 0) {
+      setActiveTab(data.labels[0])
+      setTabs(data.labels.slice(0, 2))
+    }
+
     if (data?.annual) {
       const fund = data?.annual?.datasets?.find(item => item.name === activeTab) || data?.annual?.datasets[0]
       const ratesData = data?.progressRates[activeTab] || Object.values(data?.progressRates)[0] || []
 
       setFund(fund)
       setRates(ratesData)
-      console.log('fund', fund)
+
     }
+    console.clear()
+    console.log('data', data)
   }, [data])
 
   useEffect(() => {
@@ -107,6 +115,7 @@ export default function BudgetChart({
       setItemsPerPage(5);
     }
   }, [window.innerWidth]);
+
 
   return data ? (
     <>
@@ -136,7 +145,8 @@ export default function BudgetChart({
             <CCol sm={7} className="d-none d-md-block">
               <div className='d-flex align-items-center justify-content-end gap-2'>
 
-                {/* CHART BY DROP DOWN */}
+                {/* C
+                HART BY DROP DOWN */}
                 {
                   (
                     <div className={`d-flex justify-content-end py-3 gap-3`}>
@@ -292,7 +302,7 @@ export default function BudgetChart({
                                 </CTableDataCell>
                               ) : (
                                 <CTableDataCell key={`data_${idx}`}>
-                                  {data}
+                                  {data?.toLocaleString()}
                                 </CTableDataCell>
                               )
                             })}
