@@ -14,6 +14,7 @@ export default function Sector() {
 
     useEffect(() => {
         getSects().unwrap().then((res) => {
+            if (!res) return nav('/404');
             let result = res.find((item) => item.slug === sector)
             if (!result) {
                 nav('/404');

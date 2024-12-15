@@ -183,7 +183,7 @@ export default function BudgetChart({
                           </CDropdownToggle>
                           <CDropdownMenu>
                             {
-                              years.map((year, index) => (
+                              years?.length && years.map((year, index) => (
                                 <CDropdownItem key={index} onClick={() => setCurrentYear(year)} className='text-capitalize'>
                                   {year}
                                 </CDropdownItem>
@@ -224,7 +224,7 @@ export default function BudgetChart({
                   </CButton>
 
 
-                  {tabs && tabs.map((value, idx) => (
+                  {tabs?.length > 0 && tabs.map((value, idx) => (
                     <CButton
                       color="outline-secondary"
                       key={`${value}_${idx}`}
