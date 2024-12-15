@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTheme } from 'src/states/slices/theme';
 
 import {
+  CButton,
   CCloseButton,
   CImage,
   CSidebar,
@@ -19,8 +20,14 @@ import { AppSidebarNav } from './AppSidebarNav';
 import { Link } from 'react-router-dom';
 import useNavBar from 'src/views/dashboard/hooks/useNavBar';
 import AppSidebarSearch from './AppSidebarSearch';
+import { useLogoutAction } from 'src/hooks/useLogout.js';
+import Swal from 'sweetalert2';
+import CIcon from '@coreui/icons-react';
+import { cilAccountLogout } from '@coreui/icons';
 
 const AppSidebar = () => {
+  const logout = useLogoutAction();
+
   const {
     navigations: navBar,
     filterNavigations,
@@ -39,6 +46,21 @@ const AppSidebar = () => {
 
   const handleNavSearch = (search) => {
     return filterNavigations(search);
+  }
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will be logged out',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, logout',
+      cancelButtonText: 'No, cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout();
+      }
+    });
   }
 
 
@@ -77,6 +99,12 @@ const AppSidebar = () => {
 
 
       <CSidebarFooter className="border-top d-none d-lg-flex">
+
+        {/* Logout */}
+        <CButton color='danger' variant='ghost' onClick={handleLogout}>
+          <CIcon icon={cilAccountLogout} />
+        </CButton>
+
         <CSidebarToggler
           onClick={() => toggleFoldable()}
         />

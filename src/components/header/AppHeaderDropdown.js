@@ -23,8 +23,6 @@ import {
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
-import avatar8 from './../../assets/images/avatars/8.jpg'
-
 import { useLogoutAction } from 'src/hooks/useLogout.js';
 import { useSelector } from 'react-redux'
 
@@ -42,7 +40,7 @@ const AppHeaderDropdown = () => {
 
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader>
+        {/* <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader> */}
         {/* <CDropdownItem href="#">
           <CIcon icon={cilUser} className="me-2" />
           Profile
@@ -51,7 +49,7 @@ const AppHeaderDropdown = () => {
 
 
 
-        <CDropdownHeader className="bg-body-secondary fw-semibold my-2">Settings</CDropdownHeader>
+        {/* <CDropdownHeader className="bg-body-secondary fw-semibold my-2">Settings</CDropdownHeader> */}
 
         {/* <CDropdownItem href="#">
           <CIcon icon={cilSettings} className="me-2" />
