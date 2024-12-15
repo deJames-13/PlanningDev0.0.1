@@ -186,17 +186,14 @@ export const useBudgetCharting = (name) => {
         return formatted;
       }
     }).catch(e => {
-      if (e.status == 404) {
-        nav('/404')
-      }
       dispatch(getBudgetFailure(e))
-      toast.error(
-        <DetailedToast
-          title={"Request Error: " + e?.status}
-          message={e?.data?.message}
-        />
-      )
       console.error(e)
+      // toast.error(
+      //   <DetailedToast
+      //     title={"Request Error: " + e?.status}
+      //     message={e?.data?.message}
+      //   />
+      // )
     });
   }
 

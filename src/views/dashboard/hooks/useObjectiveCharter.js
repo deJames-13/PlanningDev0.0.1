@@ -55,16 +55,14 @@ export default function useObjectiveCharter({ name }) {
             }
         }).catch(e => {
             dispatch(getObjectiveFailure());
-            if (e.status == 404) {
-                nav('/404')
-            }
-            toast.error(
-                <DetailedToast
-                    title={"Request Error: " + e?.status}
-                    message={e?.data?.message}
-                />
-            )
             console.error(e);
+
+            // toast.error(
+            //     <DetailedToast
+            //         title={"Request Error: " + e?.status}
+            //         message={e?.data?.message}
+            //     />
+            // )
         });
     }, [name]);
 

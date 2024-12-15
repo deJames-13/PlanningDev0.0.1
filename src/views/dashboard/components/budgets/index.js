@@ -204,7 +204,7 @@ export default function BudgetChart({
                 <CTable>
                   <CTableHead>
                     <CTableRow>
-                      {/* <CTableHeaderCell scope="col"></CTableHeaderCell> */}
+                      <CTableHeaderCell scope="col"></CTableHeaderCell>
                       {getPaginatedData(fund.labels).map((label, idx) => (
                         <CTableHeaderCell key={`label_${idx}`} scope="col">
                           {label}
@@ -217,9 +217,10 @@ export default function BudgetChart({
                       fund.datasets.map((dataset, idx) => {
                         return (
                           <CTableRow key={`dataset_${idx}`}>
-                            {/* <CTableHeaderCell scope="row" key={`dataset_label_${idx}`} className='col-sm'>
-                              {dataset.label}
-                            </CTableHeaderCell> */}
+                            <CTableHeaderCell scope="row" key={`dataset_label_${idx}`} className='col-2 fw-bold text-capitalize px-4'>
+                              {dataset.label.replace(/_/g, ' ')}
+                            </CTableHeaderCell>
+
                             {getPaginatedData(dataset.data).map((data, idx) => {
 
                               return dataset.label == 'utilization_rate' ? (

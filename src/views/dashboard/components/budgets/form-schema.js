@@ -15,6 +15,7 @@ export const fields = [
         name: 'description',
         label: 'Description',
         as: 'textarea',
+        value: " ",
     },
     {
         name: 'current_year',
@@ -37,7 +38,6 @@ export const fields = [
 
 export const validationSchema = Yup.object({
     title: Yup.string().required('Required'),
-    description: Yup.string(),
     current_year: Yup.number().required('Required'),
     current_quarter: Yup.number('Input a valid number. (1-4)').min(1, 'Input a valid number. (1-4)').max(4, 'Input a valid number. (1-4)'),
 });

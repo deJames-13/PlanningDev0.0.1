@@ -30,14 +30,14 @@ export function FormValues({
                 {
                     name: 'allotment',
                     label: 'Allotment',
-                    initialValue: parseFloat(data?.allotment).toLocaleString() || 0,
+                    initialValue: parseFloat(data?.allotment) || 0,
                     disabled: true,
                     colSpan: 4,
                 },
                 {
                     name: 'obligated',
                     label: 'Obligated',
-                    initialValue: data?.obligated.toLocaleString() || 0,
+                    initialValue: data?.obligated || 0,
                     disabled: true,
                     colSpan: 4,
                 },
@@ -133,7 +133,7 @@ export function FormValues({
                             acc[f.name] = Yup.number('Must be a number');
                         });
                     } else {
-                        acc[field.name] = Yup.number('Must be a number').positive('Must be a positive number').required('Required');
+                        acc[field.name] = Yup.number('Must be a number').required('Required');
                     }
                     return acc;
                 }, {}))}

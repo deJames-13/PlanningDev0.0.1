@@ -45,7 +45,7 @@ export default function GuestHeader() {
               <div className="header-top-left">
                 <ul className="header-meta m-0">
                   <li id="datetime">
-                    <span>{date.toLocaleString()}</span>
+                    <span>{date.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })}</span>
                   </li>
                 </ul>
               </div>
