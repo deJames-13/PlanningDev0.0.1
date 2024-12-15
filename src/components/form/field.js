@@ -6,6 +6,7 @@ import FormikSelect from './select';
 import SmartSelect from './smart-select';
 
 const FieldWrapper = ({ field = {} }) => {
+    if (!field) return null;
     let FieldComponent;
     let { options = [], as = 'divider', initialValue = " ", customNoneLabel = null, ...props } = field;
     switch (field.as) {

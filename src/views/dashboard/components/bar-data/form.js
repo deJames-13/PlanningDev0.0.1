@@ -15,6 +15,7 @@ import ChartPreview from './chart-preview'
 
 
 import * as formSchema from './form-schema'
+import { useSelector } from 'react-redux'
 // CONSTANTS
 // ###################################################################
 const RESOURCE = 'bar-data'
@@ -22,6 +23,8 @@ const TITLE = 'BAR Data Form'
 const SUBTITLE = 'Fill out necessary input for the BAR1 reports'
 // ###################################################################
 export default function BarDataForm() {
+    const { roles } = useSelector(state => state.auth);
+    const isAdmin = roles.includes('admin') || roles.includes('super-admin');
     const { id = null } = useParams()
 
     // STATES
@@ -82,7 +85,15 @@ export default function BarDataForm() {
                     subtitle={SUBTITLE}
                     title={TITLE}
                     formData={data}
-                    form={formSchema}
+                    form={{
+                        ...formSchema,
+                        fields: formSchema.fields.map(field => {
+                            if (field.name === 'status') {
+                                return isAdmin ? field : null;
+                            }
+                            return field
+                        }),
+                    }}
                     onChanges={handleChanges}
                 >
                 </ResourceForm>

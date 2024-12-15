@@ -95,15 +95,16 @@ export default function ResourceForm({
             <CCardBody>
                 <FormikForm
                     initialValues={current?.data ? form.fields.reduce((acc, field) => {
+                        if (!field) return acc
                         acc[field.name] = current.data[field.name]
                         return acc
                     }, {}) : form.initialValues}
 
                     fields={form.fields.map(field => {
-                        return {
+                        return field ? {
                             ...field,
                             initialValue: current?.data ? current.data[field.name] || " " : initialValues[field.name] || " ",
-                        }
+                        } : null
                     })}
 
                     validationSchema={form.validationSchema}

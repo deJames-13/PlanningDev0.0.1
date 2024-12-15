@@ -51,7 +51,7 @@ export default function resourceBuilder(resource) {
         [`${name}Restore`]: builder.mutation({
             query: (id) => ({
                 url: `${resource}/${id}/restore`,
-                method: 'POST',
+                method: 'PATCH',
             })
         }),
     });

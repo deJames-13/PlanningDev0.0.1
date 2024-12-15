@@ -19,6 +19,7 @@ import ChartPreview from './chart-preview'
 import * as formSchema from './form-schema'
 import QuarterliesModal from './form-values'
 import QuarterSummary from './quarter-summary'
+import { useSelector } from 'react-redux'
 // CONSTANTS
 // ###################################################################
 const RESOURCE = 'objectives'
@@ -26,6 +27,9 @@ const TITLE = 'Quality Objectives Form'
 const SUBTITLE = 'Fill out necessary input for the quality objectives'
 // ###################################################################
 export default function ObjectiveForm() {
+    const { roles } = useSelector(state => state.auth);
+    const isAdmin = roles.includes('admin') || roles.includes('super-admin');
+
     const { id = null } = useParams()
     const { options, loading } = useResourceOptions({ resourceName: 'sectors' })
 
@@ -71,6 +75,9 @@ export default function ObjectiveForm() {
                     form={{
                         ...formSchema,
                         fields: formSchema.fields.map(field => {
+                            if (field.name === 'status') {
+                                return isAdmin ? field : null;
+                            }
                             if (field.name === 'sector_id') {
                                 return {
                                     ...field,

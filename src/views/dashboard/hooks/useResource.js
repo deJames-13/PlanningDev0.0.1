@@ -9,7 +9,7 @@ import { setResource } from 'src/states/slices/resources.js';
 
 import useIsPermitted from 'src/hooks/useIsPermitted';
 
-const TABLE_STATES = ['index', 'archived'];
+const TABLE_STATES = ['index', 'thrashed'];
 
 export default function useResource(resourceName, isPublic = false) {
     const nav = useNavigate();
@@ -175,12 +175,21 @@ export default function useResource(resourceName, isPublic = false) {
         setLoading(true);
         return await destroy(id).unwrap().then((response) => {
             setCurrent(response);
-            toast.info(
-                <DetailedToast
-                    title='Successfully trashed'
-                    message='The record has been successfully trashed'
-                />
-            )
+            if (response?.message) {
+                toast.info(
+                    <DetailedToast
+                        title='Info'
+                        message={response.message}
+                    />
+                );
+            } else {
+                toast.info(
+                    <DetailedToast
+                        title='Successfully restored'
+                        message='The record has been successfully deleted'
+                    />
+                )
+            }
             setLoading(false);
             return response;
         });
@@ -190,12 +199,21 @@ export default function useResource(resourceName, isPublic = false) {
         setLoading(true);
         return await restore(id).unwrap().then((response) => {
             setCurrent(response);
-            toast.info(
-                <DetailedToast
-                    title='Successfully restored'
-                    message='The record has been successfully restored'
-                />
-            )
+            if (response?.message) {
+                toast.info(
+                    <DetailedToast
+                        title='Info'
+                        message={response.message}
+                    />
+                );
+            } else {
+                toast.info(
+                    <DetailedToast
+                        title='Successfully restored'
+                        message='The record has been successfully restored'
+                    />
+                )
+            }
             setLoading(false);
             return response;
         });
@@ -254,6 +272,12 @@ export default function useResource(resourceName, isPublic = false) {
     const onRestore = async (id) => {
         return doRestore(id).then((response) => {
             fetchDatas();
+            setData(data.filter(d => d.id !== id));
+            dispatch(setResource({
+                resource: resourceName,
+                data: data.filter(d => d.id !== id),
+                type: 'thrashed'
+            }));
             return response;
         });
     }

@@ -14,7 +14,7 @@ export default function NoResult() {
             <img src={noResult} alt="No result found." />
             <h4 className="pt-3">No data available.</h4>
             <p className="text-body-secondary float-start">
-                Cannot find existing information about this chart.&nbsp;
+                Cannot find existing information about this document.&nbsp;
             </p>
         </div>
     )

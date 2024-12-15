@@ -21,6 +21,16 @@ export const fields = [
         options: [],
         required: false,
     },
+    {
+        name: 'status',
+        label: 'Status',
+        placeholder: 'Select Status*',
+        as: 'smart-select',
+        options: [
+            { label: 'Draft', value: 'draft' },
+            { label: 'Publish', value: 'published' },
+        ]
+    },
 ]
 
 export const validationSchema = Yup.object({

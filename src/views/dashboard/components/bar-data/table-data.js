@@ -54,7 +54,7 @@ export default (data, actions) => {
             {
                 name: <strong>Status</strong>,
                 selector: row => <span style={{
-                    backgroundColor: row.status === 'draft' ? '#ffc107' : '#28a745',
+                    backgroundColor: row.status != 'published' ? '#ffc107' : '#28a745',
                     padding: '5px',
                     fontWeight: 'bold',
                     borderRadius: '5px',

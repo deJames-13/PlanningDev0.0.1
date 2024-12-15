@@ -12,6 +12,16 @@ export const fields = [
         as: 'textarea',
         placeholder: 'Proivde a description for the bar data',
     },
+    {
+        name: 'status',
+        label: 'Status',
+        placeholder: 'Select Status*',
+        as: 'smart-select',
+        options: [
+            { label: 'Draft', value: 'draft' },
+            { label: 'Publish', value: 'published' },
+        ]
+    },
 ]
 
 export const validationSchema = Yup.object({

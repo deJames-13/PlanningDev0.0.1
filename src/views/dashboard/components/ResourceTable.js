@@ -48,27 +48,11 @@ export default function ResourceTable({
         },
         actions: { fetchDatas },
         navigate,
-        events: { onDestroy, onRestore: doRestore, onToggleTable },
+        events: { onDestroy, onRestore, onToggleTable },
     } = useResource(resource)
 
-    const handleDelete = async (row) => {
-        return await onDestroy(row.id).then(() => {
-            Swal.fire(
-                'Deleted!',
-                'Your data has been deleted.',
-                'success'
-            )
-        }).catch((e) => {
-            const message = e?.data?.message || 'An error occurred while deleting your data.'
-            Swal.fire(
-                'Error!',
-                `${message}`,
-                'error'
-            )
-        })
-    }
 
-    const onDelete = (row) => {
+    const handleDestroy = (row) => {
         Swal.fire({
             title: 'Are you sure?',
             text: 'You will not be able to recover this data!',
@@ -76,9 +60,9 @@ export default function ResourceTable({
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!',
             cancelButtonText: 'No, keep it',
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                handleDelete(row)
+                return await onDestroy(row.id)
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire(
                     'Cancelled',
@@ -89,10 +73,24 @@ export default function ResourceTable({
         });
     }
 
-    const handleRestore = async (row) => {
-
-    }
-    const onRestore = (row) => {
+    const handleRestore = (row) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You want to restore this data!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, restore it!',
+            cancelButtonText: 'No, keep it',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                return await onRestore(row.id)
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelled',
+                    'error'
+                )
+            }
+        })
 
     }
 
@@ -124,14 +122,14 @@ export default function ResourceTable({
                                     <Link to={`/dashboard/${kebabCaseName}/edit/` + row.id} className="btn btn-sm btn-info btn-outline">
                                         <CIcon icon={cilPen} />
                                     </Link>
-                                    <button type='button' onClick={() => onDelete(row)} className="btn btn-sm btn-danger btn-outline">
+                                    <button type='button' onClick={() => handleDestroy(row)} className="btn btn-sm btn-danger btn-outline">
                                         <CIcon icon={cilTrash} />
                                     </button>
                                 </>
                             }
                             {
                                 tableState == 'thrashed' &&
-                                <button type='button' onClick={() => onRestore(row)} className="btn btn-sm btn-success btn-outline">
+                                <button type='button' onClick={() => handleRestore(row)} className="btn btn-sm btn-success btn-outline">
                                     <CIcon icon={cilHistory} />
                                 </button>
                             }
@@ -175,14 +173,15 @@ export default function ResourceTable({
                                         {nextTableState === 'index' ? 'Active' : nextTableState}
                                     </span>
                                 </CButton>
-                                <CButton color='danger' variant='outline'>
+
+                                {/* <CButton color='danger' variant='outline'>
                                     <CIcon icon={cilTrash} />
                                     <span className='d-none d-lg-inline-block' style={{
                                         paddingLeft: '3px'
                                     }}>
                                         Delete All
                                     </span>
-                                </CButton>
+                                </CButton> */}
                             </>
                         }
 

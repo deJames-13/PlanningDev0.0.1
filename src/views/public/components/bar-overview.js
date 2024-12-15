@@ -1,6 +1,8 @@
 import React from 'react'
 import ParticularsCard from './chart-card'
 import useGetBAR from '../hooks/useGetBAR'
+import NoResult from 'src/components/skeletons/no-result.js';
+
 const _defaultNames = [
   'Higher Education',
 ]
@@ -27,23 +29,8 @@ export default function BarOverview() {
       }
       {/* Skeleton for loading */}
       {
-        !data && (
-          <div style={{
-            height: '300px',
-            width: '100%',
-            backgroundColor: 'lightgray',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-            <div className="spinner-border" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
-          </div>
-
-        )
+        !data?.length && <NoResult />
       }
-
 
     </>
   )
