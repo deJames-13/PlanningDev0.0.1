@@ -49,14 +49,9 @@ export default function SectorForm() {
                             if (field.name === 'department_id') {
                                 return {
                                     ...field,
-                                    options: options?.length > 0 ? [
-                                        {
-                                            value: 'none',
-                                            label: 'Not Assigned'
-                                        },
-                                        ...options
-                                    ] : [],
+                                    options: options?.length > 0 ? options : [],
                                     loading: loading,
+                                    customNoneLabel: 'Not Assigned',
                                 }
                             }
                             return field

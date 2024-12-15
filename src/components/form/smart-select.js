@@ -3,7 +3,7 @@ import { useField } from 'formik';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
 
-const SmartSelect = ({ options = [], initialValue, count = 10, ...props }) => {
+const SmartSelect = ({ options = [], initialValue, customNoneLabel, count = 10, ...props }) => {
     const { loading, ...rest } = props;
     const [field, meta, helpers] = useField(rest);
     const [defaultOptions, setDefaultOptions] = useState((options || []).slice(0, count));
@@ -34,13 +34,11 @@ const SmartSelect = ({ options = [], initialValue, count = 10, ...props }) => {
     }, [options, count]);
 
     useEffect(() => {
-        if (initialValue.trim() !== '') {
+        if (initialValue) {
             const option = options.find(o => o.value === initialValue);
             setSelectedOption(option);
-        } else {
-            setSelectedOption(options.find(o => o.value === 'none'));
         }
-    }, [initialValue, options]);
+    }, [initialValue]);
 
     return loading ? <CSpinner /> : (
         <div>
@@ -49,7 +47,10 @@ const SmartSelect = ({ options = [], initialValue, count = 10, ...props }) => {
                 {...props}
                 value={selectedOption}
                 onChange={handleChange}
-                options={defaultOptions}
+                options={[
+                    { label: customNoneLabel || 'None', value: 'none' },
+                    ...defaultOptions
+                ]}
                 onInputChange={handleInputChange}
                 isSearchable
             />

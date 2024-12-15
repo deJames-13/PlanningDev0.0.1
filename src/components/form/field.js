@@ -7,7 +7,7 @@ import SmartSelect from './smart-select';
 
 const FieldWrapper = ({ field = {} }) => {
     let FieldComponent;
-    let { options = [], as = 'divider', initialValue = " ", ...props } = field;
+    let { options = [], as = 'divider', initialValue = " ", customNoneLabel = null, ...props } = field;
     switch (field.as) {
         case 'divider':
             return <hr />;
@@ -21,7 +21,7 @@ const FieldWrapper = ({ field = {} }) => {
             FieldComponent = <FormikSelect options={options} {...props} />;
             break;
         case 'smart-select':
-            FieldComponent = <SmartSelect options={options} initialValue={initialValue} {...props} />;
+            FieldComponent = <SmartSelect options={options} initialValue={initialValue} customNoneLabel={customNoneLabel}  {...props} />;
             break;
         case 'date':
             FieldComponent = <FormikDatePicker {...props} />;
