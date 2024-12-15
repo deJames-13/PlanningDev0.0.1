@@ -34,7 +34,7 @@ export default function BudgetChart({
   sector = 'none',
 }) {
 
-  const { data, getBudgetData, progressRates } = useBudgetCharting()
+  const { data, rawData, getBudgetData, getFundFromYear, } = useBudgetCharting()
 
   const [tabs, setTabs] = useState()
   const [rates, setRates] = useState([])
@@ -80,6 +80,8 @@ export default function BudgetChart({
   useEffect(() => {
     setUpdating(true)
     getBudgetData(sector).then(() => setUpdating(false))
+    setCurrentYear(null)
+    setChartBy(_chartBy[0])
   }, [activeTab, sector])
 
   useEffect(() => {
@@ -97,12 +99,35 @@ export default function BudgetChart({
       const ratesData = data?.progressRates[activeTab] || Object.values(data?.progressRates)[0] || []
 
       setFund(fund)
+      setYears(data?.annual?.labels)
       setRates(ratesData)
-
     }
-    console.clear()
-    console.log('data', data)
   }, [data])
+
+  useEffect(() => {
+    if (!currentYear || !rawData) return;
+    const currentSet = rawData.find(item => item.title === activeTab)
+    const fund = getFundFromYear(currentSet.annual, currentYear)
+    setFund(fund)
+  }, [currentYear])
+
+  useEffect(() => {
+    if (chartBy != 'year') {
+
+      setCurrentYear(years?.length && years[years.length - 1] || null)
+      return;
+    };
+    setCurrentYear(null)
+
+    if (data?.annual) {
+      const fund = data?.annual?.datasets?.find(item => item.name === activeTab) || data?.annual?.datasets[0]
+      const ratesData = data?.progressRates[activeTab] || Object.values(data?.progressRates)[0] || []
+
+      setFund(fund)
+      setYears(data?.annual?.labels)
+      setRates(ratesData)
+    }
+  }, [chartBy])
 
   useEffect(() => {
     setCurrentPage(1);

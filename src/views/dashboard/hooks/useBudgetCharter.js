@@ -74,11 +74,11 @@ const makeRates = (labels, values) => {
   })
   return progressRates;
 }
+
 const transformData = (data) => {
   if (!data?.length) return null;
   const labels = [];
   const annualLabels = data[0].annual.map(a => a.year);
-  // const keys = Object.keys(data[0].annual[0]);
   const keys = ['year', 'allotment', 'obligated', 'utilization_rate'];
 
   const annualDatasets = data.map(item => {
@@ -117,7 +117,7 @@ const transformData = (data) => {
           borderColor: getStyle('--cui-danger'),
           pointHoverBackgroundColor: getStyle('--cui-danger'),
           borderWidth: 0,
-          borderDash: [8, 5],
+          hidden: true,
           data: rate,
         },
       ],
@@ -145,6 +145,48 @@ const transformData = (data) => {
   };
 }
 
+const getFundFromYear = (data, year) => {
+  if (!data?.length) return null;
+  const yearData = data.find(d => d.year == year);
+  if (!yearData) return null;
+  const quarterLabels = yearData.quarters.map(q => `Q${q.quarter}`);
+  return {
+    labels: quarterLabels,
+    datasets: [
+      {
+        label: 'Allotment',
+        backgroundColor: 'transparent',
+        borderColor: getStyle('--cui-danger'),
+        pointHoverBackgroundColor: getStyle('--cui-danger'),
+        borderWidth: 1,
+        borderDash: [8, 5],
+        data: yearData.quarters.map(q => parseFloat(q.allotment || 0)),
+      },
+      {
+        label: 'Obligated',
+        backgroundColor: `rgba(${getStyle('--cui-info-rgb')}, .1)`,
+        borderColor: getStyle('--cui-info'),
+        pointHoverBackgroundColor: getStyle('--cui-info'),
+        borderWidth: 2,
+        fill: true,
+        data: yearData.quarters.map(q => parseFloat(q.obligated || 0)),
+      },
+      {
+        label: 'Rate',
+        backgroundColor: 'transparent',
+        borderColor: getStyle('--cui-danger'),
+        pointHoverBackgroundColor: getStyle('--cui-danger'),
+        borderWidth: 0,
+        hidden: true,
+        data: yearData.quarters.map(q => parseFloat(q.utilization_rate || 0)),
+      },
+    ],
+    maxAllotment: Math.max(...yearData.quarters.map(q => parseFloat(q.allotment || 0))),
+    meanValue: yearData.quarters.map(q => (parseFloat(q.obligated || 0) + parseFloat(q.allotment || 0)).toFixed(2) / 2),
+    progressRates: makeRates(quarterLabels, yearData.quarters.map(q => parseFloat(q.utilization_rate || 0)))
+  }
+}
+
 
 
 export const useBudgetCharting = (name) => {
@@ -158,6 +200,7 @@ export const useBudgetCharting = (name) => {
     labels: [] || defaultLabels,
     datasets: [] || defaultDatasets,
   });
+  const [rawData, setRawData] = React.useState(null);
 
 
 
@@ -178,6 +221,7 @@ export const useBudgetCharting = (name) => {
         }
         if (budgetState.currentSector && budgetState.currentSector === name) {
           setData(formatted)
+          setRawData(res.data)
           setProgressRates(formatted.progressRates)
         };
         dispatch(getBudgetSuccess({
@@ -188,12 +232,6 @@ export const useBudgetCharting = (name) => {
     }).catch(e => {
       dispatch(getBudgetFailure(e))
       console.error(e)
-      // toast.error(
-      //   <DetailedToast
-      //     title={"Request Error: " + e?.status}
-      //     message={e?.data?.message}
-      //   />
-      // )
     });
   }
 
@@ -201,7 +239,9 @@ export const useBudgetCharting = (name) => {
 
   return {
     data,
+    rawData,
     progressRates,
     getBudgetData,
+    getFundFromYear,
   }
 }
