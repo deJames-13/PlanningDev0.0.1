@@ -46,10 +46,20 @@ export default (data, actions) => {
                 selector: row => row.particulars,
                 sortable: true,
                 cell: c => (<div>{
-                    c?.particulars?.length > 0 && c.particulars.map((p, i) => <><span>
-                        <Link to={'/dashboard/particular/edit/' + p.id} key={i}>{p.title.split(':')[0]}</Link></span><br /></> || <span>No Particulars</span>)
+                    c?.particulars?.length > 0 && c.particulars.map((p, i) => <div key={i}><span>
+                        <Link to={'/dashboard/particular/edit/' + p.id} key={i}>{p.title.split(':')[0]}</Link></span><br /></div> || <span>No Particulars</span>)
                 }
                 </div>),
+            },
+            {
+                name: <strong>Status</strong>,
+                selector: row => <span style={{
+                    backgroundColor: row.status === 'draft' ? '#ffc107' : '#28a745',
+                    padding: '5px',
+                    fontWeight: 'bold',
+                    borderRadius: '5px',
+                }}>{row.status}</span>,
+                sortable: true,
             },
             {
                 name: <strong>Actions</strong>,
@@ -63,6 +73,7 @@ export default (data, actions) => {
             title: d.title,
             description: d.description,
             particulars: d.particulars,
+            status: d.status,
         }))
     }
 }

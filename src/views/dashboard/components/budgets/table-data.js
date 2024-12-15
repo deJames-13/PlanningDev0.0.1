@@ -51,6 +51,16 @@ export default (data, actions) => {
                 sortable: true,
             },
             {
+                name: <strong>Status</strong>,
+                selector: row => <span style={{
+                    backgroundColor: row.status === 'draft' ? '#ffc107' : '#28a745',
+                    padding: '5px',
+                    fontWeight: 'bold',
+                    borderRadius: '5px',
+                }}>{row.status}</span>,
+                sortable: true,
+            },
+            {
                 name: <strong>Modified</strong>,
                 selector: row => <span className="text-break">{
                     new Date(row.updated_at).toLocaleDateString('en-US', {
@@ -78,6 +88,7 @@ export default (data, actions) => {
             title: d.title,
             description: d.description,
             sector: d?.sector,
+            status: d.status,
             updated_at: d.updated_at,
         }))
     }

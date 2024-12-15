@@ -61,6 +61,16 @@ export default (data, actions) => {
                 sortable: true,
             },
             {
+                name: <strong>Status</strong>,
+                selector: row => <span style={{
+                    backgroundColor: row.status === 'draft' ? '#ffc107' : '#28a745',
+                    padding: '5px',
+                    fontWeight: 'bold',
+                    borderRadius: '5px',
+                }}>{row.status}</span>,
+                sortable: true,
+            },
+            {
                 name: <strong>Actions</strong>,
                 sortable: false,
                 selector: null,
@@ -75,6 +85,7 @@ export default (data, actions) => {
             sector: d?.sector,
             target: d?.total?.target,
             accomplishment: d?.total?.accomplishment,
+            status: d.status,
         }))
     }
 }

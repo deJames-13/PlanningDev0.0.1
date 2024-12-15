@@ -2,8 +2,6 @@ import { cilCheck, cilCheckCircle, cilFlagAlt } from '@coreui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import DetailedToast from 'src/components/toast/detail';
 import { useGetObjMutation } from 'src/states/api/charts';
 import {
     getObjectiveFailure,
@@ -46,6 +44,7 @@ export default function useObjectiveCharter({ name }) {
                 let { data } = res.data
                 let formatted = transformData(data)
                 if (!formatted) {
+                    setData({});
                     return;
                 }
                 if (objState.currentSector && objState.currentSector === name) {
@@ -55,14 +54,7 @@ export default function useObjectiveCharter({ name }) {
             }
         }).catch(e => {
             dispatch(getObjectiveFailure());
-            console.error(e);
-
-            // toast.error(
-            //     <DetailedToast
-            //         title={"Request Error: " + e?.status}
-            //         message={e?.data?.message}
-            //     />
-            // )
+            console.log(e);
         });
     }, [name]);
 
