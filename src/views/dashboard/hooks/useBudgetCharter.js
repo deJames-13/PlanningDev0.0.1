@@ -154,7 +154,7 @@ const getFundFromYear = (data, year) => {
     labels: quarterLabels,
     datasets: [
       {
-        label: 'Allotment',
+        label: 'allotment',
         backgroundColor: 'transparent',
         borderColor: getStyle('--cui-danger'),
         pointHoverBackgroundColor: getStyle('--cui-danger'),
@@ -163,7 +163,7 @@ const getFundFromYear = (data, year) => {
         data: yearData.quarters.map(q => parseFloat(q.allotment || 0)),
       },
       {
-        label: 'Obligated',
+        label: 'obligated',
         backgroundColor: `rgba(${getStyle('--cui-info-rgb')}, .1)`,
         borderColor: getStyle('--cui-info'),
         pointHoverBackgroundColor: getStyle('--cui-info'),
@@ -172,7 +172,7 @@ const getFundFromYear = (data, year) => {
         data: yearData.quarters.map(q => parseFloat(q.obligated || 0)),
       },
       {
-        label: 'Rate',
+        label: 'utilization_rate',
         backgroundColor: 'transparent',
         borderColor: getStyle('--cui-danger'),
         pointHoverBackgroundColor: getStyle('--cui-danger'),

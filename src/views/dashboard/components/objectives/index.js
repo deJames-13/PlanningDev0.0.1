@@ -76,7 +76,10 @@ export function ObjectiveCard({ item, index }) {
         {(item?.quarterlies || item?.quarters || []).map((quarter, index) => {
           let color = 'success';
           let percent = (quarter.accomplishment / quarter.target) * 100;
-          if (percent < 50) {
+          if (quarter.target == 0) {
+            color = 'transparent';
+          }
+          else if (percent < 50) {
             color = 'danger';
           } else if (percent < 100) {
             color = 'warning';

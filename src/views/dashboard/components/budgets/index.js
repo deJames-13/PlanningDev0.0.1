@@ -397,13 +397,20 @@ export default function BudgetChart({
                             </CTableHeaderCell>
 
                             {getPaginatedData(dataset.data).map((data, idx) => {
+                              let color = 'success';
+                              if (parseInt(data) < 50) {
+                                color = 'danger';
+                              }
+                              else if (parseInt(data) < 70) {
+                                color = 'warning';
+                              }
 
                               return dataset.label == 'utilization_rate' ? (
                                 <CTableDataCell key={`data_${idx}`}>
                                   <div className="fw-semibold text-truncate">
-                                    {parseFloat(data * 100).toFixed(2)}%
+                                    {parseFloat(data).toFixed(2)}%
                                   </div>
-                                  <CProgress thin className="mt-2" value={parseInt(parseFloat(data * 100).toFixed(2))} />
+                                  <CProgress color={color} thin className="mt-2" value={parseInt(parseFloat(data).toFixed(2))} />
                                 </CTableDataCell>
                               ) : (
                                 <CTableDataCell key={`data_${idx}`}>
