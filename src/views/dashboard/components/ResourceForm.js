@@ -28,7 +28,7 @@ export default function ResourceForm({
 }) {
     const {
         names: { capitalizeName },
-        states: { current, setCurrent },
+        states: { current, setCurrent, loading },
         actions: { fetchData, doStore, doUpdate, doDestroy },
     } = useResource(resource)
 
@@ -45,7 +45,6 @@ export default function ResourceForm({
         else
             return doStore(payload)
 
-        return payload;
     }, [formData, id]);
 
     const handleChanges = useCallback((values, errors) => {
@@ -79,18 +78,23 @@ export default function ResourceForm({
             ...style
 
         }}>
-            <CCardHeader>
-                <h4>
-                    {title || `${capitalizeName(resource)} Form`}
-                </h4>
-                <p className='text-secondary'>
-                    {subtitle}
-                </p>
-                <span className="fst-italic fw-6 fw-italic text-muted" style={{
-                    fontSize: '0.8rem'
-                }}>
-                    * required fields
-                </span>
+            <CCardHeader className='d-flex justify-content-between items-align-center'>
+                <div>
+                    <h4>
+                        {title || `${capitalizeName(resource)} Form`}
+                    </h4>
+                    <p className='text-secondary'>
+                        {subtitle}
+                    </p>
+                    <span className="fst-italic fw-6 fw-italic text-muted" style={{
+                        fontSize: '0.8rem'
+                    }}>
+                        * required fields
+                    </span>
+                </div>
+                <div>
+                    {loading && <CSpinner size="sm" />}
+                </div>
             </CCardHeader>
             <CCardBody>
                 <FormikForm
