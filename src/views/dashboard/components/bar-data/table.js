@@ -7,8 +7,11 @@ export default function BarDataTable() {
         <ResourceTable
             resource='bar-data'
             tableData={tableData}
-            title='Bar Data'
+            title='BAR Data'
             subtitle='This is the bar data table'
+            intitialQuery={{
+                with: 'none'
+            }}
         />
     )
 }

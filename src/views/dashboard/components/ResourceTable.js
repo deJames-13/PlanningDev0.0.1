@@ -25,6 +25,7 @@ export default function ResourceTable({
     tableData,
     title,
     subtitle,
+    intitialQuery,
 }) {
     const [query, setQuery] = useState({
         page: 1,
@@ -32,6 +33,7 @@ export default function ResourceTable({
         search: '',
         orderBy: 'id',
         sortedBy: 'asc',
+        ...intitialQuery
     })
 
     const {
@@ -103,8 +105,8 @@ export default function ResourceTable({
 
 
     useEffect(() => {
-        fetchDatas(queryToStr(query))
-    }, [query])
+        fetchDatas(queryToStr({ ...query, ...intitialQuery }))
+    }, [query, intitialQuery])
 
     useEffect(() => {
         let values = data;

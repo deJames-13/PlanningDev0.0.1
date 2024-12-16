@@ -9,7 +9,7 @@ export default function useResourceOptions({ resourceName, labelKey = 'name', })
     } = useResource(resourceName)
 
     useEffect(() => {
-        fetchDatas('per_page=all').catch((error) => {
+        fetchDatas('per_page=all&with=none').catch((error) => {
             // network error 504
 
 
