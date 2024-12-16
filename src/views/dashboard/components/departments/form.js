@@ -32,12 +32,7 @@ export default function DepartmentForm() {
                 overflow: 'auto',
                 marginBottom: '1rem'
             }}>
-            <CCol lg={12} style={{
-                height: '100%',
-                overflow: 'auto',
-                position: 'sticky',
-                top: 0,
-            }}>
+            <CCol lg={12}>
                 <ResourceForm
                     id={id}
                     resource={RESOURCE}

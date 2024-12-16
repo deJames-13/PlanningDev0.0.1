@@ -88,12 +88,7 @@ export default function BudgetForm() {
                 overflow: 'auto',
                 marginBottom: '1rem'
             }}>
-            <CCol lg={5} style={{
-                height: '100%',
-                overflow: 'auto',
-                position: 'sticky',
-                top: 0,
-            }}>
+            <CCol lg={5}>
                 <ResourceForm
                     id={id}
                     formData={data}

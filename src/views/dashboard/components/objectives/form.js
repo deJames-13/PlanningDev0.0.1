@@ -60,12 +60,7 @@ export default function ObjectiveForm() {
 
             {/* FORM PART */}
 
-            <CCol lg={5} style={{
-                height: '100%',
-                overflow: 'auto',
-                position: 'sticky',
-                top: 0,
-            }}>
+            <CCol lg={5}>
                 <ResourceForm
                     id={id}
                     formData={data}

@@ -73,12 +73,7 @@ export default function BarDataForm() {
                 overflow: 'auto',
                 marginBottom: '1rem'
             }}>
-            <CCol lg={6} style={{
-                height: '100%',
-                overflow: 'auto',
-                position: 'sticky',
-                top: 0,
-            }}>
+            <CCol lg={6}>
                 <ResourceForm
                     id={id}
                     resource={RESOURCE}

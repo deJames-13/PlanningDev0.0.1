@@ -71,16 +71,7 @@ export default function ParticularForm({
                 overflow: 'auto',
             }}
         >
-            <CCol
-                className='container-fluid'
-                lg={isModal ? 12 : 5}
-                style={{
-                    height: '100%',
-                    overflow: 'auto',
-                    position: 'sticky',
-                    top: 0,
-                }}
-            >
+            <CCol className='container-fluid' lg={isModal ? 12 : 5}>
                 <ResourceForm
                     id={!isModal ? id : null}
                     formData={data}
