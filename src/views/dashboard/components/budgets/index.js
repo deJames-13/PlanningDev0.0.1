@@ -85,6 +85,7 @@ export default function BudgetChart({
     getBudgetData(sector).then(() => setUpdating(false))
     setCurrentYear(null)
     setChartBy(_chartBy[0])
+    setYears(data?.annual?.datasets?.find(item => item.name === activeTab)?.labels)
   }, [activeTab, sector])
 
   useEffect(() => {
@@ -102,7 +103,7 @@ export default function BudgetChart({
       const ratesData = data?.progressRates[activeTab] || Object.values(data?.progressRates)[0] || []
 
       setFund(fund)
-      setYears(data?.annual?.labels)
+      setYears(fund?.labels)
       setRates(ratesData)
     }
   }, [data])
@@ -116,7 +117,6 @@ export default function BudgetChart({
 
   useEffect(() => {
     if (chartBy != 'year') {
-
       setCurrentYear(years?.length && years[years.length - 1] || null)
       return;
     };
@@ -125,9 +125,7 @@ export default function BudgetChart({
     if (data?.annual) {
       const fund = data?.annual?.datasets?.find(item => item.name === activeTab) || data?.annual?.datasets[0]
       const ratesData = data?.progressRates[activeTab] || Object.values(data?.progressRates)[0] || []
-
       setFund(fund)
-      setYears(data?.annual?.labels)
       setRates(ratesData)
     }
   }, [chartBy])

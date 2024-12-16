@@ -78,7 +78,6 @@ const makeRates = (labels, values) => {
 const transformData = (data) => {
   if (!data?.length) return null;
   const labels = [];
-  const annualLabels = data[0].annual.map(a => a.year);
   const keys = ['year', 'allotment', 'obligated', 'utilization_rate'];
 
   const annualDatasets = data.map(item => {
@@ -89,6 +88,7 @@ const transformData = (data) => {
       let val = parseFloat(parseFloat(a[keys[2]] || 0) / parseFloat(a[keys[1]] || 0)).toFixed(2);
       return isNaN(val) ? 0 : val * 100;
     });
+    let annualLabels = item.annual.map(a => a.year);
     return {
       name: item.name || item.title,
       labels: annualLabels,
@@ -137,7 +137,7 @@ const transformData = (data) => {
     title: data?.title || 'Budget Overview',
     labels,
     annual: {
-      labels: annualLabels,
+      labels: labels,
       datasets: annualDatasets,
     },
     progressRates: progressRates,
