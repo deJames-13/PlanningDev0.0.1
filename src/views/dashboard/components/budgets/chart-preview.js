@@ -103,7 +103,7 @@ export default function ChartPreview({ values }) {
             </div>
 
             {
-                chartData ?
+                chartData?.labels ?
                     <LineChart chartData={chartData} />
                     : <NoResult />
             }
