@@ -9,7 +9,11 @@ export default function useResourceOptions({ resourceName, labelKey = 'name', })
     } = useResource(resourceName)
 
     useEffect(() => {
-        fetchDatas('per_page=all')
+        fetchDatas('per_page=all').catch((error) => {
+            // network error 504
+
+
+        })
     }, [])
 
     return {
