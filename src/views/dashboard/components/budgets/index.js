@@ -26,7 +26,9 @@ import {
 
 import LineChart from 'src/components/charts/line'
 import NoResult from 'src/components/skeletons/no-result'
+import { options } from './chart-property'
 
+import { getStyle } from '@coreui/utils';
 const selectTabs = ['Budget']
 const _chartBy = ['year', 'quarter']
 
@@ -51,6 +53,7 @@ export default function BudgetChart({
   const [currentYear, setCurrentYear] = useState(null)
 
   const getPaginatedData = (data) => {
+    if (!data) return [];
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     return data.slice(startIndex, endIndex);
@@ -254,7 +257,86 @@ export default function BudgetChart({
           </CRow>
 
           {
-            fund ? <LineChart chartData={fund} max={parseInt(fund.maxAllotment + (fund.maxAllotment * 0.25))} average={fund.meanValue} />
+            fund ? <LineChart
+              chartData={fund}
+              max={parseInt(fund.maxAllotment + (fund.maxAllotment * 0.10))}
+              average={fund.meanValue}
+              chartProps={{
+                options: {
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      display: false,
+                    },
+                    datalabels: {
+                      display: true,
+                      align: 'bottom',
+                      color: getStyle('--cui-body-color'),
+                      formatter: (value) => value,
+                    },
+                  },
+                  scales: {
+                    x: {
+                      grid: {
+                        color: getStyle('--cui-border-color-translucent'),
+                        drawOnChartArea: false,
+                      },
+                      ticks: {
+                        color: getStyle('--cui-body-color'),
+                      },
+                    },
+                    y: {
+                      type: 'linear',
+                      display: true,
+                      position: 'left',
+                      beginAtZero: true,
+                      border: {
+                        color: getStyle('--cui-border-color-translucent'),
+                      },
+                      grid: {
+                        color: getStyle('--cui-border-color-translucent'),
+                      },
+                      max: parseInt(fund.maxAllotment + (fund.maxAllotment * 0.10)),
+                      ticks: {
+                        padding: 20,
+                        color: getStyle('--cui-body-color'),
+                        stepSize: Math.ceil((parseInt(fund.maxAllotment + (fund.maxAllotment * 0.10)) || 1000) / 5),
+                      },
+                    },
+                    y1: {
+                      type: 'linear',
+                      display: true,
+                      position: 'right',
+                      beginAtZero: true,
+                      border: {
+                        color: getStyle('--cui-body-color'),
+                      },
+                      grid: {
+                        drawOnChartArea: false,
+                      },
+                      min: 0,
+                      max: 100,
+                      ticks: {
+                        color: getStyle('--cui-body-color'),
+                        padding: 20,
+                      },
+                    },
+                  },
+                  elements: {
+                    line: {
+                      tension: 0.4,
+                    },
+                    point: {
+                      radius: 3,
+                      hitRadius: 10,
+                      hoverRadius: 4,
+                      hoverBorderWidth: 3,
+                    },
+                  },
+                }
+              }}
+
+            />
               : <div style={{
                 height: '300px',
                 display: 'flex',

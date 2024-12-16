@@ -6,7 +6,7 @@ import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 Chart.register(ChartDataLabels);
 
-export default function LineChart({ chartData, max = null, average = null }) {
+export default function LineChart({ chartData, max = null, average = null, chartProps }) {
   const chartRef = useRef(null);
 
 
@@ -104,6 +104,7 @@ export default function LineChart({ chartData, max = null, average = null }) {
           },
         },
       }}
+      {...chartProps}
     />
     <p>
       <i className='d-sm-none d-block text-secondary fw-light' style={{

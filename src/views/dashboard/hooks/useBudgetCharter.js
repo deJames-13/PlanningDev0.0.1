@@ -44,7 +44,7 @@ const defaultDatasets = [
     pointHoverBackgroundColor: getStyle('--cui-danger'),
     borderWidth: 1,
     borderDash: [8, 5],
-    data: defaultLabels.map(() => 65),
+    data: defaultLabels.map(() => 0.65),
   },
 ]
 const defaultRates = [
@@ -87,7 +87,7 @@ const transformData = (data) => {
     let obligated = item.annual.map(a => parseFloat(a[keys[2]] || 0));
     let rate = item.annual.map(a => {
       let val = parseFloat(parseFloat(a[keys[2]] || 0) / parseFloat(a[keys[1]] || 0)).toFixed(2);
-      return isNaN(val) ? 0 : val;
+      return isNaN(val) ? 0 : val * 100;
     });
     return {
       name: item.name || item.title,
@@ -98,8 +98,7 @@ const transformData = (data) => {
           backgroundColor: 'transparent',
           borderColor: getStyle('--cui-danger'),
           pointHoverBackgroundColor: getStyle('--cui-danger'),
-          borderWidth: 1,
-          borderDash: [8, 5],
+          borderWidth: 2,
           data: allotement,
         },
         {
@@ -116,8 +115,9 @@ const transformData = (data) => {
           backgroundColor: 'transparent',
           borderColor: getStyle('--cui-danger'),
           pointHoverBackgroundColor: getStyle('--cui-danger'),
-          borderWidth: 0,
-          hidden: true,
+          borderWidth: 1,
+          borderDash: [8, 5],
+          yAxisID: 'y1',
           data: rate,
         },
       ],
@@ -177,7 +177,7 @@ const getFundFromYear = (data, year) => {
         borderColor: getStyle('--cui-danger'),
         pointHoverBackgroundColor: getStyle('--cui-danger'),
         borderWidth: 0,
-        hidden: true,
+        yAxisID: 'y1',
         data: yearData.quarters.map(q => parseFloat(q.utilization_rate || 0)),
       },
     ],
