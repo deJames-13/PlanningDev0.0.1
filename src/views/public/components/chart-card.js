@@ -36,6 +36,8 @@ export default function ParticularsCard(
     setCurrentIndicator(indicator)
   }
   const makeChart = (values, chartBy) => {
+    // filter values by year, dont have duplicate years
+    values = values.filter((value, index, self) => self.findIndex(v => v.year === value.year) === index) || []
 
     if (chartBy === 'year') {
       setChartData({

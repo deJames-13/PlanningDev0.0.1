@@ -56,17 +56,17 @@ export function FormValues({
                 fields: [
                     {
                         name: `accomplishment_${i + 1}`,
-                        initialValue: data?.quarters.find(q => q.quarter == i + 1)?.accomplishment || 0,
+                        initialValue: data?.quarters?.find(q => q.quarter == i + 1)?.accomplishment || 0,
                         colSpan: 4,
                     },
                     {
                         name: `target_${i + 1}`,
-                        initialValue: data?.quarters.find(q => q.quarter == i + 1)?.target || 0,
+                        initialValue: data?.quarters?.find(q => q.quarter == i + 1)?.target || 0,
                         colSpan: 4,
                     },
                     {
                         name: `percentage_${i + 1}`,
-                        initialValue: data?.quarters.find(q => q.quarter == i + 1)?.percentage || 0,
+                        initialValue: data?.quarters?.find(q => q.quarter == i + 1)?.percentage || 0,
                         colSpan: 4,
                         disabled: true,
                     }
