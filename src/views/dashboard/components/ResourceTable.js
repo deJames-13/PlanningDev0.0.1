@@ -29,7 +29,7 @@ export default function ResourceTable({
     subtitle,
     intitialQuery,
 }) {
-    const { userInfo } = useSelector(state => state.auth)
+    const { userInfo, roles } = useSelector(state => state.auth)
 
     const [query, setQuery] = useState({
         page: 1,
@@ -125,6 +125,9 @@ export default function ResourceTable({
         if (tableState === 'thrashed') {
             values = thrashedData;
         }
+        if (roles.includes('user')) {
+            values = values.filter(value => value?.status && !value?.status?.includes('pending'))
+        }
         if (Array.isArray(values) && tableData) {
             setTable(tableData(values, ({ row }) => {
                 return (
@@ -137,7 +140,7 @@ export default function ResourceTable({
                                         <CIcon icon={cilPen} />
                                     </Link>
                                     {
-                                        (resource == 'users' && userInfo.id == row.id) ? <></> : <button type='button' onClick={() => handleDestroy(row)} className="btn btn-sm btn-danger btn-outline">
+                                        (resource == 'users' && userInfo.id == row.id && roles.includes('super-admin')) ? <></> : <button type='button' onClick={() => handleDestroy(row)} className="btn btn-sm btn-danger btn-outline">
                                             <CIcon icon={cilTrash} />
                                         </button>
                                     }
