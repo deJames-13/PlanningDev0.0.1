@@ -126,7 +126,7 @@ export default function ResourceTable({
             values = thrashedData;
         }
         if (roles.includes('user')) {
-            values = values.filter(value => value?.status && !value?.status?.includes('pending'))
+            values = values.filter(value => !value?.status || !value?.status?.includes('pending'))
         }
         if (Array.isArray(values) && tableData) {
             setTable(tableData(values, ({ row }) => {
@@ -165,17 +165,18 @@ export default function ResourceTable({
         <CCard>
             <CCardHeader>
                 <div className="d-flex flex-column flex-lg-row justify-content-lg-between items-align-center">
-                    <div>
+                    <div style={{ width: '60%' }}>
                         <h4 className='text-capitalize'>
                             {`${capitalizeName} Table` || title}
                         </h4>
-                        {subtitle}
+                        <span className="text-wrap max-w-24">
+                            {subtitle}
+                        </span>
                     </div>
                     <div className="p-3 d-flex items-align-center justify-content-end gap-2">
                         {
                             !loading &&
-                            <>
-
+                            <div className='d-flex items-align-center gap-2'>
                                 <CButton onClick={() => navigate.toForm()} color='success' variant='outline'>
                                     <CIcon icon={cilPlus} />
                                     <span className='d-none d-lg-inline-block' style={{
@@ -201,7 +202,7 @@ export default function ResourceTable({
                                         Delete All
                                     </span>
                                 </CButton> */}
-                            </>
+                            </div>
                         }
 
                         {loading && <CSpinner />}

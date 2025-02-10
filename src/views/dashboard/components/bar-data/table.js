@@ -8,7 +8,7 @@ export default function BarDataTable() {
             resource='bar-data'
             tableData={tableData}
             title='BAR Data'
-            subtitle='This is the bar data table'
+            subtitle='Manage the Budget Accountability Report information in this page. The BAR Data requires a proper formatted values such as particulars information and quarterly values.'
             intitialQuery={{
                 with: 'none'
             }}

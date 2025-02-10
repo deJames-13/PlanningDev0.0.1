@@ -14,7 +14,7 @@ export default function UserTable() {
                 return tableData(data, actions)
             }}
             title='Users Data'
-            subtitle='This is the users table'
+            subtitle='Manage users information in this page.'
         />
     )
 }

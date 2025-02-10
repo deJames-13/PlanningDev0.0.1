@@ -8,7 +8,7 @@ export default function BudgetsTable() {
             resource='budgets'
             tableData={tableData}
             title='Budgets Data'
-            subtitle='This is the budgets table'
+            subtitle='Manage the Budgets table for each offices.'
         />
     )
 }

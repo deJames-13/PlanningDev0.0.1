@@ -8,7 +8,7 @@ export default function ParticularTable() {
             resource='particular'
             tableData={tableData}
             title='Particulars Data'
-            subtitle='Table list of particulars for Budgent Accountability Report'
+            subtitle='Table list of particulars for Budget Accountability Report'
         />
     )
 }

@@ -8,7 +8,7 @@ export default function DepartmentTable() {
             resource='departments'
             tableData={tableData}
             title='Departments Data'
-            subtitle='This is the departments table'
+            subtitle='Manage the each department information in this page.'
         />
     )
 }

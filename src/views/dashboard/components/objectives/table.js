@@ -8,7 +8,7 @@ export default function ObjectivesTable() {
             resource='objectives'
             tableData={tableData}
             title='Quality Objectives'
-            subtitle='This is the objectives table'
+            subtitle='This page is dedicated to management of Quality Objectives. Each objectives require quarterly values with accomplishment and target values.'
         />
     )
 }

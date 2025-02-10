@@ -8,7 +8,7 @@ export default function SectorsTable() {
             resource='sectors'
             tableData={tableData}
             title='Sectors Data'
-            subtitle='This is the sectors table'
+            subtitle='Manage sectors information in this page.'
         />
     )
 }
