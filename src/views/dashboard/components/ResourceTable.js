@@ -15,6 +15,8 @@ import Table from 'src/components/table'
 import googleSheetStyle from 'src/components/table/googleSheetsStyle'
 import Pagination from 'src/components/table/pagination.js';
 import Swal from 'sweetalert2'
+import { useSelector } from 'react-redux'
+
 import useResource from '../hooks/useResource'
 
 const queryToStr = (query) => {
@@ -27,6 +29,8 @@ export default function ResourceTable({
     subtitle,
     intitialQuery,
 }) {
+    const { userInfo } = useSelector(state => state.auth)
+
     const [query, setQuery] = useState({
         page: 1,
         limit: 10,
@@ -64,7 +68,15 @@ export default function ResourceTable({
             cancelButtonText: 'No, keep it',
         }).then(async (result) => {
             if (result.isConfirmed) {
-                return await onDestroy(row.id)
+                return await onDestroy(row.id).catch(e => {
+                    const errorMessage = e?.data?.message
+                    Swal.fire(
+                        'Error',
+                        errorMessage,
+                        'error'
+                    )
+
+                })
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire(
                     'Cancelled',
@@ -124,9 +136,11 @@ export default function ResourceTable({
                                     <Link to={`/dashboard/${kebabCaseName}/edit/` + row.id} className="btn btn-sm btn-info btn-outline">
                                         <CIcon icon={cilPen} />
                                     </Link>
-                                    <button type='button' onClick={() => handleDestroy(row)} className="btn btn-sm btn-danger btn-outline">
-                                        <CIcon icon={cilTrash} />
-                                    </button>
+                                    {
+                                        (resource == 'users' && userInfo.id == row.id) ? <></> : <button type='button' onClick={() => handleDestroy(row)} className="btn btn-sm btn-danger btn-outline">
+                                            <CIcon icon={cilTrash} />
+                                        </button>
+                                    }
                                 </>
                             }
                             {

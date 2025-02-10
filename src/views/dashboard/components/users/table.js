@@ -10,7 +10,7 @@ export default function UserTable() {
         <ResourceTable
             resource='users'
             tableData={(data, actions) => {
-                data = data.filter(user => user.id !== userInfo.id)
+                data = data
                 return tableData(data, actions)
             }}
             title='Users Data'
