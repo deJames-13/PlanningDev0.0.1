@@ -80,7 +80,7 @@ export function FormValues({
             year: formValues.year,
             quarters: (data?.quarters?.length > 0 ? data?.quarters : quarters).map((q, i) => {
                 if (typeof q != 'object') q = {}
-                let target = parseFloat(formValues[`target_${i + 1}`] || 1) || 0;
+                let target = parseFloat(formValues[`target_${i + 1}`] || 0) || 0;
                 let accomplishment = parseFloat(formValues[`accomplishment_${i + 1}`]) || 0;
 
                 if (target === 0) accomplishment = 0;

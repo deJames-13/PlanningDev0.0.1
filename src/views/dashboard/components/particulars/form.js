@@ -28,7 +28,7 @@ export default function ParticularForm({
     particular = {},
 }) {
     const { id = null } = useParams()
-    const { options, loading } = useResourceOptions({ resourceName: 'bar_data' })
+    const { options, loading } = ({ resourceName: 'bar-data' })
 
     const [data, setData] = useState(null)
     const [values, setValues] = useState([])
