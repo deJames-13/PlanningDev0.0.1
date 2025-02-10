@@ -31,6 +31,7 @@ export default function ResourceTable({
 }) {
     const { userInfo, roles } = useSelector(state => state.auth)
 
+    const [selectedIds, setSelectedIds] = useState([])
     const [query, setQuery] = useState({
         page: 1,
         limit: 10,
@@ -97,7 +98,14 @@ export default function ResourceTable({
             cancelButtonText: 'No, keep it',
         }).then(async (result) => {
             if (result.isConfirmed) {
-                return await onRestore(row.id)
+                return await onRestore(row.id).catch(e => {
+                    const errorMessage = e?.data?.message
+                    Swal.fire(
+                        'Error',
+                        errorMessage,
+                        'error'
+                    )
+                })
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire(
                     'Cancelled',
@@ -156,10 +164,18 @@ export default function ResourceTable({
 
                     </>
                 )
-
-            }));
+            }, (e, id) => {
+                if (e.target.checked) {
+                    setSelectedIds([...selectedIds, id])
+                } else {
+                    setSelectedIds(selectedIds.filter(selectedId => selectedId !== id))
+                }
+            })
+            );
         }
+        setSelectedIds([])
     }, [data, thrashedData, tableState])
+
 
     return (
         <CCard>
@@ -194,14 +210,37 @@ export default function ResourceTable({
                                     </span>
                                 </CButton>
 
-                                {/* <CButton color='danger' variant='outline'>
-                                    <CIcon icon={cilTrash} />
-                                    <span className='d-none d-lg-inline-block' style={{
-                                        paddingLeft: '3px'
-                                    }}>
-                                        Delete All
-                                    </span>
-                                </CButton> */}
+                                {
+                                    // delete all or restore all if thrashed or index
+                                    selectedIds.length > 0 &&
+                                    <div className="d-flex items-align-center gap-2">
+                                        {
+                                            tableState === 'index' &&
+                                            <CButton onClick={() => handleDestroy({ id: selectedIds })} color='danger' variant='outline'>
+                                                <CIcon icon={cilTrash} />
+                                                <span className='d-none d-lg-inline-block' style={{
+                                                    paddingLeft: '3px'
+                                                }}>
+                                                    Delete All
+                                                </span>
+                                            </CButton>
+                                        }
+                                        {
+                                            tableState === 'thrashed' &&
+                                            <CButton onClick={() => handleRestore({ id: selectedIds })} color='success' variant='outline'>
+                                                <CIcon icon={cilHistory} />
+                                                <span className='d-none d-lg-inline-block' style={{
+                                                    paddingLeft: '3px'
+                                                }}>
+                                                    Restore All
+                                                </span>
+                                            </CButton>
+                                        }
+                                    </div>
+
+
+
+                                }
                             </div>
                         }
 

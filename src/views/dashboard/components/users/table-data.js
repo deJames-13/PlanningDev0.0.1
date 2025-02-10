@@ -3,7 +3,7 @@ import { CFormCheck } from '@coreui/react';
 import { Link } from 'react-router-dom';
 
 
-export default (data, actions) => {
+export default (data, actions, onSelect = () => { }) => {
 
     const Actions = actions;
     let resource = 'users';
@@ -16,6 +16,8 @@ export default (data, actions) => {
                     style={{
                         borderColor: 'primary',
                     }}
+                    onChange={(e) => onSelect(e, row.id)}
+
 
                 />,
                 width: '56px',
