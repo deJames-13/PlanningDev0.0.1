@@ -30,8 +30,8 @@ export default function ResourceTable({
     intitialQuery,
 }) {
     const { userInfo, roles } = useSelector(state => state.auth)
-
     const [selectedIds, setSelectedIds] = useState([])
+
     const [query, setQuery] = useState({
         page: 1,
         limit: 10,
@@ -139,30 +139,27 @@ export default function ResourceTable({
         if (Array.isArray(values) && tableData) {
             setTable(tableData(values, ({ row }) => {
                 return (
-                    <>
-                        <div>
-                            {
-                                tableState == 'index' &&
-                                <>
-                                    <Link to={`/dashboard/${kebabCaseName}/edit/` + row.id} className="btn btn-sm btn-info btn-outline">
-                                        <CIcon icon={cilPen} />
-                                    </Link>
-                                    {
-                                        (resource == 'users' && userInfo.id == row.id && roles.includes('super-admin')) ? <></> : <button type='button' onClick={() => handleDestroy(row)} className="btn btn-sm btn-danger btn-outline">
-                                            <CIcon icon={cilTrash} />
-                                        </button>
-                                    }
-                                </>
-                            }
-                            {
-                                tableState == 'thrashed' &&
-                                <button type='button' onClick={() => handleRestore(row)} className="btn btn-sm btn-success btn-outline">
-                                    <CIcon icon={cilHistory} />
-                                </button>
-                            }
-                        </div>
-
-                    </>
+                    <div>
+                        {
+                            tableState == 'index' &&
+                            <>
+                                <Link to={`/dashboard/${kebabCaseName}/edit/` + row.id} className="btn btn-sm btn-info btn-outline">
+                                    <CIcon icon={cilPen} />
+                                </Link>
+                                {
+                                    (resource == 'users' && userInfo.id == row.id && roles.includes('super-admin')) ? <></> : <button type='button' onClick={() => handleDestroy(row)} className="btn btn-sm btn-danger btn-outline">
+                                        <CIcon icon={cilTrash} />
+                                    </button>
+                                }
+                            </>
+                        }
+                        {
+                            tableState == 'thrashed' &&
+                            <button type='button' onClick={() => handleRestore(row)} className="btn btn-sm btn-success btn-outline">
+                                <CIcon icon={cilHistory} />
+                            </button>
+                        }
+                    </div>
                 )
             }, (e, id) => {
                 if (e.target.checked) {
@@ -190,10 +187,12 @@ export default function ResourceTable({
                             {subtitle}
                         </span>
                     </div>
-                    <div className="p-3 d-flex items-align-center justify-content-end gap-2">
+                    <div className="d-flex flex-column items-align-center justify-content-center gap-2" >
                         {
                             !loading &&
-                            <div className='d-flex items-align-center gap-2'>
+                            <div className='d-flex items-align-center gap-2' style={{
+                                height: 'fit-content'
+                            }}>
                                 <CButton onClick={() => navigate.toForm()} color='success' variant='outline'>
                                     <CIcon icon={cilPlus} />
                                     <span className='d-none d-lg-inline-block' style={{
@@ -207,7 +206,7 @@ export default function ResourceTable({
                                     <span className='d-none d-lg-inline-block' style={{
                                         paddingLeft: '3px'
                                     }}>
-                                        {nextTableState === 'index' ? 'Active' : nextTableState}
+                                        {nextTableState === 'index' ? 'Active' : nextTableState === 'thrashed' ? 'Archived' : 'Index'}
                                     </span>
                                 </CButton>
 

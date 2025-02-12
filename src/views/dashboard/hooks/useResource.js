@@ -289,7 +289,7 @@ export default function useResource(resourceName, isPublic = false) {
 
     const onRestore = async (id) => {
         return doRestore(id).then((response) => {
-            fetchDatas();
+            fetchThrashed();
             setData(data.filter(d => d.id !== id));
             dispatch(setResource({
                 resource: resourceName,
