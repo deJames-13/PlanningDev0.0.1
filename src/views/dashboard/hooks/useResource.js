@@ -182,7 +182,16 @@ export default function useResource(resourceName, isPublic = false) {
                         message={response.message}
                     />
                 );
-            } else {
+            }
+            else if (response?.messages) {
+                toast.info(
+                    <DetailedToast
+                        title='Info'
+                        message={response.messages.map((m, i) => <p key={i}>{m}</p>)}
+                    />
+                );
+            }
+            else {
                 toast.info(
                     <DetailedToast
                         title='Successfully restored'
@@ -206,7 +215,16 @@ export default function useResource(resourceName, isPublic = false) {
                         message={response.message}
                     />
                 );
-            } else {
+            }
+            else if (response?.messages) {
+                toast.info(
+                    <DetailedToast
+                        title='Info'
+                        message={response.messages.map((m, i) => <p key={i}>{m}</p>)}
+                    />
+                );
+            }
+            else {
                 toast.info(
                     <DetailedToast
                         title='Successfully restored'
