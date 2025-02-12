@@ -5,6 +5,9 @@ import SectorObjectives from './sector-objectives';
 import { useGetSectsMutation } from 'src/states/api/charts.js'
 import SplashScreen from 'src/components/loader/splash-screen';
 import logo from 'src/assets/images/logo.png';
+import PDFDownload from 'src/components/pdf';
+import { useSectorReportQuery } from "src/states/api/reports";
+
 
 export default function Sector() {
     const nav = useNavigate();
@@ -33,10 +36,12 @@ export default function Sector() {
         </SplashScreen>
         : (
             <>
+                <PDFDownload
+                    action={() => useSectorReportQuery(sector)}
+                />
                 <h3>
                     {current?.full_name || current?.name}
                 </h3>
-                test
                 <hr />
                 <BudgetChart sector={sector} />
                 <hr />

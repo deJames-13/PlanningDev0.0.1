@@ -6,16 +6,11 @@ const ExamplePDF = () => {
 
     if (isLoading) return <p>Loading PDF...</p>;
 
-    const handleDownload = () => {
-        const link = document.createElement("a");
-        link.href = pdfUrl;
-        link.download = "report.pdf";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    const handleView = () => {
+        window.open(pdfUrl, "_blank");
     };
 
-    return <button onClick={handleDownload}>Download Example PDF</button>;
+    return <button onClick={handleView}>View Example PDF</button>;
 };
 
 export default ExamplePDF;

@@ -13,10 +13,24 @@ const reportApiSlice = apiSlice.injectEndpoints({
                 cache: "no-cache",
             }),
         }),
+        sectorReport: builder.query({
+            query: (id) => ({
+                url: `${resource}/sectors/${id}`,
+                method: "GET",
+                responseHandler: async (response) => {
+                    const blob = await response.blob();
+                    return URL.createObjectURL(blob);
+                },
+                cache: "no-cache",
+            }),
+        }),
+
+
     })
 });
 export const {
     useExampleQuery,
+    useSectorReportQuery
 } = reportApiSlice;
 export default reportApiSlice;
 
