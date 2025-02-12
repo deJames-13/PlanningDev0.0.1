@@ -13,7 +13,7 @@ const SmartSelect = ({ options = [], initialValue, customNoneLabel, count = 10, 
     const handleChange = (selectedOption) => {
         if (selectedOption.value === 'none') {
             setValue(null);
-            setSelectedOption(null);
+            setSelectedOption({ label: customNoneLabel || 'None', value: 'none' });
         } else {
             setValue(selectedOption.value);
             setSelectedOption(selectedOption);
