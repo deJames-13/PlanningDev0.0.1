@@ -92,6 +92,7 @@ export default function BudgetChart({
     if (!data) return;
     const idx = data.labels.indexOf(activeTab) || 0
     const nextTabs = data.labels.slice(idx, idx + 2)
+
     setTabs(nextTabs)
     if (!activeTab && data.labels.length > 0) {
       setActiveTab(data.labels[0])

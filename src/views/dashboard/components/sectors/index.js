@@ -36,6 +36,7 @@ export default function Sector() {
                 <h3>
                     {current?.full_name || current?.name}
                 </h3>
+                test
                 <hr />
                 <BudgetChart sector={sector} />
                 <hr />
