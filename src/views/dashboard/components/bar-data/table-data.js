@@ -53,6 +53,11 @@ export default (data, actions, onSelect) => {
                 sortable: true,
             },
             {
+                name: <strong>Modified</strong>,
+                selector: row => new Date(row.date).toLocaleString(),
+                sortable: true,
+            },
+            {
                 name: <strong>Actions</strong>,
                 sortable: false,
                 selector: null,
@@ -64,6 +69,7 @@ export default (data, actions, onSelect) => {
             title: d.title,
             description: d.description,
             status: d.status,
+            date: d.updated_at,
         }))
     }
 }

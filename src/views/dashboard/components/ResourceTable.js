@@ -166,15 +166,16 @@ export default function ResourceTable({
                 )
             }, (e, id) => {
                 if (e.target.checked) {
-                    setSelectedIds([...selectedIds, id])
+                    setSelectedIds(prev => [...prev, id])
                 } else {
-                    setSelectedIds(selectedIds.filter(selectedId => selectedId !== id))
+                    setSelectedIds(prev => prev.filter(i => i !== id))
                 }
             })
             );
         }
         setSelectedIds([])
     }, [data, thrashedData, tableState])
+
 
 
     return (

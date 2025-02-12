@@ -43,15 +43,25 @@ export default function resourceBuilder(resource) {
             })
         }),
         [`${name}Destroy`]: builder.mutation({
-            query: (id) => ({
-                url: `${resource}/${id}`,
-                method: 'DELETE',
-            })
+            query: (id) => {
+                return {
+                    url: `${resource}/${id}`,
+                    method: 'DELETE',
+                }
+            }
         }),
         [`${name}Restore`]: builder.mutation({
+            query: (id) => {
+                return {
+                    url: `${resource}/${id}/restore`,
+                    method: 'PATCH',
+                }
+            }
+        }),
+        [`${name}ForceDelete`]: builder.mutation({
             query: (id) => ({
-                url: `${resource}/${id}/restore`,
-                method: 'PATCH',
+                url: `${resource}/${id}/force-delete`,
+                method: 'DELETE',
             })
         }),
     });
