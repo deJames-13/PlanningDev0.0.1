@@ -36,8 +36,10 @@ const SmartSelect = ({ options = [], initialValue, customNoneLabel, count = 10, 
     useEffect(() => {
         if (initialValue) {
             const option = options.find(o => o.value === initialValue);
-            setSelectedOption(option);
+            setSelectedOption(option || { label: customNoneLabel || 'None', value: 'none' });
+
         }
+
     }, [initialValue]);
 
     return loading ? <CSpinner /> : (
