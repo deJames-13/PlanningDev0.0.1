@@ -1,5 +1,5 @@
-import { cilHistory, cilPen, cilPlus, cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import { cilHistory, cilPen, cilPlus, cilTrash } from '@coreui/icons'
 import {
     CButton,
     CCard,

@@ -86,7 +86,8 @@ export default function BudgetForm() {
             style={{
                 height: '100vh',
                 padding: '1rem',
-                marginBottom: '1rem'
+                marginBottom: '1rem',
+                overflow: 'auto',
             }}>
             <CCol lg={5} >
                 <ResourceForm
