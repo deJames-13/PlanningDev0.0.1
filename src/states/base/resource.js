@@ -69,8 +69,13 @@ export default function resourceBuilder(resource) {
                 url: `exports/${resource}/${id}/${type === 'csv' ? 'csv' : 'xlsx'}`,
                 method: 'GET',
                 responseHandler: async (response) => {
-                    const blob = await response.blob();
-                    return URL.createObjectURL(blob);
+                    if (!response.ok) {
+                        return await response.json();
+                    }
+                    else {
+                        const blob = await response.blob();
+                        return URL.createObjectURL(blob);
+                    }
                 },
                 cache: "no-cache",
             })

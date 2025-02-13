@@ -253,11 +253,16 @@ export default function useResource(resourceName, isPublic = false) {
             setLoading(false);
             return response;
         }).catch((e) => {
+            console.log(e);
             setLoading(false);
+            let message = e?.message || e?.data?.message || 'An error occured';
+            if (e.status === 404) {
+                message = 'No record found';
+            }
             toast.error(
                 <DetailedToast
                     title='Error'
-                    message={e?.data?.message || 'An error occured'}
+                    message={message}
                 />
             );
         });
