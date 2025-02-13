@@ -39,7 +39,6 @@ export default function Sector() {
                 <div
                     className="d-flex justify-content-end"
                 >
-
                     <PDFDownload
                         action={() => useSectorReportQuery(1)}
                     />

@@ -4,7 +4,7 @@ const reportApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         example: builder.query({
             query: () => ({
-                url: `${resource}/pdf/example`,
+                url: `${resource}/example`,
                 method: "GET",
                 responseHandler: async (response) => {
                     const blob = await response.blob();
@@ -15,7 +15,7 @@ const reportApiSlice = apiSlice.injectEndpoints({
         }),
         sectorReport: builder.query({
             query: (id) => ({
-                url: `${resource}/pdf/sectors/${id}`,
+                url: `${resource}/sectors/${id}`,
                 method: "GET",
                 responseHandler: async (response) => {
                     const blob = await response.blob();

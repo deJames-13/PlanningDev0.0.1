@@ -1,5 +1,5 @@
 import CIcon from '@coreui/icons-react'
-import { cilHistory, cilPen, cilPlus, cilTrash } from '@coreui/icons'
+import { cilHistory, cilPen, cilPlus, cilSpreadsheet, cilTrash } from '@coreui/icons'
 import {
     CButton,
     CCard,
@@ -53,7 +53,7 @@ export default function ResourceTable({
             nextTableState,
             loading
         },
-        actions: { fetchDatas },
+        actions: { fetchDatas, doExport },
         navigate,
         events: { onDestroy, onRestore, onToggleTable },
     } = useResource(resource)
@@ -207,6 +207,14 @@ export default function ResourceTable({
                                         paddingLeft: '3px'
                                     }}>
                                         {nextTableState === 'index' ? 'Active' : nextTableState === 'thrashed' ? 'Archived' : 'Index'}
+                                    </span>
+                                </CButton>
+                                <CButton onClick={() => doExport()} color='success' variant='outline'>
+                                    <CIcon icon={cilSpreadsheet} />
+                                    <span className='d-none d-lg-inline-block' style={{
+                                        paddingLeft: '3px'
+                                    }}>
+                                        xlsx
                                     </span>
                                 </CButton>
 

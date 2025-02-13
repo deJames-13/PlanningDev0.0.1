@@ -22,6 +22,7 @@ export default function useResource(resourceName, isPublic = false) {
     const camelCaseName = changeCase.camelCase(resourceName);
     const kebabCaseName = changeCase.kebabCase(resourceName);
     const pascalCaseName = changeCase.pascalCase(resourceName);
+    const snakeCaseName = changeCase.snakeCase(resourceName);
     const capitalizeName = changeCase.capitalCase(resourceName);
     const resource = resourceEndpoints[camelCaseName];
 
@@ -33,6 +34,7 @@ export default function useResource(resourceName, isPublic = false) {
     const [update] = resource[`use${pascalCaseName}UpdateMutation`]();
     const [destroy] = resource[`use${pascalCaseName}DestroyMutation`]();
     const [restore] = resource[`use${pascalCaseName}RestoreMutation`]();
+    const [exports] = resource[`use${pascalCaseName}ExportMutation`]();
     // MUTATIONS END ####################################################
 
     // STATES ########################################################
@@ -237,6 +239,30 @@ export default function useResource(resourceName, isPublic = false) {
         });
     }, [restore]);
 
+    const doExport = React.useCallback(async (id = 'all', type = "xlsx") => {
+        setLoading(true);
+        return await exports(id).unwrap().then((response) => {
+            const link = document.createElement('a');
+            const fileName = `${snakeCaseName}_${id}_${new Date().toISOString()}` + (type === 'csv' ? '.csv' : '.xlsx');
+
+            link.href = response;
+            link.setAttribute('download', fileName); // or any other extension
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setLoading(false);
+            return response;
+        }).catch((e) => {
+            setLoading(false);
+            toast.error(
+                <DetailedToast
+                    title='Error'
+                    message={e?.data?.message || 'An error occured'}
+                />
+            );
+        });
+    }, [exports]);
+
     // STATES END ####################################################
 
     // EVENTS ########################################################
@@ -333,7 +359,8 @@ export default function useResource(resourceName, isPublic = false) {
             doStore,
             doUpdate,
             doDestroy,
-            doRestore
+            doRestore,
+            doExport
         },
         // STATES
         states: {
