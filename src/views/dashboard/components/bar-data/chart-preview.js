@@ -71,7 +71,9 @@ export default function ChartPreview({ data }) {
     useEffect(() => {
         if (current?.values) {
             const reversedValues = [...current.values].reverse()
-            setYears(reversedValues.map(({ year }) => year))
+            const years = reversedValues.map(({ year }) => year)
+            setYears([...new Set(years)])
+
             if (current.values[0])
                 setCurrentYear(current.values[0].year)
             return
@@ -83,6 +85,7 @@ export default function ChartPreview({ data }) {
             makeChart(current.values, chartBy)
         }
     }, [currentYear, chartBy])
+
 
     return (
         <>

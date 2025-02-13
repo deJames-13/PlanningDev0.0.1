@@ -94,7 +94,9 @@ export default function ParticularsCard(
   useEffect(() => {
     if (currentIndicator?.values) {
       const reversedValues = [...currentIndicator.values].reverse()
-      setYears(reversedValues.map(({ year }) => year))
+      const years = reversedValues.map(({ year }) => year)
+      setYears([...new Set(years)])
+
       if (currentIndicator.values[0])
         setCurrentYear(currentIndicator.values[0].year)
       return
@@ -127,6 +129,7 @@ export default function ParticularsCard(
       })
     }
   }, [currentIndicator])
+
 
   return (
     <div className={`row col-lg-12 ${reversed ? 'flex-row-reverse' : ''}`}>

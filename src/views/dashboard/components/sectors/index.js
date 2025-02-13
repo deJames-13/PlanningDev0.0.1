@@ -36,9 +36,14 @@ export default function Sector() {
         </SplashScreen>
         : (
             <>
-                <PDFDownload
-                    action={() => useSectorReportQuery(sector)}
-                />
+                <div
+                    className="d-flex justify-content-end"
+                >
+
+                    <PDFDownload
+                        action={() => useSectorReportQuery(1)}
+                    />
+                </div>
                 <h3>
                     {current?.full_name || current?.name}
                 </h3>

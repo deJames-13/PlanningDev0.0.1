@@ -14,6 +14,15 @@ export default function PDFViewer({ action = () => { }, params = null }) {
     if (isLoading) return <p>Loading PDF...</p>;
 
     return (
-        <button onClick={handleView}>View Example PDF</button>
+        <button
+            style={{
+                backgroundColor: "#007bff",
+                color: "white",
+                padding: "10px",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer"
+            }}
+            onClick={handleView}>View Example PDF</button>
     )
 }
