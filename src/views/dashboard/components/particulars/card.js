@@ -159,7 +159,13 @@ export default function ParticularCard({
                 <hr />
                 {
                     <ValuesCard
-                        values={particular?.values || []}
+                        values={
+                            // i get duplicate values with same year
+                            particular.values?.filter((value, index, self) =>
+                                index === self.findIndex((t) => (
+                                    t.year === value.year
+                                ))
+                            ) || []}
                         noActions={true}
                     />
                 }

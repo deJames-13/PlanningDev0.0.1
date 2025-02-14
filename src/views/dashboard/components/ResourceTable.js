@@ -10,17 +10,20 @@ import {
 } from '@coreui/react'
 
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
+
 import Table from 'src/components/table'
 import googleSheetStyle from 'src/components/table/googleSheetsStyle'
 import Pagination from 'src/components/table/pagination.js';
-import Swal from 'sweetalert2'
-import { useSelector } from 'react-redux'
 
 import useResource from '../hooks/useResource'
 
+
 const queryToStr = (query) => {
-    return Object.keys(query).map(key => key + '=' + query[key]).join('&');
+    let str = Object.keys(query).map(key => key + '=' + query[key]).join('&');
+    return str
 }
 export default function ResourceTable({
     resource,
@@ -257,6 +260,7 @@ export default function ResourceTable({
                     </div>
                 </div>
             </CCardHeader>
+
             <CCardBody>
                 {/* Search Filter */}
                 <div className="d-flex justify-content-end">
@@ -278,14 +282,21 @@ export default function ResourceTable({
                     data={table.data}
                     customStyles={googleSheetStyle}
                 />
+            </CCardBody>
+
+            <CCardFooter style={{
+                padding: '1rem 0 0 0',
+            }}>
                 {
                     meta?.links &&
                     <Pagination meta={meta} onPageChange={handlePageChange} />
-
                 }
-            </CCardBody>
-            <CCardFooter>
-
+                {
+                    meta?.current_page && meta?.last_page
+                    && <div className='d-flex justify-content-center mb-3'>
+                        <span className='text-muted'>{meta?.current_page} of {meta?.last_page}</span>
+                    </div>
+                }
             </CCardFooter>
         </CCard>
     )
