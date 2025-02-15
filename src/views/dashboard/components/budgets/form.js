@@ -77,7 +77,9 @@ export default function BudgetForm() {
     }
 
     useEffect(() => {
-        setAnnual(data?.annual || [])
+        let annual = [... (data?.annual || [])]
+        annual.sort((a, b) => a.year - b.year)
+        setAnnual(annual)
     }, [data])
 
     return (
