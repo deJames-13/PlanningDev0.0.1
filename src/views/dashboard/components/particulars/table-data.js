@@ -34,6 +34,15 @@ export default (data, actions, onSelect = () => { }) => {
                 name: <strong>Title</strong>,
                 selector: row => <Link to={`/dashboard/${resource}/edit/` + row.id}>{row.title}</Link>,
                 sortable: true,
+                sortFunction: (a, b) => {
+                    if (a.title < b.title) {
+                        return -1;
+                    }
+                    if (a.title > b.title) {
+                        return 1;
+                    }
+                    return 0;
+                }
             },
             {
                 name: <strong>Description</strong>,
