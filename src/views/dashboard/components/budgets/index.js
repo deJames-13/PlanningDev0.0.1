@@ -36,9 +36,10 @@ const _chartBy = ['year', 'quarter']
 export default function BudgetChart({
   sector = 'none',
   setNoData = () => { },
+  isId = true,
 }) {
 
-  const { data, rawData, getBudgetData, getFundFromYear, } = useBudgetCharting()
+  const { data, rawData, getBudgetData, getFundFromYear, } = useBudgetCharting({ name: sector, isId })
 
   const [tabs, setTabs] = useState()
   const [rates, setRates] = useState([])
@@ -84,11 +85,11 @@ export default function BudgetChart({
 
   useEffect(() => {
     setUpdating(true)
-    getBudgetData(sector).then(() => setUpdating(false))
+    getBudgetData({ name: sector, isId }).then(() => setUpdating(false))
     setCurrentYear(null)
     setChartBy(_chartBy[0])
     setYears(data?.annual?.datasets?.find(item => item.name === activeTab)?.labels)
-  }, [activeTab, sector])
+  }, [activeTab, sector, isId])
 
   useEffect(() => {
     if (!data?.length) return setNoData(true);

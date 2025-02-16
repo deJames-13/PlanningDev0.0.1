@@ -32,14 +32,14 @@ export default function useObjectiveCharter({ name }) {
     const [getObj, { isLoading }] = useGetObjMutation();
     const [data, setData] = React.useState({});
 
-    const fetchtData = React.useCallback((name) => {
+    const fetchtData = React.useCallback(({ name, isId }) => {
         if (objState.sectorObjectives[name]) {
             setData(objState.sectorObjectives[name]);
         }
 
         dispatch(setSector(name));
         dispatch(getObjectiveStart());
-        return getObj(name).then((res) => {
+        return getObj({ name, isId }).then((res) => {
             if (res?.data) {
                 let { data } = res.data
                 let formatted = transformData(data)

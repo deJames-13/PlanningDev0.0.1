@@ -9,6 +9,7 @@ import SectorActions from './sector-actions';
 export default function ObjectivesOverview({
   name = 'none',
   setNoData = () => { },
+  isId = true,
 }) {
   const { data, setData, isLoading, fetchtData } = useObjectiveCharter({ name });
   const [reversed, setReversed] = useState(false);
@@ -19,8 +20,8 @@ export default function ObjectivesOverview({
 
 
   useEffect(() => {
-    fetchtData(name);
-  }, [name]);
+    fetchtData({ name, isId });
+  }, [name, isId]);
 
   useEffect(() => {
     if (data?.objectives?.length > 0) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { getStyle } from '@coreui/utils';
 import { useDispatch, useSelector } from 'react-redux';
@@ -189,7 +189,7 @@ const getFundFromYear = (data, year) => {
 
 
 
-export const useBudgetCharting = (name) => {
+export const useBudgetCharting = ({ name, isId }) => {
   const nav = useNavigate();
   const dispatch = useDispatch();
   const budgetState = useSelector(s => s.budget);
@@ -204,7 +204,7 @@ export const useBudgetCharting = (name) => {
 
 
 
-  const getBudgetData = async (name) => {
+  const getBudgetData = useCallback(async ({ name, isId }) => {
     if (budgetState.sectorBudgets[name]) {
       setData(budgetState.sectorBudgets[name])
       setProgressRates(budgetState.sectorBudgets[name].progressRates)
@@ -212,7 +212,7 @@ export const useBudgetCharting = (name) => {
 
     dispatch(setSector(name))
     dispatch(getBudgetStart())
-    return getBudget(name).unwrap().then(res => {
+    return getBudget({ name, isId }).unwrap().then(res => {
       if (res.data) {
         const formatted = transformData(res.data);
         if (!formatted) {
@@ -233,7 +233,7 @@ export const useBudgetCharting = (name) => {
       dispatch(getBudgetFailure(e))
       console.error(e)
     });
-  }
+  }, [name, isId]);
 
 
 
