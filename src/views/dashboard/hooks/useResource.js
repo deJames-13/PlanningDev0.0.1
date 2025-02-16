@@ -302,6 +302,7 @@ export default function useResource(resourceName, isPublic = false) {
     const onUpdate = async (id, data) => {
         return doUpdate(id, data).then((response) => {
             fetchDatas();
+            fetchData(id);
             return response;
         });
     }

@@ -29,7 +29,8 @@ export default function ResourceForm({
     const {
         names: { capitalizeName },
         states: { current, setCurrent, loading },
-        actions: { fetchData, doStore, doUpdate, doDestroy },
+        actions: { fetchData },
+        events: { onStore, onUpdate, onDestroy }
     } = useResource(resource)
 
     const handleSubmit = useCallback((values) => {
@@ -41,9 +42,9 @@ export default function ResourceForm({
             action: id ? 'update' : 'store'
         };
         if (id)
-            return doUpdate(id, payload)
+            return onUpdate(id, payload)
         else
-            return doStore(payload)
+            return onStore(payload)
 
     }, [formData, id]);
 
