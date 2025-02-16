@@ -1,6 +1,10 @@
 import React from 'react'
 
-export default function PDFViewer({ action = () => { }, params = null }) {
+export default function PDFViewer({
+    action = () => { },
+    params = null,
+    title = "View Report"
+}) {
     const {
         data: pdfUrl = "",
         isLoading = false
@@ -23,6 +27,8 @@ export default function PDFViewer({ action = () => { }, params = null }) {
                 borderRadius: "5px",
                 cursor: "pointer"
             }}
-            onClick={handleView}>View Example PDF</button>
+            onClick={handleView}>
+            {title}
+        </button>
     )
 }

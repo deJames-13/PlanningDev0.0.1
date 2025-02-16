@@ -40,7 +40,9 @@ export default function Sector() {
                     className="d-flex justify-content-end"
                 >
                     <PDFDownload
-                        action={() => useSectorReportQuery(1)}
+                        action={useSectorReportQuery}
+                        params={1}
+                        title="Download Report"
                     />
                 </div>
                 <h3>
