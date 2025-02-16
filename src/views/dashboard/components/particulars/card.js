@@ -46,9 +46,10 @@ export function ValueCard({ value, onRemove = () => { }, onEdit = () => { }, noA
                         </strong>
                     </span>
                     <span>
-                        {value.percent ||
-                            (parseFloat(value.accomplishment) / parseFloat(value.target) * 100).toFixed(2)
-                        }%
+                        {isFinite(parseFloat(value.accomplishment) / parseFloat(value.target))
+                            ? (parseFloat(value.accomplishment) / parseFloat(value.target) * 100).toFixed(2) + '%'
+                            : 'N/A'
+                        }
                     </span>
                 </span>
                 {
