@@ -142,26 +142,26 @@ export default [
             },
         ]
     },
-    // {
-    //     roles: ['super-admin', 'admin', 'user'],
-    //     component: CNavGroup,
-    //     name: 'Manage Particulars',
-    //     icon: <CIcon icon={cilChart} customClassName="nav-icon" />,
-    //     items: [
-    //         {
-    //             component: CNavItem,
-    //             name: 'View Table',
-    //             to: '/dashboard/particular/table',
-    //             icon: <CIcon icon={cilSpreadsheet} customClassName="nav-icon" />,
-    //         },
-    //         {
-    //             component: CNavItem,
-    //             name: 'Append Data',
-    //             to: '/dashboard/particular/add',
-    //             icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
-    //         },
-    //     ]
-    // },
+    {
+        roles: ['super-admin', 'admin', 'user'],
+        component: CNavGroup,
+        name: 'Manage Particulars',
+        icon: <CIcon icon={cilChart} customClassName="nav-icon" />,
+        items: [
+            {
+                component: CNavItem,
+                name: 'View Table',
+                to: '/dashboard/particular/table',
+                icon: <CIcon icon={cilSpreadsheet} customClassName="nav-icon" />,
+            },
+            {
+                component: CNavItem,
+                name: 'Append Data',
+                to: '/dashboard/particular/add',
+                icon: <CIcon icon={cilPlus} customClassName="nav-icon" />,
+            },
+        ]
+    },
     {
         component: CNavTitle,
         name: 'Account Management ',

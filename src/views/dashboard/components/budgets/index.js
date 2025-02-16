@@ -145,317 +145,315 @@ export default function BudgetChart({
 
 
   return data ? (
-    <>
-      <CCard className="mb-4">
-        <CCardBody>
-          <CRow>
-            <CCol sm={5}>
-              <div className="d-flex items-align-center gap-2">
-                <h4 id="traffic" className="card-title mb-0 mr-2">
-                  {data?.title ? data.title : 'Budget Overview'}
-                </h4>
-                {updating && <span>
-                  <CSpinner size="sm" variant="grow" color='primary' />
-                </span>}
-              </div>
+    <CCard className="mb-4">
+      <CCardBody>
+        <CRow>
+          <CCol sm={5}>
+            <div className="d-flex items-align-center gap-2">
+              <h4 id="traffic" className="card-title mb-0 mr-2">
+                {data?.title ? data.title : 'Budget Overview'}
+              </h4>
+              {updating && <span>
+                <CSpinner size="sm" variant="grow" color='primary' />
+              </span>}
+            </div>
 
-              <div className="small text-body-secondary">
-                {rates && rates?.length > 0 && `${rates[0].title} - ${rates[rates.length - 1].title}`}
-              </div>
-              {
-                data?.last_updated &&
-                <p className='small text-body-secondary'>
-                  Last Updated: {data?.last_updated?.split('T')?.join(' ')}
-                </p>
-              }
-            </CCol>
-            <CCol sm={7} className="d-none d-md-block">
-              <div className='d-flex align-items-center justify-content-end gap-2'>
+            <div className="small text-body-secondary">
+              {rates && rates?.length > 0 && `${rates[0].title} - ${rates[rates.length - 1].title}`}
+            </div>
+            {
+              data?.last_updated &&
+              <p className='small text-body-secondary'>
+                Last Updated: {data?.last_updated?.split('T')?.join(' ')}
+              </p>
+            }
+          </CCol>
+          <CCol sm={7} className="d-none d-md-block">
+            <div className='d-flex align-items-center justify-content-end gap-2'>
 
-                {/* C
+              {/* C
                 HART BY DROP DOWN */}
-                {
-                  (
-                    <div className={`d-flex justify-content-end py-3 gap-3`}>
-                      {
-                        chartBy === 'quarter' &&
-                        <CDropdown>
-                          <CDropdownToggle color="primary" className='text-capitalize'>
-                            {currentYear || 'Select Year'}
-                          </CDropdownToggle>
-                          <CDropdownMenu>
-                            {
-                              years?.length && years.map((year, index) => (
-                                <CDropdownItem key={index} onClick={() => setCurrentYear(year)} className='text-capitalize'>
-                                  {year}
-                                </CDropdownItem>
-                              ))
-                            }
-                          </CDropdownMenu>
-
-                        </CDropdown>
-                      }
+              {
+                (
+                  <div className={`d-flex justify-content-end py-3 gap-3`}>
+                    {
+                      chartBy === 'quarter' &&
                       <CDropdown>
                         <CDropdownToggle color="primary" className='text-capitalize'>
-                          By {chartBy}
+                          {currentYear || 'Select Year'}
                         </CDropdownToggle>
                         <CDropdownMenu>
                           {
-                            _chartBy.map((item, index) => (
-                              <CDropdownItem key={index} onClick={() => setChartBy(item)} className='text-capitalize'>
-                                {item}
+                            years?.length && years.map((year, index) => (
+                              <CDropdownItem key={index} onClick={() => setCurrentYear(year)} className='text-capitalize'>
+                                {year}
                               </CDropdownItem>
                             ))
                           }
                         </CDropdownMenu>
+
                       </CDropdown>
-                    </div>
-                  )
-                }
+                    }
+                    <CDropdown>
+                      <CDropdownToggle color="primary" className='text-capitalize'>
+                        By {chartBy}
+                      </CDropdownToggle>
+                      <CDropdownMenu>
+                        {
+                          _chartBy.map((item, index) => (
+                            <CDropdownItem key={index} onClick={() => setChartBy(item)} className='text-capitalize'>
+                              {item}
+                            </CDropdownItem>
+                          ))
+                        }
+                      </CDropdownMenu>
+                    </CDropdown>
+                  </div>
+                )
+              }
 
 
-                {/* BUDGET LIST */}
-                <CButtonGroup className="float-end me-3">
-                  {/* prev */}
+              {/* BUDGET LIST */}
+              <CButtonGroup className="float-end me-3">
+                {/* prev */}
+                <CButton
+                  color="outline-secondary"
+                  onClick={() => onTab(tabs[0], 'prev')}
+                  disabled={tabs && tabs[0] === data.labels[0]}
+                >
+                  {'<'}
+                </CButton>
+
+
+                {tabs?.length > 0 && tabs.map((value, idx) => (
                   <CButton
                     color="outline-secondary"
-                    onClick={() => onTab(tabs[0], 'prev')}
-                    disabled={tabs && tabs[0] === data.labels[0]}
+                    key={`${value}_${idx}`}
+                    className="mx-0"
+                    onClick={() => onTab(value)}
+                    active={value === activeTab}
                   >
-                    {'<'}
+                    {value}
                   </CButton>
+                ))}
+                {/* next */}
+                <CButton
+                  color="outline-secondary"
+                  onClick={() => onTab(tabs[1], 'next')}
+                  disabled={tabs && tabs[1] === data.labels[data.labels.length - 1]}
+                > {'>'}
+                </CButton>
 
 
-                  {tabs?.length > 0 && tabs.map((value, idx) => (
-                    <CButton
-                      color="outline-secondary"
-                      key={`${value}_${idx}`}
-                      className="mx-0"
-                      onClick={() => onTab(value)}
-                      active={value === activeTab}
-                    >
-                      {value}
-                    </CButton>
-                  ))}
-                  {/* next */}
-                  <CButton
-                    color="outline-secondary"
-                    onClick={() => onTab(tabs[1], 'next')}
-                    disabled={tabs && tabs[1] === data.labels[data.labels.length - 1]}
-                  > {'>'}
-                  </CButton>
+              </CButtonGroup>
 
-
-                </CButtonGroup>
-
-              </div>
+            </div>
 
 
 
-            </CCol>
-          </CRow>
+          </CCol>
+        </CRow>
 
-          {
-            fund ? <LineChart
-              chartData={fund}
-              max={parseInt(fund.maxAllotment + (fund.maxAllotment * 0.10))}
-              average={fund.meanValue}
-              chartProps={{
-                options: {
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: {
-                      display: false,
+        {
+          fund ? <LineChart
+            chartData={fund}
+            max={parseInt(fund.maxAllotment + (fund.maxAllotment * 0.10))}
+            average={fund.meanValue}
+            chartProps={{
+              options: {
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                  datalabels: {
+                    display: true,
+                    align: 'bottom',
+                    color: getStyle('--cui-body-color'),
+                    formatter: (value) => value,
+                  },
+                },
+                scales: {
+                  x: {
+                    grid: {
+                      color: getStyle('--cui-border-color-translucent'),
+                      drawOnChartArea: false,
                     },
-                    datalabels: {
-                      display: true,
-                      align: 'bottom',
+                    ticks: {
                       color: getStyle('--cui-body-color'),
-                      formatter: (value) => value,
                     },
                   },
-                  scales: {
-                    x: {
-                      grid: {
-                        color: getStyle('--cui-border-color-translucent'),
-                        drawOnChartArea: false,
-                      },
-                      ticks: {
-                        color: getStyle('--cui-body-color'),
-                      },
+                  y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    beginAtZero: true,
+                    border: {
+                      color: getStyle('--cui-border-color-translucent'),
                     },
-                    y: {
-                      type: 'linear',
-                      display: true,
-                      position: 'left',
-                      beginAtZero: true,
-                      border: {
-                        color: getStyle('--cui-border-color-translucent'),
-                      },
-                      grid: {
-                        color: getStyle('--cui-border-color-translucent'),
-                      },
-                      max: parseInt(fund.maxAllotment + (fund.maxAllotment * 0.10)),
-                      ticks: {
-                        padding: 20,
-                        color: getStyle('--cui-body-color'),
-                        stepSize: Math.ceil((parseInt(fund.maxAllotment + (fund.maxAllotment * 0.10)) || 1000) / 5),
-                      },
+                    grid: {
+                      color: getStyle('--cui-border-color-translucent'),
                     },
-                    y1: {
-                      type: 'linear',
-                      display: true,
-                      position: 'right',
-                      beginAtZero: true,
-                      border: {
-                        color: getStyle('--cui-body-color'),
-                      },
-                      grid: {
-                        drawOnChartArea: false,
-                      },
-                      min: 0,
-                      max: 100,
-                      ticks: {
-                        color: getStyle('--cui-body-color'),
-                        padding: 20,
-                      },
+                    max: parseInt(fund.maxAllotment + (fund.maxAllotment * 0.10)),
+                    ticks: {
+                      padding: 20,
+                      color: getStyle('--cui-body-color'),
+                      stepSize: Math.ceil((parseInt(fund.maxAllotment + (fund.maxAllotment * 0.10)) || 1000) / 5),
                     },
                   },
-                  elements: {
-                    line: {
-                      tension: 0.4,
+                  y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    beginAtZero: true,
+                    border: {
+                      color: getStyle('--cui-body-color'),
                     },
-                    point: {
-                      radius: 3,
-                      hitRadius: 10,
-                      hoverRadius: 4,
-                      hoverBorderWidth: 3,
+                    grid: {
+                      drawOnChartArea: false,
+                    },
+                    min: 0,
+                    max: 100,
+                    ticks: {
+                      color: getStyle('--cui-body-color'),
+                      padding: 20,
                     },
                   },
-                }
-              }}
+                },
+                elements: {
+                  line: {
+                    tension: 0.4,
+                  },
+                  point: {
+                    radius: 3,
+                    hitRadius: 10,
+                    hoverRadius: 4,
+                    hoverBorderWidth: 3,
+                  },
+                },
+              }
+            }}
 
-            />
-              : <div style={{
-                height: '300px',
+          />
+            : <div style={{
+              height: '300px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '1rem',
+            }}>
+              <div className="clearfix" style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
                 gap: '1rem',
               }}>
-                <div className="clearfix" style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: '1rem',
-                }}>
-                  <div>
-                    <h4 className="pt-3">No data available.</h4>
-                    <p className="text-body-secondary float-start">
-                      Cannot find existing information about this chart.&nbsp;
-                    </p>
-                  </div>
+                <div>
+                  <h4 className="pt-3">No data available.</h4>
+                  <p className="text-body-secondary float-start">
+                    Cannot find existing information about this chart.&nbsp;
+                  </p>
                 </div>
               </div>
+            </div>
+        }
+
+
+      </CCardBody>
+      {
+        fund &&
+        <CCardFooter>
+          {/* LineChartTable */}
+          <CRow
+            xs={{
+              cols: 1,
+              gutter: 4,
+            }}
+            sm={{ cols: 2 }}
+            lg={{ cols: 4 }}
+            xl={{ cols: 5 }}
+            className="mb-2 text-center flex-column-reverse flex-lg-row"
+          >
+
+            {fund && (
+              <CTable>
+                <CTableHead>
+                  <CTableRow>
+                    <CTableHeaderCell scope="col"></CTableHeaderCell>
+                    {getPaginatedData(fund.labels).map((label, idx) => (
+                      <CTableHeaderCell key={`label_${idx}`} scope="col">
+                        {label}
+                      </CTableHeaderCell>
+                    ))}
+                  </CTableRow>
+                </CTableHead>
+                <CTableBody>
+                  {
+                    fund.datasets.map((dataset, idx) => {
+                      return (
+                        <CTableRow key={`dataset_${idx}`}>
+                          <CTableHeaderCell scope="row" key={`dataset_label_${idx}`} className='col-2 fw-bold text-capitalize px-4'>
+                            {dataset.label.replace(/_/g, ' ')}
+                          </CTableHeaderCell>
+
+                          {getPaginatedData(dataset.data).map((data, idx) => {
+                            let color = 'success';
+                            if (parseInt(data) < 50) {
+                              color = 'danger';
+                            }
+                            else if (parseInt(data) < 70) {
+                              color = 'warning';
+                            }
+
+                            return dataset.label == 'utilization_rate' ? (
+                              <CTableDataCell key={`data_${idx}`}>
+                                <div className="fw-semibold text-truncate">
+                                  {parseFloat(data).toFixed(2)}%
+                                </div>
+                                <CProgress color={color} thin className="mt-2" value={parseInt(parseFloat(data).toFixed(2))} />
+                              </CTableDataCell>
+                            ) : (
+                              <CTableDataCell key={`data_${idx}`}>
+                                {data?.toLocaleString()}
+                              </CTableDataCell>
+                            )
+                          })}
+                        </CTableRow>
+                      )
+
+                    })
+                  }
+                </CTableBody>
+              </CTable>)}
+
+
+          </CRow>
+          {/* Pagination Controls */}
+          {
+            fund?.datasets?.length > itemsPerPage && (
+              <div className="d-flex justify-content-between mt-3">
+                <button
+                  className="btn btn-primary"
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                >
+                  Previous
+                </button>
+                <span>Page {currentPage}</span>
+                <button
+                  className="btn btn-primary"
+                  disabled={fund?.datasets && currentPage * itemsPerPage >= fund?.datasets?.length && currentPage * itemsPerPage >= fund.datasets.length}
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                  Next
+                </button>
+              </div>
+            )
           }
 
-
-        </CCardBody>
-        {
-          fund &&
-          <CCardFooter>
-            {/* LineChartTable */}
-            <CRow
-              xs={{
-                cols: 1,
-                gutter: 4,
-              }}
-              sm={{ cols: 2 }}
-              lg={{ cols: 4 }}
-              xl={{ cols: 5 }}
-              className="mb-2 text-center flex-column-reverse flex-lg-row"
-            >
-
-              {fund && (
-                <CTable>
-                  <CTableHead>
-                    <CTableRow>
-                      <CTableHeaderCell scope="col"></CTableHeaderCell>
-                      {getPaginatedData(fund.labels).map((label, idx) => (
-                        <CTableHeaderCell key={`label_${idx}`} scope="col">
-                          {label}
-                        </CTableHeaderCell>
-                      ))}
-                    </CTableRow>
-                  </CTableHead>
-                  <CTableBody>
-                    {
-                      fund.datasets.map((dataset, idx) => {
-                        return (
-                          <CTableRow key={`dataset_${idx}`}>
-                            <CTableHeaderCell scope="row" key={`dataset_label_${idx}`} className='col-2 fw-bold text-capitalize px-4'>
-                              {dataset.label.replace(/_/g, ' ')}
-                            </CTableHeaderCell>
-
-                            {getPaginatedData(dataset.data).map((data, idx) => {
-                              let color = 'success';
-                              if (parseInt(data) < 50) {
-                                color = 'danger';
-                              }
-                              else if (parseInt(data) < 70) {
-                                color = 'warning';
-                              }
-
-                              return dataset.label == 'utilization_rate' ? (
-                                <CTableDataCell key={`data_${idx}`}>
-                                  <div className="fw-semibold text-truncate">
-                                    {parseFloat(data).toFixed(2)}%
-                                  </div>
-                                  <CProgress color={color} thin className="mt-2" value={parseInt(parseFloat(data).toFixed(2))} />
-                                </CTableDataCell>
-                              ) : (
-                                <CTableDataCell key={`data_${idx}`}>
-                                  {data?.toLocaleString()}
-                                </CTableDataCell>
-                              )
-                            })}
-                          </CTableRow>
-                        )
-
-                      })
-                    }
-                  </CTableBody>
-                </CTable>)}
-
-
-            </CRow>
-            {/* Pagination Controls */}
-            {
-              fund?.datasets?.length > itemsPerPage && (
-                <div className="d-flex justify-content-between mt-3">
-                  <button
-                    className="btn btn-primary"
-                    disabled={currentPage === 1}
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                  >
-                    Previous
-                  </button>
-                  <span>Page {currentPage}</span>
-                  <button
-                    className="btn btn-primary"
-                    disabled={fund?.datasets && currentPage * itemsPerPage >= fund?.datasets?.length && currentPage * itemsPerPage >= fund.datasets.length}
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                  >
-                    Next
-                  </button>
-                </div>
-              )
-            }
-
-          </CCardFooter>
-        }
-      </CCard>
-    </>
+        </CCardFooter>
+      }
+    </CCard>
   ) : <NoResult />
 }
 
