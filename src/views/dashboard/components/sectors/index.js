@@ -7,6 +7,7 @@ import SplashScreen from 'src/components/loader/splash-screen';
 import logo from 'src/assets/images/logo.png';
 import PDFDownload from 'src/components/pdf';
 import { useSectorReportQuery } from "src/states/api/reports";
+import ExportResource from '../ExportResource';
 
 
 export default function Sector() {
@@ -39,17 +40,26 @@ export default function Sector() {
                 <div
                     className="d-flex gap-2 justify-content-end"
                 >
-
-
                     <PDFDownload
                         action={useSectorReportQuery}
                         params={1}
                         title="Download Report"
                     />
+
+                    {/* EXPORT */}
+                    <ExportResource
+                        id={current.id}
+                        resource="sectors"
+                    />
+
                 </div>
+
+
                 <h3>
                     {current?.full_name || current?.name}
                 </h3>
+
+
                 <hr />
                 <BudgetChart sector={sector} />
                 <hr />

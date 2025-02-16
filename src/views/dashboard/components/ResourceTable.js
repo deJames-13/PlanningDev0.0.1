@@ -1,5 +1,5 @@
 import CIcon from '@coreui/icons-react'
-import { cilHistory, cilPen, cilPlus, cilSpreadsheet, cilTrash } from '@coreui/icons'
+import { cilHistory, cilPen, cilPlus, cilTrash } from '@coreui/icons'
 import {
     CButton,
     CCard,
@@ -19,6 +19,7 @@ import googleSheetStyle from 'src/components/table/googleSheetsStyle'
 import Pagination from 'src/components/table/pagination.js';
 
 import useResource from '../hooks/useResource'
+import ExportResource from './ExportResource'
 
 
 const queryToStr = (query) => {
@@ -31,10 +32,10 @@ export default function ResourceTable({
     title,
     subtitle,
     intitialQuery,
+    tableProps = {},
 }) {
     const { userInfo, roles } = useSelector(state => state.auth)
     const [selectedIds, setSelectedIds] = useState([])
-    const [exportType, setExportType] = useState('xlsx')
 
     const [query, setQuery] = useState({
         page: 1,
@@ -57,7 +58,7 @@ export default function ResourceTable({
             nextTableState,
             loading
         },
-        actions: { fetchDatas, doExport },
+        actions: { fetchDatas },
         navigate,
         events: { onDestroy, onRestore, onToggleTable },
     } = useResource(resource)
@@ -133,6 +134,7 @@ export default function ResourceTable({
     }, [query, intitialQuery])
 
     useEffect(() => {
+        setSelectedIds(prev => [])
         let values = data;
         if (tableState === 'thrashed') {
             values = thrashedData;
@@ -174,8 +176,10 @@ export default function ResourceTable({
             })
             );
         }
-        setSelectedIds([])
     }, [data, thrashedData, tableState])
+
+    useEffect(() => {
+    }, [selectedIds])
 
 
 
@@ -184,7 +188,7 @@ export default function ResourceTable({
             <CCardHeader>
                 <div className="d-flex flex-column flex-lg-row justify-content-lg-between items-align-center">
                     {/* TITLE */}
-                    <div style={{ width: '60%' }}>
+                    <div style={{ width: '50%' }}>
                         <h4 className='text-capitalize'>
                             {`${capitalizeName} Table` || title}
                         </h4>
@@ -197,9 +201,11 @@ export default function ResourceTable({
                     <div className="d-flex flex-column items-align-center justify-content-center gap-2" >
                         {
                             !loading &&
-                            <div className='d-flex items-align-center gap-2' style={{
-                                height: 'fit-content'
-                            }}>
+                            <div className='d-flex items-align-center gap-2'
+                                style={{
+                                    height: 'fit-content'
+                                }}
+                            >
                                 <CButton onClick={() => navigate.toForm()} color='success' variant='outline'>
                                     <CIcon icon={cilPlus} />
                                     <span className='d-none d-lg-inline-block' style={{
@@ -217,38 +223,20 @@ export default function ResourceTable({
                                     </span>
                                 </CButton>
 
-
                                 {/* EXPORT */}
-                                <CButton onClick={() => doExport({
-                                    type: exportType
-                                })} color='success' variant='outline'>
-                                    <CIcon icon={cilSpreadsheet} />
-                                    <span className='d-none d-lg-inline-block' style={{
-                                        paddingLeft: '3px'
-                                    }}>
-                                        Export
-                                    </span>
-                                </CButton>
-                                {/* Export Type Selection */}
-                                <select
-                                    value={exportType}
-                                    onChange={(e) => setExportType(e.target.value)}
-                                    className="form-select"
-                                    style={{
-                                        width: 'fit-content',
-                                        height: 'fit-content'
-                                    }}
-                                >
-                                    <option value="xlsx">Excel</option>
-                                    <option value="csv">CSV</option>
-                                </select>
-
-
+                                <ExportResource
+                                    id={selectedIds.length > 0 ? selectedIds : 'all'}
+                                    resource={resource}
+                                />
 
                                 {/* BATCH ACTIONS */}
                                 {
                                     selectedIds.length > 0 &&
-                                    <div className="d-flex items-align-center gap-2">
+                                    <div className="d-flex items-align-center gap-2"
+                                        style={{
+                                            height: 'fit-content'
+                                        }}
+                                    >
                                         {
                                             tableState === 'index' &&
                                             <CButton onClick={() => handleDestroy({ id: selectedIds })} color='danger' variant='outline'>
@@ -302,6 +290,12 @@ export default function ResourceTable({
                     columns={table.columns}
                     data={table.data}
                     customStyles={googleSheetStyle}
+                    selectableRows={true}
+                    selectableRowsHighlight={true}
+                    onSelectedRowsChange={(selected) => {
+                        setSelectedIds(prev => selected.selectedRows.map(row => row.id))
+                    }}
+                    {...tableProps}
                 />
             </CCardBody>
 
