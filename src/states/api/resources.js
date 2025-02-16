@@ -15,18 +15,18 @@ const resources = [
 
 const customEndpoints = {
     barData: (builder) => ({
-        barDataDelByYear: builder.query({
+        barDataDelByYear: builder.mutation({
             query: ({ year, id }) => ({
-                url: `bar-data/del-by-year/${year} ${id ? `/${id}` : ''}`,
-                method: 'GET',
+                url: `bar-data/del-by-year/${year}${id ? `/${id}` : ''}`,
+                method: 'DELETE',
             }),
         }),
     }),
     budgets: (builder) => ({
-        budgetsDelByYear: builder.query({
+        budgetsDelByYear: builder.mutation({
             query: (year) => ({
-                url: `budgets/del-by-year/${year} ${id ? `/${id}` : ''}`,
-                method: 'GET',
+                url: `budgets/del-by-year/${year}${id ? `/${id}` : ''}`,
+                method: 'DELETE',
             }),
         }),
     }),
@@ -34,13 +34,10 @@ const customEndpoints = {
 
 const resourceEndpoints = resources.reduce((acc, resource) => {
     let name = changeCase.camelCase(resource);
-    const endpoints = resourceBuilder(resource, customEndpoints[name] || ((builder) => ({})));
-    return {
-        ...acc,
-        [name]: apiSlice.injectEndpoints({
-            endpoints,
-        }),
-    };
+    acc = apiSlice.injectEndpoints({
+        endpoints: resourceBuilder(resource, customEndpoints[name])
+    });
+    return acc;
 }, {});
 
 export default resourceEndpoints;

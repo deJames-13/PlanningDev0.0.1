@@ -32,6 +32,7 @@ export default function ResourceTable({
     subtitle,
     initialQuery,
     tableProps = {},
+    setApi,
 }) {
     const { userInfo, roles } = useSelector(state => state.auth)
     const [selectedIds, setSelectedIds] = useState([])
@@ -45,6 +46,7 @@ export default function ResourceTable({
         ...initialQuery
     })
 
+    const api = useResource(resource)
     const {
         names: { capitalizeName, kebabCaseName },
         states: {
@@ -60,7 +62,7 @@ export default function ResourceTable({
         actions: { fetchDatas },
         navigate,
         events: { onDestroy, onRestore, onToggleTable },
-    } = useResource(resource)
+    } = api;
 
 
     const handleDestroy = (row) => {
@@ -132,6 +134,9 @@ export default function ResourceTable({
     }, [query, initialQuery])
 
     useEffect(() => {
+        if (setApi) {
+            setApi(api)
+        }
         setSelectedIds(prev => [])
         let values = data;
         if (tableState === 'thrashed') {
@@ -176,14 +181,11 @@ export default function ResourceTable({
         }
     }, [data, thrashedData, tableState])
 
-    useEffect(() => {
-    }, [selectedIds])
-
 
 
     return (
         <div style={{
-            minHeight: '100vh',
+            maxHeight: '100vh',
             border: '1px solid #e4e7eb',
         }}>
             <CCard style={{
@@ -254,17 +256,6 @@ export default function ResourceTable({
                     }
                 </CCardFooter>
             </CCard>
-
-            {/* BATCH ACTIONS */}
-
-
-
-
-
-
-
-
-
         </div>
     )
 }

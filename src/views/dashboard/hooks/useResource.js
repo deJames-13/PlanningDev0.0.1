@@ -1,8 +1,8 @@
 import * as changeCase from "change-case";
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import DetailedToast from 'src/components/toast/detail';
 import { setResource } from 'src/states/slices/resources.js';
 import resourceEndpoints from 'src/states/api/resources.js';
@@ -24,7 +24,7 @@ export default function useResource(resourceName, isPublic = false) {
     const pascalCaseName = changeCase.pascalCase(resourceName);
     const snakeCaseName = changeCase.snakeCase(resourceName);
     const capitalizeName = changeCase.capitalCase(resourceName);
-    const resource = resourceEndpoints[camelCaseName];
+    const resource = resourceEndpoints;
 
     const [index] = resource[`use${pascalCaseName}IndexMutation`]();
     const [thrashed] = resource[`use${pascalCaseName}ThrashedMutation`]();
@@ -372,7 +372,7 @@ export default function useResource(resourceName, isPublic = false) {
         },
         // STATES
         states: {
-            resourceEndpoints: resource,
+            resourceEndpoints,
             data,
             meta,
             current,

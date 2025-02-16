@@ -3,9 +3,14 @@
 import ResourceTable from '../ResourceTable'
 import tableData from './table-data'
 
+import resourceEndpoints from 'src/states/api/resources.js';
+import { useCallback, useEffect, useState } from 'react';
+import BatchActions from '../actions/batch';
+
 const RESOURCE = 'bar-data'
 const TITLE = 'BAR Data'
 const SUBTITLE = 'Manage the Budget Accountability Report information in this page. The BAR Data requires a proper formatted values such as particulars information and quarterly values.'
+
 
 const ExpandedRow = ({ data = {} }) => {
     return (
@@ -63,20 +68,50 @@ const ExpandedRow = ({ data = {} }) => {
 }
 
 export default function BarDataTable() {
-    return (
-        <>
-            <ResourceTable
-                resource={RESOURCE}
-                title={TITLE}
-                subtitle={SUBTITLE}
+    const [delByYear] = resourceEndpoints.useBarDataDelByYearMutation()
+    const [api, setApi] = useState(false)
+    const [isRestoring, setIsRestoring] = useState(false)
 
-                tableData={tableData}
-                tableProps={{
-                    expandableRows: true,
-                    expandableRowsComponent: ExpandedRow,
-                }}
+    const delFunction = useCallback(async ({ year }) => {
+        return delByYear({ year: year }).then((response) => {
+            if (api?.actions?.fetchDatas) {
+                api.actions.fetchDatas()
+            }
+            return response
+        })
+    }, [api])
+
+    useEffect(() => {
+        if (api) {
+            setIsRestoring(api?.states?.tableState === 'thrashed')
+        }
+    }, [api])
+
+    return (
+        <div style={{
+            marginBottom: '50px',
+        }}>
+            <div>
+                <ResourceTable
+                    resource={RESOURCE}
+                    title={TITLE}
+                    subtitle={SUBTITLE}
+
+                    tableData={tableData}
+                    tableProps={{
+                        expandableRows: true,
+                        expandableRowsComponent: ExpandedRow,
+                    }}
+                    setApi={setApi}
+
+                />
+            </div>
+            <BatchActions
+                delFunction={delFunction}
+                isRestoring={isRestoring}
             />
-        </>
+
+        </div>
     )
 }
 
