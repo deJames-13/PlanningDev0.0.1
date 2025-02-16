@@ -48,7 +48,7 @@ export default function Sector() {
 
                     {/* EXPORT */}
                     <ExportResource
-                        id={current.id}
+                        id={current?.id}
                         resource="sectors"
                     />
 
