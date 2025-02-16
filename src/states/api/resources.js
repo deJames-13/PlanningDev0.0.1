@@ -24,7 +24,7 @@ const customEndpoints = {
     }),
     budgets: (builder) => ({
         budgetsDelByYear: builder.mutation({
-            query: (year) => ({
+            query: ({ year, id }) => ({
                 url: `budgets/del-by-year/${year}${id ? `/${id}` : ''}`,
                 method: 'DELETE',
             }),
