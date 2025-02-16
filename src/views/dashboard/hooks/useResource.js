@@ -243,7 +243,7 @@ export default function useResource(resourceName, isPublic = false) {
         id = 'all', type = "xlsx"
     }) => {
         setLoading(true);
-        return await exports(id).unwrap().then((response) => {
+        return await exports({ id, type }).unwrap().then((response) => {
             const link = document.createElement('a');
             const fileName = `${snakeCaseName}_${id}_${new Date().toISOString()}` + (type === 'csv' ? '.csv' : '.xlsx');
 
