@@ -184,135 +184,147 @@ export default function ResourceTable({
 
 
     return (
-        <CCard>
-            <CCardHeader>
-                <div className="d-flex flex-column flex-lg-row justify-content-lg-between items-align-center">
-                    {/* TITLE */}
-                    <div style={{ width: '50%' }}>
-                        <h4 className='text-capitalize'>
-                            {`${capitalizeName} Table` || title}
-                        </h4>
-                        <span className="text-wrap max-w-24">
-                            {subtitle}
-                        </span>
-                    </div>
-
-                    {/* BUTTONS */}
-                    <div className="d-flex flex-column items-align-center justify-content-center gap-2" >
-                        {
-                            !loading &&
-                            <div className='d-flex items-align-center gap-2'
-                                style={{
-                                    height: 'fit-content'
-                                }}
-                            >
-                                <CButton onClick={() => navigate.toForm()} color='success' variant='outline'>
-                                    <CIcon icon={cilPlus} />
-                                    <span className='d-none d-lg-inline-block' style={{
-                                        paddingLeft: '3px'
-                                    }}>
-                                        Add
-                                    </span>
-                                </CButton>
-                                <CButton onClick={() => onToggleTable(nextTableState)} color='info' variant='outline' className="text-capitalize">
-                                    <CIcon icon={cilHistory} />
-                                    <span className='d-none d-lg-inline-block' style={{
-                                        paddingLeft: '3px'
-                                    }}>
-                                        {nextTableState === 'index' ? 'Active' : nextTableState === 'thrashed' ? 'Archived' : 'Index'}
-                                    </span>
-                                </CButton>
-
-                                {/* EXPORT */}
-                                <ExportResource
-                                    id={selectedIds.length > 0 ? selectedIds : 'all'}
-                                    resource={resource}
-                                />
-
-                                {/* BATCH ACTIONS */}
-                                {
-                                    selectedIds.length > 0 &&
-                                    <div className="d-flex items-align-center gap-2"
-                                        style={{
-                                            height: 'fit-content'
-                                        }}
-                                    >
-                                        {
-                                            tableState === 'index' &&
-                                            <CButton onClick={() => handleDestroy({ id: selectedIds })} color='danger' variant='outline'>
-                                                <CIcon icon={cilTrash} />
-                                                <span className='d-none d-lg-inline-block' style={{
-                                                    paddingLeft: '3px'
-                                                }}>
-                                                    Delete All
-                                                </span>
-                                            </CButton>
-                                        }
-                                        {
-                                            tableState === 'thrashed' &&
-                                            <CButton onClick={() => handleRestore({ id: selectedIds })} color='success' variant='outline'>
-                                                <CIcon icon={cilHistory} />
-                                                <span className='d-none d-lg-inline-block' style={{
-                                                    paddingLeft: '3px'
-                                                }}>
-                                                    Restore All
-                                                </span>
-                                            </CButton>
-                                        }
-                                    </div>
-                                }
-                            </div>
-                        }
-
-                        {loading && <CSpinner />}
-
-                    </div>
-                </div>
-            </CCardHeader>
-
-            <CCardBody>
-                {/* Search Filter */}
-                <div className="d-flex justify-content-end">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Search"
-                        value={query.search}
-                        onChange={(e) => setQuery({
-                            ...query,
-                            search: e.target.value
-                        })}
-                    />
-                </div>
-
-                <Table
-                    tableData={table}
-                    columns={table.columns}
-                    data={table.data}
-                    customStyles={googleSheetStyle}
-                    selectableRows={true}
-                    selectableRowsHighlight={true}
-                    onSelectedRowsChange={(selected) => {
-                        setSelectedIds(prev => selected.selectedRows.map(row => row.id))
-                    }}
-                    {...tableProps}
-                />
-            </CCardBody>
-
-            <CCardFooter style={{
-                padding: '1rem 0 0 0',
+        <div style={{
+            minHeight: '100vh',
+            border: '1px solid #e4e7eb',
+        }}>
+            <CCard style={{
+                minHeight: '70vh'
             }}>
-                {
-                    meta?.links &&
-                    <Pagination meta={meta} onPageChange={handlePageChange} />
-                }
-                {
-                    meta?.current_page && meta?.last_page
-                    && <div className='d-flex justify-content-center mb-3'>
-                        <span className='text-muted'>{meta?.current_page} of {meta?.last_page}</span>
+                <CCardHeader>
+                    <div className="d-flex flex-column flex-lg-row justify-content-lg-between items-align-center">
+                        {/* TITLE */}
+                        <div style={{ width: '50%' }}>
+                            <h4 className='text-capitalize'>
+                                {`${capitalizeName} Table` || title}
+                            </h4>
+                            <span className="text-wrap max-w-24">
+                                {subtitle}
+                            </span>
+                        </div>
+
+                        {/* BUTTONS */}
+                        <div className="d-flex flex-column items-align-center justify-content-center gap-2" >
+                            {
+                                !loading &&
+                                <div className='d-flex items-align-center gap-2'
+                                    style={{
+                                        height: 'fit-content'
+                                    }}
+                                >
+                                    <CButton onClick={() => navigate.toForm()} color='success' variant='outline'>
+                                        <CIcon icon={cilPlus} />
+                                        <span className='d-none d-lg-inline-block' style={{
+                                            paddingLeft: '3px'
+                                        }}>
+                                            Add
+                                        </span>
+                                    </CButton>
+                                    <CButton onClick={() => onToggleTable(nextTableState)} color='info' variant='outline' className="text-capitalize">
+                                        <CIcon icon={cilHistory} />
+                                        <span className='d-none d-lg-inline-block' style={{
+                                            paddingLeft: '3px'
+                                        }}>
+                                            {nextTableState === 'index' ? 'Active' : nextTableState === 'thrashed' ? 'Archived' : 'Index'}
+                                        </span>
+                                    </CButton>
+
+                                    {/* EXPORT */}
+                                    <ExportResource
+                                        id={selectedIds.length > 0 ? selectedIds : 'all'}
+                                        resource={resource}
+                                    />
+
+                                    {/* BATCH ACTIONS */}
+                                    {
+                                        selectedIds.length > 0 &&
+                                        <div className="d-flex items-align-center gap-2"
+                                            style={{
+                                                height: 'fit-content'
+                                            }}
+                                        >
+                                            {
+                                                tableState === 'index' &&
+                                                <CButton onClick={() => handleDestroy({ id: selectedIds })} color='danger' variant='outline'>
+                                                    <CIcon icon={cilTrash} />
+                                                    <span className='d-none d-lg-inline-block' style={{
+                                                        paddingLeft: '3px'
+                                                    }}>
+                                                        Delete All
+                                                    </span>
+                                                </CButton>
+                                            }
+                                            {
+                                                tableState === 'thrashed' &&
+                                                <CButton onClick={() => handleRestore({ id: selectedIds })} color='success' variant='outline'>
+                                                    <CIcon icon={cilHistory} />
+                                                    <span className='d-none d-lg-inline-block' style={{
+                                                        paddingLeft: '3px'
+                                                    }}>
+                                                        Restore All
+                                                    </span>
+                                                </CButton>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            {loading && <CSpinner />}
+
+                        </div>
                     </div>
-                }
-            </CCardFooter>
-        </CCard>
+                </CCardHeader>
+
+                <CCardBody>
+                    {/* Search Filter */}
+                    <div className="d-flex justify-content-end">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Search"
+                            value={query.search}
+                            onChange={(e) => setQuery({
+                                ...query,
+                                search: e.target.value
+                            })}
+                        />
+                    </div>
+
+                    {/* TABLE */}
+                    <Table
+                        tableData={table}
+                        columns={table.columns}
+                        data={table.data}
+                        customStyles={googleSheetStyle}
+                        selectableRows={true}
+                        selectableRowsHighlight={true}
+                        onSelectedRowsChange={(selected) => {
+                            setSelectedIds(prev => selected.selectedRows.map(row => row.id))
+                        }}
+                        {...tableProps}
+                    />
+                </CCardBody>
+
+                <CCardFooter style={{
+                    padding: '1rem 0 0 0',
+                }}>
+                    {
+                        meta?.links &&
+                        <Pagination meta={meta} onPageChange={handlePageChange} />
+                    }
+                    {
+                        meta?.current_page && meta?.last_page
+                        && <div className='d-flex justify-content-center mb-3'>
+                            <span className='text-muted'>{meta?.current_page} of {meta?.last_page}</span>
+                        </div>
+                    }
+                </CCardFooter>
+            </CCard>
+
+            {/* BATCH ACTIONS */}
+
+
+        </div>
     )
 }
