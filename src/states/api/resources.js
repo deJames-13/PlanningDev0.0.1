@@ -21,12 +21,51 @@ const customEndpoints = {
                 method: 'DELETE',
             }),
         }),
+        barDataDelByStatus: builder.mutation({
+            query: ({ status, id }) => ({
+                url: `bar-data/del-by-status/${status}${id ? `/${id}` : ''}`,
+                method: 'DELETE',
+            }),
+        }),
+
+        barDataResByYear: builder.mutation({
+            query: ({ year }) => ({
+                url: `bar-data/res-by-year/${year}`,
+                method: 'PATCH',
+            }),
+        }),
+        barDataResByStatus: builder.mutation({
+            query: ({ status }) => ({
+                url: `bar-data/res-by-status/${status}`,
+                method: 'PATCH',
+            }),
+        }),
+
     }),
     budgets: (builder) => ({
         budgetsDelByYear: builder.mutation({
             query: ({ year, id }) => ({
                 url: `budgets/del-by-year/${year}${id ? `/${id}` : ''}`,
                 method: 'DELETE',
+            }),
+        }),
+        budgetsDelByStatus: builder.mutation({
+            query: ({ status, id }) => ({
+                url: `budgets/del-by-status/${status}${id ? `/${id}` : ''}`,
+                method: 'DELETE',
+            }),
+        }),
+
+        budgetsResByYear: builder.mutation({
+            query: ({ year }) => ({
+                url: `budgets/res-by-year/${year}`,
+                method: 'PATCH',
+            }),
+        }),
+        budgetsResByStatus: builder.mutation({
+            query: ({ status }) => ({
+                url: `budgets/res-by-status/${status}`,
+                method: 'PATCH',
             }),
         }),
     }),

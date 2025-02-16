@@ -148,11 +148,21 @@ export default function BatchActions({
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
                         >
-                            {STATUS_OPTIONS.map((option, index) => (
-                                <option key={index} value={option.value} style={{
-                                    textTransform: 'capitalize',
-                                }}>{option.label}</option>
-                            ))}
+                            {STATUS_OPTIONS.map((option, index) => {
+
+                                if (option.value === 'pending restore' && !isRestoring) {
+                                    return null
+                                }
+                                if (option.value === 'pending delete' && isRestoring) {
+                                    return null
+                                }
+
+                                return (
+                                    <option key={index} value={option.value} style={{
+                                        textTransform: 'capitalize',
+                                    }}>{option.label}</option>
+                                )
+                            })}
                         </select>
                     </div>
                 )}
