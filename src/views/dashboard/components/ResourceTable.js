@@ -34,6 +34,7 @@ export default function ResourceTable({
 }) {
     const { userInfo, roles } = useSelector(state => state.auth)
     const [selectedIds, setSelectedIds] = useState([])
+    const [exportType, setExportType] = useState('xlsx')
 
     const [query, setQuery] = useState({
         page: 1,
@@ -182,6 +183,7 @@ export default function ResourceTable({
         <CCard>
             <CCardHeader>
                 <div className="d-flex flex-column flex-lg-row justify-content-lg-between items-align-center">
+                    {/* TITLE */}
                     <div style={{ width: '60%' }}>
                         <h4 className='text-capitalize'>
                             {`${capitalizeName} Table` || title}
@@ -190,6 +192,8 @@ export default function ResourceTable({
                             {subtitle}
                         </span>
                     </div>
+
+                    {/* BUTTONS */}
                     <div className="d-flex flex-column items-align-center justify-content-center gap-2" >
                         {
                             !loading &&
@@ -212,17 +216,37 @@ export default function ResourceTable({
                                         {nextTableState === 'index' ? 'Active' : nextTableState === 'thrashed' ? 'Archived' : 'Index'}
                                     </span>
                                 </CButton>
-                                <CButton onClick={() => doExport()} color='success' variant='outline'>
+
+
+                                {/* EXPORT */}
+                                <CButton onClick={() => doExport({
+                                    type: exportType
+                                })} color='success' variant='outline'>
                                     <CIcon icon={cilSpreadsheet} />
                                     <span className='d-none d-lg-inline-block' style={{
                                         paddingLeft: '3px'
                                     }}>
-                                        xlsx
+                                        Export
                                     </span>
                                 </CButton>
+                                {/* Export Type Selection */}
+                                <select
+                                    value={exportType}
+                                    onChange={(e) => setExportType(e.target.value)}
+                                    className="form-select"
+                                    style={{
+                                        width: 'fit-content',
+                                        height: 'fit-content'
+                                    }}
+                                >
+                                    <option value="xlsx">Excel</option>
+                                    <option value="csv">CSV</option>
+                                </select>
 
+
+
+                                {/* BATCH ACTIONS */}
                                 {
-                                    // delete all or restore all if thrashed or index
                                     selectedIds.length > 0 &&
                                     <div className="d-flex items-align-center gap-2">
                                         {
@@ -248,9 +272,6 @@ export default function ResourceTable({
                                             </CButton>
                                         }
                                     </div>
-
-
-
                                 }
                             </div>
                         }

@@ -239,7 +239,9 @@ export default function useResource(resourceName, isPublic = false) {
         });
     }, [restore]);
 
-    const doExport = React.useCallback(async (id = 'all', type = "xlsx") => {
+    const doExport = React.useCallback(async ({
+        id = 'all', type = "xlsx"
+    }) => {
         setLoading(true);
         return await exports(id).unwrap().then((response) => {
             const link = document.createElement('a');

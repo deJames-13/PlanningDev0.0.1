@@ -37,8 +37,10 @@ export default function Sector() {
         : (
             <>
                 <div
-                    className="d-flex justify-content-end"
+                    className="d-flex gap-2 justify-content-end"
                 >
+
+
                     <PDFDownload
                         action={useSectorReportQuery}
                         params={1}
