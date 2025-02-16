@@ -30,7 +30,7 @@ export default function ResourceTable({
     tableData,
     title,
     subtitle,
-    intitialQuery,
+    initialQuery,
     tableProps = {},
 }) {
     const { userInfo, roles } = useSelector(state => state.auth)
@@ -42,7 +42,7 @@ export default function ResourceTable({
         search: '',
         orderBy: 'id',
         sortedBy: 'asc',
-        ...intitialQuery
+        ...initialQuery
     })
 
     const {
@@ -127,10 +127,9 @@ export default function ResourceTable({
         })
     }
 
-
     useEffect(() => {
-        fetchDatas(queryToStr({ ...query, ...intitialQuery }))
-    }, [query, intitialQuery])
+        fetchDatas(queryToStr({ ...query, ...initialQuery }))
+    }, [query, initialQuery])
 
     useEffect(() => {
         setSelectedIds(prev => [])

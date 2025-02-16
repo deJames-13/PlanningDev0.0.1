@@ -13,9 +13,28 @@ const resources = [
     'users',
 ];
 
+const customEndpoints = {
+    barData: (builder) => ({
+        barDataDelByYear: builder.query({
+            query: ({ year, id }) => ({
+                url: `bar-data/del-by-year/${year} ${id ? `/${id}` : ''}`,
+                method: 'GET',
+            }),
+        }),
+    }),
+    budgets: (builder) => ({
+        budgetsDelByYear: builder.query({
+            query: (year) => ({
+                url: `budgets/del-by-year/${year} ${id ? `/${id}` : ''}`,
+                method: 'GET',
+            }),
+        }),
+    }),
+};
+
 const resourceEndpoints = resources.reduce((acc, resource) => {
     let name = changeCase.camelCase(resource);
-    const endpoints = resourceBuilder(resource);
+    const endpoints = resourceBuilder(resource, customEndpoints[name] || ((builder) => ({})));
     return {
         ...acc,
         [name]: apiSlice.injectEndpoints({

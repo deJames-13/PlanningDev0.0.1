@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify";
 import DetailedToast from 'src/components/toast/detail';
-import resourceEndpoints from 'src/states/api/resources.js';
 import { setResource } from 'src/states/slices/resources.js';
+import resourceEndpoints from 'src/states/api/resources.js';
 
 import useIsPermitted from 'src/hooks/useIsPermitted';
 
@@ -372,6 +372,7 @@ export default function useResource(resourceName, isPublic = false) {
         },
         // STATES
         states: {
+            resourceEndpoints: resource,
             data,
             meta,
             current,

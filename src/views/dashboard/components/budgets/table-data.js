@@ -101,6 +101,7 @@ export default (data, actions, onSelect = () => { }) => {
             sector: d?.sector,
             status: d.status,
             updated_at: d.updated_at,
+            annual: d.annual,
         }))
     }
 }

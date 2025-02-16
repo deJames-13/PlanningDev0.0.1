@@ -3,11 +3,61 @@
 import ResourceTable from '../ResourceTable'
 import tableData from './table-data'
 
+const RESOURCE = 'bar-data'
+const TITLE = 'BAR Data'
+const SUBTITLE = 'Manage the Budget Accountability Report information in this page. The BAR Data requires a proper formatted values such as particulars information and quarterly values.'
+
 const ExpandedRow = ({ data = {} }) => {
     return (
         <div>
-            <p>Expanded Row</p>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
+            <span className='fw-bold'>Particulars</span>
+            <hr style={{
+                margin: '5px 0',
+                border: 'none',
+                borderBottom: '1px solid #ccc',
+            }} />
+            {
+                data.particulars?.map((particular, index) => {
+                    let sortedValues = [...particular.values].sort((a, b) => {
+                        if (a.year < b.year) {
+                            return -1;
+                        }
+                        if (a.year > b.year) {
+                            return 1;
+                        }
+                        return 0;
+                    })
+                    return (
+                        <div key={index} style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                        }}>
+                            <div style={{
+                                width: '300px',
+                                wordBreak: 'break-word',
+
+                            }}>
+                                <span>
+                                    {particular.title.split(':')[0]}
+                                </span>
+                            </div>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '5px',
+
+                            }}>
+                                {sortedValues?.map((value, index) => (
+                                    <span key={index} >
+                                        {value?.year}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    )
+                })
+            }
         </div>
     )
 }
@@ -16,13 +66,11 @@ export default function BarDataTable() {
     return (
         <>
             <ResourceTable
-                resource='bar-data'
+                resource={RESOURCE}
+                title={TITLE}
+                subtitle={SUBTITLE}
+
                 tableData={tableData}
-                title='BAR Data'
-                subtitle='Manage the Budget Accountability Report information in this page. The BAR Data requires a proper formatted values such as particulars information and quarterly values.'
-                intitialQuery={{
-                    with: 'none',
-                }}
                 tableProps={{
                     expandableRows: true,
                     expandableRowsComponent: ExpandedRow,
@@ -32,22 +80,3 @@ export default function BarDataTable() {
     )
 }
 
-// {/* SCRATCH */ }
-// import { CTab, CTabContent, CTabList, CTabPanel, CTabs } from '@coreui/react'
-// import { useState, useEffect } from 'react'
-// {/* const [activeTab, setActiveTab] = useState('default') */ }
-// {/*  tab option for yearly or default */ }
-// {/* <CTabs activeItemKey={activeTab} onChange={setActiveTab}>
-//     <CTabList variant="tabs">
-//         <CTab itemKey="default">Default</CTab>
-//         <CTab itemKey="byYear">By Year</CTab>
-//     </CTabList>
-//     <CTabContent>
-//         <CTabPanel className="p-3" itemKey="default">
-        
-//         </CTabPanel>
-//         <CTabPanel className="p-3" itemKey="byYear">
-//             By year
-//         </CTabPanel>
-//     </CTabContent>
-// </CTabs> */}

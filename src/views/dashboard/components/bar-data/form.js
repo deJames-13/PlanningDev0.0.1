@@ -70,37 +70,55 @@ export default function BarDataForm() {
 
 
     return (
-        <CRow
-            className='gap-4 gap-md-0'
-            style={{
-                height: '100vh',
-                overflow: 'auto',
-                marginBottom: '1rem'
+        <CRow className='gap-4 gap-md-0'>
+            <CCol lg={6} style={{
+                height: 'fill'
             }}>
-            <CCol lg={6}>
-                <ResourceForm
-                    id={id}
-                    resource={RESOURCE}
-                    subtitle={SUBTITLE}
-                    title={TITLE}
-                    formData={data}
-                    form={{
-                        ...formSchema,
-                        fields: formSchema.fields.map(field => {
-                            if (field.name === 'status') {
-                                return isAdmin ? field : null;
-                            }
-                            return field
-                        }),
-                    }}
-                    onChanges={handleChanges}
-                >
-                </ResourceForm>
+                <div style={{
+                    marginBottom: '1.5rem'
+                }}>
+                    <ResourceForm
+                        id={id}
+                        resource={RESOURCE}
+                        subtitle={SUBTITLE}
+                        title={TITLE}
+                        formData={data}
+                        form={{
+                            ...formSchema,
+                            fields: formSchema.fields.map(field => {
+                                if (field.name === 'status') {
+                                    return isAdmin ? field : null;
+                                }
+                                return field
+                            }),
+                        }}
+                        onChanges={handleChanges}
+                    >
+                    </ResourceForm>
+
+                </div>
+
+                {/* Chart Preview */}
+                <CCard style={{
+                    marginBottom: '1.5rem'
+                }}>
+                    <CCardHeader>
+                        <h4>
+                            Chart Preview
+                        </h4>
+                    </CCardHeader>
+                    <CCardBody>
+                        <ChartPreview data={data} />
+                    </CCardBody>
+                </CCard>
             </CCol>
-            <CCol className='gap-4 d-flex flex-column' style={{
-                height: '100%',
-                overflow: 'auto'
-            }}>
+
+            <CCol className='gap-4 d-flex flex-column'
+                style={{
+                    maxHeight: '100vh',
+                    overflow: 'auto',
+                    marginBottom: '1.5rem'
+                }}>
                 {/* Particular Lists */}
                 <CCard>
                     <CCardHeader>
@@ -130,17 +148,6 @@ export default function BarDataForm() {
                 </CCard>
 
 
-                {/* Chart Preview */}
-                <CCard>
-                    <CCardHeader>
-                        <h4>
-                            Chart Preview
-                        </h4>
-                    </CCardHeader>
-                    <CCardBody>
-                        <ChartPreview data={data} />
-                    </CCardBody>
-                </CCard>
 
 
             </CCol>

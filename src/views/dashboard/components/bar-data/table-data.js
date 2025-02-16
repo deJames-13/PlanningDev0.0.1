@@ -98,6 +98,7 @@ export default (data, actions, onSelect) => {
             description: d.description,
             status: d.status,
             date: d.updated_at,
+            particulars: d.particulars,
         }))
     }
 }
