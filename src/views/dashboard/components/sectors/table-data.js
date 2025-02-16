@@ -36,6 +36,15 @@ export default (data, actions, onSelect = () => { }) => {
                     {row?.name}
                 </Link>,
                 sortable: true,
+                sortFunction: (a, b) => {
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    return 0;
+                }
             },
             {
                 name: <strong>Department</strong>,

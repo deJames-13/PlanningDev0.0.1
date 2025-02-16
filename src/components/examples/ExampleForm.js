@@ -16,7 +16,7 @@ const ExampleForm = () => {
     });
 
     const onSubmit = (values, { setSubmitting }) => {
-        console.log('Form data', values);
+        // console.log('Form data', values);
         setSubmitting(false);
     };
 

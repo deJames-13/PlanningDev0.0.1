@@ -20,6 +20,8 @@ import Pagination from 'src/components/table/pagination.js';
 
 import useResource from '../hooks/useResource'
 import ExportResource from './ExportResource'
+import TableActions from './actions'
+import QueryComponent from './actions/query'
 
 
 const queryToStr = (query) => {
@@ -204,92 +206,27 @@ export default function ResourceTable({
                         </div>
 
                         {/* BUTTONS */}
-                        <div className="d-flex flex-column items-align-center justify-content-center gap-2" >
-                            {
-                                !loading &&
-                                <div className='d-flex items-align-center gap-2'
-                                    style={{
-                                        height: 'fit-content'
-                                    }}
-                                >
-                                    <CButton onClick={() => navigate.toForm()} color='success' variant='outline'>
-                                        <CIcon icon={cilPlus} />
-                                        <span className='d-none d-lg-inline-block' style={{
-                                            paddingLeft: '3px'
-                                        }}>
-                                            Add
-                                        </span>
-                                    </CButton>
-                                    <CButton onClick={() => onToggleTable(nextTableState)} color='info' variant='outline' className="text-capitalize">
-                                        <CIcon icon={cilHistory} />
-                                        <span className='d-none d-lg-inline-block' style={{
-                                            paddingLeft: '3px'
-                                        }}>
-                                            {nextTableState === 'index' ? 'Active' : nextTableState === 'thrashed' ? 'Archived' : 'Index'}
-                                        </span>
-                                    </CButton>
+                        <TableActions
+                            tableState={tableState}
+                            loading={loading}
+                            selectedIds={selectedIds}
+                            navigate={navigate}
+                            onToggleTable={onToggleTable}
+                            handleDestroy={handleDestroy}
+                            handleRestore={handleRestore}
+                            nextTableState={nextTableState}
+                            resource={resource}
+                        />
 
-                                    {/* EXPORT */}
-                                    <ExportResource
-                                        id={selectedIds.length > 0 ? selectedIds : 'all'}
-                                        resource={resource}
-                                    />
-
-                                    {/* BATCH ACTIONS */}
-                                    {
-                                        selectedIds.length > 0 &&
-                                        <div className="d-flex items-align-center gap-2"
-                                            style={{
-                                                height: 'fit-content'
-                                            }}
-                                        >
-                                            {
-                                                tableState === 'index' &&
-                                                <CButton onClick={() => handleDestroy({ id: selectedIds })} color='danger' variant='outline'>
-                                                    <CIcon icon={cilTrash} />
-                                                    <span className='d-none d-lg-inline-block' style={{
-                                                        paddingLeft: '3px'
-                                                    }}>
-                                                        Delete All
-                                                    </span>
-                                                </CButton>
-                                            }
-                                            {
-                                                tableState === 'thrashed' &&
-                                                <CButton onClick={() => handleRestore({ id: selectedIds })} color='success' variant='outline'>
-                                                    <CIcon icon={cilHistory} />
-                                                    <span className='d-none d-lg-inline-block' style={{
-                                                        paddingLeft: '3px'
-                                                    }}>
-                                                        Restore All
-                                                    </span>
-                                                </CButton>
-                                            }
-                                        </div>
-                                    }
-                                </div>
-                            }
-
-                            {loading && <CSpinner />}
-
-                        </div>
                     </div>
                 </CCardHeader>
 
                 <CCardBody>
                     {/* Search Filter */}
-                    <div className="d-flex justify-content-end">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search"
-                            value={query.search}
-                            onChange={(e) => setQuery({
-                                ...query,
-                                search: e.target.value
-                            })}
-                        />
-                    </div>
+                    <QueryComponent
+                        query={query}
+                        setQuery={setQuery}
+                    />
 
                     {/* TABLE */}
                     <Table
@@ -323,6 +260,13 @@ export default function ResourceTable({
             </CCard>
 
             {/* BATCH ACTIONS */}
+
+
+
+
+
+
+
 
 
         </div>

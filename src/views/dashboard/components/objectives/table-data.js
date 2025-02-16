@@ -40,12 +40,30 @@ export default (data, actions, onSelect = () => { }) => {
                     {!row?.sector?.name && "N/A"}
                 </span>,
                 sortable: true,
+                sortFunction: (a, b) => {
+                    if (a.sector?.name < b.sector?.name) {
+                        return -1;
+                    }
+                    if (a.sector?.name > b.sector?.name) {
+                        return 1;
+                    }
+                    return 0;
+                }
             },
             {
                 name: <strong>Title</strong>,
                 selector: row => <Link to={`/dashboard/${resource}/edit/` + row.id} className='text-break'>{row.title}</Link>,
                 sortable: true,
                 width: "15%",
+                sortFunction: (a, b) => {
+                    if (a.title < b.title) {
+                        return -1;
+                    }
+                    if (a.title > b.title) {
+                        return 1;
+                    }
+                    return 0;
+                }
             },
             {
                 name: <strong>Description</strong>,
@@ -56,11 +74,29 @@ export default (data, actions, onSelect = () => { }) => {
                 name: <strong>Target</strong>,
                 selector: row => <span className="text-break">{row.target}</span>,
                 sortable: true,
+                sortFunction: (a, b) => {
+                    if (a.target < b.target) {
+                        return -1;
+                    }
+                    if (a.target > b.target) {
+                        return 1;
+                    }
+                    return 0;
+                }
             },
             {
                 name: <strong>Accomplishment</strong>,
                 selector: row => <span className="text-break">{row.accomplishment}</span>,
                 sortable: true,
+                sortFunction: (a, b) => {
+                    if (a.accomplishment < b.accomplishment) {
+                        return -1;
+                    }
+                    if (a.accomplishment > b.accomplishment) {
+                        return 1;
+                    }
+                    return 0;
+                }
             },
             {
                 name: <strong>Status</strong>,
@@ -71,6 +107,15 @@ export default (data, actions, onSelect = () => { }) => {
                     borderRadius: '5px',
                 }}>{row.status}</span>,
                 sortable: true,
+                sortFunction: (a, b) => {
+                    if (a.status < b.status) {
+                        return -1;
+                    }
+                    if (a.status > b.status) {
+                        return 1;
+                    }
+                    return 0;
+                }
             },
             {
                 name: <strong>Actions</strong>,

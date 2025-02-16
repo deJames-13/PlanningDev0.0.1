@@ -28,7 +28,6 @@ export default function UserForm() {
     const [data, setData] = useState(null)
 
     const handleChanges = (values, errors) => {
-        console.log('values', values)
         setData({
             ...data,
             ...values,

@@ -11,7 +11,7 @@ export const initializeApp = async () => {
         }
 
         // Log the cookies set by the server
-        console.log('Cookies:', document.cookie);
+        // console.log('Cookies:', document.cookie);
 
     } catch (error) {
         console.error('Error fetching CSRF token:', error);

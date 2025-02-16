@@ -36,7 +36,6 @@ export default function ParticularForm({
 
 
     const saveValue = (value) => {
-        console.log(value)
         const newValues = values.filter(v => v.year !== value.year)
         newValues.push(value)
         setData(prev => ({ ...prev, values: newValues }))
@@ -59,9 +58,6 @@ export default function ParticularForm({
         setValues(data?.values || []);
         onChanges(data);
     }, [data])
-
-    console.log(options)
-
 
     return (
         <CRow

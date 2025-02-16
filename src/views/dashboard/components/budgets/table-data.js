@@ -61,6 +61,15 @@ export default (data, actions, onSelect = () => { }) => {
                     borderRadius: '5px',
                 }}>{row.status}</span>,
                 sortable: true,
+                sortFunction: (a, b) => {
+                    if (a.status < b.status) {
+                        return -1;
+                    }
+                    if (a.status > b.status) {
+                        return 1;
+                    }
+                    return 0;
+                }
             },
             {
                 name: <strong>Modified</strong>,
