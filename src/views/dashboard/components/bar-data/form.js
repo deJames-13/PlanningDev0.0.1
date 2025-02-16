@@ -97,18 +97,6 @@ export default function BarDataForm() {
                 height: '100%',
                 overflow: 'auto'
             }}>
-                {/* Chart Preview */}
-                <CCard>
-                    <CCardHeader>
-                        <h4>
-                            Chart Preview
-                        </h4>
-                    </CCardHeader>
-                    <CCardBody>
-                        <ChartPreview data={data} />
-                    </CCardBody>
-                </CCard>
-
                 {/* Particular Lists */}
                 <CCard>
                     <CCardHeader>
@@ -134,6 +122,18 @@ export default function BarDataForm() {
                         }
                     </CCardBody>
                 </CCard>
+                {/* Chart Preview */}
+                <CCard>
+                    <CCardHeader>
+                        <h4>
+                            Chart Preview
+                        </h4>
+                    </CCardHeader>
+                    <CCardBody>
+                        <ChartPreview data={data} />
+                    </CCardBody>
+                </CCard>
+
 
             </CCol>
         </CRow>

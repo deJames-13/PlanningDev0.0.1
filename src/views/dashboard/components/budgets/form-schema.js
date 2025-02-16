@@ -20,14 +20,17 @@ export const fields = [
     {
         name: 'current_year',
         label: 'Current Year*',
+        type: 'number',
         initialValue: new Date().getFullYear(),
+        max: new Date().getFullYear() + 1,
     },
     {
         name: 'current_quarter',
         label: 'Current Quarter*',
         type: 'number',
         initialValue: 1,
-        maxLength: 4,
+        min: 1,
+        max: 4,
     },
     {
         name: 'sector_id',
