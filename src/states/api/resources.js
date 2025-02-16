@@ -13,15 +13,31 @@ const resources = [
     'users',
 ];
 
+const customEndpoints = {
+    barData: (builder) => ({
+        barDataDelByYear: builder.mutation({
+            query: ({ year, id }) => ({
+                url: `bar-data/del-by-year/${year}${id ? `/${id}` : ''}`,
+                method: 'DELETE',
+            }),
+        }),
+    }),
+    budgets: (builder) => ({
+        budgetsDelByYear: builder.mutation({
+            query: ({ year, id }) => ({
+                url: `budgets/del-by-year/${year}${id ? `/${id}` : ''}`,
+                method: 'DELETE',
+            }),
+        }),
+    }),
+};
+
 const resourceEndpoints = resources.reduce((acc, resource) => {
     let name = changeCase.camelCase(resource);
-    const endpoints = resourceBuilder(resource);
-    return {
-        ...acc,
-        [name]: apiSlice.injectEndpoints({
-            endpoints,
-        }),
-    };
+    acc = apiSlice.injectEndpoints({
+        endpoints: resourceBuilder(resource, customEndpoints[name])
+    });
+    return acc;
 }, {});
 
 export default resourceEndpoints;

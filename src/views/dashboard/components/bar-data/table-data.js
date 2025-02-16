@@ -6,24 +6,24 @@ export default (data, actions, onSelect) => {
     let resource = 'bar-data';
     return {
         columns: [
-            {
-                cell: (row) => <CFormCheck
-                    color='primary'
-                    id={`${resource}_${row.id}`}
-                    style={{
-                        borderColor: 'primary',
-                    }}
-                    onChange={(e) => onSelect(e, row.id)}
+            // {
+            //     cell: (row) => <CFormCheck
+            //         color='primary'
+            //         id={`${resource}_${row.id}`}
+            //         style={{
+            //             borderColor: 'primary',
+            //         }}
+            //         onChange={(e) => onSelect(e, row.id)}
 
-                />,
-                width: '2%',
-                style: {
-                    borderBottom: '1px solid #FFFFFF',
-                    marginBottom: '-1px',
-                },
-                sortable: false,
-                selector: null,
-            },
+            //     />,
+            //     width: '2%',
+            //     style: {
+            //         borderBottom: '1px solid #FFFFFF',
+            //         marginBottom: '-1px',
+            //     },
+            //     sortable: false,
+            //     selector: null,
+            // },
             {
                 name: <strong>ID</strong>,
                 selector: row => row.id,
@@ -35,12 +35,30 @@ export default (data, actions, onSelect) => {
                 selector: row => <Link to={`/dashboard/${resource}/edit/` + row.id}>{row.title}</Link>,
                 sortable: true,
                 width: '15%',
+                sortFunction: (a, b) => {
+                    if (a.title < b.title) {
+                        return -1;
+                    }
+                    if (a.title > b.title) {
+                        return 1;
+                    }
+                    return 0;
+                }
             },
             {
                 name: <strong>Description</strong>,
                 selector: row => <span className="text-break text-wrap">{row?.description?.split('.')[0] || 'No description'}</span>,
                 sortable: true,
                 width: '30%',
+                sortFunction: (a, b) => {
+                    if (a.description < b.description) {
+                        return -1;
+                    }
+                    if (a.description > b.description) {
+                        return 1;
+                    }
+                    return 0;
+                }
             },
             {
                 name: <strong>Status</strong>,
@@ -51,6 +69,16 @@ export default (data, actions, onSelect) => {
                     borderRadius: '5px',
                 }}>{row.status}</span>,
                 sortable: true,
+                sortFunction: (a, b) => {
+                    if (a.status < b.status) {
+                        return -1;
+                    }
+                    if (a.status > b.status) {
+                        return 1;
+                    }
+                    return 0;
+                }
+
             },
             {
                 name: <strong>Modified</strong>,
@@ -70,6 +98,7 @@ export default (data, actions, onSelect) => {
             description: d.description,
             status: d.status,
             date: d.updated_at,
+            particulars: d.particulars,
         }))
     }
 }

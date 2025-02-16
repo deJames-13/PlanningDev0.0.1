@@ -6,25 +6,25 @@ export default (data, actions, onSelect = () => { }) => {
     let resource = 'budgets';
     return {
         columns: [
-            {
-                cell: (row) => <CFormCheck
-                    color='primary'
-                    id={`${resource}_${row.id}`}
-                    style={{
-                        borderColor: 'primary',
-                    }}
-                    onChange={(e) => onSelect(e, row.id)}
+            // {
+            //     cell: (row) => <CFormCheck
+            //         color='primary'
+            //         id={`${resource}_${row.id}`}
+            //         style={{
+            //             borderColor: 'primary',
+            //         }}
+            //         onChange={(e) => onSelect(e, row.id)}
 
 
-                />,
-                width: '56px',
-                style: {
-                    borderBottom: '1px solid #FFFFFF',
-                    marginBottom: '-1px',
-                },
-                sortable: false,
-                selector: null,
-            },
+            //     />,
+            //     width: '56px',
+            //     style: {
+            //         borderBottom: '1px solid #FFFFFF',
+            //         marginBottom: '-1px',
+            //     },
+            //     sortable: false,
+            //     selector: null,
+            // },
             {
                 name: <strong>ID</strong>,
                 selector: row => row.id,
@@ -61,6 +61,15 @@ export default (data, actions, onSelect = () => { }) => {
                     borderRadius: '5px',
                 }}>{row.status}</span>,
                 sortable: true,
+                sortFunction: (a, b) => {
+                    if (a.status < b.status) {
+                        return -1;
+                    }
+                    if (a.status > b.status) {
+                        return 1;
+                    }
+                    return 0;
+                }
             },
             {
                 name: <strong>Modified</strong>,
@@ -92,6 +101,7 @@ export default (data, actions, onSelect = () => { }) => {
             sector: d?.sector,
             status: d.status,
             updated_at: d.updated_at,
+            annual: d.annual,
         }))
     }
 }

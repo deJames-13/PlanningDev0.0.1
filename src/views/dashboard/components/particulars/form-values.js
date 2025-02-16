@@ -82,10 +82,10 @@ export function FormValues({
                 if (typeof q != 'object') q = {}
                 let target = parseFloat(formValues[`target_${i + 1}`] || 0) || 0;
                 let accomplishment = parseFloat(formValues[`accomplishment_${i + 1}`]) || 0;
-
-                if (target === 0) accomplishment = 0;
-
                 let percentage = parseFloat(((accomplishment / target) * 100) || 0).toFixed(2) || 0;
+                if (percentage === 'Infinity') percentage = 0;
+
+
                 return {
                     ...q,
                     accomplishment,
@@ -98,6 +98,7 @@ export function FormValues({
         newValue.accomplishment = totalAccomplishment(newValue.quarters);
         newValue.target = totalTarget(newValue.quarters);
         newValue.percentage = parseFloat(((newValue.accomplishment / newValue.target) * 100) || 0).toFixed(2) || 0;
+        if (newValue.percentage === 'Infinity') newValue.percentage = 0;
         setData(newValue);
         setFields(makeFields(newValue));
         onChanges(newValue, errors);
@@ -125,10 +126,10 @@ export function FormValues({
             validationSchema={Yup.object(fields.reduce((acc, field) => {
                 if (field.fields) {
                     field.fields.forEach(f => {
-                        acc[f.name] = Yup.number('Must be a number').positive('Must be a positive number');
+                        acc[f.name] = Yup.number('Must be a number');
                     });
                 } else {
-                    acc[field.name] = Yup.number('Must be a number').required('Required').positive('Must be a positive number');
+                    acc[field.name] = Yup.number('Must be a number').required('Required');
                 }
                 return acc;
             }, {}))}

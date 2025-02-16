@@ -77,7 +77,9 @@ export default function BudgetForm() {
     }
 
     useEffect(() => {
-        setAnnual(data?.annual || [])
+        let annual = [... (data?.annual || [])]
+        annual.sort((a, b) => a.year - b.year)
+        setAnnual(annual)
     }, [data])
 
     return (
@@ -123,14 +125,6 @@ export default function BudgetForm() {
                 overflowY: 'auto',
                 overflowX: 'hidden'
             }}>
-                <CCard>
-                    <CCardHeader>
-                        <h4>Chart Preview</h4>
-                    </CCardHeader>
-                    <CCardBody className='p-0 px-lg-4'>
-                        <ChartPreview values={data?.annual} />
-                    </CCardBody>
-                </CCard>
 
                 <CCard>
                     <CCardHeader>
@@ -156,6 +150,14 @@ export default function BudgetForm() {
                                     onRemove={removeAnnual}
                                 />
                         }
+                    </CCardBody>
+                </CCard>
+                <CCard>
+                    <CCardHeader>
+                        <h4>Chart Preview</h4>
+                    </CCardHeader>
+                    <CCardBody className='p-0 px-lg-4'>
+                        <ChartPreview values={data?.annual} />
                     </CCardBody>
                 </CCard>
             </CCol>

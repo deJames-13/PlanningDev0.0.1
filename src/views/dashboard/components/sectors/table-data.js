@@ -6,24 +6,24 @@ export default (data, actions, onSelect = () => { }) => {
     let resource = 'sectors';
     return {
         columns: [
-            {
-                cell: (row) => <CFormCheck
-                    color='primary'
-                    id={`${resource}_${row?.id}`}
-                    style={{
-                        borderColor: 'primary',
-                    }}
-                    onChange={(e) => onSelect(e, row.id)}
+            // {
+            //     cell: (row) => <CFormCheck
+            //         color='primary'
+            //         id={`${resource}_${row?.id}`}
+            //         style={{
+            //             borderColor: 'primary',
+            //         }}
+            //         onChange={(e) => onSelect(e, row.id)}
 
-                />,
-                width: '56px',
-                style: {
-                    borderBottom: '1px solid #FFFFFF',
-                    marginBottom: '-1px',
-                },
-                sortable: false,
-                selector: null,
-            },
+            //     />,
+            //     width: '56px',
+            //     style: {
+            //         borderBottom: '1px solid #FFFFFF',
+            //         marginBottom: '-1px',
+            //     },
+            //     sortable: false,
+            //     selector: null,
+            // },
             {
                 name: <strong>ID</strong>,
                 selector: row => row?.id,
@@ -36,6 +36,15 @@ export default (data, actions, onSelect = () => { }) => {
                     {row?.name}
                 </Link>,
                 sortable: true,
+                sortFunction: (a, b) => {
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    return 0;
+                }
             },
             {
                 name: <strong>Department</strong>,

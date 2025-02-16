@@ -1,6 +1,6 @@
 import * as changeCase from "change-case";
 
-export default function resourceBuilder(resource) {
+export default function resourceBuilder(resource, customEndpoints = (builder) => ({})) {
     let name = changeCase.camelCase(resource);
 
     return (builder) => ({
@@ -65,7 +65,7 @@ export default function resourceBuilder(resource) {
             })
         }),
         [`${name}Export`]: builder.mutation({
-            query: (id, type) => ({
+            query: ({ id, type }) => ({
                 url: `exports/${resource}/${id}/${type === 'csv' ? 'csv' : 'xlsx'}`,
                 method: 'GET',
                 responseHandler: async (response) => {
@@ -80,5 +80,6 @@ export default function resourceBuilder(resource) {
                 cache: "no-cache",
             })
         }),
+        ...customEndpoints(builder),
     });
 }

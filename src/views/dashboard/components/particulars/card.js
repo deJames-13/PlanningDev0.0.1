@@ -6,7 +6,6 @@ import React from 'react'
 export function ValueCard({ value, onRemove = () => { }, onEdit = () => { }, noActions = false }) {
     return value && (
         <>
-
             <div className='row fs-6'>
                 <span className='d-flex justify-content-between col-sm-2'>
                     <span className="d-sm-none">
@@ -47,9 +46,10 @@ export function ValueCard({ value, onRemove = () => { }, onEdit = () => { }, noA
                         </strong>
                     </span>
                     <span>
-                        {value.percent ||
-                            (parseFloat(value.accomplishment) / parseFloat(value.target) * 100).toFixed(2)
-                        }%
+                        {isFinite(parseFloat(value.accomplishment) / parseFloat(value.target))
+                            ? (parseFloat(value.accomplishment) / parseFloat(value.target) * 100).toFixed(2) + '%'
+                            : 'N/A'
+                        }
                     </span>
                 </span>
                 {
@@ -84,7 +84,8 @@ export function ValuesCard({
     editValue = () => { },
     removeValue = () => { }
 }) {
-    return values.length > 0 && (
+    const sortedValues = [...values].sort((a, b) => a.year - b.year)
+    return sortedValues.length > 0 && (
         <>
             <div className='d-none d-sm-block'>
                 <div className='row fs-6 fw-bold'>
@@ -106,7 +107,7 @@ export function ValuesCard({
                 </div>
             </div>
 
-            {(values || []).map((value, index) => <ValueCard
+            {sortedValues.map((value, index) => <ValueCard
                 key={index}
                 value={value}
                 noActions={noActions}
@@ -124,12 +125,12 @@ export default function ParticularCard({
     onEdit = () => { },
     onRemove = () => { },
 }) {
+    const sortedValues = [...(particular?.values || [])].sort((a, b) => a.year - b.year)
     return particular && (
         <>
             <div>
                 <div className="d-md-flex items-align-center justify-content-between">
                     <div>
-                        {/* <i className='fs-6'>ID: {particular.id}</i> */}
                         <h5>
                             {particular.title}
                         </h5>
@@ -159,7 +160,12 @@ export default function ParticularCard({
                 <hr />
                 {
                     <ValuesCard
-                        values={particular?.values || []}
+                        values={
+                            sortedValues.filter((value, index, self) =>
+                                index === self.findIndex((t) => (
+                                    t.year === value.year
+                                ))
+                            ) || []}
                         noActions={true}
                     />
                 }

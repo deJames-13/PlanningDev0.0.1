@@ -6,24 +6,24 @@ export default (data, actions, onSelect = () => { }) => {
     let resource = 'particular';
     return {
         columns: [
-            {
-                cell: (row) => <CFormCheck
-                    color='primary'
-                    id={`${resource}_${row.id}`}
-                    style={{
-                        borderColor: 'primary',
-                    }}
-                    onChange={(e) => onSelect(e, row.id)}
+            // {
+            //     cell: (row) => <CFormCheck
+            //         color='primary'
+            //         id={`${resource}_${row.id}`}
+            //         style={{
+            //             borderColor: 'primary',
+            //         }}
+            //         onChange={(e) => onSelect(e, row.id)}
 
-                />,
-                width: '56px',
-                style: {
-                    borderBottom: '1px solid #FFFFFF',
-                    marginBottom: '-1px',
-                },
-                sortable: false,
-                selector: null,
-            },
+            //     />,
+            //     width: '56px',
+            //     style: {
+            //         borderBottom: '1px solid #FFFFFF',
+            //         marginBottom: '-1px',
+            //     },
+            //     sortable: false,
+            //     selector: null,
+            // },
             {
                 name: <strong>ID</strong>,
                 selector: row => row.id,
@@ -34,6 +34,15 @@ export default (data, actions, onSelect = () => { }) => {
                 name: <strong>Title</strong>,
                 selector: row => <Link to={`/dashboard/${resource}/edit/` + row.id}>{row.title}</Link>,
                 sortable: true,
+                sortFunction: (a, b) => {
+                    if (a.title < b.title) {
+                        return -1;
+                    }
+                    if (a.title > b.title) {
+                        return 1;
+                    }
+                    return 0;
+                }
             },
             {
                 name: <strong>Description</strong>,

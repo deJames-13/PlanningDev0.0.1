@@ -21,6 +21,7 @@ export function FormValues({
             name: 'year',
             label: 'Year',
             initialValue: data?.year || new Date().getFullYear(),
+            type: 'number',
         },
         {
             name: 'total',

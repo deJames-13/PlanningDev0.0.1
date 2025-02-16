@@ -101,7 +101,6 @@ export function FormValues({
         setFields(makeFields(newValues));
         onChanges(newValues, errors)
         console.clear()
-        console.log(newValues.quarters);
     }
 
     useEffect(() => {

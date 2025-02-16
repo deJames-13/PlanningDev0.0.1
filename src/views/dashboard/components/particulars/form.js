@@ -28,7 +28,7 @@ export default function ParticularForm({
     particular = {},
 }) {
     const { id = null } = useParams()
-    const { options, loading } = ({ resourceName: 'bar-data' })
+    const { options, loading } = useResourceOptions({ resourceName: 'bar-data' })
 
     const [data, setData] = useState(null)
     const [values, setValues] = useState([])
@@ -36,9 +36,9 @@ export default function ParticularForm({
 
 
     const saveValue = (value) => {
-        console.log(value)
-        const newValues = values.filter(v => v.year !== value.year)
+        let newValues = values.filter(v => v.year !== value.year)
         newValues.push(value)
+        newValues.sort((a, b) => b.year - a.year)
         setData(prev => ({ ...prev, values: newValues }))
         setCurrentValue(null)
     }
@@ -59,8 +59,6 @@ export default function ParticularForm({
         setValues(data?.values || []);
         onChanges(data);
     }, [data])
-
-
 
     return (
         <CRow

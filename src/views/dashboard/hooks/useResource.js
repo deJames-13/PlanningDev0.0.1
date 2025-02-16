@@ -1,11 +1,11 @@
 import * as changeCase from "change-case";
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import DetailedToast from 'src/components/toast/detail';
-import resourceEndpoints from 'src/states/api/resources.js';
 import { setResource } from 'src/states/slices/resources.js';
+import resourceEndpoints from 'src/states/api/resources.js';
 
 import useIsPermitted from 'src/hooks/useIsPermitted';
 
@@ -24,7 +24,7 @@ export default function useResource(resourceName, isPublic = false) {
     const pascalCaseName = changeCase.pascalCase(resourceName);
     const snakeCaseName = changeCase.snakeCase(resourceName);
     const capitalizeName = changeCase.capitalCase(resourceName);
-    const resource = resourceEndpoints[camelCaseName];
+    const resource = resourceEndpoints;
 
     const [index] = resource[`use${pascalCaseName}IndexMutation`]();
     const [thrashed] = resource[`use${pascalCaseName}ThrashedMutation`]();
@@ -239,9 +239,11 @@ export default function useResource(resourceName, isPublic = false) {
         });
     }, [restore]);
 
-    const doExport = React.useCallback(async (id = 'all', type = "xlsx") => {
+    const doExport = React.useCallback(async ({
+        id = 'all', type = "xlsx"
+    }) => {
         setLoading(true);
-        return await exports(id).unwrap().then((response) => {
+        return await exports({ id, type }).unwrap().then((response) => {
             const link = document.createElement('a');
             const fileName = `${snakeCaseName}_${id}_${new Date().toISOString()}` + (type === 'csv' ? '.csv' : '.xlsx');
 
@@ -300,6 +302,7 @@ export default function useResource(resourceName, isPublic = false) {
     const onUpdate = async (id, data) => {
         return doUpdate(id, data).then((response) => {
             fetchDatas();
+            fetchData(id);
             return response;
         });
     }
@@ -369,6 +372,7 @@ export default function useResource(resourceName, isPublic = false) {
         },
         // STATES
         states: {
+            resourceEndpoints,
             data,
             meta,
             current,

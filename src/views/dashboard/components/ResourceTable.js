@@ -1,33 +1,38 @@
 import CIcon from '@coreui/icons-react'
-import { cilHistory, cilPen, cilPlus, cilSpreadsheet, cilTrash } from '@coreui/icons'
+import { cilHistory, cilPen, cilTrash } from '@coreui/icons'
 import {
-    CButton,
     CCard,
     CCardBody,
     CCardFooter,
     CCardHeader,
-    CSpinner,
 } from '@coreui/react'
 
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
+
 import Table from 'src/components/table'
 import googleSheetStyle from 'src/components/table/googleSheetsStyle'
 import Pagination from 'src/components/table/pagination.js';
-import Swal from 'sweetalert2'
-import { useSelector } from 'react-redux'
 
 import useResource from '../hooks/useResource'
+import TableActions from './actions'
+import QueryComponent from './actions/query'
+
 
 const queryToStr = (query) => {
-    return Object.keys(query).map(key => key + '=' + query[key]).join('&');
+    let str = Object.keys(query).map(key => key + '=' + query[key]).join('&');
+    return str
 }
 export default function ResourceTable({
     resource,
     tableData,
     title,
     subtitle,
-    intitialQuery,
+    initialQuery,
+    tableProps = {},
+    setApi,
 }) {
     const { userInfo, roles } = useSelector(state => state.auth)
     const [selectedIds, setSelectedIds] = useState([])
@@ -38,9 +43,10 @@ export default function ResourceTable({
         search: '',
         orderBy: 'id',
         sortedBy: 'asc',
-        ...intitialQuery
+        ...initialQuery
     })
 
+    const api = useResource(resource)
     const {
         names: { capitalizeName, kebabCaseName },
         states: {
@@ -53,10 +59,10 @@ export default function ResourceTable({
             nextTableState,
             loading
         },
-        actions: { fetchDatas, doExport },
+        actions: { fetchDatas },
         navigate,
         events: { onDestroy, onRestore, onToggleTable },
-    } = useResource(resource)
+    } = api;
 
 
     const handleDestroy = (row) => {
@@ -123,12 +129,15 @@ export default function ResourceTable({
         })
     }
 
+    useEffect(() => {
+        fetchDatas(queryToStr({ ...query, ...initialQuery }))
+    }, [query, initialQuery])
 
     useEffect(() => {
-        fetchDatas(queryToStr({ ...query, ...intitialQuery }))
-    }, [query, intitialQuery])
-
-    useEffect(() => {
+        if (setApi) {
+            setApi(api)
+        }
+        setSelectedIds(prev => [])
         let values = data;
         if (tableState === 'thrashed') {
             values = thrashedData;
@@ -170,123 +179,83 @@ export default function ResourceTable({
             })
             );
         }
-        setSelectedIds([])
     }, [data, thrashedData, tableState])
 
 
 
     return (
-        <CCard>
-            <CCardHeader>
-                <div className="d-flex flex-column flex-lg-row justify-content-lg-between items-align-center">
-                    <div style={{ width: '60%' }}>
-                        <h4 className='text-capitalize'>
-                            {`${capitalizeName} Table` || title}
-                        </h4>
-                        <span className="text-wrap max-w-24">
-                            {subtitle}
-                        </span>
-                    </div>
-                    <div className="d-flex flex-column items-align-center justify-content-center gap-2" >
-                        {
-                            !loading &&
-                            <div className='d-flex items-align-center gap-2' style={{
-                                height: 'fit-content'
-                            }}>
-                                <CButton onClick={() => navigate.toForm()} color='success' variant='outline'>
-                                    <CIcon icon={cilPlus} />
-                                    <span className='d-none d-lg-inline-block' style={{
-                                        paddingLeft: '3px'
-                                    }}>
-                                        Add
-                                    </span>
-                                </CButton>
-                                <CButton onClick={() => onToggleTable(nextTableState)} color='info' variant='outline' className="text-capitalize">
-                                    <CIcon icon={cilHistory} />
-                                    <span className='d-none d-lg-inline-block' style={{
-                                        paddingLeft: '3px'
-                                    }}>
-                                        {nextTableState === 'index' ? 'Active' : nextTableState === 'thrashed' ? 'Archived' : 'Index'}
-                                    </span>
-                                </CButton>
-                                <CButton onClick={() => doExport()} color='success' variant='outline'>
-                                    <CIcon icon={cilSpreadsheet} />
-                                    <span className='d-none d-lg-inline-block' style={{
-                                        paddingLeft: '3px'
-                                    }}>
-                                        xlsx
-                                    </span>
-                                </CButton>
+        <div style={{
+            maxHeight: '100vh',
+            border: '1px solid #e4e7eb',
+        }}>
+            <CCard style={{
+                minHeight: '70vh'
+            }}>
+                <CCardHeader>
+                    <div className="d-flex flex-column flex-lg-row justify-content-lg-between items-align-center">
+                        {/* TITLE */}
+                        <div style={{ width: '50%' }}>
+                            <h4 className='text-capitalize'>
+                                {`${capitalizeName} Table` || title}
+                            </h4>
+                            <span className="text-wrap max-w-24">
+                                {subtitle}
+                            </span>
+                        </div>
 
-                                {
-                                    // delete all or restore all if thrashed or index
-                                    selectedIds.length > 0 &&
-                                    <div className="d-flex items-align-center gap-2">
-                                        {
-                                            tableState === 'index' &&
-                                            <CButton onClick={() => handleDestroy({ id: selectedIds })} color='danger' variant='outline'>
-                                                <CIcon icon={cilTrash} />
-                                                <span className='d-none d-lg-inline-block' style={{
-                                                    paddingLeft: '3px'
-                                                }}>
-                                                    Delete All
-                                                </span>
-                                            </CButton>
-                                        }
-                                        {
-                                            tableState === 'thrashed' &&
-                                            <CButton onClick={() => handleRestore({ id: selectedIds })} color='success' variant='outline'>
-                                                <CIcon icon={cilHistory} />
-                                                <span className='d-none d-lg-inline-block' style={{
-                                                    paddingLeft: '3px'
-                                                }}>
-                                                    Restore All
-                                                </span>
-                                            </CButton>
-                                        }
-                                    </div>
-
-
-
-                                }
-                            </div>
-                        }
-
-                        {loading && <CSpinner />}
+                        {/* BUTTONS */}
+                        <TableActions
+                            tableState={tableState}
+                            loading={loading}
+                            selectedIds={selectedIds}
+                            navigate={navigate}
+                            onToggleTable={onToggleTable}
+                            handleDestroy={handleDestroy}
+                            handleRestore={handleRestore}
+                            nextTableState={nextTableState}
+                            resource={resource}
+                        />
 
                     </div>
-                </div>
-            </CCardHeader>
-            <CCardBody>
-                {/* Search Filter */}
-                <div className="d-flex justify-content-end">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Search"
-                        value={query.search}
-                        onChange={(e) => setQuery({
-                            ...query,
-                            search: e.target.value
-                        })}
+                </CCardHeader>
+
+                <CCardBody>
+                    {/* Search Filter */}
+                    <QueryComponent
+                        query={query}
+                        setQuery={setQuery}
                     />
-                </div>
 
-                <Table
-                    tableData={table}
-                    columns={table.columns}
-                    data={table.data}
-                    customStyles={googleSheetStyle}
-                />
-                {
-                    meta?.links &&
-                    <Pagination meta={meta} onPageChange={handlePageChange} />
+                    {/* TABLE */}
+                    <Table
+                        tableData={table}
+                        columns={table.columns}
+                        data={table.data}
+                        customStyles={googleSheetStyle}
+                        selectableRows={true}
+                        selectableRowsHighlight={true}
+                        onSelectedRowsChange={(selected) => {
+                            setSelectedIds(prev => selected.selectedRows.map(row => row.id))
+                        }}
+                        {...tableProps}
+                    />
+                </CCardBody>
 
-                }
-            </CCardBody>
-            <CCardFooter>
-
-            </CCardFooter>
-        </CCard>
+                <CCardFooter style={{
+                    padding: '1rem 0 0 0',
+                }}>
+                    {
+                        meta?.links &&
+                        <Pagination meta={meta} onPageChange={handlePageChange} />
+                    }
+                    {
+                        meta?.current_page && meta?.last_page
+                        && <div className='d-flex justify-content-center mb-3'>
+                            <span className='text-muted'>{meta?.current_page} of {meta?.last_page}</span>
+                        </div>
+                    }
+                </CCardFooter>
+            </CCard>
+        </div>
     )
 }

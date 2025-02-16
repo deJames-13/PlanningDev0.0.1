@@ -22,6 +22,8 @@ export default function Table({
             noHeader
             defaultSortField="id"
             defaultSortAsc={true}
+            responsive
+            dense
             highlightOnHover
             pointerOnHover
             {...props}
