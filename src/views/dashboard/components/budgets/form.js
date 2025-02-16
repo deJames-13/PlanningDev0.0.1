@@ -1,10 +1,6 @@
-import { cilPlus } from '@coreui/icons'
-import CIcon from '@coreui/icons-react'
 import {
-    CButton,
     CCard,
     CCardBody,
-    CCardFooter,
     CCardHeader,
     CCol,
     CRow,

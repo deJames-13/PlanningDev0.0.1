@@ -35,7 +35,7 @@ export const fields = [
 
 export const validationSchema = Yup.object({
     title: Yup.string().required('Required'),
-    sector_id: Yup.number('Select a valid sector'),
+    // sector_id: Yup.number('Select a valid sector'),
 });
 
 export const initialValues = fields.reduce((acc, field) => {

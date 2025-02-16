@@ -6,7 +6,10 @@ import useObjectiveCharter from '../../hooks/useObjectiveCharter';
 import QualityObjectives, { ProgressSummary } from '../objectives/index';
 import SectorActions from './sector-actions';
 
-export default function ObjectivesOverview({ name }) {
+export default function ObjectivesOverview({
+  name = 'none',
+  setNoData = () => { },
+}) {
   const { data, setData, isLoading, fetchtData } = useObjectiveCharter({ name });
   const [reversed, setReversed] = useState(false);
 
@@ -18,6 +21,15 @@ export default function ObjectivesOverview({ name }) {
   useEffect(() => {
     fetchtData(name);
   }, [name]);
+
+  useEffect(() => {
+    if (data?.objectives?.length > 0) {
+      setData(data);
+      setNoData(false);
+    } else {
+      setNoData(true);
+    }
+  }, [data]);
 
   return data?.objectives?.length > 0 && (
     <CCard className="mb-4">
@@ -55,7 +67,7 @@ export default function ObjectivesOverview({ name }) {
             xs={12}
             md={6}
             style={{
-              height: '100vh',
+              maxHeight: '100vh',
               overflowY: 'auto',
             }}
             className={`d-flex flex-column ${reversed ? 'flex-column-reverse' : ''}`}

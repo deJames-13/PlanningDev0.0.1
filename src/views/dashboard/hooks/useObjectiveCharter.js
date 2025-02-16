@@ -39,7 +39,7 @@ export default function useObjectiveCharter({ name }) {
 
         dispatch(setSector(name));
         dispatch(getObjectiveStart());
-        getObj(name).then((res) => {
+        return getObj(name).then((res) => {
             if (res?.data) {
                 let { data } = res.data
                 let formatted = transformData(data)

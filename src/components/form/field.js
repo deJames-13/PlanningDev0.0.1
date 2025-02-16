@@ -22,7 +22,7 @@ const FieldWrapper = ({ field = {} }) => {
             FieldComponent = <FormikSelect options={options} {...props} />;
             break;
         case 'smart-select':
-            FieldComponent = <SmartSelect options={options} initialValue={initialValue} customNoneLabel={customNoneLabel}  {...props} />;
+            FieldComponent = <SmartSelect isField options={options} initialValue={initialValue} customNoneLabel={customNoneLabel}  {...props} />;
             break;
         case 'date':
             FieldComponent = <FormikDatePicker {...props} />;

@@ -6,6 +6,7 @@ import {
   CButton,
   CButtonGroup,
   CCard,
+  CCardHeader,
   CCardBody,
   CCardFooter,
   CCol,
@@ -34,6 +35,7 @@ const _chartBy = ['year', 'quarter']
 
 export default function BudgetChart({
   sector = 'none',
+  setNoData = () => { },
 }) {
 
   const { data, rawData, getBudgetData, getFundFromYear, } = useBudgetCharting()
@@ -89,7 +91,8 @@ export default function BudgetChart({
   }, [activeTab, sector])
 
   useEffect(() => {
-    if (!data) return;
+    if (!data?.length) return setNoData(true);
+    setNoData(false)
     const idx = data.labels.indexOf(activeTab) || 0
     const nextTabs = data.labels.slice(idx, idx + 2)
 
@@ -171,8 +174,7 @@ export default function BudgetChart({
           <CCol sm={7} className="d-none d-md-block">
             <div className='d-flex align-items-center justify-content-end gap-2'>
 
-              {/* C
-                HART BY DROP DOWN */}
+              {/* CHART BY DROP DOWN */}
               {
                 (
                   <div className={`d-flex justify-content-end py-3 gap-3`}>
@@ -454,6 +456,18 @@ export default function BudgetChart({
         </CCardFooter>
       }
     </CCard>
-  ) : <NoResult />
+  ) : <>
+    <CCard className="mb-4">
+      <CCardHeader>
+        <h4 id="traffic" className="card-title mb-0">
+          Budget Overview
+        </h4>
+      </CCardHeader>
+      <CCardBody>
+        <NoResult />
+      </CCardBody>
+    </CCard>
+  </>
+
 }
 

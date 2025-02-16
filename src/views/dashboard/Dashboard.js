@@ -1,19 +1,47 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import BudgetChart from './components/budgets'
+import SectorObjectives from './components/sectors/sector-objectives';
+import SmartSelect from 'src/components/form/smart-select';
+import useResourceOptions from './hooks/useResourceOptions';
 
-// import WidgetsBrand from '../widgets/WidgetsBrand'
 
 const Dashboard = () => {
+  const [isNoBudgetData, setNoIsBudgetData] = React.useState(true);
+  const [isNoObjData, setNoObjData] = React.useState(true);
+  const [sector, setSector] = React.useState('none');
+  const { options, loading } = useResourceOptions({ resourceName: 'sectors' })
+  useEffect(() => {
+
+  }, [sector])
+
   return (
     <>
       {/* CARD WIDGETS  */}
-      {/* <WidgetsDropdown className="mb-4" /> */}
+      <WidgetsDropdown className="mb-4" />
 
       {/* TRAFFIC/LINE CHART */}
-      <BudgetChart />
+      <div>
+        {/* <SmartSelect options={options} onSelect={setSector} /> */}
+      </div>
 
+      <div style={{
+        display: 'flex',
+        flexDirection: isNoBudgetData && !isNoObjData ? 'column-reverse' : 'column',
+      }}>
+        <hr />
+        <BudgetChart
+          sector={sector}
+          setNoData={setNoIsBudgetData}
+        />
+        <hr />
+        <SectorObjectives
+          name={sector}
+          setNoData={setNoObjData}
+        />
+        <hr />
+      </div>
     </>
   )
 }
