@@ -125,10 +125,10 @@ export function FormValues({
             validationSchema={Yup.object(fields.reduce((acc, field) => {
                 if (field.fields) {
                     field.fields.forEach(f => {
-                        acc[f.name] = Yup.number('Must be a number').positive('Must be a positive number');
+                        acc[f.name] = Yup.number('Must be a number');
                     });
                 } else {
-                    acc[field.name] = Yup.number('Must be a number').required('Required').positive('Must be a positive number');
+                    acc[field.name] = Yup.number('Must be a number').required('Required');
                 }
                 return acc;
             }, {}))}

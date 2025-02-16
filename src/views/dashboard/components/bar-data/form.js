@@ -29,17 +29,20 @@ export default function BarDataForm() {
 
     // STATES
     const [data, setData] = useState({})
-    const [particulars, setParticulars] = useState([])
+    const [particulars, _setParticulars] = useState([])
     const [current, setCurrent] = useState(null)
 
+    const setParticulars = (particulars) => {
+        let sorted = [...particulars].sort((a, b) => a.title.localeCompare(b.title))
+        _setParticulars(sorted)
+    }
+
     const saveParticular = (particular) => {
-        const newParticulars = particulars?.length ? particulars.filter(p => p.id !== particular.id) : []
+        let newParticulars = particulars?.length ? particulars.filter(p => p.id !== particular.id) : []
         newParticulars.push({
             ...particular,
             id: particular?.id ?? `tempId_${new Date().getTime()}`,
         })
-        newParticulars.reverse();
-        setParticulars(newParticulars)
         setData(prev => ({
             ...prev,
             particulars: newParticulars
@@ -61,7 +64,8 @@ export default function BarDataForm() {
     }
 
     useEffect(() => {
-        setParticulars(data?.particulars ?? []);
+        let particulars = data?.particulars ?? [];
+        setParticulars(particulars);
     }, [data])
 
 
@@ -111,6 +115,8 @@ export default function BarDataForm() {
                             />
                         </div>
                     </CCardHeader>
+
+
                     <CCardBody>
                         {
                             particulars?.length > 0 ? particulars.map((particular, index) => <ParticularCard key={index}
@@ -122,6 +128,8 @@ export default function BarDataForm() {
                         }
                     </CCardBody>
                 </CCard>
+
+
                 {/* Chart Preview */}
                 <CCard>
                     <CCardHeader>

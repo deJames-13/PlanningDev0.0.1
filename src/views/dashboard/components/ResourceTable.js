@@ -1,12 +1,10 @@
 import CIcon from '@coreui/icons-react'
-import { cilHistory, cilPen, cilPlus, cilTrash } from '@coreui/icons'
+import { cilHistory, cilPen, cilTrash } from '@coreui/icons'
 import {
-    CButton,
     CCard,
     CCardBody,
     CCardFooter,
     CCardHeader,
-    CSpinner,
 } from '@coreui/react'
 
 import { useEffect, useState } from 'react'
@@ -19,7 +17,6 @@ import googleSheetStyle from 'src/components/table/googleSheetsStyle'
 import Pagination from 'src/components/table/pagination.js';
 
 import useResource from '../hooks/useResource'
-import ExportResource from './ExportResource'
 import TableActions from './actions'
 import QueryComponent from './actions/query'
 

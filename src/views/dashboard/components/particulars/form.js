@@ -36,8 +36,9 @@ export default function ParticularForm({
 
 
     const saveValue = (value) => {
-        const newValues = values.filter(v => v.year !== value.year)
+        let newValues = values.filter(v => v.year !== value.year)
         newValues.push(value)
+        newValues.sort((a, b) => b.year - a.year)
         setData(prev => ({ ...prev, values: newValues }))
         setCurrentValue(null)
     }
