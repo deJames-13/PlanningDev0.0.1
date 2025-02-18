@@ -69,6 +69,9 @@ const ExpandedRow = ({ data = {} }) => {
 
 export default function BarDataTable() {
     const [delByYear] = resourceEndpoints.useBarDataDelByYearMutation()
+    const [delByStatus] = resourceEndpoints.useBarDataDelByStatusMutation()
+    const [resByYear] = resourceEndpoints.useBarDataResByYearMutation()
+    const [resByStatus] = resourceEndpoints.useBarDataResByStatusMutation()
     const [api, setApi] = useState(false)
     const [isRestoring, setIsRestoring] = useState(false)
 
@@ -108,6 +111,9 @@ export default function BarDataTable() {
             </div>
             <BatchActions
                 delFunction={delFunction}
+                resFunction={delFunction}
+                delStatusFunction={delByStatus}
+                resStatusFunction={resByStatus}
                 isRestoring={isRestoring}
             />
 

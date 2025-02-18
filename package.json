@@ -2,7 +2,7 @@
   "name": "planning-0.0.1",
   "version": "5.2.0",
   "description": "CoreUI Free React Admin Template",
-  "homepage": ".",
+  "homepage": "/react/",
   "license": "MIT",
   "scripts": {
     "build": "vite build",

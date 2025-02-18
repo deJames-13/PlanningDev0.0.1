@@ -10,20 +10,102 @@ const STATUS_OPTIONS = [
     { label: 'draft', value: 'draft' },
     { label: 'pending delete', value: 'pending delete' },
     { label: 'pending restore', value: 'pending restore' },
-    { label: 'pending publish', value: 'pending publish' },
+    // { label: 'pending publish', value: 'pending publish' },
 
 ]
 export default function BatchActions({
     delFunction = async () => { },
+    resFunction = async () => { },
+    delStatusFunction = async () => { },
+    resStatusFunction = async () => { },
     isRestoring = false,
 }) {
     const [delBy, setDelBy] = useState('year')
     const [year, setYear] = useState(new Date().getFullYear())
     const [status, setStatus] = useState('')
 
-    const restoreByStatus = async (status) => { }
+    const restoreByStatus = async (status) => {
+        if (!status) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Status',
+                text: 'Select a status to restore!',
+            })
+            return
+        }
 
-    const delByStatus = async (status) => { }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to restore all the data with status ${status}. This action cannot be undone!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, restore it!',
+            cancelButtonText: 'No, cancel!',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await resStatusFunction({ status: status })
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: `All data with status ${status} has been restored!`,
+                    })
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+                }
+            }
+        });
+    }
+
+    const delByStatus = async (status) => {
+        if (!status) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Status',
+                text: 'Select a status to delete!',
+            })
+            return
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to delete all the data with status ${status}. This action cannot be undone!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                return delStatusFunction({ status: status }).then((response) => {
+                    if (response.error?.status === 404) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Not Found',
+                            text: `No data found with status ${status}!`,
+                        })
+                        return
+                    }
+                    if (response.error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        })
+                        return
+                    }
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: `All data with status ${status} has been deleted!`,
+                    })
+                })
+            }
+        });
+    }
 
     const handleRestoreBy = async (year, isStatus = false) => {
         if (isStatus) {
@@ -116,6 +198,8 @@ export default function BatchActions({
         });
 
     }
+
+
     return (
         <div className="my-4">
             <div className="d-flex align-items-center">
