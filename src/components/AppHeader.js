@@ -19,6 +19,7 @@ import {
 } from '@coreui/react'
 
 
+
 import CIcon from '@coreui/icons-react'
 import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -34,6 +35,7 @@ const AppHeader = () => {
   const routes = flattenRoutes(dashboardRoutes)
   const headerRef = useRef()
   const { colorMode, setColorMode } = useColorModes('dashboard-theme')
+
 
   const dispatch = useDispatch()
   const { sidebarShow } = useSelector((state) => state.theme)
@@ -87,7 +89,7 @@ const AppHeader = () => {
         <CHeaderNav>
 
 
-          {/* <SearchNavigation routes={routes} /> */}
+          <SearchNavigation routes={routes} />
 
           {/* THEME TOGGLERS */}
           <li className="nav-item py-1">

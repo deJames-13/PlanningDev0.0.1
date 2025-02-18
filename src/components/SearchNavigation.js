@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { CFormInput, CListGroup, CListGroupItem } from '@coreui/react';
 
 const SearchNavigation = ({ routes }) => {
+    const nav = useNavigate();
     const [query, setQuery] = useState('');
     const [filteredRoutes, setFilteredRoutes] = useState([]);
 
@@ -9,47 +11,51 @@ const SearchNavigation = ({ routes }) => {
         const input = e.target.value;
         setQuery(input);
         if (input.length > 1) {
-            const results = routes.filter(route =>
-                route.name.toLowerCase().includes(input.toLowerCase()) ||
-                route.breadcrumb.toLowerCase().includes(input.toLowerCase())
-            );
+            const results = routes.filter(route => {
+                return route.name.toLowerCase().includes(input.toLowerCase()) ||
+                    route.breadcrumb.toLowerCase().includes(input.toLowerCase())
+            });
             setFilteredRoutes(results);
         } else {
             setFilteredRoutes([]);
         }
     };
 
+    const handleRouteClick = (route) => {
+        if (route?.includes('edit/:id')) {
+            nav(route.replace('edit/:id', 'table'));
+        }
+        else if (route?.includes('sectors/:sector')) {
+            nav(route.replace('sectors/:sector', 'sectors/table'));
+        }
+        else {
+            return nav(route);
+        }
+    };
+
     return (
-        <div style={{ position: 'relative' }}>
-            <input
+        <div className="position-relative">
+            <CFormInput
                 type="text"
                 placeholder="Search routes..."
                 value={query}
                 onChange={handleSearch}
-                style={{ width: '100%', padding: '8px' }}
+                className="form-control"
             />
             {filteredRoutes.length > 0 && (
-                <ul
-                    style={{
-                        position: 'absolute',
-                        top: '100%',
-                        left: 0,
-                        right: 0,
-                        background: 'white',
-                        border: '1px solid #ccc',
-                        maxHeight: '200px',
-                        overflowY: 'auto',
-                        zIndex: 1000,
-                    }}
-                >
+                <CListGroup className="position-absolute w-100">
                     {filteredRoutes.map((route, index) => (
-                        <li key={index} style={{ padding: '8px' }}>
-                            <Link to={route.fullPath} style={{ textDecoration: 'none', color: 'black' }}>
+                        <CListGroupItem key={index} className="list-group-item-action">
+                            <button
+                                onClick={() => handleRouteClick(route.fullPath)}
+                                className="btn btn-link text-start w-100"
+                                style={{ textDecoration: 'none', color: 'inherit' }}
+                            >
                                 {route.breadcrumb}
-                            </Link>
-                        </li>
+                            </button>
+                        </CListGroupItem>
                     ))}
-                </ul>
+                </CListGroup>
             )}
         </div>
     );

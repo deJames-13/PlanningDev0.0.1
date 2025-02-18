@@ -63,7 +63,11 @@ export default (data, actions, onSelect = () => { }) => {
             },
             {
                 name: <strong></strong>,
-                selector: row => <Link to={"/dashboard/sectors/" + row.slug}>View</Link>,
+                selector: row => row?.slug,
+                cell: row => <div className='d-flex flex-column'>
+                    <Link to={"/dashboard/sectors/" + row.slug}>Dashboard Page</Link>
+                    <Link to={"/sectors/" + row.slug}>Public Page</Link>
+                </div>,
                 sortable: false,
             },
 

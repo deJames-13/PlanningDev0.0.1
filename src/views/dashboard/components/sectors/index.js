@@ -41,11 +41,12 @@ export default function Sector() {
                 <div
                     className="d-flex gap-2 justify-content-end"
                 >
-                    <PDFDownload
+                    {/* TODO */}
+                    {/* <PDFDownload
                         action={useSectorReportQuery}
                         params={1}
                         title="Download Report"
-                    />
+                    /> */}
 
                     {/* EXPORT */}
                     <ExportResource
