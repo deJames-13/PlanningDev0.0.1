@@ -90,6 +90,33 @@ export default function BarDataTable() {
         }
     }, [api])
 
+    const resFunction = useCallback(async ({ year }) => {
+        return resByYear({ year: year }).then((response) => {
+            if (api?.actions?.fetchDatas) {
+                api.actions.fetchDatas()
+            }
+            return response
+        })
+    }, [api])
+
+    const delStatusFunction = useCallback(async ({ status }) => {
+        return delByStatus({ status: status }).then((response) => {
+            if (api?.actions?.fetchDatas) {
+                api.actions.fetchDatas()
+            }
+            return response
+        })
+    }, [api])
+
+    const resStatusFunction = useCallback(async ({ status }) => {
+        return resByStatus({ status: status }).then((response) => {
+            if (api?.actions?.fetchDatas) {
+                api.actions.fetchDatas()
+            }
+            return response
+        })
+    }, [api]);
+
     return (
         <div style={{
             marginBottom: '50px',
@@ -111,9 +138,9 @@ export default function BarDataTable() {
             </div>
             <BatchActions
                 delFunction={delFunction}
-                resFunction={delFunction}
-                delStatusFunction={delByStatus}
-                resStatusFunction={resByStatus}
+                resFunction={resFunction}
+                delStatusFunction={delStatusFunction}
+                resStatusFunction={resStatusFunction}
                 isRestoring={isRestoring}
             />
 
