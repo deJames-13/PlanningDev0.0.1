@@ -56,7 +56,7 @@ export default function UserForm() {
                             if (field.name === 'password') {
                                 return {
                                     ...field,
-                                    label: id ? 'New Password' : 'Password',
+                                    label: id ? 'Current Password' : 'Password',
                                     type: 'password',
                                 }
                             }

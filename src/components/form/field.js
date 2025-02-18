@@ -5,11 +5,45 @@ import InputGroup from './input-group';
 import FormikSelect from './select';
 import SmartSelect from './smart-select';
 
+const PasswordField = ({ field }) => {
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    return (
+        <div className="input-group">
+            <Field
+                type={showPassword ? "text" : "password"}
+                name={field.name}
+                id={field.name}
+                className="form-control"
+            />
+            <button
+                type="button"
+                className="btn btn-outline-secondary"
+                onClick={togglePasswordVisibility}
+            >
+                {showPassword ? "Hide" : "Show"}
+            </button>
+        </div>
+    );
+};
+
 const FieldWrapper = ({ field = {} }) => {
     if (!field) return null;
     let FieldComponent;
-    let { options = [], as = 'divider', initialValue = " ", customNoneLabel = null, ...props } = field;
+    let {
+        options = [],
+        as = 'divider',
+        initialValue = " ",
+        customNoneLabel = null,
+        ...props } = field;
     switch (field.as) {
+        case 'password':
+            FieldComponent = <PasswordField field={field} />;
+            break;
         case 'divider':
             return <hr />;
         case 'group':

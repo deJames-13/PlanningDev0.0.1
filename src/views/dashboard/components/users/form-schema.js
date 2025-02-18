@@ -16,6 +16,7 @@ export const fields = [
         label: 'Role*',
         as: 'smart-select',
         initialValue: 'user',
+        noNoneOption: true,
         options: [
             { value: 'user', label: 'User' },
             { value: 'admin', label: 'Admin' },
@@ -25,12 +26,12 @@ export const fields = [
     {
         name: 'password',
         label: 'Password',
-        type: 'password',
+        as: 'password',
     },
     {
         name: 'password_confirmation',
         label: 'Confirm Password',
-        type: 'password',
+        as: 'password',
     },
 ]
 

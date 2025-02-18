@@ -7,6 +7,9 @@ import SmartSelect from 'src/components/form/smart-select';
 import useResourceOptions from './hooks/useResourceOptions';
 
 
+
+
+
 const Dashboard = () => {
   const [isNoBudgetData, setNoIsBudgetData] = React.useState(true);
   const [isNoObjData, setNoObjData] = React.useState(true);
@@ -18,8 +21,10 @@ const Dashboard = () => {
 
   return (
     <>
-      {/* CARD WIDGETS  */}
-      <WidgetsDropdown className="mb-4" />
+      <h1>Planning Dashboard</h1>
+      <hr />
+
+      {/* <WidgetsDropdown className="mb-4" /> */}
 
       {/* TRAFFIC/LINE CHART */}
       <div>

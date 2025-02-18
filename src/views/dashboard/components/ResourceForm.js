@@ -101,7 +101,7 @@ export default function ResourceForm({
                 <FormikForm
                     initialValues={current?.data ? form.fields.reduce((acc, field) => {
                         if (!field) return acc
-                        acc[field.name] = current.data[field.name]
+                        acc[field.name] = !id ? current?.data[field.name] : " "
                         return acc
                     }, {}) : form.initialValues}
 

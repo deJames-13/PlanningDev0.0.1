@@ -3,7 +3,7 @@ import { useField } from 'formik';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
 
-const SmartSelectField = ({ options = [], initialValue, customNoneLabel, count = 10, ...props }) => {
+const SmartSelectField = ({ options = [], initialValue, customNoneLabel, count = 10, noNoneOption, ...props }) => {
     const { loading, ...rest } = props;
     const [field, meta, helpers] = useField(rest);
     const [defaultOptions, setDefaultOptions] = useState((options || []).slice(0, count));
@@ -36,7 +36,16 @@ const SmartSelectField = ({ options = [], initialValue, customNoneLabel, count =
     useEffect(() => {
         if (initialValue) {
             const option = options.find(o => o.value === initialValue);
-            setSelectedOption(option || { label: customNoneLabel || 'None', value: 'none' });
+            const customNoneOption = { label: customNoneLabel || 'None', value: 'none' };
+            if (option) {
+                setSelectedOption(option);
+            }
+            else if (noNoneOption) {
+                setSelectedOption(options[0]);
+            }
+            else {
+                setSelectedOption(customNoneOption);
+            }
 
         }
 
