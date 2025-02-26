@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetSectsMutation } from 'src/states/api/charts.js'
-import { useSectorReportQuery } from "src/states/api/reports";
+import { useSectorReportMutation } from "src/states/api/reports";
 
 import BudgetChart from '../budgets';
 import SectorObjectives from './sector-objectives';
@@ -42,11 +42,11 @@ export default function Sector() {
                     className="d-flex gap-2 justify-content-end"
                 >
                     {/* TODO */}
-                    {/* <PDFDownload
-                        action={useSectorReportQuery}
-                        params={1}
+                    <PDFDownload
+                        action={useSectorReportMutation}
+                        params={current?.id}
                         title="Download Report"
-                    /> */}
+                    />
 
                     {/* EXPORT */}
                     <ExportResource

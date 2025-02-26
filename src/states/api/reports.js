@@ -2,7 +2,7 @@ import { apiSlice } from './index';
 let resource = 'reports';
 const reportApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        example: builder.query({
+        example: builder.mutation({
             query: () => ({
                 url: `${resource}/example`,
                 method: "GET",
@@ -13,7 +13,7 @@ const reportApiSlice = apiSlice.injectEndpoints({
                 cache: "no-cache",
             }),
         }),
-        sectorReport: builder.query({
+        sectorReport: builder.mutation({
             query: (id) => ({
                 url: `${resource}/sectors/${id}`,
                 method: "GET",
@@ -29,8 +29,8 @@ const reportApiSlice = apiSlice.injectEndpoints({
     })
 });
 export const {
-    useExampleQuery,
-    useSectorReportQuery
+    useExampleMutation,
+    useSectorReportMutation,
 } = reportApiSlice;
 export default reportApiSlice;
 

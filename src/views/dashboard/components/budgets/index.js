@@ -92,7 +92,7 @@ export default function BudgetChart({
   }, [activeTab, sector, isId])
 
   useEffect(() => {
-    if (!data?.length) return setNoData(true);
+    if (!data?.labels?.length) return setNoData(true);
     setNoData(false)
     const idx = data.labels.indexOf(activeTab) || 0
     const nextTabs = data.labels.slice(idx, idx + 2)

@@ -47,7 +47,9 @@ export default defineConfig(() => {
       port: 3000,
       proxy: {
         '/api': {
-          target: 'http://localhost:8000',
+          // no trailing slash
+          // target: 'http://localhost:8000',
+          target: 'https://dashboard-test.infinityfreeapp.com/api',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
         },

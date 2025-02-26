@@ -1,9 +1,10 @@
 {
   "name": "planning-0.0.1",
   "version": "5.2.0",
-  "description": "CoreUI Free React Admin Template",
+  "description": "CoreUI Planning",
   "homepage": "/react/",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "vite build",
     "lint": "eslint \"src/**/*.js\"",

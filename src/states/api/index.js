@@ -7,12 +7,13 @@ const API = import.meta.env.VITE_API_URL;
 const baseQuery = fetchBaseQuery({
   baseUrl: `${API}/api`,
   credentials: 'include',
+  redirect: 'manual',
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.accessToken;
 
     headers.set('Accept', 'application/json');
     headers.set('Referer', window.location.origin);
-    headers.set('Access-Control-Allow-Origin', '*');
+    // headers.set('Access-Control-Allow-Origin', '*');
     headers.set('Content-Type', 'application/json');
 
 
