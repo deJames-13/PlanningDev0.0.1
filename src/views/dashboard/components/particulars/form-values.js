@@ -28,21 +28,21 @@ export function FormValues({
                 {
                     name: 'accomplishment',
                     label: 'Accomplishment',
-                    initialValue: parseFloat(data?.accomplishment) || 0,
+                    initialValue: (parseFloat(data?.accomplishment) || 0).toFixed(2),
                     disabled: true,
                     colSpan: 4,
                 },
                 {
                     name: 'target',
                     label: 'Target',
-                    initialValue: data?.target || 0,
+                    initialValue: (data?.target || 0).toFixed(2),
                     disabled: true,
                     colSpan: 4,
                 },
                 {
                     name: 'percentage',
                     label: 'Percentage',
-                    initialValue: data?.percentage || 0,
+                    initialValue: (data?.percentage || 0).toFixed(2),
                     disabled: true,
                     colSpan: 4,
                 },
@@ -56,17 +56,17 @@ export function FormValues({
                 fields: [
                     {
                         name: `accomplishment_${i + 1}`,
-                        initialValue: data?.quarters?.find(q => q.quarter == i + 1)?.accomplishment || 0,
+                        initialValue: (data?.quarters?.find(q => q.quarter == i + 1)?.accomplishment || 0).toFixed(2),
                         colSpan: 4,
                     },
                     {
                         name: `target_${i + 1}`,
-                        initialValue: data?.quarters?.find(q => q.quarter == i + 1)?.target || 0,
+                        initialValue: (data?.quarters?.find(q => q.quarter == i + 1)?.target || 0).toFixed(2),
                         colSpan: 4,
                     },
                     {
                         name: `percentage_${i + 1}`,
-                        initialValue: data?.quarters?.find(q => q.quarter == i + 1)?.percentage || 0,
+                        initialValue: (data?.quarters?.find(q => q.quarter == i + 1)?.percentage || 0).toFixed(2),
                         colSpan: 4,
                         disabled: true,
                     }

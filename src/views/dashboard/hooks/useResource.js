@@ -136,7 +136,8 @@ export default function useResource(resourceName, isPublic = false) {
                     message='The record has been successfully added'
                 />
             );
-            nav(`/dashboard/${kebabCaseName}/edit/${response?.data?.id}`);
+            // nav(`/dashboard/${kebabCaseName}/edit/${response?.data?.id}`);
+            nav(`/dashboard/${kebabCaseName}/table`);
             setLoading(false);
             return response;
         }).catch((e) => {
@@ -161,6 +162,7 @@ export default function useResource(resourceName, isPublic = false) {
                 />
             );
             setLoading(false);
+            nav(`/dashboard/${kebabCaseName}/table`);
             return response;
         }).catch((e) => {
             setLoading(false);

@@ -41,8 +41,8 @@ export default function ResourceTable({
         page: 1,
         limit: 10,
         search: '',
-        orderBy: 'id',
-        sortedBy: 'asc',
+        sort: 'updated_at',
+        order: 'desc',
         ...initialQuery
     })
 
@@ -224,6 +224,7 @@ export default function ResourceTable({
                     <QueryComponent
                         query={query}
                         setQuery={setQuery}
+                        tableColumns={table.columns}
                     />
 
                     {/* TABLE */}

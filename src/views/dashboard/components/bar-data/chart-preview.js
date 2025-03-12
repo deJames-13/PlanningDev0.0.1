@@ -24,12 +24,12 @@ export default function ChartPreview({ data }) {
                     {
                         label: 'Target',
                         backgroundColor: '#f87979',
-                        data: values.map(value => value.target)
+                        data: values.map(value => value.target?.toFixed(2))
                     },
                     {
                         label: 'Accomplishment',
                         backgroundColor: '#79f8b4',
-                        data: values.map(value => value.accomplishment)
+                        data: values.map(value => value.accomplishment?.toFixed(2))
                     }
                 ]
             })
@@ -48,12 +48,12 @@ export default function ChartPreview({ data }) {
                     {
                         label: 'Target',
                         backgroundColor: '#f87979',
-                        data: currentYearValues.map(({ target }) => target)
+                        data: currentYearValues.map(({ target }) => target?.toFixed(2))
                     },
                     {
                         label: 'Accomplishment',
                         backgroundColor: '#79f8b4',
-                        data: currentYearValues.map(({ accomplishment }) => accomplishment)
+                        data: currentYearValues.map(({ accomplishment }) => accomplishment?.toFixed(2))
                     }
                 ]
             })

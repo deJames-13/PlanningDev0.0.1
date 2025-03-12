@@ -11,6 +11,7 @@ import FormikForm from 'src/components/form'
 import { useCallback, useEffect, useState } from 'react'
 import useResource from '../hooks/useResource'
 import { initialValues } from './budgets/form-schema'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function ResourceForm({
@@ -26,6 +27,8 @@ export default function ResourceForm({
     style,
     children
 }) {
+    const nav = useNavigate();
+
     const {
         names: { capitalizeName },
         states: { current, setCurrent, loading },
@@ -42,9 +45,11 @@ export default function ResourceForm({
             action: id ? 'update' : 'store'
         };
         if (id)
-            return onUpdate(id, payload)
+            return onUpdate(id, payload).then(() => {
+            })
         else
-            return onStore(payload)
+            return onStore(payload).then(() => {
+            })
 
     }, [formData, id]);
 

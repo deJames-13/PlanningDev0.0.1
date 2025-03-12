@@ -39,7 +39,7 @@ export function FormValues({
                     {
                         name: 'percentage',
                         label: '(%)',
-                        initialValue: data?.total?.percentage || 0,
+                        initialValue: (data?.total?.percentage || 0).toFixed(2),
                         disabled: true,
                         colSpan: 4,
                     },
@@ -64,7 +64,7 @@ export function FormValues({
                         {
                             name: `percentage_${i + 1}`,
                             colSpan: 4,
-                            initialValue: quarters.find(q => q.quarter === i + 1)?.percentage || 0,
+                            initialValue: (quarters.find(q => q.quarter === i + 1)?.percentage || 0).toFixed(2),
                             disabled: true,
                         }
                     ]

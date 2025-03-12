@@ -29,6 +29,7 @@ export default (data, actions, onSelect) => {
                 selector: row => row.id,
                 width: '5%',
                 sortable: true,
+                field: 'id',
             },
             {
                 name: <strong>Title</strong>,
@@ -43,7 +44,8 @@ export default (data, actions, onSelect) => {
                         return 1;
                     }
                     return 0;
-                }
+                },
+                field: 'title',
             },
             {
                 name: <strong>Description</strong>,
@@ -58,7 +60,8 @@ export default (data, actions, onSelect) => {
                         return 1;
                     }
                     return 0;
-                }
+                },
+                field: 'description',
             },
             {
                 name: <strong>Status</strong>,
@@ -77,13 +80,15 @@ export default (data, actions, onSelect) => {
                         return 1;
                     }
                     return 0;
-                }
+                },
+                field: 'status',
 
             },
             {
                 name: <strong>Modified</strong>,
                 selector: row => new Date(row.date).toLocaleString(),
                 sortable: true,
+                field: 'updated_at',
             },
             {
                 name: <strong>Actions</strong>,
