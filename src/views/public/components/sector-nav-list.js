@@ -4,17 +4,21 @@ import { useGetDepsMutation } from 'src/states/api/charts.js'
 import { setResource } from 'src/states/slices/resources.js'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
+import { useGetAuth } from 'src/hooks/useCheckAuth';
 
 export default function SectorNavList() {
     const dispatch = useDispatch()
     const departmentsList = useSelector((state) => state?.resources?.list?.departmentsList || {});
-    const roles = useSelector((state) => state.auth.roles);
+    const { roles } = useGetAuth();
     const [getDeps, { isLoading }] = useGetDepsMutation()
     const [list, setList] = useState([])
     const [isAdmin, setIsAdmin] = useState(false)
 
     useEffect(() => {
+        // Check if the user is an admin to enable drag-and-drop
         const userHasAdminRole = roles?.some(role => ['admin', 'super-admin'].includes(role));
+
+        // False for now
         setIsAdmin(false && userHasAdminRole);
 
         setList(departmentsList)
@@ -195,6 +199,12 @@ export default function SectorNavList() {
         );
     }
 
+    // Get standalone sectors (items without department or division type)
+    const standaloneSectors = list?.filter(item => item.type !== 'division' && item.type !== 'department') || [];
+
+    // Get departments and divisions (items with department or division type)
+    const departmentsAndDivisions = list?.filter(item => item.type === 'division' || item.type === 'department') || [];
+
     return (
         <div className="sector-nav-list h-100 p-lg-5 mt-lg-5">
             <h3></h3>
@@ -205,32 +215,30 @@ export default function SectorNavList() {
                 </div>
             )}
 
-            <DragDropContext onDragEnd={handleDragEnd}>
-                <Droppable droppableId="departments" type="department">
-                    {(provided) => (
-                        <ul
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                        >
-                            {list?.length > 0 &&
-                                list
-                                    .filter(item => item.type === 'division' || item.type === 'department')
-                                    .map((item, index) => renderDepartment(item, index))
-                            }
-                            {provided.placeholder}
-                        </ul>
-                    )}
-                </Droppable>
-            </DragDropContext>
-
-            {/* Render non-draggable sectors */}
-            {list?.length > 0 &&
-                <ul>
-                    {list
-                        .filter(item => item.type !== 'division' && item.type !== 'department')
-                        .map((item, index) => renderDepartment(item, `sector-${index}`))
-                    }
+            {/* Render standalone sectors at the top */}
+            {standaloneSectors.length > 0 &&
+                <ul className="mb-4">
+                    <li className="fw-bold text-uppercase mb-2">Sectors</li>
+                    {standaloneSectors.map((item, index) => renderDepartment(item, `sector-${index}`))}
                 </ul>
+            }
+
+            {/* Render draggable departments/divisions below */}
+            {departmentsAndDivisions.length > 0 &&
+                <DragDropContext onDragEnd={handleDragEnd}>
+                    <Droppable droppableId="departments" type="department">
+                        {(provided) => (
+                            <ul
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                            >
+                                <li className="fw-bold text-uppercase mb-2">Departments</li>
+                                {departmentsAndDivisions.map((item, index) => renderDepartment(item, index))}
+                                {provided.placeholder}
+                            </ul>
+                        )}
+                    </Droppable>
+                </DragDropContext>
             }
         </div>
     )
