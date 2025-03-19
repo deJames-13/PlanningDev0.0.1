@@ -1,0 +1,16 @@
+/* Drag and Drop styles */
+.drag-handle {
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+
+.drag-handle:hover {
+  opacity: 1;
+}
+
+/* Style for item being dragged */
+.dragging {
+  background-color: rgba(0, 123, 255, 0.1);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
