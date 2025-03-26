@@ -15,7 +15,7 @@ export default function ChartPreview({ values = [] }) {
         <RadialBarChart
             data={values.map((value, index) => ({
                 name: `Q${index + 1}`,
-                percentage: parseFloat((parseFloat(value?.accomplishment || 0) / parseFloat(value?.target || 1) * 100).toFixed(2) || 0),
+                percentage: parseFloat((parseFloat(value?.accomplishment || 0) / parseFloat(value?.target || 1) * 100)?.toFixed(2) || 0),
                 fill: colors[index],
             }))}
             dataKey='percentage'

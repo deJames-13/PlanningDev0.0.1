@@ -24,12 +24,12 @@ export default function ChartPreview({ data }) {
                     {
                         label: 'Target',
                         backgroundColor: '#f87979',
-                        data: values.map(value => value.target?.toFixed(2))
+                        data: values.map(value => parseFloat(value.target)?.toFixed(2))
                     },
                     {
                         label: 'Accomplishment',
                         backgroundColor: '#79f8b4',
-                        data: values.map(value => value.accomplishment?.toFixed(2))
+                        data: values.map(value => parseFloat(value.accomplishment)?.toFixed(2))
                     }
                 ]
             })
